@@ -8,7 +8,7 @@ const port: number = Number(process.env.PORT) || 5001;
 const server = createServer(app);
 
 server.listen(port, async () => {
-  console.log(`${port}포트 서버 대기 중!`);
+  console.log(`정상적으로 서버를 시작하였습니다.  http://localhost:${port}`);
 
   // authenticate 메소드로 연결 확인
   await sequelize
