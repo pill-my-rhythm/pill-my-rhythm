@@ -1,0 +1,6 @@
+/:
+  get:
+    summary: Main Page
+    responses:
+      400:
+        $ref: '../openapi.yaml#/components/responses/BadRequest'
