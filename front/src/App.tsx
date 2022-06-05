@@ -10,9 +10,7 @@ function App() {
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            Congratulations Typescript & daisyUI Setup!
-          </h3>
+          <h3 className="font-bold text-lg">Congratulations Typescript & daisyUI Setup!</h3>
           <p className="py-4">해냈다~ 드디어..</p>
           <div className="modal-action">
             <label htmlFor="my-modal" className="btn">

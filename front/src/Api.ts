@@ -1,13 +1,7 @@
 import axios from "axios";
 
 const backendPortNumber = "5001";
-const serverUrl =
-  window.location.protocol +
-  "//" +
-  window.location.hostname +
-  ":" +
-  backendPortNumber +
-  "/";
+const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
 async function get(endpoint: any, params = "") {
   return axios.get(serverUrl + endpoint + params, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
