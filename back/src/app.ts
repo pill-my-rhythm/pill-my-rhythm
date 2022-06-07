@@ -5,6 +5,7 @@ import path from "path";
 import bodyParser from "body-parser";
 import session from "express-session";
 import bcrypt from "bcrypt-nodejs";
+import { UserRouter } from "./routers/userRouter";
 
 const app: express.Application = express();
 const swaggerSpec = YAML.load(path.join(__dirname, "./swagger.yaml"));
@@ -25,5 +26,7 @@ app.use(
 app.get("/", (req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.send("hello typescript express!");
 });
+
+app.get("/login", UserRouter);
 
 export default app;
