@@ -24,6 +24,6 @@
   },
   "scripts": {
     "start": "nodemon --exec ts-node index.ts",
-    "swagger": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile ./src/swagger/swagger.yaml --type yaml"
+    "swagger": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile ./src/swagger.yaml --type yaml"
   }
 }
