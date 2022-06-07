@@ -6,7 +6,7 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://localhost:5000/
+  - url: 'http://localhost:5000/'
 tags:
   - name: user
   - description: User API 입니다.
@@ -16,7 +16,34 @@ tags:
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
 paths:
   /register:
-    $ref: './paths/user.yaml#/~1register'
+    post:
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                user_name:
+                  type: string
+                gender:
+                  type: string
+                  enum:
+                    - M
+                    - F
+                age_range:
+                  type: string
+                job:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
 components:
   schemas:
     User:
@@ -52,7 +79,7 @@ components:
         application/json:
           schema:
             type: object
-            properties:
+            properties: null
     BadRequest:
       description: bad request
       content:
