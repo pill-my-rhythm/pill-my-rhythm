@@ -3,20 +3,12 @@ import { IUserInput } from "../interfaces/userInput";
 
 const User = {
   addUser: async (newUserData: IUserInput) => {
-    try {
-      const user = await Users.create(newUserData);
-      return user;
-    } catch (error) {
-      return { error };
-    }
+    const user = await Users.create(newUserData);
+    return user;
   },
   findByEmail: async (email: string) => {
-    try {
-      const user = await Users.findOne({ where: { email: email } });
-      return user;
-    } catch (error) {
-      return { error };
-    }
+    const user = await Users.findOne({ where: { email: email } });
+    return user;
   },
   // static async delete({ userId }) {
   //   try {
