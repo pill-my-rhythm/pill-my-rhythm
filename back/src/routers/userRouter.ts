@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { loginRequired } from "../middlewares/loginRequired";
+import { Router, Request, Response, NextFunction } from "express";
+// import { loginRequired } from "../middlewares/loginRequired";
 import { UserService } from "../services/userService";
 
 const UserRouter = Router();
 
-UserRouter.post("/login", async (req, res, next) => {
+UserRouter.post("/login", async (req: Request, res: Response, next: NextFunction) => {
   try {
     // req (request) 에서 데이터 가져오기
     const { email, password } = req.body;
