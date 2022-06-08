@@ -1,4 +1,4 @@
-/register:
+/user/register:
   post:
     tags:
       - user
@@ -25,8 +25,7 @@
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
-
-/login:
+/user/login:
   post:
     tags:
       - user
