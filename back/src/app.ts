@@ -4,8 +4,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import path from "path";
-
-import { userRouter } from "./routers/userRouter";
+import { UserRouter } from "./routers/userRouter";
 
 const app: express.Application = express();
 const swaggerSpec = YAML.load(path.join(__dirname, "./swagger.yaml"));
@@ -19,7 +18,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.send("hello typescript express!");
 });
 
-app.use(userRouter);
+app.use("/user", UserRouter);
 
 // swagger
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

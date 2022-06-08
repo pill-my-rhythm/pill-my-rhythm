@@ -44,6 +44,24 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
+  /login:
+    post:
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
 components:
   schemas:
     User:

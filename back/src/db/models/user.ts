@@ -2,6 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "./index";
 
 // These are all the attributes in the User model
+
 interface UsersAttributes {
   pk_user_id?: string;
   user_name: string;
@@ -12,7 +13,15 @@ interface UsersAttributes {
   job?: string;
 }
 
-export class Users extends Model<UsersAttributes> {}
+export class Users extends Model<UsersAttributes> {
+  pk_user_id: string;
+  user_name!: string;
+  email!: string;
+  password!: string;
+  gender?: string;
+  age_range?: string;
+  job?: string;
+}
 
 Users.init(
   {
