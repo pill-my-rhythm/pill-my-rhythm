@@ -14,6 +14,6 @@ app.get("/", (req: express.Request, res: express.Response, next: express.NextFun
   res.send("hello typescript express!");
 });
 
-app.get("/user", UserRouter);
+app.use("/", UserRouter);
 
 export default app;
