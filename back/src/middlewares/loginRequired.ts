@@ -20,8 +20,8 @@ const loginRequired = (req: Request, res: Response, next: NextFunction) => {
     if (!process.env.JWT_SECRET_KEY) {
       throw new Error("JWT_SECRET_KEY가 존재하지 않습니다.");
     }
-    const secretKey = process.env.JWT_SECRET_KEY;
-    const jwtDecoded = jwt.verify(userToken, secretKey);
+    const secretKey: string = process.env.JWT_SECRET_KEY;
+    const jwtDecoded: any = jwt.verify(userToken, secretKey);
     const userId = jwtDecoded.user_id;
     req.currentUserId = userId;
     next();
