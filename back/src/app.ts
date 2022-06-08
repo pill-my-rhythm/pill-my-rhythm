@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
+import { errorMiddleware } from "./middlewares/errorMiddleware";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import path from "path";
@@ -22,5 +23,7 @@ app.use(userRouter);
 
 // swagger
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use(errorMiddleware);
 
 export default app;
