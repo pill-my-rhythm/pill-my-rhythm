@@ -15,7 +15,7 @@ tags:
   - name: schedule
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
 paths:
-  /register:
+  /user/register:
     post:
       tags:
         - user
@@ -44,7 +44,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
-  /login:
+  /user/login:
     post:
       tags:
         - user
