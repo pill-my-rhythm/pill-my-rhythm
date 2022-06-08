@@ -1,12 +1,7 @@
-import { User } from "../db/models";
+import { User } from "../db/User";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-
-// type loginType = {
-//   email: string;
-//   password: string;
-// };
 
 const UserService = {
   // getUser: async ({ email, password }: loginType) => {
@@ -18,26 +13,28 @@ const UserService = {
     }
 
     // 비밀번호 일치 여부 확인
-    const correctPasswordHash = user.password;
-    const isPasswordCorrect = await bcrypt.compare(password, correctPasswordHash);
+    const correctPasswordHash: string = user.password;
+    const isPasswordCorrect: boolean = await bcrypt.compare(password, correctPasswordHash);
     if (!isPasswordCorrect) {
       throw new Error("비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.");
     }
 
     // 로그인 성공 -> JWT 웹 토큰 생성
-    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign({ user_id: user.userId }, secretKey);
+    const secretKey: string = process.env.JWT_SECRET_KEY || "jwt-secret-key";
+    const token = jwt.sign({ user_id: user.pk_user_id }, secretKey);
 
     // 반환할 loginuser 객체를 위한 변수 설정
-    const { userId, nickname, bookmarks } = user;
+    const { pk_user_id, user_name, gender, age_range, job } = user;
 
     const loginUser = {
       token,
-      userId,
+      pk_user_id,
+      user_name,
       email,
-      nickname,
-      bookmarks,
-      errorMessage: null,
+      password,
+      gender,
+      age_range,
+      job,
     };
 
     return loginUser;
