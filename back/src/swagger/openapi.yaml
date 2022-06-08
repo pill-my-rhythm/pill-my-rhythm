@@ -16,7 +16,9 @@ tags:
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
 paths:
   /register:
-    $ref: './paths/user.yaml#/~1register'
+    $ref: "./paths/user.yaml#/~1register"
+  /login:
+    $ref: "./paths/user.yaml#/~1login"
 components:
   schemas:
     User:
@@ -58,10 +60,10 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
     InternalServerError:
       description: server error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"

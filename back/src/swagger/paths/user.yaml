@@ -23,10 +23,26 @@
               job:
                 type: string
     responses:
-      '200':
-        $ref: '../openapi.yaml#/components/responses/successResponse'
-# /login:
-#   post:
-#     schema -> header(쿠키), body: 이메일, 패스워드
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+
+/login:
+  post:
+    tags:
+      - user
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
 # /user/changePassword: header, 비밀번호
 # /user/withdrawal: header
