@@ -23,51 +23,6 @@ export class Users extends Model<UsersAttributes> {
   job?: string;
 }
 
-const UserModel = sequelize.define(
-  "user",
-  {
-    pk_user_id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-      allowNull: false,
-    },
-    user_name: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING(100),
-      allowNull: false, // 카카오 로그인은 비번 필요없으니 빼기도 하나 봄
-    },
-    gender: {
-      type: DataTypes.ENUM("F", "M"),
-      allowNull: true,
-    },
-    age_range: {
-      type: DataTypes.STRING(10),
-      allowNull: true,
-    },
-    job: {
-      type: DataTypes.STRING(50),
-      allowNull: true,
-    },
-  },
-  {
-    modelName: "Users",
-    tableName: "tb_user",
-    freezeTableName: true,
-    timestamps: true,
-    paranoid: true, // 삭제일 (복구용)
-    underscored: true,
-  },
-);
-
 Users.init(
   {
     pk_user_id: {
@@ -77,16 +32,16 @@ Users.init(
       allowNull: false,
     },
     user_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(20),
       allowNull: false,
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(20),
       allowNull: false, // 카카오 로그인은 비번 필요없으니 빼기도 하나 봄
     },
     gender: {
@@ -114,4 +69,4 @@ Users.init(
 );
 
 // Users.beforeCreate((UsersAttributes) => (UsersAttributes.pk_user_id = uuid()));
-export default UserModel;
+export default Users;
