@@ -22,16 +22,16 @@ Users.init(
       primaryKey: true,
     },
     user_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(20),
       allowNull: false,
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(20),
       allowNull: false, // 카카오 로그인은 비번 필요없으니 빼기도 하나 봄
     },
     gender: {
@@ -43,7 +43,7 @@ Users.init(
       allowNull: true,
     },
     job: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
   },
