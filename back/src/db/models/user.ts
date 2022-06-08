@@ -9,8 +9,8 @@ interface UsersAttributes {
   email: string;
   password: string;
   gender?: string;
-  age_range?: number;
-  job?: boolean;
+  age_range?: string;
+  job?: string;
 }
 
 export class Users extends Model<UsersAttributes> {
@@ -19,8 +19,8 @@ export class Users extends Model<UsersAttributes> {
   email: string;
   password: string;
   gender?: string;
-  age_range?: number;
-  job?: boolean;
+  age_range?: string;
+  job?: string;
 }
 
 const UserModel = sequelize.define(
