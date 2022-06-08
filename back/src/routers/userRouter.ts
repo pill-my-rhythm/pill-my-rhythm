@@ -14,7 +14,6 @@ userRouter.post("/register", async (req: Request, res: Response, next: NextFunct
     next(error);
   }
 });
-
 // userRouter.delete("/user/withdrawal", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
 //   try {
 //     req.user_id = pk_user_id;

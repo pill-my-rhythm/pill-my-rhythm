@@ -3,7 +3,7 @@ import sequelize from "./index";
 
 // These are all the attributes in the User model
 interface UsersAttributes {
-  pk_user_id: string;
+  pk_user_id?: string;
   user_name: string;
   email: string;
   password: string;
