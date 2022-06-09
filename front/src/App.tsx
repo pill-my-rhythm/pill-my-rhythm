@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./routes/Header";
+import Header from "./routes/_shared/Header";
 import Main from "./routes/Main";
 
 function App() {
