@@ -40,7 +40,7 @@ Users.init(
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(70),
       allowNull: false, // 카카오 로그인은 비번 필요없으니 빼기도 하나 봄
     },
     gender: {
