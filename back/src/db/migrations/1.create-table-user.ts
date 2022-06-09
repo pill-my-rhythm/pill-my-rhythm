@@ -4,15 +4,15 @@
 
 import { Users } from "../models/user";
 
-console.log("======Create users Table======");
-const create_table_users = async () => {
+console.log("======Create user Table======");
+const create_table_user = async () => {
   await Users.sync({ force: true })
     .then(() => {
-      console.log("✅Success Create users Table");
+      console.log("✅Success Create user Table");
     })
     .catch((err: Error) => {
-      console.log("❗️Error in Create users Table : ", err);
+      console.log("❗️Error in Create user Table : ", err);
     });
 };
 
-create_table_users();
+create_table_user();
