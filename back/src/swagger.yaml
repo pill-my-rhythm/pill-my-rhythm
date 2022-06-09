@@ -62,6 +62,26 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
+  /user/updateInfo:
+    put:
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gender:
+                  type: string
+                age_range:
+                  type: string
+                job:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
 components:
   schemas:
     User:
