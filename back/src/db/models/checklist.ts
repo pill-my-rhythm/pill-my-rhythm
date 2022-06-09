@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { Users } from "./user";
 import sequelize from "./index";
 
-// These are all the attributes in the User model
+// These are all the attributes in the Checklist model
 
 interface ChecklistAttributes {
   pk_checklist_id: number;
