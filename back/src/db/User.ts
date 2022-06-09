@@ -1,5 +1,4 @@
 import { Users } from "./models/user";
-import sequelize from "Sequelize";
 import { IUserInput } from "../interfaces/userInput";
 
 const User = {
@@ -16,12 +15,13 @@ const User = {
     return user;
   },
   delete: async (pk_user_id: string) => {
-    const now = sequelize.literal("CURRENT_TIMESTAMP");
-    console.log(now);
-    const user = await Users.update(
-      { deleted_at: sequelize.literal("CURRENT_TIMESTAMP") },
-      { where: { pk_user_id: pk_user_id } },
-    );
+    // const now = new Date();
+    const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+    const time = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 19).replace("T", " ");
+    console.log(time);
+    const filter = { pk_user_id };
+    // const toUpdate = { user_name: '정윤' };
+    const user = await Users.destroy({ where: filter });
     return user;
   },
 };
