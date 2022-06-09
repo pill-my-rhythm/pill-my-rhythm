@@ -2,7 +2,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 const TopContainer = styled.div`
-background-color: #30336b;
+  background-color: #30336b;
 `;
 
 const Wrapper = styled.div`
@@ -26,7 +26,7 @@ const Board = styled.div`
   padding-top: 30px;
   border-radius: 5px;
   min-height: 200px;
-  background-color: #DADFE9;
+  background-color: #dadfe9;
 `;
 
 const Card = styled.div`
