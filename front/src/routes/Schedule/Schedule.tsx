@@ -2,6 +2,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautif
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { listState } from "../../atoms";
+import DragabbleItem from "./DragabbleItem";
 
 const TopContainer = styled.div`
   background-color: #30336b;
@@ -31,13 +32,6 @@ const Board = styled.div`
   background-color: #dadfe9;
 `;
 
-const Card = styled.div`
-  border-radius: 5px;
-  margin-bottom: 7px;
-  padding: 10px 10px;
-  background-color: white;
-`;
-
 function Schedule() {
   const [items, setItems] = useRecoilState(listState);
   // source : 움직임이 시작한 위치 (index)
@@ -49,7 +43,7 @@ function Schedule() {
       const copyItems = [...oldItems];
       // 1) 움직이고 싶은 요소 삭제
       copyItems.splice(source.index, 1);
-      // 1) 움직인 위치에 요소 돌려주기
+      // 2) 움직인 위치에 요소 돌려주기
       copyItems.splice(destination?.index, 0, draggableId);
       return copyItems;
     });
@@ -63,13 +57,7 @@ function Schedule() {
               {(magic) => (
                 <Board ref={magic.innerRef} {...magic.droppableProps}>
                   {items.map((item, index) => (
-                    <Draggable key={item} draggableId={item} index={index}>
-                      {(magic) => (
-                        <Card ref={magic.innerRef} {...magic.draggableProps} {...magic.dragHandleProps}>
-                          {item}
-                        </Card>
-                      )}
-                    </Draggable>
+                    <DragabbleItem key={item} index={index} item={item} />
                   ))}
                   {magic.placeholder}
                 </Board>
