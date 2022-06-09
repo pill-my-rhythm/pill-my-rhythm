@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "./routes/_shared/Header";
-import Main from "./routes/Main";
+import Main from "./routes/PR/Main";
 import Schedule from "./routes/Schedule/Schedule";
 
 function App() {
   return (
     <>
-      <Schedule />
-      {/* <Header />
+      {/* <Schedule /> */}
+      <Header />
       <Main />
       <label htmlFor="my-modal" className="btn modal-button">
         open modal
@@ -24,7 +24,7 @@ function App() {
             </label>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
