@@ -2,15 +2,15 @@
 
 import { Schedules } from "../models/schedule";
 
-console.log("======Create schedules Table======");
-const create_table_schedules = async () => {
+console.log("======Create schedule Table======");
+const create_table_schedule = async () => {
   await Schedules.sync({ force: true })
     .then(() => {
-      console.log("✅Success Create schedules Table");
+      console.log("✅Success Create schedule Table");
     })
     .catch((err: Error) => {
-      console.log("❗️Error in Create schedules Table : ", err);
+      console.log("❗️Error in Create schedule Table : ", err);
     });
 };
 
-create_table_schedules();
+create_table_schedule();
