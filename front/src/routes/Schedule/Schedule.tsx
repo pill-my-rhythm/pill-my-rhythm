@@ -1,5 +1,7 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { listState } from "../../atoms";
 
 const TopContainer = styled.div`
   background-color: #30336b;
@@ -36,10 +38,22 @@ const Card = styled.div`
   background-color: white;
 `;
 
-const toDos = ["a", "b", "c", "d", "e", "f"];
-
 function Schedule() {
-  const onDragEnd = () => {};
+  const [items, setItems] = useRecoilState(listState);
+  // source : 움직임이 시작한 위치 (index)
+  // destination : 움직인 item이 도착한 위치
+  // draggableId : 어떤 item이 드래그 되었는지 (id)
+  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
+    if (!destination) return;
+    setItems((oldItems) => {
+      const copyItems = [...oldItems];
+      // 1) 움직이고 싶은 요소 삭제
+      copyItems.splice(source.index, 1);
+      // 1) 움직인 위치에 요소 돌려주기
+      copyItems.splice(destination?.index, 0, draggableId);
+      return copyItems;
+    });
+  };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <TopContainer>
@@ -48,11 +62,11 @@ function Schedule() {
             <Droppable droppableId="one">
               {(magic) => (
                 <Board ref={magic.innerRef} {...magic.droppableProps}>
-                  {toDos.map((toDo, index) => (
-                    <Draggable draggableId={toDo} index={index} key={index}>
+                  {items.map((item, index) => (
+                    <Draggable key={item} draggableId={item} index={index}>
                       {(magic) => (
                         <Card ref={magic.innerRef} {...magic.draggableProps} {...magic.dragHandleProps}>
-                          {toDo}
+                          {item}
                         </Card>
                       )}
                     </Draggable>

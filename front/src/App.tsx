@@ -6,8 +6,8 @@ import Schedule from "./routes/Schedule/Schedule";
 function App() {
   return (
     <>
-      {/* <Schedule /> */}
-      <Header />
+      <Schedule />
+      {/* <Header />
       <Main />
       <label htmlFor="my-modal" className="btn modal-button">
         open modal
@@ -24,7 +24,7 @@ function App() {
             </label>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
