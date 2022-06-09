@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./routes/_shared/Header";
-import Main from "./routes/Main";
+import Main from "./routes/PR/Main";
 
 function App() {
   return (
