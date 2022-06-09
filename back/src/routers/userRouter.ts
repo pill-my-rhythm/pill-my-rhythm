@@ -4,7 +4,7 @@ import { UserService } from "../services/userService";
 import { Users } from "../db/models/user";
 import { validatorErrorChecker } from "../middlewares/validator";
 import { loginRequired } from "../middlewares/loginRequired";
-import { IUserInput, IUserInfoUpdateInput } from "../interfaces/userInput";
+import { IUserInput, IUserLoginInput, IUserInfoUpdateInput } from "../interfaces/userInput";
 
 const UserRouter = Router();
 
@@ -29,19 +29,22 @@ UserRouter.post(
   },
 );
 
-UserRouter.post("/login", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    // req (request) 에서 데이터 가져오기
-    const { email, password } = req.body;
+UserRouter.post(
+  "/login",
+  [check("email").exists().isEmail(), check("password").exists().isLength({ min: 8, max: 12 }), validatorErrorChecker],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // req (request) 에서 데이터 가져오기
+      const { email, password }: IUserLoginInput = req.body;
+      // 위 데이터를 이용하여 유저 db에서 유저 찾기
+      const user = await UserService.getUser(email, password);
 
-    // 위 데이터를 이용하여 유저 db에서 유저 찾기
-    const user = await UserService.getUser(email, password);
-
-    res.status(200).json(user);
-  } catch (error) {
-    next(error);
-  }
-});
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 UserRouter.delete("/withdrawal", loginRequired, async (req: Request, res: Response, next: NextFunction) => {
   try {

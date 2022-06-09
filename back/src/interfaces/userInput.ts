@@ -8,6 +8,11 @@ export interface IUserInput {
   job?: string;
 }
 
+export interface IUserLoginInput {
+  email: string;
+  password: string;
+}
+
 export interface IUserInfoUpdateInput {
   gender: string;
   age_range: string;
