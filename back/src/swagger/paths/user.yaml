@@ -3,25 +3,10 @@
     tags:
       - user
     requestBody:
-      required: true
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              email:
-                type: string
-              password:
-                type: string
-              user_name:
-                type: string
-              gender:
-                type: string
-                enum: [M, F]
-              age_range:
-                type: string
-              job:
-                type: string
+            $ref: "../openapi.yaml#/components/schemas/User"
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
@@ -38,6 +23,7 @@
             properties:
               email:
                 type: string
+                format: email
               password:
                 type: string
     responses:
