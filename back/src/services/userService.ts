@@ -1,7 +1,8 @@
 import { User } from "../db/User";
+import { Users } from "../db/models/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { IUserInput } from "../interfaces/userInput";
+import { IUserInput, IUserInfoUpdateInput } from "../interfaces/userInput";
 
 const UserService = {
   addUser: async (data: IUserInput) => {
@@ -59,6 +60,17 @@ const UserService = {
     }
     const deletedUser = await User.delete(pk_user_id);
     return deletedUser;
+  },
+  updateUserInfo: async (pk_user_id: string, updateDate: IUserInfoUpdateInput) => {
+    // 이메일 db에 존재 여부 확인
+    const user: Users = await User.findByUserId(pk_user_id);
+    if (!user) {
+      throw new Error("가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
+    }
+
+    const updatedUser = await User.update(pk_user_id, updateDate);
+
+    return updatedUser;
   },
 };
 

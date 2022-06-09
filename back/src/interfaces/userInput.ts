@@ -7,3 +7,9 @@ export interface IUserInput {
   age_range?: string;
   job?: string;
 }
+
+export interface IUserInfoUpdateInput {
+  gender: string;
+  age_range: string;
+  job: string;
+}
