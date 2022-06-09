@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import { check } from "express-validator";
 import { UserService } from "../services/userService";
 import { validatorErrorChecker } from "../middlewares/validator";
+import { loginRequired } from "../middlewares/loginRequired";
 import { IUserInput } from "../interfaces/userInput";
 
 const UserRouter = Router();
@@ -40,15 +41,16 @@ UserRouter.post("/login", async (req: Request, res: Response, next: NextFunction
     next(error);
   }
 });
-// userRouter.delete("/withdrawal", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     req.user_id = pk_user_id;
-//     const result = await userService.deleteUser({pk_user_id });
 
-//     res.status(201).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+UserRouter.delete("/withdrawal", loginRequired, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const pk_user_id = req.currentUserId;
+    const deletedUser = await UserService.delete(pk_user_id);
+
+    res.status(201).json(deletedUser);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { UserRouter };

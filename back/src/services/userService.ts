@@ -52,6 +52,14 @@ const UserService = {
 
     return loginUser;
   },
+  delete: async (pk_user_id: string) => {
+    const user = await User.findById(pk_user_id);
+    if (!user) {
+      throw new Error("해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
+    }
+    const deletedUser = await User.delete(pk_user_id);
+    return deletedUser;
+  },
 };
 
 export { UserService };
