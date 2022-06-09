@@ -29,5 +29,26 @@
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
+
+/user/updateInfo:
+  put:
+    tags:
+      - user
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              gender:
+                type: string
+              age_range:
+                type: string
+              job:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
 # /user/changePassword: header, 비밀번호
 # /user/withdrawal: header

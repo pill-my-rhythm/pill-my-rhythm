@@ -10,6 +10,6 @@
     "strict": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "typeRoots": ["./node_modules/@types", "./src/customType"]
+    "typeRoots": ["./src/customType", "./node_modules/@types"]
   }
 }
