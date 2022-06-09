@@ -1,19 +1,31 @@
 import { Router, Request, Response, NextFunction } from "express";
+import { check } from "express-validator";
 import { UserService } from "../services/userService";
+import { validatorErrorChecker } from "../middlewares/validator";
 import { IUserInput } from "../interfaces/userInput";
 
 const UserRouter = Router();
 
-UserRouter.post("/register", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { user_name, email, password, gender, age_range, job }: IUserInput = req.body;
-    const newUser = await UserService.addUser({ user_name, email, password, gender, age_range, job });
+UserRouter.post(
+  "/register",
+  [
+    check("user_name").exists(),
+    check("email").exists().isEmail(),
+    check("password").exists().isLength({ min: 8, max: 12 }),
+    validatorErrorChecker,
+  ],
 
-    res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
-  }
-});
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { user_name, email, password, gender, age_range, job }: IUserInput = req.body;
+      const newUser = await UserService.addUser({ user_name, email, password, gender, age_range, job });
+
+      res.status(201).json(newUser);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 UserRouter.post("/login", async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -28,7 +40,7 @@ UserRouter.post("/login", async (req: Request, res: Response, next: NextFunction
     next(error);
   }
 });
-// userRouter.delete("/user/withdrawal", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+// userRouter.delete("/withdrawal", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
 //   try {
 //     req.user_id = pk_user_id;
 //     const result = await userService.deleteUser({pk_user_id });
