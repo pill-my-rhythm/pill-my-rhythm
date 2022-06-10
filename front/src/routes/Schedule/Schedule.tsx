@@ -31,7 +31,7 @@ function Schedule() {
   // destination : 움직인 item이 도착한 위치
   // draggableId : 어떤 item이 드래그 되었는지 (id)
   const onDragEnd = (info: DropResult) => {
-    console.log(info);
+    // console.log(info);
     const { destination, draggableId, source } = info;
     if (!destination) return;
     if (destination?.droppableId === source.droppableId) {
