@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
+import sequelize from "./index";
 import { Users } from "./user";
 import { Supplements } from "./supplement";
-import sequelize from "./index";
 
 // These are all the attributes in the DailySupplements model
 
