@@ -21,6 +21,8 @@ paths:
     $ref: "./paths/user.yaml#/~1user~1login"
   /user/updateInfo:
     $ref: "./paths/user.yaml#/~1user~1updateInfo"
+  /user/withdrawal:
+    $ref: "./paths/user.yaml#/~1user~1withdrawal"
 components:
   schemas:
     User:
@@ -71,3 +73,10 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
+  # securitySchemes:
+  #   authorization: # arbitrary name for the security scheme
+  #     type: apiKey
+  #     scheme: bearer
+  #     bearerFormat: JWT
+  #     in: header
+  #     name: authorization
