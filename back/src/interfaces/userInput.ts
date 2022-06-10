@@ -14,6 +14,7 @@ export interface IUserLoginInput {
 }
 
 export interface IUserInfoUpdateInput {
+  password: string;
   gender: string;
   age_range: string;
   job: string;
