@@ -33,22 +33,21 @@
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
-
 /user/updateInfo:
   put:
     tags:
       - user
     summary: 회원 정보 수정 API 입니다.
     description: (필수) accessToken (선택) gender, age_range, job
-    # security:
-    #   - authorization: []
-    parameters:
-      - in: header
-        description: Bearer를 앞에 붙여주세요. ex) Bearer ajdhfjhaf
-        name: authorization
-        required: true
-        schema:
-          type: string
+    security:
+      - authorization: []
+    # parameters:
+    #   - in: header
+    #     description: Bearer를 앞에 붙여주세요. ex) Bearer ajdhfjhaf
+    #     name: authorization
+    #     required: true
+    #     schema:
+    #       type: string
     requestBody:
       required: true
       content:
@@ -74,13 +73,8 @@
       - user
     summary: 회원 탈퇴 API 입니다.
     description: (필수) accessToken
-    parameters:
-      - in: header
-        description: Bearer를 앞에 붙여주세요. ex) Bearer ajdhfjhaf
-        name: authorization
-        required: true
-        schema:
-          type: string
+    security:
+      - authorization: []
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
