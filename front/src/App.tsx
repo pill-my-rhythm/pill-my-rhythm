@@ -1,8 +1,12 @@
 import React from "react";
+import Header from "./routes/_shared/Header";
+import Main from "./routes/PR/Main";
 
 function App() {
   return (
     <>
+      <Header />
+      <Main />
       <label htmlFor="my-modal" className="btn modal-button">
         open modal
       </label>
