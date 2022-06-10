@@ -15,8 +15,14 @@ tags:
   - name: schedule
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
 paths:
-  /register:
-    $ref: './paths/user.yaml#/~1register'
+  /user/register:
+    $ref: "./paths/user.yaml#/~1user~1register"
+  /user/login:
+    $ref: "./paths/user.yaml#/~1user~1login"
+  /user/updateInfo:
+    $ref: "./paths/user.yaml#/~1user~1updateInfo"
+  /user/withdrawal:
+    $ref: "./paths/user.yaml#/~1user~1withdrawal"
 components:
   schemas:
     User:
@@ -30,10 +36,12 @@ components:
           type: string
         email:
           type: string
+          format: email
         password:
           type: string
         gender:
           type: string
+          enum: [M, F]
         age_range:
           type: string
         job:
@@ -58,10 +66,18 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
     InternalServerError:
       description: server error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
+  securitySchemes:
+    authorization: # arbitrary name for the security scheme
+      type: apiKey
+      scheme: bearer
+      bearerFormat: JWT
+      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
+      in: header
+      name: authorization
