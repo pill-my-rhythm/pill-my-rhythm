@@ -3,7 +3,7 @@ import { UserService } from "../services/userService";
 import { Users } from "../db/models/user";
 import { IUserInput, IUserLoginInput, IUserInfoUpdateInput } from "../interfaces/userInput";
 
-const userController = {
+const UserController = {
   register: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { user_name, email, password, gender, age_range, job }: IUserInput = req.body;
@@ -51,4 +51,4 @@ const userController = {
   },
 };
 
-export { userController };
+export { UserController };
