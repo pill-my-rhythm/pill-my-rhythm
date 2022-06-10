@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "./index";
+import { sequelize } from "./index";
 import { Users } from "./user";
 
 // These are all the attributes in the Checklist model
