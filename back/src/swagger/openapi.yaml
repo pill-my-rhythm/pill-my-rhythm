@@ -73,10 +73,11 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
-  # securitySchemes:
-  #   authorization: # arbitrary name for the security scheme
-  #     type: apiKey
-  #     scheme: bearer
-  #     bearerFormat: JWT
-  #     in: header
-  #     name: authorization
+  securitySchemes:
+    authorization: # arbitrary name for the security scheme
+      type: apiKey
+      scheme: bearer
+      bearerFormat: JWT
+      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
+      in: header
+      name: authorization

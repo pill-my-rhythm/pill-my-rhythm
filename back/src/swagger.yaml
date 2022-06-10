@@ -56,13 +56,8 @@ paths:
         - user
       summary: 회원 정보 수정 API 입니다.
       description: '(필수) accessToken (선택) gender, age_range, job'
-      parameters:
-        - in: header
-          description: Bearer를 앞에 붙여주세요. ex) Bearer ajdhfjhaf
-          name: authorization
-          required: true
-          schema:
-            type: string
+      security:
+        - authorization: []
       requestBody:
         required: true
         content:
@@ -87,13 +82,8 @@ paths:
         - user
       summary: 회원 탈퇴 API 입니다.
       description: (필수) accessToken
-      parameters:
-        - in: header
-          description: Bearer를 앞에 붙여주세요. ex) Bearer ajdhfjhaf
-          name: authorization
-          required: true
-          schema:
-            type: string
+      security:
+        - authorization: []
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
@@ -149,3 +139,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  securitySchemes:
+    authorization:
+      type: apiKey
+      scheme: bearer
+      bearerFormat: JWT
+      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
+      in: header
+      name: authorization
