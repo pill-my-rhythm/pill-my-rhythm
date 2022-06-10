@@ -30,22 +30,12 @@ UserRouter.post("/login", async (req: Request, res: Response, next: NextFunction
     next(error);
   }
 });
-// userRouter.delete("/user/withdrawal", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     req.user_id = pk_user_id;
-//     const result = await userService.deleteUser({pk_user_id });
-
-//     res.status(201).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 UserRouter.put("/updateInfo", loginRequired, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const pk_user_id: Users["pk_user_id"] = req.currentUserId;
-    const { gender, age_range, job }: IUserInfoUpdateInput = req.body;
-    const updateDate = { gender, age_range, job };
+    const { password, gender, age_range, job }: IUserInfoUpdateInput = req.body;
+    const updateDate = { password, gender, age_range, job };
 
     const result = await UserService.updateUserInfo(pk_user_id, updateDate);
     res.status(200).json(result);
@@ -53,18 +43,5 @@ UserRouter.put("/updateInfo", loginRequired, async (req: Request, res: Response,
     next(error);
   }
 });
-
-// 로그인 전에 검증할지 로그인 후에 검증할지
-// UserRouter.put("/changePassword", loginRequired, async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const pk_user_id: string = req.currentUserId;
-//     const newPassword: string = req.body.newPassword;
-
-//     const result = await UserService.updatePassword(pk_user_id, newPassword);
-//     res.status(200).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 export { UserRouter };
