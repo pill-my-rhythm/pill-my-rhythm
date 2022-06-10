@@ -5,7 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import path from "path";
 
-import { UserRouter } from "./routers/userRouter";
+import { UserRouter } from "./routes/userRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 const app: express.Application = express();
