@@ -6,7 +6,6 @@ import { Users } from "./user";
 
 interface SchedulesAttributes {
   pk_schedule_id?: number;
-  //   fk_user_id: string;
   type: string;
   when: Date;
   to_do: string;
@@ -14,7 +13,6 @@ interface SchedulesAttributes {
 
 export class Schedules extends Model<SchedulesAttributes> {
   pk_schedule_id?: number;
-  //   fk_user_id: string;
   type: string;
   when: Date;
   to_do: string;
@@ -28,10 +26,6 @@ Schedules.init(
       primaryKey: true,
       allowNull: false,
     },
-    // fk_user_id: {
-    //   type: DataTypes.CHAR(36),
-    //   allowNull: false,
-    // },
     type: {
       type: DataTypes.ENUM("B", "S"),
       allowNull: false,
