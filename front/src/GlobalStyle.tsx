@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 // reset CSS
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -33,7 +34,13 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
+  font-family: 'Pretendard';
+  overflow: scroll;
+  -ms-overflow-style: none;
 }
+::-webkit-scrollbar {
+  display: none;
+  }
 menu, ol, ul {
   list-style: none;
 }
@@ -51,9 +58,6 @@ table {
 }
 * {
   box-sizing: border-box;
-}
-body {
-  font-family: 'sans-serif';
 }
 a {
   text-decoration: none;

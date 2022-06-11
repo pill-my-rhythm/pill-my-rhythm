@@ -1,2 +1,6 @@
 **/.env
+back/bin/
 node_modules
+**/.DS_Store
+**/.env.production
+front/build/
