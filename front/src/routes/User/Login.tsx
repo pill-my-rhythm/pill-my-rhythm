@@ -9,8 +9,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
-  const [email, setEmail] = useRecoilState<string>("");
-  const [password, setPassword] = useRecoilState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
