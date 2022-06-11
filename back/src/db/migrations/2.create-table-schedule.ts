@@ -1,4 +1,4 @@
-// ./node_modules/.bin/ts-node .\src\db\migrations\2.create-table-schedules.ts
+// ./node_modules/.bin/ts-node .\src\db\migrations\2.create-table-schedule.ts
 
 import { Schedules } from "../models/schedule";
 

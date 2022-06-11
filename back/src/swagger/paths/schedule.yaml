@@ -2,7 +2,17 @@
 
 # 1) 전체 스케줄 조회
 
-# /schedules
+/schedule:
+  get:
+    tags:
+      - schedule
+    summary: 전체 스케줄 조회 API 입니다.
+    description: (필수) accessToken
+    security:
+      - authorization: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
 # (스케줄 테이블 정보 + 체크리스트 테이블 + 하루 영양제 테이블)
 # GET
 # header : get-Cookie
@@ -13,7 +23,7 @@
 
 # /schedule/create
 # POST
-# DB) create, update
+# DB) create, update, delete
 
 # 3) 아침, 점심, 저녁 영양제 저장 API
 

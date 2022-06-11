@@ -1,5 +1,5 @@
 import app from "./src/app";
-import sequelize from "./src/db/models/index";
+import { sequelize } from "./src/db/models/index";
 
 import { createServer } from "http";
 
