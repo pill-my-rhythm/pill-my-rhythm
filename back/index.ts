@@ -1,7 +1,7 @@
-import app from './src/app';
-import sequelize from './src/db/models/index';
+import app from "./src/app";
+import sequelize from "./src/db/models/index";
 
-import { createServer } from 'http';
+import { createServer } from "http";
 
 const port: number = Number(process.env.PORT) || 5001;
 
@@ -14,7 +14,7 @@ server.listen(port, async () => {
   await sequelize
     .authenticate()
     .then(async () => {
-      console.log('connection success');
+      console.log("connection success");
     })
     .catch((e: Error) => {
       console.log(e);

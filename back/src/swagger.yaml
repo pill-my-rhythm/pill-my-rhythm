@@ -15,10 +15,26 @@ tags:
   - name: schedule
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
 paths:
-  /register:
+  /user/register:
     post:
       tags:
         - user
+      summary: 회원가입 API 입니다.
+      description: '(필수) user_name, email, password (선택) gender, age_range, job'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: 로그인 API 입니다.
+      description: '(필수) email, password'
       requestBody:
         required: true
         content:
@@ -28,19 +44,46 @@ paths:
               properties:
                 email:
                   type: string
+                  format: email
                 password:
                   type: string
-                user_name:
-                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/updateInfo:
+    put:
+      tags:
+        - user
+      summary: 회원 정보 수정 API 입니다.
+      description: '(필수) accessToken (선택) gender, age_range, job'
+      security:
+        - authorization: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
                 gender:
                   type: string
-                  enum:
-                    - M
-                    - F
                 age_range:
                   type: string
                 job:
                   type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /user/withdrawal:
+    delete:
+      tags:
+        - user
+      summary: 회원 탈퇴 API 입니다.
+      description: (필수) accessToken
+      security:
+        - authorization: []
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
@@ -57,10 +100,14 @@ components:
           type: string
         email:
           type: string
+          format: email
         password:
           type: string
         gender:
           type: string
+          enum:
+            - M
+            - F
         age_range:
           type: string
         job:
@@ -92,3 +139,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  securitySchemes:
+    authorization:
+      type: apiKey
+      scheme: bearer
+      bearerFormat: JWT
+      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
+      in: header
+      name: authorization
