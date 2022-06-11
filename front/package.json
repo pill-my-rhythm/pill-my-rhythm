@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^18.0.12",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.7",
     "eslint": "^8.17.0",
