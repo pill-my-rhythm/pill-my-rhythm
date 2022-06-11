@@ -1,5 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unreachable */
+
+/* // ! 코치님 지금 아직 완성된 기능이 아니고 진행 사항 보고를 위해 커밋해둔 파일입니다. 코드 리뷰시 일단 넘어가셔도 괜찮을 것 같습니다 ㅠㅠ */
+
+
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../Api";
