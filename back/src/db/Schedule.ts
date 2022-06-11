@@ -5,7 +5,8 @@ import { IScheduleCreateInput } from "../interfaces/scheduleInput";
 
 const Schedule = {
   findById: async (pk_user_id: string) => {
-    const schedule = await Users.findAll({ where: { pk_user_id: pk_user_id }, include: { model: Schedules } });
+    const schedule = await Schedules.findAll({ include: { model: Users, where: { pk_user_id: pk_user_id } } });
+    return schedule;
   },
   createSchedule: async (newScheduleData: IScheduleCreateInput) => {
     const schedule = await Schedules.create(newScheduleData);
