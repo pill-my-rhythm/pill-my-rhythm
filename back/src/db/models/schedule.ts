@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "./index";
+import { sequelize } from "./index";
 import { Users } from "./user";
 
 // These are all the attributes in the User model
@@ -7,14 +7,16 @@ import { Users } from "./user";
 interface SchedulesAttributes {
   pk_schedule_id?: number;
   type: string;
-  when: Date;
+  start: Date;
+  finish: Date;
   to_do: string;
 }
 
 export class Schedules extends Model<SchedulesAttributes> {
   pk_schedule_id?: number;
   type: string;
-  when: Date;
+  start: Date;
+  finish: Date;
   to_do: string;
 }
 
@@ -30,7 +32,11 @@ Schedules.init(
       type: DataTypes.ENUM("B", "S"),
       allowNull: false,
     },
-    when: {
+    start: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    finish: {
       type: DataTypes.DATE,
       allowNull: false,
     },
