@@ -22,33 +22,29 @@ const draggingGroupName = "appointmentsGroup";
 function Calendar() {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const [appointments, setAppointments] = useRecoilState(appointmentsAtom);
-  console.log(appointments);
 
   const onAppointmentRemove = (e) => {
     const index = appointments.indexOf(e.itemData);
     if (index >= 0) {
       appointments.splice(index, 1);
       tasks.push(e.itemData);
-      // setAppointments({
-      //   tasks: [...tasks],
-      //   appointments: [...appointments],
-      // });
+      setAppointments({
+        tasks: [...tasks],
+        appointments: [...appointments],
+      });
     }
   };
 
   const onAppointmentAdd = (e) => {
     const index = tasks.indexOf(e.fromData);
-    const appCopy = [...appointments];
-    const taskCopy = [...tasks];
+    console.log(e.itemData);
+    const tasksCopy = [...tasks];
+    const appointmentsCopy = [...appointments];
     if (index >= 0) {
-      tasks.splice(index, 1);
-      appointments.push(e.itemData);
-      setAppointments(appCopy);
-      setTasks(taskCopy);
-      // setAppointments({
-      //   tasks: [...tasks],
-      //   appointments: [...appCopy],
-      // });
+      tasksCopy.splice(index, 1);
+      appointmentsCopy.push(e.itemData);
+      setAppointments([...appointmentsCopy]);
+      setTasks([...tasksCopy]);
     }
   };
   const onListDragStart = (e) => {
