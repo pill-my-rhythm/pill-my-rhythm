@@ -7,6 +7,7 @@ import path from "path";
 
 import { UserRouter } from "./routes/userRouter";
 import { ScheduleRouter } from "./routes/scheduleRouter";
+import { ChecklistRouter } from "./routes/checklistRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 const app: express.Application = express();
@@ -25,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/user", UserRouter);
 app.use("/schedule", ScheduleRouter);
+app.use("/checklist", ChecklistRouter);
 app.use(errorMiddleware);
 
 export default app;
