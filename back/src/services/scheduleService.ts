@@ -1,5 +1,4 @@
 import { Schedule } from "../db/Schedule";
-// import { Users } from "../db/models/user";
 import { IScheduleCreateInput } from "../interfaces/scheduleInput";
 
 const ScheduleService = {
