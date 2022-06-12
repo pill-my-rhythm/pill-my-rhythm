@@ -6,7 +6,7 @@ import { Users } from "./user";
 
 interface ChecklistAttributes {
   pk_checklist_id: number;
-  date: Date;
+  date: string;
   level?: number;
   one: boolean;
   two: boolean;
@@ -18,7 +18,7 @@ interface ChecklistAttributes {
 
 export class Checklists extends Model<ChecklistAttributes> {
   pk_checklist_id: number;
-  date: Date;
+  date: string;
   level?: number;
   one: boolean;
   two: boolean;
@@ -36,7 +36,7 @@ Checklists.init(
       primaryKey: true,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING(15),
       allowNull: false,
       unique: true,
     },
