@@ -11,3 +11,29 @@ export const listState = atom<IToDoState>({
     to_do: ["a", "b", "c", "d", "e", "f"],
   },
 });
+
+export const tasksAtom = atom({
+  key: "tasks",
+  default: [
+    {
+      text: "1",
+    },
+    {
+      text: "2",
+    },
+    {
+      text: "3",
+    },
+    {
+      text: "4",
+    },
+    {
+      text: "5",
+    },
+  ],
+});
+
+export const appointmentsAtom = atom({
+  key: "appointments",
+  default: [],
+});
