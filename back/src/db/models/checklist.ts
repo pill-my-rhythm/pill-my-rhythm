@@ -16,7 +16,7 @@ interface ChecklistAttributes {
   six: boolean;
 }
 
-export class Checklist extends Model<ChecklistAttributes> {
+export class Checklists extends Model<ChecklistAttributes> {
   pk_checklist_id: number;
   date: Date;
   level?: number;
@@ -28,7 +28,7 @@ export class Checklist extends Model<ChecklistAttributes> {
   six: boolean;
 }
 
-Checklist.init(
+Checklists.init(
   {
     pk_checklist_id: {
       type: DataTypes.INTEGER,
@@ -86,5 +86,5 @@ Checklist.init(
   },
 );
 
-Users.hasMany(Checklist, { foreignKey: { name: "fk_user_id", allowNull: false } });
-Checklist.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
+Users.hasMany(Checklists, { foreignKey: { name: "fk_user_id", allowNull: false } });
+Checklists.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
