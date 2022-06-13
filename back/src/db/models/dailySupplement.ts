@@ -46,3 +46,6 @@ Users.belongsToMany(Supplements, {
   through: DailySupplements,
   foreignKey: { name: "fk_user_id", allowNull: false },
 });
+
+DailySupplements.belongsTo(Users);
+DailySupplements.belongsTo(Supplements);
