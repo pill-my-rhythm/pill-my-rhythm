@@ -1,3 +1,8 @@
+export interface IGetScheduleInput {
+  start: Date;
+  finish: Date;
+}
+
 export interface IScheduleCreateInput {
   type: string;
   start: Date;
