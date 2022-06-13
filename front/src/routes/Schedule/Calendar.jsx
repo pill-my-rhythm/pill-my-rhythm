@@ -5,14 +5,8 @@ import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState } from "recoil";
 import { appointmentsAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
-import "devextreme/dist/css/dx.light.css";
-
-const Card = styled.div`
-  border-radius: 5px;
-  margin-bottom: 7px;
-  padding: 10px 10px;
-  background-color: white;
-`;
+import "devextreme/dist/css/dx.greenmist.css";
+import ListItem from "./TaskItem";
 
 let now = new Date();
 const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -36,27 +30,22 @@ function Calendar() {
   };
 
   const onAppointmentAdd = (e) => {
+    // index : 움직인 item의 index 값
+    // e.itemData : 움직인 item의 정보
+    // tasks : 리스트 아이템
+    // appointments : 캘린더에 움직여진 item의 정보
     const index = tasks.indexOf(e.fromData);
-    console.log(e.itemData);
+    if (!appointments) return;
     const tasksCopy = [...tasks];
     const appointmentsCopy = [...appointments];
-    if (index >= 0) {
-      tasksCopy.splice(index, 1);
-      appointmentsCopy.push(e.itemData);
-      setAppointments([...appointmentsCopy]);
-      setTasks([...tasksCopy]);
-    }
+    tasksCopy.splice(index, 1);
+    appointmentsCopy.push(e.itemData);
+    setAppointments([...appointmentsCopy]);
+    setTasks([...tasksCopy]);
   };
+
   const onListDragStart = (e) => {
     e.cancel = true;
-  };
-  const onItemDragStart = (e) => {
-    e.itemData = e.fromData;
-  };
-  const onItemDragEnd = (e) => {
-    if (e.toData) {
-      e.cancel = true;
-    }
   };
 
   return (
@@ -64,17 +53,7 @@ function Calendar() {
       <ScrollView id="scroll">
         <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
           {tasks.map((task) => (
-            <Draggable
-              key={task.text}
-              className="item dx-card dx-theme-text-color dx-theme-background-color"
-              clone={true}
-              group={draggingGroupName}
-              data={task}
-              onDragStart={onItemDragStart}
-              onDragEnd={onItemDragEnd}
-            >
-              <Card>{task.text}</Card>
-            </Draggable>
+            <ListItem task={task} key={task.text} />
           ))}
         </Draggable>
       </ScrollView>
