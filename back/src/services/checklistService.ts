@@ -1,5 +1,5 @@
 import { Checklist } from "../db/Checklist";
-import { IChecklistCreateType } from "../interfaces/checklistInput";
+import { IChecklistCreateType, IChecklistWeeklyInput } from "../interfaces/checklistInput";
 
 const ChecklistService = {
   addChecklist: async (data: IChecklistCreateType) => {
@@ -19,6 +19,27 @@ const ChecklistService = {
 
     const newChecklist = await Checklist.createChecklist(data);
     return newChecklist;
+  },
+
+  getWeeklyChecklist: async (fk_user_id: string, { start, finish }: IChecklistWeeklyInput) => {
+    const weeklyChecklist = await Checklist.findByWeek(fk_user_id, { start, finish });
+    const checklistColors: any = [...weeklyChecklist];
+
+    interface dataValues {
+      level: number;
+      color: string;
+    }
+    checklistColors.forEach((element: { dataValues: dataValues }) => {
+      if (element.dataValues.level == 1) {
+        element.dataValues.color = "green";
+      } else if (element.dataValues.level == 2) {
+        element.dataValues.color = "yellow";
+      } else {
+        element.dataValues.color = "red";
+      }
+    });
+
+    return checklistColors;
   },
 };
 
