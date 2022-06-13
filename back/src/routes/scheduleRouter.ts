@@ -9,7 +9,7 @@ const ScheduleRouter = Router();
 ScheduleRouter.use(loginRequired);
 
 // 전체 스케줄 조회
-ScheduleRouter.get("/", ScheduleController.getAllSchedule);
+ScheduleRouter.get("/", ScheduleController.getWeeklySchedule);
 
 // 생체 리듬, 스케줄 추가
 ScheduleRouter.post(
@@ -23,5 +23,8 @@ ScheduleRouter.post(
   ],
   ScheduleController.create,
 );
+
+// Daily Supplement 등록
+ScheduleRouter.post("/daily-supplement", ScheduleController.createDailySupplement);
 
 export { ScheduleRouter };
