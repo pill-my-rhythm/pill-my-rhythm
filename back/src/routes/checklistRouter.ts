@@ -21,4 +21,11 @@ ChecklistRouter.post(
   ChecklistController.create,
 );
 
+ChecklistRouter.get(
+  "/weekly",
+  [check("start").exists().isDate(), check("end").exists().isDate()],
+  loginRequired,
+  ChecklistController.getWeekly,
+);
+
 export { ChecklistRouter };
