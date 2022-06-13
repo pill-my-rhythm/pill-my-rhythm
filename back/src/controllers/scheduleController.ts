@@ -25,6 +25,18 @@ const ScheduleController = {
       next(error);
     }
   },
+  createDailySupplement: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const type: string = req.body.type;
+      const fk_supplement_id: number = req.body.fk_supplement_id;
+      const newSchedule = await ScheduleService.addSchedule(fk_user_id, fk_supplement_id, type);
+
+      res.status(201).json(newSchedule);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { ScheduleController };
