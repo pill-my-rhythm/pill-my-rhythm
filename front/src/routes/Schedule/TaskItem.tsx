@@ -10,11 +10,15 @@ const Card = styled.div`
   background-color: white;
 `;
 
-function TaskItem({ task }) {
-  const onItemDragStart = (e) => {
+interface taskProps {
+  task: { text: string };
+}
+
+function TaskItem({ task }: taskProps) {
+  const onItemDragStart = (e: any) => {
     e.itemData = e.fromData;
   };
-  const onItemDragEnd = (e) => {
+  const onItemDragEnd = (e: any) => {
     if (e.toData) {
       e.cancel = true;
     }

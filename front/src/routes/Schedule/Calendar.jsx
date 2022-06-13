@@ -17,34 +17,28 @@ function Calendar() {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const [appointments, setAppointments] = useRecoilState(appointmentsAtom);
 
-  const onAppointmentRemove = (e) => {
-    const index = appointments.indexOf(e.itemData);
-    if (index >= 0) {
-      appointments.splice(index, 1);
-      tasks.push(e.itemData);
-      setAppointments({
-        tasks: [...tasks],
-        appointments: [...appointments],
-      });
-    }
-  };
-
   const onAppointmentAdd = (e) => {
     // index : 움직인 item의 index 값
     // e.itemData : 움직인 item의 정보
     // tasks : 리스트 아이템
     // appointments : 캘린더에 움직여진 item의 정보
     const index = tasks.indexOf(e.fromData);
-    if (!appointments) return;
+    console.log(e.itemData);
     const tasksCopy = [...tasks];
     const appointmentsCopy = [...appointments];
-    tasksCopy.splice(index, 1);
-    appointmentsCopy.push(e.itemData);
-    setAppointments([...appointmentsCopy]);
-    setTasks([...tasksCopy]);
+    if (index >= 0) {
+      tasksCopy.splice(index, 0);
+      appointmentsCopy.push(e.itemData);
+      setAppointments([...appointmentsCopy]);
+      setTasks([...tasksCopy]);
+    }
   };
 
   const onListDragStart = (e) => {
+    e.cancel = true;
+  };
+
+  const onAppointmentFormOpening = (e) => {
     e.cancel = true;
   };
 
@@ -57,8 +51,17 @@ function Calendar() {
           ))}
         </Draggable>
       </ScrollView>
-      <Scheduler timeZone="Asia/Seoul" id="scheduler" dataSource={appointments} views={views} defaultCurrentDate={currentDate} height={600} startDayHour={8}>
-        <AppointmentDragging group={draggingGroupName} onRemove={onAppointmentRemove} onAdd={onAppointmentAdd} />
+      <Scheduler
+        timeZone="Asia/Seoul"
+        id="scheduler"
+        dataSource={appointments}
+        views={views}
+        defaultCurrentDate={currentDate}
+        height={600}
+        startDayHour={8}
+        onAppointmentFormOpening={onAppointmentFormOpening}
+      >
+        <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
       </Scheduler>
     </React.Fragment>
   );
