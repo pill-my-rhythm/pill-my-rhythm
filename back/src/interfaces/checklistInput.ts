@@ -9,7 +9,7 @@ export interface IChecklistCreateInput {
 
 export interface IChecklistCreateType {
   fk_user_id: string;
-  date: string;
+  date: Date;
   one: boolean;
   two: boolean;
   three: boolean;
@@ -17,4 +17,9 @@ export interface IChecklistCreateType {
   five: boolean;
   six: boolean;
   level?: number;
+}
+
+export interface IChecklistWeeklyInput {
+  start: Date;
+  end: Date;
 }
