@@ -1,4 +1,5 @@
 export interface IChecklistCreateInput {
+  date: Date;
   one: boolean;
   two: boolean;
   three: boolean;
@@ -21,5 +22,5 @@ export interface IChecklistCreateType {
 
 export interface IChecklistWeeklyInput {
   start: Date;
-  end: Date;
+  finish: Date;
 }
