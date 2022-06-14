@@ -1,3 +1,9 @@
+export enum colorType {
+  ONE = "green",
+  TWO = "yellow",
+  THREE = "red",
+}
+
 export interface IChecklistCreateInput {
   date: Date;
   one: boolean;
