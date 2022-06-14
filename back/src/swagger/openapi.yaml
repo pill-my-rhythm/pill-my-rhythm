@@ -23,6 +23,10 @@ paths:
     $ref: "./paths/user.yaml#/~1user~1updateInfo"
   /user/withdrawal:
     $ref: "./paths/user.yaml#/~1user~1withdrawal"
+  /schedule/create:
+    $ref: "./paths/schedule.yaml#/~1schedule~1create"
+  /checklist/create:
+    $ref: "./paths/schedule.yaml#/~1checklist~1create"
 components:
   schemas:
     User:
@@ -74,10 +78,7 @@ components:
           schema:
             $ref: "#/components/schemas/Error"
   securitySchemes:
-    authorization: # arbitrary name for the security scheme
-      type: apiKey
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
       scheme: bearer
       bearerFormat: JWT
-      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
-      in: header
-      name: authorization
