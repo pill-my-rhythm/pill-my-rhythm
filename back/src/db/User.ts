@@ -7,11 +7,11 @@ const User = {
     return user;
   },
   findByEmail: async (email: string) => {
-    const user = await Users.findOne({ where: { email: email } });
+    const user = await Users.findOne({ where: { email } });
     return user;
   },
   findById: async (pk_user_id: string) => {
-    const user = await Users.findOne({ where: { pk_user_id: pk_user_id } });
+    const user = await Users.findOne({ where: { pk_user_id } });
     return user;
   },
   delete: async (pk_user_id: string) => {
