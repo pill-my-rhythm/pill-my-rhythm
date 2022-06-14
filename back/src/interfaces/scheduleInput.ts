@@ -3,6 +3,12 @@ export interface IGetScheduleInput {
   finish: Date;
 }
 
+export interface IDailySupplementCreateInput {
+  fk_user_id: string;
+  fk_supplement_id: number;
+  type: string;
+}
+
 export interface IScheduleCreateInput {
   type: string;
   start: Date;
