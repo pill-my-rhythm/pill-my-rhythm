@@ -39,7 +39,6 @@ Checklists.init(
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      unique: true,
     },
     level: {
       type: DataTypes.INTEGER,
