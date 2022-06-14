@@ -38,14 +38,14 @@ DailySupplements.init(
   },
 );
 
-Supplements.belongsToMany(Users, {
-  through: DailySupplements,
-  foreignKey: { name: "fk_supplement_id", allowNull: false },
-});
-Users.belongsToMany(Supplements, {
-  through: DailySupplements,
-  foreignKey: { name: "fk_user_id", allowNull: false },
-});
+// Supplements.belongsToMany(Users, {
+//   through: DailySupplements,
+//   foreignKey: { name: "fk_supplement_id", allowNull: false },
+// });
+// Users.belongsToMany(Supplements, {
+//   through: DailySupplements,
+//   foreignKey: { name: "fk_user_id", allowNull: false },
+// });
 
-DailySupplements.belongsTo(Users);
-DailySupplements.belongsTo(Supplements);
+DailySupplements.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
+DailySupplements.belongsTo(Supplements, { foreignKey: { name: "fk_supplement_id", allowNull: false } });
