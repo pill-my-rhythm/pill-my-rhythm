@@ -4,8 +4,11 @@ import { Schedules } from "./models/schedule";
 import { IScheduleCreateInput } from "../interfaces/scheduleInput";
 
 const Schedule = {
-  findById: async (pk_user_id: string) => {
-    const schedule = await Schedules.findAll({ include: { model: Users, where: { pk_user_id: pk_user_id } } });
+  findByWeek: async (fk_user_id: string, start: Date, finish: Date) => {
+    const schedule = await Schedules.findOne({
+      where: { start: { [Op.between]: [start, finish] } },
+      include: { model: Users, where: { pk_user_id: fk_user_id } },
+    });
     return schedule;
   },
   createSchedule: async (newScheduleData: IScheduleCreateInput) => {

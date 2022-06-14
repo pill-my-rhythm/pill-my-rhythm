@@ -57,7 +57,7 @@ paths:
       summary: 회원 정보 수정 API 입니다.
       description: '(필수) accessToken (선택) gender, age_range, job'
       security:
-        - authorization: []
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -83,10 +83,121 @@ paths:
       summary: 회원 탈퇴 API 입니다.
       description: (필수) accessToken
       security:
-        - authorization: []
+        - bearerAuth: []
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
+  /schedule:
+    get:
+      tags:
+        - schedule
+      summary: 전체 스케줄 조회 API 입니다.
+      description: '(필수) accessToken, start, finish'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: start
+          schema:
+            type: string
+          description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
+        - in: query
+          name: finish
+          schema:
+            type: string
+          description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /schedule/create:
+    post:
+      tags:
+        - schedule
+      summary: 영양제 / 생체리듬 스케줄 생성 API 입니다.
+      description: '(필수) accessToken, type, start, finish, to_do'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type: string
+                start:
+                  type: string
+                  format: date_time
+                finish:
+                  type: string
+                  format: date_time
+                to_do:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /schedule/daily-supplement:
+    post:
+      tags:
+        - schedule
+      summary: '아침, 점심, 저녁 영양제 저장 API 입니다.'
+      description: '(필수) accessToken, type, fk_supplement_id'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type: string
+                fk_supplement_id:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /checklist/create:
+    post:
+      tags:
+        - schedule
+      summary: 체크리스트 생성 API 입니다.
+      description: '(필수) accessToken, date, one, two, three, four, five, six'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                one:
+                  type: boolean
+                two:
+                  type: boolean
+                three:
+                  type: boolean
+                four:
+                  type: boolean
+                five:
+                  type: boolean
+                six:
+                  type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
 components:
   schemas:
     User:
@@ -140,10 +251,7 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   securitySchemes:
-    authorization:
-      type: apiKey
+    bearerAuth:
+      type: http
       scheme: bearer
       bearerFormat: JWT
-      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
-      in: header
-      name: authorization
