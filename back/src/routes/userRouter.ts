@@ -2,7 +2,7 @@ import { Router } from "express";
 import { UserController } from "../controllers/userController";
 import { check } from "express-validator";
 import { validatorErrorChecker } from "../middlewares/validator";
-import { loginRequired } from "../middlewares/loginRequired";
+import { verifyToken } from "../middlewares/verifyToken";
 
 const UserRouter = Router();
 
@@ -26,9 +26,9 @@ UserRouter.post(
 );
 
 // 회원 정보 수정
-UserRouter.put("/updateInfo", loginRequired, UserController.updateInfo);
+UserRouter.put("/updateInfo", verifyToken, UserController.updateInfo);
 
 // 회원 탈퇴
-UserRouter.delete("/withdrawal", loginRequired, UserController.withdrawal);
+UserRouter.delete("/withdrawal", verifyToken, UserController.withdrawal);
 
 export { UserRouter };
