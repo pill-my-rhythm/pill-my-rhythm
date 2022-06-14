@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { get } from "../../Api";
+import App from "../../App";
 import { loginReducer } from "../../reducer";
 
 export const UserStateContext = createContext(null);
@@ -47,6 +48,7 @@ function Dispatcher() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState} />
+      <App />
     </DispatchContext.Provider>
   );
 }
