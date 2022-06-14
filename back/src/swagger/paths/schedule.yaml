@@ -1,26 +1,30 @@
-# [스케줄]
-
 # 1) 전체 스케줄 조회
-
 /schedule:
   get:
     tags:
       - schedule
     summary: 전체 스케줄 조회 API 입니다.
-    description: (필수) accessToken
+    description: (필수) accessToken, start, finish
     security:
-      - authorization: []
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: start
+        schema:
+          type: string
+        description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
+      - in: query
+        name: finish
+        schema:
+          type: string
+        description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
-# (스케줄 테이블 정보 + 체크리스트 테이블 + 하루 영양제 테이블)
-# GET
-# header : get-Cookie
-# body : 날짜 (단위:1주일)
-# response : 일정 데이터 (단위: 1주일) (B,S) + 체크리스트 신호등 +  하루 영양제 정보(분류)
+      "400":
+        description: accessToken이 유효하지 않습니다.
 
 # 2) 생체 리듬, 스케줄 설정
-
 # /schedule/create
 # POST
 # DB) create, update, delete
@@ -55,7 +59,29 @@
         description: accessToken이 유효하지 않습니다.
 
 # 3) 아침, 점심, 저녁 영양제 저장 API
-
+/schedule/daily-supplement:
+  post:
+    tags:
+      - schedule
+    summary: 아침, 점심, 저녁 영양제 저장 API 입니다.
+    description: (필수) accessToken, type, fk_supplement_id
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type: string
+              fk_supplement_id:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
 # /schedule/daily-supplement
 # POST
 # header: get-Cookie

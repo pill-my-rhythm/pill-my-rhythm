@@ -53,6 +53,10 @@ Schedules.init(
     timestamps: true,
     paranoid: true, // 삭제일 (복구용)
     underscored: true,
+    indexes: [
+      { name: "IDX_type", using: "BTREE", fields: ["type"] },
+      { name: "IDX_start_finish", using: "BTREE", fields: ["start", "finish"] },
+    ],
   },
 );
 

@@ -4,7 +4,8 @@ import { Schedules } from "../models/schedule";
 
 console.log("======Create schedule Table======");
 const create_table_schedule = async () => {
-  await Schedules.sync({ force: true })
+  // await Schedules.sync({ force: true })
+  await Schedules.sync()
     .then(() => {
       console.log("✅Success Create schedule Table");
     })

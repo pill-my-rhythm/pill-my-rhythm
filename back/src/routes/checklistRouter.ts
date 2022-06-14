@@ -17,14 +17,12 @@ ChecklistRouter.post(
     check("five").exists().isBoolean(),
     check("six").exists().isBoolean(),
   ],
-  loginRequired,
   ChecklistController.create,
 );
 
 ChecklistRouter.get(
   "/weekly",
   [check("start").exists().isDate(), check("end").exists().isDate()],
-  loginRequired,
   ChecklistController.getWeekly,
 );
 
