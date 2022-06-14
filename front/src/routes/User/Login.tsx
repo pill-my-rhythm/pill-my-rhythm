@@ -26,7 +26,7 @@ const LoginForm = () => {
   // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
   const isFormValid = isEmailValid && isPasswordValid;
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (e) => {
     e.preventDefault();
 
     try {
@@ -48,7 +48,7 @@ const LoginForm = () => {
       });
 
       // 기본 페이지로 이동함.
-      navigate("/", { replace: true });
+      navigate("/");
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
     }
@@ -66,7 +66,7 @@ const LoginForm = () => {
             </a>
           </p>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -124,6 +124,7 @@ const LoginForm = () => {
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              disabled={!isFormValid}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg className="h-5 w-5 text-teal-500 group-hover:text-teal-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
