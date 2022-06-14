@@ -33,7 +33,7 @@ export const tasksAtom = atom({
   ],
 });
 
-export const appointmentsAtom = atom({
+export const appointmentsAtom = atom<Object[]>({
   key: "appointments",
   default: [],
 });

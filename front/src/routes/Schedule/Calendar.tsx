@@ -8,22 +8,29 @@ import styled from "styled-components";
 import "devextreme/dist/css/dx.greenmist.css";
 import ListItem from "./TaskItem";
 
+const Wrapper = styled.div`
+  padding: 20px 30px 20px 30px;
+  margin: 20px;
+  width: 240px;
+  background: #3eb8b0;
+  border-radius: 5px;
+`;
+
 let now = new Date();
 const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-const views = [{ type: "day", intervalCount: 7 }];
+const views: Array<Object> = [{ type: "day", intervalCount: 7 }];
 const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const [appointments, setAppointments] = useRecoilState(appointmentsAtom);
+  const [appointments, setAppointments] = useRecoilState<Array<Object>>(appointmentsAtom);
 
-  const onAppointmentAdd = (e) => {
+  const onAppointmentAdd = (e: any) => {
     // index : 움직인 item의 index 값
     // e.itemData : 움직인 item의 정보
     // tasks : 리스트 아이템
     // appointments : 캘린더에 움직여진 item의 정보
     const index = tasks.indexOf(e.fromData);
-    console.log(e.itemData);
     const tasksCopy = [...tasks];
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
@@ -34,23 +41,25 @@ function Calendar() {
     }
   };
 
-  const onListDragStart = (e) => {
+  const onListDragStart = (e: any) => {
     e.cancel = true;
   };
 
-  const onAppointmentFormOpening = (e) => {
+  const onAppointmentFormOpening = (e: any) => {
     e.cancel = true;
   };
 
   return (
     <React.Fragment>
-      <ScrollView id="scroll">
-        <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
-          {tasks.map((task) => (
-            <ListItem task={task} key={task.text} />
-          ))}
-        </Draggable>
-      </ScrollView>
+      <Wrapper>
+        <ScrollView id="scroll">
+          <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
+            {tasks.map((task) => (
+              <ListItem task={task} key={task.text} />
+            ))}
+          </Draggable>
+        </ScrollView>
+      </Wrapper>
       <Scheduler
         timeZone="Asia/Seoul"
         id="scheduler"

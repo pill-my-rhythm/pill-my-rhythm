@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./routes/PR/Main";
 import Header from "./routes/_shared/Header";
 import Schedule from "./routes/Schedule/Schedule";
-import Calendar from "./routes/Schedule/Calendar.jsx";
+import Calendar from "./routes/Schedule/Calendar";
 
 function Router() {
   return (
