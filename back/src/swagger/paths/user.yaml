@@ -1,0 +1,80 @@
+/user/register:
+  post:
+    tags:
+      - user
+    summary: 회원가입 API 입니다.
+    description: (필수) user_name, email, password (선택) gender, age_range, job
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/User"
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/login:
+  post:
+    tags:
+      - user
+    summary: 로그인 API 입니다.
+    description: (필수) email, password
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/updateInfo:
+  put:
+    tags:
+      - user
+    summary: 회원 정보 수정 API 입니다.
+    description: (필수) accessToken (선택) gender, age_range, job
+    security:
+      - authorization: []
+    # parameters:
+    #   - in: header
+    #     description: Bearer를 앞에 붙여주세요. ex) Bearer ajdhfjhaf
+    #     name: authorization
+    #     required: true
+    #     schema:
+    #       type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              gender:
+                type: string
+              age_range:
+                type: string
+              job:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
+# /user/changePassword: header, 비밀번호
+/user/withdrawal:
+  delete:
+    tags:
+      - user
+    summary: 회원 탈퇴 API 입니다.
+    description: (필수) accessToken
+    security:
+      - authorization: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"

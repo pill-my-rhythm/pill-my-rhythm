@@ -1,0 +1,149 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: Web API docs
+  description: team 17 API 문서입니다
+  license:
+    name: MIT
+servers:
+  - url: 'http://localhost:5000/'
+tags:
+  - name: user
+  - description: User API 입니다.
+  - name: recommend
+  - description: User가 추천받은 영양제 정보 API 입니다.
+  - name: schedule
+  - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
+paths:
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: 회원가입 API 입니다.
+      description: '(필수) user_name, email, password (선택) gender, age_range, job'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: 로그인 API 입니다.
+      description: '(필수) email, password'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/updateInfo:
+    put:
+      tags:
+        - user
+      summary: 회원 정보 수정 API 입니다.
+      description: '(필수) accessToken (선택) gender, age_range, job'
+      security:
+        - authorization: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gender:
+                  type: string
+                age_range:
+                  type: string
+                job:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /user/withdrawal:
+    delete:
+      tags:
+        - user
+      summary: 회원 탈퇴 API 입니다.
+      description: (필수) accessToken
+      security:
+        - authorization: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - user_name
+        - email
+        - password
+      properties:
+        user_name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        gender:
+          type: string
+          enum:
+            - M
+            - F
+        age_range:
+          type: string
+        job:
+          type: string
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+  responses:
+    successResponse:
+      description: successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: null
+    BadRequest:
+      description: bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    authorization:
+      type: apiKey
+      scheme: bearer
+      bearerFormat: JWT
+      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
+      in: header
+      name: authorization
