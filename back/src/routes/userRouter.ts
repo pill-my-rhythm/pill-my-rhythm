@@ -26,7 +26,7 @@ UserRouter.post(
 );
 
 // 회원 정보 수정
-UserRouter.put("/updateInfo", verifyToken, UserController.updateInfo);
+UserRouter.put("/update-info", verifyToken, UserController.updateInfo);
 
 // 회원 탈퇴
 UserRouter.delete("/withdrawal", verifyToken, UserController.withdrawal);
