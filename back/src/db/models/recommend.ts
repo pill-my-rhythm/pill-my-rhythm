@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "./index";
+import { sequelize } from "./index";
 import { Users } from "./user";
 import { Supplements } from "./supplement";
 

@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, Op } from "sequelize";
 import config from "../config/config";
 
 const sequelize = new Sequelize(config.development.database, config.development.username, config.development.password, {
@@ -11,4 +11,4 @@ const sequelize = new Sequelize(config.development.database, config.development.
   },
 });
 
-export default sequelize;
+export { sequelize, Op };

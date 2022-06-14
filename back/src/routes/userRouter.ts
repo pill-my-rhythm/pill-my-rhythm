@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { userController } from "../controllers/userController";
+import { UserController } from "../controllers/userController";
 import { check } from "express-validator";
 import { validatorErrorChecker } from "../middlewares/validator";
 import { loginRequired } from "../middlewares/loginRequired";
@@ -15,20 +15,20 @@ UserRouter.post(
     check("password").exists().isLength({ min: 8, max: 12 }),
     validatorErrorChecker,
   ],
-  userController.register,
+  UserController.register,
 );
 
 // 로그인
 UserRouter.post(
   "/login",
   [check("email").exists().isEmail(), check("password").exists().isLength({ min: 8, max: 12 }), validatorErrorChecker],
-  userController.login,
+  UserController.login,
 );
 
 // 회원 정보 수정
-UserRouter.put("/updateInfo", loginRequired, userController.updateInfo);
+UserRouter.put("/updateInfo", loginRequired, UserController.updateInfo);
 
 // 회원 탈퇴
-UserRouter.delete("/withdrawal", loginRequired, userController.withdrawal);
+UserRouter.delete("/withdrawal", loginRequired, UserController.withdrawal);
 
 export { UserRouter };

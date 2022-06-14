@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "./index";
+import { sequelize } from "./index";
 import { Users } from "./user";
 import { Supplements } from "./supplement";
 
@@ -38,11 +38,14 @@ DailySupplements.init(
   },
 );
 
-Supplements.belongsToMany(Users, {
-  through: DailySupplements,
-  foreignKey: { name: "fk_supplement_id", allowNull: false },
-});
-Users.belongsToMany(Supplements, {
-  through: DailySupplements,
-  foreignKey: { name: "fk_user_id", allowNull: false },
-});
+// Supplements.belongsToMany(Users, {
+//   through: DailySupplements,
+//   foreignKey: { name: "fk_supplement_id", allowNull: false },
+// });
+// Users.belongsToMany(Supplements, {
+//   through: DailySupplements,
+//   foreignKey: { name: "fk_user_id", allowNull: false },
+// });
+
+DailySupplements.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
+DailySupplements.belongsTo(Supplements, { foreignKey: { name: "fk_supplement_id", allowNull: false } });
