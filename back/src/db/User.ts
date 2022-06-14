@@ -14,7 +14,7 @@ const User = {
     const user = await Users.findOne({ where: { pk_user_id: pk_user_id } });
     return user;
   },
-  delete: async (pk_user_id: string) => {
+  deleteById: async (pk_user_id: string) => {
     const filter = { pk_user_id };
     const user = await Users.destroy({ where: filter });
     return user;

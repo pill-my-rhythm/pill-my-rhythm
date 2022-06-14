@@ -71,7 +71,7 @@ const UserService = {
     if (!user) {
       throw new Error("해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
     }
-    const deletedUser = await User.delete(pk_user_id);
+    const deletedUser = await User.deleteById(pk_user_id);
     return deletedUser;
   },
 };
