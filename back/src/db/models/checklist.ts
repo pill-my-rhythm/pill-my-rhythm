@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
 import { Users } from "./user";
+import { colorType } from "../../interfaces/checklistInput";
 
 // These are all the attributes in the Checklist model
 
@@ -16,7 +17,7 @@ interface ChecklistAttributes {
   six: boolean;
 }
 
-export class Checklist extends Model<ChecklistAttributes> {
+export class Checklists extends Model<ChecklistAttributes> {
   pk_checklist_id: number;
   date: Date;
   level?: number;
@@ -28,7 +29,7 @@ export class Checklist extends Model<ChecklistAttributes> {
   six: boolean;
 }
 
-Checklist.init(
+Checklists.init(
   {
     pk_checklist_id: {
       type: DataTypes.INTEGER,
@@ -36,13 +37,24 @@ Checklist.init(
       primaryKey: true,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
       unique: true,
     },
     level: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      // 데이터 조회시 후처리
+      get() {
+        const color = this.getDataValue("level");
+        if (color == 1) {
+          return colorType.ONE;
+        } else if (color == 2) {
+          return colorType.TWO;
+        } else {
+          return colorType.THREE;
+        }
+      },
     },
     one: {
       type: DataTypes.BOOLEAN,
@@ -86,5 +98,5 @@ Checklist.init(
   },
 );
 
-Users.hasMany(Checklist, { foreignKey: { name: "fk_user_id", allowNull: false } });
-Checklist.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
+Users.hasMany(Checklists, { foreignKey: { name: "fk_user_id", allowNull: false } });
+Checklists.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
