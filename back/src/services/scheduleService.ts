@@ -1,16 +1,16 @@
 import { Schedule } from "../db/Schedule";
-import { Checklist_ } from "../db/Checklist";
+import { Checklist } from "../db/Checklist";
 import { DailySupplement } from "../db/DailySupplement";
 import { IScheduleCreateInput, IGetScheduleInput, IDailySupplementCreateInput } from "../interfaces/scheduleInput";
 
 const ScheduleService = {
-  getWeeklySchedule: async (pk_user_id: string, data: IGetScheduleInput) => {
-    const schedule = await Schedule.findByWeek(pk_user_id, data.start, data.finish);
+  getWeeklySchedule: async (fk_user_id: string, data: IGetScheduleInput) => {
+    const schedule = await Schedule.findByWeek(fk_user_id, data.start, data.finish);
     if (!schedule) {
       throw new Error("등록한 일정이 없습니다.");
     }
-    const checklist = await Checklist_.findByWeek(pk_user_id, data.start, data.finish);
-    const dailySupplement = await DailySupplement.findById(pk_user_id);
+    const checklist = await Checklist.findByWeek(fk_user_id, data);
+    const dailySupplement = await DailySupplement.findById(fk_user_id);
     return { schedule, checklist, dailySupplement };
   },
   addSchedule: async (fk_user_id: string, data: IScheduleCreateInput) => {
