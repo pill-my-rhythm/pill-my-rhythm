@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
 import { Users } from "./user";
+import { colorType } from "../../interfaces/checklistInput";
 
 // These are all the attributes in the Checklist model
 
@@ -43,6 +44,17 @@ Checklists.init(
     level: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      // 데이터 조회시 후처리
+      get() {
+        const color = this.getDataValue("level");
+        if (color == 1) {
+          return colorType.ONE;
+        } else if (color == 2) {
+          return colorType.TWO;
+        } else {
+          return colorType.THREE;
+        }
+      },
     },
     one: {
       type: DataTypes.BOOLEAN,
