@@ -23,28 +23,7 @@ const ChecklistService = {
 
   getWeeklyChecklist: async (fk_user_id: string, { start, finish }: IChecklistWeeklyInput) => {
     const weeklyChecklist = await Checklist.findByWeek(fk_user_id, { start, finish });
-    const checklistColors: any = [...weeklyChecklist];
-
-    enum colorType {
-      GREEN = "green",
-      YELLOW = "yellow",
-      RED = "red",
-    }
-    interface dataValues {
-      level: number;
-      color: colorType;
-    }
-    checklistColors.forEach((element: { dataValues: dataValues }) => {
-      if (element.dataValues.level == 1) {
-        element.dataValues.color = colorType.GREEN;
-      } else if (element.dataValues.level == 2) {
-        element.dataValues.color = colorType.YELLOW;
-      } else {
-        element.dataValues.color = colorType.RED;
-      }
-    });
-
-    return checklistColors;
+    return weeklyChecklist;
   },
 };
 
