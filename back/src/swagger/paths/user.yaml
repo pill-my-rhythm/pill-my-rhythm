@@ -33,7 +33,7 @@
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
-/user/updateInfo:
+/user/update-info:
   put:
     tags:
       - user
