@@ -14,9 +14,9 @@ function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   //useState로 name 상태를 생성함.
   const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
-  const [ageRange, setAgeRange] = useState("");
-  const [job, setJob] = useState("");
+  const [gender, setGender] = useState("M");
+  const [ageRange, setAgeRange] = useState("10대");
+  const [job, setJob] = useState("교육");
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
@@ -81,7 +81,7 @@ function RegisterForm() {
       </div>
       <div>
         <label>
-          <select className="select select-bordered w-full max-w-xs" value={gender} onChange={(e) => console.log(e.target.value)}>
+          <select className="select select-bordered w-full max-w-xs" value={gender} onChange={(e) => setGender(e.target.value)}>
             <option disabled selected>
               성별
             </option>
