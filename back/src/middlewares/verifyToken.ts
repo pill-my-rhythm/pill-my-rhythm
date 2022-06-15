@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -14,7 +15,7 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
       const secretKey: string = process.env.JWT_SECRET_KEY;
       const userToken = req.headers["authorization"].split(" ")[1];
       const jwtDecoded: any = jwt.verify(userToken, secretKey);
-      req.currentUserId = jwtDecoded.user_id;
+      req.currentUserId = jwtDecoded.userId;
       next();
     }
   } catch (error) {
