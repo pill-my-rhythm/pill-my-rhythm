@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { User } from "../db/User";
 import { makeToken } from "../utils/jwt-util";
 import { verifyToken, verifyRefreshToken } from "../utils/jwt-util";
-
-import dotenv from "dotenv";
-dotenv.config();
 
 const verifyRefresh = async (req: Request, res: Response, next: NextFunction) => {
   if (req.headers["authorization"] && req.headers["refresh"]) {
@@ -21,10 +19,13 @@ const verifyRefresh = async (req: Request, res: Response, next: NextFunction) =>
         message: "No authorized!",
       });
     }
-
+    const user = await User.findByUserId(userId);
+    if (!user) {
+      throw new Error("가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
+    }
     const refreshResult = await verifyRefreshToken(refreshToken, userId);
 
-    if (authResult.ok === false && authResult.message === "jwt expired") {
+    if (authResult.ok === false) {
       // 1. access token 만료 + refresh token 만료
       if (refreshResult === false) {
         res.status(401).send({
@@ -50,12 +51,14 @@ const verifyRefresh = async (req: Request, res: Response, next: NextFunction) =>
         message: "Access token is not expired!",
       });
     }
+    next();
   } else {
     res.status(400).send({
       ok: false,
       message: "Access token and refresh token are need for refresh!",
     });
   }
+  next();
 };
 
 export { verifyRefresh };
