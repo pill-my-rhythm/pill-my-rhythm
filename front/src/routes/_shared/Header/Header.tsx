@@ -25,7 +25,7 @@ const Header = () => {
     <div className="navbar w-full bg-base-100 sticky top-0">
       <div className="flex-1">
         <a href="/" className="btn btn-ghost normal-case text-xl">
-          <img src="https://blog.kakaocdn.net/dn/bro2IW/btrEji2iHDE/gJHWwqC1zfOCxRpv2cOwP0/img.png" width={30} height={30} className="mr-2" />
+          <img src="https://blog.kakaocdn.net/dn/bro2IW/btrEji2iHDE/gJHWwqC1zfOCxRpv2cOwP0/img.png" alt="icon" width={30} height={30} className="mr-2" />
           Pill my rhythm
         </a>
       </div>
