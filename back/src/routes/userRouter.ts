@@ -3,6 +3,7 @@ import { UserController } from "../controllers/userController";
 import { check } from "express-validator";
 import { validatorErrorChecker } from "../middlewares/validator";
 import { verifyToken } from "../middlewares/verifyToken";
+import { verifyRefresh } from "../middlewares/verifyRefreshToken";
 
 const UserRouter = Router();
 
@@ -30,5 +31,8 @@ UserRouter.put("/update-info", verifyToken, UserController.updateInfo);
 
 // 회원 탈퇴
 UserRouter.delete("/withdrawal", verifyToken, UserController.withdrawal);
+
+// token 재발급
+UserRouter.get("/refresh", verifyRefresh);
 
 export { UserRouter };
