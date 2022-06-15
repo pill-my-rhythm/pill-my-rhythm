@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  version: 1.0.0
+  version: 0.0.1
   title: Web API docs
   description: team 17 API 문서입니다
   license:
@@ -55,7 +55,7 @@ paths:
       tags:
         - user
       summary: 회원 정보 수정 API 입니다.
-      description: '(필수) accessToken (선택) gender, age_range, job'
+      description: '(필수) accessToken (선택) password, gender, age_range, job'
       security:
         - bearerAuth: []
       requestBody:
@@ -65,6 +65,8 @@ paths:
             schema:
               type: object
               properties:
+                password:
+                  type: string
                 gender:
                   type: string
                 age_range:
@@ -126,7 +128,8 @@ paths:
             schema:
               type: object
               properties:
-                type: string
+                type:
+                  type: string
                 start:
                   type: string
                   format: date_time
@@ -155,7 +158,8 @@ paths:
             schema:
               type: object
               properties:
-                type: string
+                type:
+                  type: string
                 fk_supplement_id:
                   type: string
       responses:
