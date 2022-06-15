@@ -1,12 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Main = () => {
+  const navigate = useNavigate();
+  const tempNavigate = () => {
+    navigate("/result");
+  };
   return (
+    // img 추후에 asset에 저장할 것!
     <div
       className="hero min-h-screen"
       style={{ backgroundImage: "url(" + "https://r7q6w9z6.rocketcdn.me/career/wp-content/uploads/2021/05/image_processing20210222-9274-1wg7luu.gif?w=1000&h=800" + ")" }}
     >
-      <div className="hero-overlay bg-opacity-60"></div>
+      <div className="hero-overlay bg-opacity-60" />
       <div className="hero-content text-center text-neutral-content">
         {/* // * Steps (현재 vertical) */}
         <ul className="steps steps-vertical">
@@ -33,7 +39,7 @@ const Main = () => {
               <div className="input-group">
                 {/* // * 메인 Search창 */}
                 <input type="text" placeholder="요즘 눈이 안 좋아요... 면역력이 떨어졌어요..." className="input input-bordered w-5/6" />
-                <button className="btn btn-primary">
+                <button className="btn btn-primary" onClick={tempNavigate}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>

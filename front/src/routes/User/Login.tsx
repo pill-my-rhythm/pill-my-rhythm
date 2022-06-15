@@ -1,12 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unreachable */
 
-/* // ! 코치님 지금 아직 완성된 기능이 아니고 진행 사항 보고를 위해 커밋해둔 파일입니다. 코드 리뷰시 일단 넘어가셔도 괜찮을 것 같습니다 ㅠㅠ */
-
-// import React, { useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
-// import * as Api from "../../Api";
-// import { useRecoilState } from "recoil";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { post } from "../../Api";
+import { DispatchContext } from "../../Dispatcher";
 
 const LoginForm = () => {
   // const navigate = useNavigate();
@@ -28,8 +26,8 @@ const LoginForm = () => {
   // // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
   // const isFormValid = isEmailValid && isPasswordValid;
 
-  // const handleSubmit = async (e: { preventDefault: () => void }) => {
-  //   e.preventDefault();
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (e) => {
+    e.preventDefault();
 
   //   try {
   //     // "user/login" 엔드포인트로 post요청함.
@@ -49,12 +47,12 @@ const LoginForm = () => {
   //       payload: user,
   //     });
 
-  //     // 기본 페이지로 이동함.
-  //     navigate("/", { replace: true });
-  //   } catch (err) {
-  //     console.log("로그인에 실패하였습니다.\n", err);
-  //   }
-  // };
+      // 기본 페이지로 이동함.
+      navigate("/");
+    } catch (err) {
+      console.log("로그인에 실패하였습니다.\n", err);
+    }
+  };
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -68,7 +66,7 @@ const LoginForm = () => {
             </a>
           </p>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -126,6 +124,7 @@ const LoginForm = () => {
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              disabled={!isFormValid}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg className="h-5 w-5 text-teal-500 group-hover:text-teal-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

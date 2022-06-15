@@ -43,7 +43,8 @@
           schema:
             type: object
             properties:
-              type: string
+              type:
+                type: string
               start:
                 type: string
                 format: date_time
@@ -74,7 +75,8 @@
           schema:
             type: object
             properties:
-              type: string
+              type:
+                type: string
               fk_supplement_id:
                 type: string
     responses:

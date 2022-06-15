@@ -5,19 +5,23 @@ import Schedule from "./routes/Schedule/Schedule";
 import Calendar from "./routes/Schedule/Calendar";
 import Register from "./routes/User/Reigsterform";
 import Login from "./routes/User/Login";
+import Dispatcher from "./Dispatcher";
+import Result from "./routes/PR/Result";
 
 function Router() {
   return (
-    <BrowserRouter>
-      {/* <Header /> */}
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Main />} />
-        <Route path="/schedule" element={<Calendar />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <Dispatcher>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/schedule" element={<Calendar />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/result" element={<Result />} />
+        </Routes>
+      </BrowserRouter>
+    </Dispatcher>
   );
 }
 

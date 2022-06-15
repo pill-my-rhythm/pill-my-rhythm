@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import * as Api from "../../Api";
+import { post } from "../../Api";
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -35,12 +35,12 @@ function RegisterForm() {
   // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (e) => {
     e.preventDefault();
 
     try {
       // "user/register" 엔드포인트로 post요청함.
-      await Api.post("user/register", {
+      await post("user/register", {
         user_name: name,
         email: email,
         password: password,

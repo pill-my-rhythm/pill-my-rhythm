@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  version: 1.0.0
+  version: 0.0.1
   title: Web API docs
   description: team 17 API 문서입니다
   license:
