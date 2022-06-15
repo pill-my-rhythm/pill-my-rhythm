@@ -1,7 +1,7 @@
+import bcrypt from "bcrypt";
+import redisClient from "../utils/redis";
 import { User } from "../db/User";
 import { Users } from "../db/models/user";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { makeToken, makeRefreshToken } from "../utils/jwt-util";
 import { IUserInput, IUserInfoUpdateInput } from "../interfaces/userInput";
 
@@ -30,9 +30,10 @@ const UserService = {
       throw new Error("비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.");
     }
 
-    // 로그인 성공 -> access token, refresh token 발급
+    // 로그인 성공 -> access token, refresh token 발급 + redis 저장
     const accessToken = makeToken({ userId: user.pk_user_id });
     const refreshToken = makeRefreshToken();
+    redisClient.set(user.pk_user_id, refreshToken);
 
     const { pk_user_id, user_name, gender, age_range, job } = user;
     const discoveredUser = {
