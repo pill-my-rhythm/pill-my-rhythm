@@ -1,0 +1,40 @@
+#scroll,
+#list {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 240px;
+  cursor: default;
+}
+
+#list {
+  width: 200px;
+  border-radius: 5px;
+  margin-bottom: 7px;
+}
+
+#scroll {
+  background-color: #dadfe9;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  box-sizing: border-box;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+#scheduler {
+  margin-left: 270px;
+}
+
+.dx-draggable-source {
+  opacity: 0.5;
+}
+
+.dx-draggable-dragging > * {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

@@ -7,13 +7,14 @@ import { appointmentsAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import "devextreme/dist/css/dx.greenmist.css";
 import ListItem from "./TaskItem";
+import "./Calendar.css";
 
 const Wrapper = styled.div`
   padding: 20px 30px 20px 30px;
   margin: 20px;
   width: 240px;
-  background: #3eb8b0;
-  border-radius: 5px;
+  /* background: #3eb8b0; */
+  /* border-radius: 5px; */
 `;
 
 let now = new Date();
@@ -40,6 +41,16 @@ function Calendar() {
       setTasks([...tasksCopy]);
     }
   };
+
+  // const onAppointmentDeleting = (e: any) => {
+  //   const index = appointments.indexOf(e.itemData);
+  //   console.log(appointments, index);
+  //   // const appointmentsCopy = [...appointments];
+  //   // if (index >= 0) {
+  //   //   appointmentsCopy.splice(index, 1);
+  //   //   setAppointments([...appointmentsCopy]);
+  //   // }
+  // };
 
   const onListDragStart = (e: any) => {
     e.cancel = true;
@@ -69,6 +80,8 @@ function Calendar() {
         height={600}
         startDayHour={8}
         onAppointmentFormOpening={onAppointmentFormOpening}
+        // onAppointmentDeleting={onAppointmentDeleting}
+        showAllDayPanel={false}
       >
         <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
       </Scheduler>
