@@ -4,7 +4,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { post } from "../../Api";
-import { DispatchContext } from "./Dispatcher";
+import { DispatchContext } from "../../Dispatcher";
 
 const LoginForm = () => {
   const navigate = useNavigate();

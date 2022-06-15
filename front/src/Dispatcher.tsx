@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
-import { post, get } from "../../Api";
-import App from "../../App";
-import { loginReducer } from "../../reducer";
-import jwtDecode from "jwt-decode";
+import { get } from "./Api";
+import { loginReducer } from "./reducer";
+import Router from "./Router";
 
-export const UserStateContext = createContext(null);
-export const DispatchContext = createContext<any>(null);
+export const UserStateContext = createContext<any | null>(null);
+export const DispatchContext = createContext<any | null>(null);
 
 function Dispatcher() {
   // useReducer 훅을 통해 userState 상태와 dispatch함수를 생성함.
@@ -20,10 +19,9 @@ function Dispatcher() {
   const fetchCurrentUser = React.useCallback(async () => {
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
-      const userToken: any = sessionStorage.getItem("userToken");
-      const jwtDecoded: any = jwtDecode(userToken);
-      const userId = jwtDecoded.userId;
-      const res = await get("users", userId);
+      const user = sessionStorage.getItem("userToken");
+
+      const res = await get("users");
       const currentUser = res.data;
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
       dispatch({
@@ -37,21 +35,22 @@ function Dispatcher() {
     }
     // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
     setIsFetchCompleted(true);
-  };
+  }, []);
 
   // useEffect함수를 통해 fetchCurrentUser 함수를 실행함.
   useEffect(() => {
     fetchCurrentUser();
-  }, []);
+  }, [fetchCurrentUser]);
 
   if (!isFetchCompleted) {
-    return "loading...";
+    return <span>loading...</span>;
   }
 
   return (
     <DispatchContext.Provider value={dispatch}>
-      <UserStateContext.Provider value={userState} />
-      <App />
+      <UserStateContext.Provider value={userState}>
+        <Router />
+      </UserStateContext.Provider>
     </DispatchContext.Provider>
   );
 }
