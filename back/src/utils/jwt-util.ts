@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import redisClient from "./redis";
 import { ITokenInput } from "../interfaces/userInput";
 import { getErrorMessage } from "./error-util";
-import { promisify } from "util";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -46,10 +45,8 @@ const verifyToken = (token: string) => {
 const verifyRefreshToken = async (token: string, userId: string) => {
   try {
     // redis db에서 refresh token 가져오기
-    const getAsync = promisify(redisClient.get).bind(redisClient);
-    const refreshToken = await getAsync(userId);
-
-    if (token === refreshToken) {
+    const getRefreshToken = await redisClient.get(userId);
+    if (token === getRefreshToken) {
       try {
         jwt.verify(token, secretKey);
         return true;
