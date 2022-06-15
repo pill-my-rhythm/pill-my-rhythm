@@ -5,6 +5,7 @@ import Schedule from "./routes/Schedule/Schedule";
 import Register from "./routes/User/Reigsterform";
 import Login from "./routes/User/Login";
 import Dispatcher from "./Dispatcher";
+import Result from "./routes/PR/Result";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
           <Route path="/" element={<Main />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </BrowserRouter>
     </Dispatcher>
