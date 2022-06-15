@@ -38,7 +38,7 @@
     tags:
       - user
     summary: 회원 정보 수정 API 입니다.
-    description: (필수) accessToken (선택) gender, age_range, job
+    description: (필수) accessToken (선택) password, gender, age_range, job
     security:
       - bearerAuth: []
     requestBody:
@@ -48,6 +48,8 @@
           schema:
             type: object
             properties:
+              password:
+                type: string
               gender:
                 type: string
               age_range:
