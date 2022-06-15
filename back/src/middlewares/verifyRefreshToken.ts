@@ -13,6 +13,7 @@ const verifyRefresh = async (req: Request, res: Response, next: NextFunction) =>
 
     const authResult = verifyToken(userToken);
     const jwtDecoded: any = jwt.decode(userToken);
+    const userId: string = jwtDecoded.userId;
 
     if (!jwtDecoded) {
       res.status(401).send({
@@ -21,7 +22,7 @@ const verifyRefresh = async (req: Request, res: Response, next: NextFunction) =>
       });
     }
 
-    const refreshResult = await verifyRefreshToken(refreshToken, jwtDecoded.userId);
+    const refreshResult = await verifyRefreshToken(refreshToken, userId);
 
     if (authResult.ok === false && authResult.message === "jwt expired") {
       // 1. access token 만료 + refresh token 만료
@@ -32,7 +33,7 @@ const verifyRefresh = async (req: Request, res: Response, next: NextFunction) =>
         });
       } else {
         // 2. access token이 만료 + refresh token은 만료 X
-        const newAccessToken = makeToken({ userId: jwtDecoded.userId });
+        const newAccessToken = makeToken({ userId: userId });
 
         res.status(200).send({
           ok: true,
