@@ -18,6 +18,13 @@ const VideoArea = () => {
             “something”을 섭취하기 전에 주의할 점을 영상을 통해 확인해보세요😃
           </p>
         </div>
+        <ul className="steps md:steps-vertical mb-8">
+          <li className="step step-accent">Search</li>
+          <li className="step step-accent">AI analysis</li>
+          <li className="step step-accent" data-content="✓">
+            Result
+          </li>
+        </ul>
       </div>
     </div>
   );
