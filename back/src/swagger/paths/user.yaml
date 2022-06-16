@@ -78,7 +78,7 @@
     tags:
       - user
     summary: access token 재발급 API 입니다.
-    description: (필수) accessToken, refreshToken, 요청 {"authorizaiton":"Bearer access-token","Refresh":"refresh-token"}
+    description: (필수) accessToken, refreshToken, 요청 {"authorizaiton":"Bearer access-token","refresh":"refresh-token"}
     parameters:
       - in: header
         name: refresh
