@@ -23,6 +23,8 @@ paths:
     $ref: "./paths/user.yaml#/~1user~1update-info"
   /user/withdrawal:
     $ref: "./paths/user.yaml#/~1user~1withdrawal"
+  /user/current:
+    $ref: "./paths/user.yaml#/~1user~1current"
   /user/refresh:
     $ref: "./paths/user.yaml#/~1user~1refresh"
   /schedule:

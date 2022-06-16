@@ -73,6 +73,17 @@
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/current:
+  get:
+    tags:
+      - user
+    summary: 현재 회원 정보 조회
+    description: (필수) accessToken
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
 /user/refresh:
   get:
     tags:
