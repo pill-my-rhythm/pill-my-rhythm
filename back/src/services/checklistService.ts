@@ -1,11 +1,12 @@
 import { Checklist } from "../db/Checklist";
+import { HttpException } from "../utils/error-util";
 import { IChecklistCreateType, IChecklistWeeklyInput } from "../interfaces/checklistInput";
 
 const ChecklistService = {
   addChecklist: async (data: IChecklistCreateType) => {
     const checklist = await Checklist.findByDate(data.fk_user_id, data.date);
     if (checklist) {
-      throw new Error("오늘은 이미 체크리스트를 작성하셨습니다.");
+      throw new HttpException(409, "오늘은 이미 체크리스트를 작성하셨습니다.");
     }
 
     const levelCount = Object.values(data).filter((element) => element === true).length;

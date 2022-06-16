@@ -2,11 +2,11 @@ import { Router } from "express";
 import { ScheduleController } from "../controllers/scheduleController";
 import { check } from "express-validator";
 import { validatorErrorChecker } from "../middlewares/validator";
-import { loginRequired } from "../middlewares/loginRequired";
+import { verifyToken } from "../middlewares/verifyToken";
 
 const ScheduleRouter = Router();
 
-ScheduleRouter.use(loginRequired);
+ScheduleRouter.use(verifyToken);
 
 // 전체 스케줄 조회
 ScheduleRouter.get("/", ScheduleController.getWeeklySchedule);
