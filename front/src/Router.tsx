@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./routes/PR/Main";
 import Header from "./routes/_shared/Header";
-import Schedule from "./routes/Schedule/Schedule";
 import Calendar from "./routes/Schedule/Calendar";
 import Register from "./routes/User/Reigsterform";
 import Login from "./routes/User/Login";
@@ -14,9 +13,9 @@ function Router() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/register" element={<Register />} />
           <Route path="/" element={<Main />} />
           <Route path="/schedule" element={<Calendar />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/result" element={<Result />} />
         </Routes>

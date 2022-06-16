@@ -13,8 +13,6 @@ const Wrapper = styled.div`
   padding: 20px 30px 20px 30px;
   margin: 20px;
   width: 240px;
-  /* background: #3eb8b0; */
-  /* border-radius: 5px; */
 `;
 
 let now = new Date();
@@ -64,6 +62,7 @@ function Calendar() {
       </b>
     );
   };
+
   return (
     <React.Fragment>
       <Wrapper>
