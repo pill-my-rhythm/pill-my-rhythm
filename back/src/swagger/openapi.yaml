@@ -19,6 +19,8 @@ paths:
     $ref: "./paths/user.yaml#/~1user~1register"
   /user/login:
     $ref: "./paths/user.yaml#/~1user~1login"
+  /user/logout:
+    $ref: "./paths/user.yaml#/~1user~1logout"
   /user/update-info:
     $ref: "./paths/user.yaml#/~1user~1update-info"
   /user/withdrawal:
