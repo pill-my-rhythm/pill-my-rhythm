@@ -89,6 +89,23 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
+  /user/refresh:
+    get:
+      tags:
+        - user
+      summary: access token 재발급 API 입니다.
+      description: '(필수) accessToken, refreshToken, 요청 {"authorizaiton":"Bearer access-token","Refresh":"refresh-token"}'
+      parameters:
+        - in: header
+          name: refresh
+          schema:
+            type: string
+          required: true
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
   /schedule:
     get:
       tags:
