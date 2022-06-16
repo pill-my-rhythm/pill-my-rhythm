@@ -47,7 +47,13 @@ const UserService = {
 
     return { userInfo, accessToken, refreshToken };
   },
-
+  getUserInfo: async (pk_user_id: string) => {
+    const userInfo = await User.findById(pk_user_id);
+    if (!userInfo) {
+      throw new Error("가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
+    }
+    return userInfo;
+  },
   updateUserInfo: async (pk_user_id: string, updateDate: IUserInfoUpdateInput) => {
     // 이메일 db에 존재 여부 확인
     const user: Users = await User.findByUserId(pk_user_id);
