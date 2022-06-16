@@ -32,7 +32,7 @@ UserRouter.put("/update-info", verifyToken, UserController.updateInfo);
 // 회원 탈퇴
 UserRouter.delete("/withdrawal", verifyToken, UserController.withdrawal);
 
-// 현재 유저 정보 조회
+// 현재 회원 정보 조회
 UserRouter.get("/current", verifyToken, UserController.currentUserInfo);
 
 // token 재발급
