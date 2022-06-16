@@ -15,6 +15,13 @@ const Wrapper = styled.div`
   width: 240px;
 `;
 
+export interface Appintments {
+  allDay: boolean;
+  endDate: Date;
+  startDate: Date;
+  text: string;
+}
+
 let now = new Date();
 const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 const views: Array<Object> = [{ type: "day", intervalCount: 7 }];
@@ -22,7 +29,7 @@ const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
-  const [appointments, setAppointments] = useRecoilState<Array<Object>>(appointmentsAtom);
+  const [appointments, setAppointments] = useRecoilState<Array<Appintments>>(appointmentsAtom);
 
   const onAppointmentAdd = (e: any) => {
     // index : 움직인 item의 index 값
@@ -37,15 +44,15 @@ function Calendar() {
     }
   };
 
-  // const onAppointmentDeleting = (e: any) => {
-  //   const index = appointments.indexOf(e.itemData);
-  //   console.log(appointments, index);
-  //   // const appointmentsCopy = [...appointments];
-  //   // if (index >= 0) {
-  //   //   appointmentsCopy.splice(index, 1);
-  //   //   setAppointments([...appointmentsCopy]);
-  //   // }
-  // };
+  const onAppointmentDeleting = (e: any) => {
+    e.cancel = true;
+    const index = appointments.findIndex((appointments) => appointments.text === e.appointmentData.text);
+    const appointmentsCopy = [...appointments];
+    if (index >= 0) {
+      appointmentsCopy.splice(index, 1);
+      setAppointments([...appointmentsCopy]);
+    }
+  };
 
   const onListDragStart = (e: any) => {
     e.cancel = true;
@@ -83,7 +90,7 @@ function Calendar() {
         height={600}
         startDayHour={8}
         onAppointmentFormOpening={onAppointmentFormOpening}
-        // onAppointmentDeleting={onAppointmentDeleting}
+        onAppointmentDeleting={onAppointmentDeleting}
         showAllDayPanel={false}
         dateCellRender={renderDateCell}
       >
