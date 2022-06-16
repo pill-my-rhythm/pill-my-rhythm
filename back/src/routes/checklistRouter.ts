@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { ChecklistController } from "../controllers/checklistController";
 import { check } from "express-validator";
-import { loginRequired } from "../middlewares/loginRequired";
+import { validatorErrorChecker } from "../middlewares/validator";
+import { verifyToken } from "../middlewares/verifyToken";
 
 const ChecklistRouter = Router();
-ChecklistRouter.use(loginRequired);
+ChecklistRouter.use(verifyToken);
 
 ChecklistRouter.post(
   "/create",
@@ -16,13 +17,14 @@ ChecklistRouter.post(
     check("four").exists().isBoolean(),
     check("five").exists().isBoolean(),
     check("six").exists().isBoolean(),
+    validatorErrorChecker,
   ],
   ChecklistController.create,
 );
 
 ChecklistRouter.get(
   "/weekly",
-  [check("start").exists().isDate(), check("end").exists().isDate()],
+  [check("start").exists().isDate(), check("end").exists().isDate(), validatorErrorChecker],
   ChecklistController.getWeekly,
 );
 

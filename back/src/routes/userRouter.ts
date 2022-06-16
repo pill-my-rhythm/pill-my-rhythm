@@ -2,7 +2,8 @@ import { Router } from "express";
 import { UserController } from "../controllers/userController";
 import { check } from "express-validator";
 import { validatorErrorChecker } from "../middlewares/validator";
-import { loginRequired } from "../middlewares/loginRequired";
+import { verifyToken } from "../middlewares/verifyToken";
+import { verifyRefresh } from "../middlewares/verifyRefreshToken";
 
 const UserRouter = Router();
 
@@ -25,10 +26,19 @@ UserRouter.post(
   UserController.login,
 );
 
+// 로그아웃
+UserRouter.delete("/logout", verifyToken, UserController.logout);
+
 // 회원 정보 수정
-UserRouter.put("/updateInfo", loginRequired, UserController.updateInfo);
+UserRouter.put("/update-info", verifyToken, UserController.updateInfo);
 
 // 회원 탈퇴
-UserRouter.delete("/withdrawal", loginRequired, UserController.withdrawal);
+UserRouter.delete("/withdrawal", verifyToken, UserController.withdrawal);
+
+// 현재 회원 정보 조회
+UserRouter.get("/current", verifyToken, UserController.currentUserInfo);
+
+// token 재발급
+UserRouter.get("/refresh", verifyRefresh);
 
 export { UserRouter };
