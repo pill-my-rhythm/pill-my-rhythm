@@ -35,7 +35,7 @@ const Header = () => {
             <a>Search</a>
           </li>
           <li>
-            <a>Schedular</a>
+            <a href="/schedule">Schedular</a>
           </li>
           <li>
             <a>Contact us</a>

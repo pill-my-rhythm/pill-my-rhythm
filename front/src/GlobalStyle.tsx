@@ -65,6 +65,7 @@ a {
 }
 .dx-widget {
   font-family: 'Pretendard' !important;
+  background-color: white;
 }
 `;
 
