@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/userService";
 import { Users } from "../db/models/user";
-import { HttpException } from "../utils/error-util";
 import { IUserInput, IUserLoginInput, IUserInfoUpdateInput } from "../interfaces/userInput";
 
 const UserController = {
