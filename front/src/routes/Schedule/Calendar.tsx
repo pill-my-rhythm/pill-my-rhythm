@@ -10,9 +10,13 @@ import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 
 const Wrapper = styled.div`
-  padding: 20px 30px 20px 30px;
   margin: 20px;
   width: 240px;
+`;
+
+const Title = styled.h2`
+  margin-left: 270px;
+  margin-bottom: 40px;
 `;
 
 export interface Appintments {
@@ -81,6 +85,7 @@ function Calendar() {
           </Draggable>
         </ScrollView>
       </Wrapper>
+      <Title className="text-3xl font-extrabold text-gray-900">Scheduler</Title>
       <Scheduler
         timeZone="Asia/Seoul"
         id="scheduler"
