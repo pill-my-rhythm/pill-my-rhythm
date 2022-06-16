@@ -26,6 +26,9 @@ UserRouter.post(
   UserController.login,
 );
 
+// 로그아웃
+UserRouter.delete("/logout", verifyToken, UserController.logout);
+
 // 회원 정보 수정
 UserRouter.put("/update-info", verifyToken, UserController.updateInfo);
 

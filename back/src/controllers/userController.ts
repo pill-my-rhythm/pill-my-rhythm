@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/userService";
 import { Users } from "../db/models/user";
+import { HttpException } from "../utils/error-util";
 import { IUserInput, IUserLoginInput, IUserInfoUpdateInput } from "../interfaces/userInput";
 
 const UserController = {
@@ -21,6 +22,17 @@ const UserController = {
       const user = await UserService.getUser(email, password);
 
       res.status(201).json(user);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  logout: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const pk_user_id = req.currentUserId;
+      const result = await UserService.deleteToken(pk_user_id);
+
+      res.status(201).json(result);
     } catch (error) {
       next(error);
     }
@@ -49,6 +61,7 @@ const UserController = {
       next(error);
     }
   },
+
   currentUserInfo: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const pk_user_id = req.currentUserId;
