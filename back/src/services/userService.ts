@@ -36,7 +36,7 @@ const UserService = {
     redisClient.set(user.pk_user_id, refreshToken);
 
     const { pk_user_id, user_name, gender, age_range, job } = user;
-    const discoveredUser = {
+    const userInfo = {
       pk_user_id,
       user_name,
       email,
@@ -45,7 +45,7 @@ const UserService = {
       job,
     };
 
-    return { discoveredUser, accessToken, refreshToken };
+    return { userInfo, accessToken, refreshToken };
   },
 
   updateUserInfo: async (pk_user_id: string, updateDate: IUserInfoUpdateInput) => {
