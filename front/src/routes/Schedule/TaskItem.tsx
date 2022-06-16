@@ -24,15 +24,7 @@ function TaskItem({ task }: taskProps) {
     }
   };
   return (
-    <Draggable
-      key={task.text}
-      // className="item dx-card dx-theme-text-color dx-theme-background-color"
-      clone={true}
-      group={draggingGroupName}
-      data={task}
-      onDragStart={onItemDragStart}
-      onDragEnd={onItemDragEnd}
-    >
+    <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
       <Card>{task.text}</Card>
     </Draggable>
   );

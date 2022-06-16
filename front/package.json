@@ -17,6 +17,7 @@
     "@types/tailwindcss": "^3.0.10",
     "axios": "^0.27.2",
     "daisyui": "^2.15.2",
+    "devextreme": "^21.2.8",
     "devextreme-react": "^21.2.8",
     "react": "^18.1.0",
     "react-beautiful-dnd": "^13.1.0",

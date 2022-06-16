@@ -7,45 +7,45 @@ import { post } from "../../Api";
 import { DispatchContext } from "../../Dispatcher";
 
 const LoginForm = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useContext(DispatchContext);
+  const navigate = useNavigate();
+  const dispatch = useContext(DispatchContext);
 
-  // const [email, setEmail] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  // //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
-  // const validateEmail = (email: string) => {
-  //   return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-  // };
+  //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
+  const validateEmail = (email: string) => {
+    return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  };
 
-  // //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
-  // const isEmailValid = validateEmail(email);
-  // // 비밀번호가 4글자 이상인지 여부를 확인함.
-  // const isPasswordValid = password.length >= 4;
-  // //
-  // // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
-  // const isFormValid = isEmailValid && isPasswordValid;
+  //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
+  const isEmailValid = validateEmail(email);
+  // 비밀번호가 4글자 이상인지 여부를 확인함.
+  const isPasswordValid = password.length >= 4;
+  //
+  // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
+  const isFormValid = isEmailValid && isPasswordValid;
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (e) => {
     e.preventDefault();
 
-  //   try {
-  //     // "user/login" 엔드포인트로 post요청함.
-  //     const res = await Api.post("user/login", {
-  //       email,
-  //       password,
-  //     });
-  //     // 유저 정보는 response의 data임.
-  //     const user = res.data;
-  //     // JWT 토큰은 유저 정보의 token임.
-  //     const jwtToken = user.token;
-  //     // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
-  //     sessionStorage.setItem("userToken", jwtToken);
-  //     // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-  //     dispatch({
-  //       type: "LOGIN_SUCCESS",
-  //       payload: user,
-  //     });
+    try {
+      // "user/login" 엔드포인트로 post요청함.
+      const res = await post("user/login", {
+        email,
+        password,
+      });
+      // 유저 정보는 response의 data임.
+      const user = res.data;
+      // JWT 토큰은 유저 정보의 token임.
+      const jwtToken = user.token;
+      // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
+      sessionStorage.setItem("userToken", jwtToken);
+      // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: user,
+      });
 
       // 기본 페이지로 이동함.
       navigate("/");
@@ -56,7 +56,7 @@ const LoginForm = () => {
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      {/* <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
           <p className="mt-2 text-center text-sm text-gray-600">
@@ -135,7 +135,7 @@ const LoginForm = () => {
             </button>
           </div>
         </form>
-      </div> */}
+      </div>
     </div>
   );
 };

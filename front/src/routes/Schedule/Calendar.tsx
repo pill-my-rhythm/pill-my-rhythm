@@ -2,11 +2,11 @@ import React from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { appointmentsAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
-import "devextreme/dist/css/dx.greenmist.css";
 import ListItem from "./TaskItem";
+import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 
 const Wrapper = styled.div`
@@ -23,7 +23,7 @@ const views: Array<Object> = [{ type: "day", intervalCount: 7 }];
 const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
+  const tasks = useRecoilValue(tasksAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Object>>(appointmentsAtom);
 
   const onAppointmentAdd = (e: any) => {
@@ -32,13 +32,10 @@ function Calendar() {
     // tasks : 리스트 아이템
     // appointments : 캘린더에 움직여진 item의 정보
     const index = tasks.indexOf(e.fromData);
-    const tasksCopy = [...tasks];
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
-      tasksCopy.splice(index, 0);
       appointmentsCopy.push(e.itemData);
       setAppointments([...appointmentsCopy]);
-      setTasks([...tasksCopy]);
     }
   };
 
@@ -60,6 +57,13 @@ function Calendar() {
     e.cancel = true;
   };
 
+  const renderDateCell = (data: { text: string }, index: number) => {
+    return (
+      <b style={{ color: "green", fontWeight: "bold" }}>
+        <button>{data.text}</button>
+      </b>
+    );
+  };
   return (
     <React.Fragment>
       <Wrapper>
@@ -82,6 +86,7 @@ function Calendar() {
         onAppointmentFormOpening={onAppointmentFormOpening}
         // onAppointmentDeleting={onAppointmentDeleting}
         showAllDayPanel={false}
+        dateCellRender={renderDateCell}
       >
         <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
       </Scheduler>
