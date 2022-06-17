@@ -6,6 +6,7 @@ import Register from "./routes/User/Reigsterform";
 import Login from "./routes/User/Login";
 import Dispatcher from "./Dispatcher";
 import Result from "./routes/PR/Result";
+import Mypage from "./routes/User/MyPage";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/mypage" element={<Mypage />} />
         </Routes>
       </BrowserRouter>
     </Dispatcher>
