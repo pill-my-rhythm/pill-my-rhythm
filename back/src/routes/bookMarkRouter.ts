@@ -10,6 +10,6 @@ BookMarkRouter.use(verifyToken);
 BookMarkRouter.get("/", BookMarkController.getAllBookmarks);
 
 // 북마크 추가
-// BookMarkRouter.post("/create", BookMarkController.create);
+BookMarkRouter.post("/create/:supplement_id", BookMarkController.create);
 
 export { BookMarkRouter };
