@@ -27,4 +27,7 @@ ScheduleRouter.post(
 // Daily Supplement 등록
 ScheduleRouter.post("/daily-supplement", ScheduleController.createDailySupplement);
 
+// Daily Supplement 삭제
+ScheduleRouter.delete("/daily-supplement/:plan_id", ScheduleController.deleteDailySupplement);
+
 export { ScheduleRouter };
