@@ -11,16 +11,17 @@ const BookMarkController = {
       next(error);
     }
   },
-  //   create: async (req: Request, res: Response, next: NextFunction) => {
-  //     try {
-  //       const fk_user_id: string = req.currentUserId;
-  //       const { type, start, finish, to_do }: IScheduleCreateInput = req.body;
-  //       const newSchedule = await BookMarkService.addBookMark(fk_user_id, { type, start, finish, to_do });
+  create: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const fk_supplement_id = Number(req.params.supplement_id);
+      const newBookMark = await BookMarkService.addBookMark({ fk_user_id, fk_supplement_id });
 
-  //       res.status(201).json(newSchedule);
-  //     } catch (error) {
-  //       next(error);
-  //     }
+      res.status(201).json(newBookMark);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { BookMarkController };
