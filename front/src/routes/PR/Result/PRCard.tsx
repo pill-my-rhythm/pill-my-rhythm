@@ -7,9 +7,14 @@ const PRCard = () => {
         <img className="w-48 m-6 rounded-lg backdrop-contrast-125 bg-white/30" src={MockupData.img} alt="pills" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{MockupData.name}</h2>
+        <div className="flex flex-row flex-wrap items-center">
+          <h2 className="card-title">{MockupData.name}</h2>
+        </div>
         <p className="m-1 break-words">{MockupData.functuion}</p>
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-end items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+          </svg>
           <label htmlFor="my-modal-4" className="btn modal-button btn-primary">
             더 알아보기
           </label>
@@ -17,7 +22,6 @@ const PRCard = () => {
           <label htmlFor="my-modal-4" className="modal cursor-pointer">
             <label className="modal-box relative" htmlFor="">
               <h3 className="text-lg text-teal-600 font-bold mb-6">{MockupData.name}</h3>
-
               <div className="flex flex-row">
                 <div className="grid grid-rows-2 flex-row justify-center items-center">
                   <img className="w-48 rounded-lg" src={MockupData.img} alt="pills" />

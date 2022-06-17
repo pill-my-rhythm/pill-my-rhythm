@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PRCard from "./PRCard";
 import { UserStateContext } from "../../../Dispatcher";
 
@@ -11,7 +11,7 @@ const RecommendationArea = () => {
   return (
     <div className="min-h-screen bg-base-200">
       <div className="w-screen p-2 flex flex-col items-center justify-center">
-        <div className="text-4xl font-bold text-white ml-6 mr-6 mt-20 mb-20 leading-normal flex flex-row">
+        <div className="text-4xl font-bold text-zinc-700 ml-6 mr-6 mt-20 mb-20 leading-normal flex flex-row">
           <img className="w-11 h-11 mr-3" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
 
           {/* 로그인 상태일 때 */}
