@@ -33,11 +33,14 @@ Recommends.init(
   },
 );
 
-Supplements.belongsToMany(Users, {
-  through: Recommends,
-  foreignKey: { name: "fk_supplement_id", allowNull: false },
-});
-Users.belongsToMany(Supplements, {
-  through: Recommends,
-  foreignKey: { name: "fk_user_id", allowNull: false },
-});
+// Supplements.belongsToMany(Users, {
+//   through: Recommends,
+//   foreignKey: { name: "fk_supplement_id", allowNull: false },
+// });
+// Users.belongsToMany(Supplements, {
+//   through: Recommends,
+//   foreignKey: { name: "fk_user_id", allowNull: false },
+// });
+
+Recommends.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
+Recommends.belongsTo(Supplements, { foreignKey: { name: "fk_supplement_id", allowNull: false } });

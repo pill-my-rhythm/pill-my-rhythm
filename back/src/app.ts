@@ -6,6 +6,7 @@ import YAML from "yamljs";
 import path from "path";
 
 import { UserRouter } from "./routes/userRouter";
+import { BookMarkRouter } from "./routes/bookMarkRouter";
 import { ScheduleRouter } from "./routes/scheduleRouter";
 import { ChecklistRouter } from "./routes/checklistRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
@@ -25,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/user", UserRouter);
+app.use("/bookmark", BookMarkRouter);
 app.use("/schedule", ScheduleRouter);
 app.use("/checklist", ChecklistRouter);
 app.use(errorMiddleware);
