@@ -16,10 +16,12 @@ const SubscribeService = {
 
   sendPushNotification: async (fk_user_id: string) => {
     const devicesArray = await Subscribe.findByUserId(fk_user_id);
+
     devicesArray.forEach((element) => {
-      console.log(element.getDataValue("device_token"));
       webPush(element.getDataValue("device_token"));
     });
+
+    return devicesArray;
   },
 };
 
