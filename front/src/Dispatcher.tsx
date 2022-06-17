@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { get } from "./Api";
 import { loginReducer } from "./reducer";
-import jwtDecode from "jwt-decode";
 
 export const UserStateContext = createContext<any>(null);
 export const DispatchContext = createContext<any>(null);
@@ -22,11 +21,9 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
   const fetchCurrentUser = async () => {
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
-      const userToken: any = sessionStorage.getItem("userToken");
-      const jwtDecoded: any = jwtDecode(userToken);
-      const userId: any = jwtDecoded.userId;
+      sessionStorage.getItem("userToken");
       // * 백에서 GET 보내주면 맞춰서 수정해야함
-      const res = await get("user/current", userId);
+      const res = await get("user/current");
       const currentUser = res.data;
 
       console.log("# currentUser", currentUser);

@@ -17,18 +17,8 @@ const Header = () => {
     try {
       console.log("#user", userState.user);
       console.log("#user.accessToken", userState.user.accessToken);
-      const user = userState.user;
-      const accessToken = userState.user.accessToken;
 
-      // ! delete 보내줌
-      const data = await del(
-        "user/logout",
-        // {
-        //   data: {
-        //     accessToken,
-        //   },
-        // }
-      );
+      const data = await del("user/logout");
       console.log("# Logout success", data);
 
       // sessionStorage 에 저장했던 JWT 토큰을 삭제함.
