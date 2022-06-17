@@ -2,7 +2,7 @@ import MockupData from "./MockupData";
 
 const PRCard = () => {
   return (
-    <div className="card card-compact w-80 bg-base-100 shadow-xl m-4">
+    <div className="card card-compact w-80 bg-base-100 shadow-xl m-4" style={{ width: "calc(100% - 32px)" }}>
       <figure>
         <img className="w-48 m-6 rounded-lg backdrop-contrast-125 bg-white/30" src={MockupData.img} alt="pills" />
       </figure>

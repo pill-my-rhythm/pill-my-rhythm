@@ -38,10 +38,12 @@ const LoginForm = () => {
       // 유저 정보는 response의 data임.
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
-      const jwtToken = user.token;
+      const jwtToken = user.accessToken;
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
       sessionStorage.setItem("userToken", jwtToken);
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
+      console.log("#user", user);
+
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: user,
