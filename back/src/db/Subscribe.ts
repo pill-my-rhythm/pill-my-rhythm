@@ -4,7 +4,6 @@ import { ISendNotificationInput } from "../interfaces/subscribeInput";
 const Subscribe = {
   findByUserAndDevice: async (fk_user_id: string, device_token: ISendNotificationInput) => {
     const subscription = await Subscribes.findOne({ where: { fk_user_id, device_token } });
-    console.log(subscription);
     return subscription;
   },
 
