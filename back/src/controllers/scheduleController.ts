@@ -16,6 +16,7 @@ const ScheduleController = {
       next(error);
     }
   },
+
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
@@ -27,6 +28,7 @@ const ScheduleController = {
       next(error);
     }
   },
+
   createDailySupplement: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
