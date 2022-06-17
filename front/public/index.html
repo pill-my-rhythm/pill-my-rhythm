@@ -42,7 +42,7 @@
         console.log("Service Worker and Push is supported");
 
         addEventListener("load", async () => {
-          const sw = await navigator.serviceWorker.register("./sw.js").catch(function (error) {
+          const sw = await navigator.serviceWorker.register("./sw.js").catch((error) => {
             console.error("Service Worker Error", error);
           });
         });
