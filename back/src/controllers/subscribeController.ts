@@ -9,7 +9,7 @@ const SubscribeController = {
       const device_token: ISendNotificationInput = req.body.device_token;
 
       const subscription = await SubscribeService.createSubscription(fk_user_id, device_token);
-      return subscription;
+      res.status(201).json(subscription);
     } catch (error) {
       next(error);
     }
@@ -18,8 +18,9 @@ const SubscribeController = {
   pushNotification: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
+
       const push = await SubscribeService.sendPushNotification(fk_user_id);
-      return push;
+      res.status(200).json(push);
     } catch (error) {
       next(error);
     }
