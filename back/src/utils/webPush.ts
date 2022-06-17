@@ -1,4 +1,5 @@
 import webpush from "web-push";
+import { HttpException } from "../utils/error-util";
 import { ISendNotificationInput } from "../interfaces/subscribeInput";
 
 // VAPID keys should only be generated only once.
@@ -9,8 +10,9 @@ const vapidKeys = {
 webpush.setVapidDetails("mailto:example@yourdomain.org", vapidKeys.publicKey, vapidKeys.privateKey);
 
 const webPush = async (deviceToken: ISendNotificationInput) => {
-  const push = await webpush.sendNotification(deviceToken, "Test Push Notification");
-  return push;
+  await webpush.sendNotification(deviceToken, "Test Push Notification").catch((error) => {
+    throw new HttpException(500, error);
+  });
 };
 
 export default webPush;
