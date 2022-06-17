@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../../Dispatcher";
+import { del } from "../../../Api";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,13 +13,33 @@ const Header = () => {
   const isLogin = !!userState.user;
 
   // 로그아웃 클릭 시 실행되는 함수
-  const logout = () => {
-    // sessionStorage 에 저장했던 JWT 토큰을 삭제함.
-    sessionStorage.removeItem("userToken");
-    // dispatch 함수를 이용해 로그아웃함.
-    dispatch({ type: "LOGOUT" });
-    // 기본 페이지로 돌아감.
-    navigate("/");
+  const logout: React.MouseEventHandler<HTMLAnchorElement> | undefined = async () => {
+    try {
+      console.log("#user", userState.user);
+      console.log("#user.accessToken", userState.user.accessToken);
+      const user = userState.user;
+      const accessToken = userState.user.accessToken;
+
+      // ! delete 보내줌
+      const data = await del(
+        "user/logout",
+        // {
+        //   data: {
+        //     accessToken,
+        //   },
+        // }
+      );
+      console.log("# Logout success", data);
+
+      // sessionStorage 에 저장했던 JWT 토큰을 삭제함.
+      sessionStorage.removeItem("userToken");
+      // dispatch 함수를 이용해 로그아웃함.
+      await dispatch({ type: "LOGOUT" });
+      // 기본 페이지로 돌아감.
+      navigate("/");
+    } catch (err) {
+      console.log("# Logout Error", err);
+    }
   };
 
   return (
