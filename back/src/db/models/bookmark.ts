@@ -3,7 +3,7 @@ import { sequelize } from "./index";
 import { Users } from "./user";
 import { Supplements } from "./supplement";
 
-// These are all the attributes in the Bookmark model
+// These are all the attributes in the BookMarks model
 
 interface BookMarksAttributes {
   pk_bookmark_id?: number;
@@ -32,15 +32,6 @@ BookMarks.init(
     underscored: true,
   },
 );
-
-// Supplements.belongsToMany(Users, {
-//   through: BookMarks,
-//   foreignKey: { name: "fk_supplement_id", allowNull: false },
-// });
-// Users.belongsToMany(Supplements, {
-//   through: BookMarks,
-//   foreignKey: { name: "fk_user_id", allowNull: false },
-// });
 
 BookMarks.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
 BookMarks.belongsTo(Supplements, { foreignKey: { name: "fk_supplement_id", allowNull: false } });

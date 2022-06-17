@@ -1,6 +1,6 @@
 // ./node_modules/.bin/ts-node .\src\db\migrations\7.create-table-bookmark.ts
 
-import { BookMarks } from "../models/bookmark";
+import { BookMarks } from "../models/bookMark";
 
 console.log("======Create bookmark Table======");
 const create_table_bookmark = async () => {
