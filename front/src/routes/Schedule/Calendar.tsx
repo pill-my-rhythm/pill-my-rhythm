@@ -66,10 +66,14 @@ function Calendar() {
     e.cancel = true;
   };
 
+  const testModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("클릭됨");
+  };
+
   const renderDateCell = (data: { text: string }, index: number) => {
     return (
       <b style={{ color: "green", fontWeight: "bold" }}>
-        <button>{data.text}</button>
+        <button onClick={testModal}>{data.text}</button>
       </b>
     );
   };

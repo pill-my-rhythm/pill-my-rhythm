@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../../Dispatcher";
 
@@ -35,7 +36,7 @@ const Header = () => {
             <a>Search</a>
           </li>
           <li>
-            <a href="/schedule">Schedular</a>
+            <Link to="/schedule">Schedular</Link>
           </li>
           <li>
             <a>Contact us</a>
