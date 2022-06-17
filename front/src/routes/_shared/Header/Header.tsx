@@ -53,7 +53,7 @@ const Header = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a>Search</a>
+            <a href="/">Search</a>
           </li>
           <li>
             <a>Schedular</a>
@@ -74,7 +74,7 @@ const Header = () => {
             )}
             <ul className="p-2 bg-base-100">
               <li>
-                <a>My Page</a>
+                <a href="/mypage">My Page</a>
               </li>
             </ul>
           </li>
