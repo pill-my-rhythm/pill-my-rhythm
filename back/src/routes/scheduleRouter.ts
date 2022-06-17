@@ -16,8 +16,8 @@ ScheduleRouter.post(
   "/create",
   [
     check("type").exists().isIn(["B", "S"]),
-    check("start").exists().isDate(),
-    check("finish").exists().isDate(),
+    check("start").exists().isISO8601(),
+    check("finish").exists().isISO8601(),
     check("to_do").exists(),
     validatorErrorChecker,
   ],
