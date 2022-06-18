@@ -63,33 +63,33 @@ function RegisterForm() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
           <p className="m-3 text-center text-sm text-gray-600"> 회원 가입을 환영합니다.</p>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="grid place-content-stretch">
           <form className="m-2 items-center" onSubmit={handleSubmit}>
             <div>
               <label>
-                <input className="input w-full min-w-4xl m-2" type="text" value={name} placeholder="이름" onChange={(e) => setName(e.target.value)} />
+                <input className="input w-full max-w-md m-2" type="text" value={name} placeholder="이름" onChange={(e) => setName(e.target.value)} />
               </label>
             </div>
             <div>
               <label>
-                <input className="input w-full max-w-xs m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                <input className="input w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
               </label>
             </div>
             <div>
               <label>
-                <input className="input w-full max-w-xs m-2" type="password" value={password} placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} />
+                <input className="input w-full max-w-md m-2" type="password" value={password} placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} />
               </label>
             </div>
             <div>
               <label>
-                <input className="input w-full max-w-xs m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                <input className="input w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
               </label>
               <br />
-              {!isPasswordSame && <p className="mt-2 mb-2 text-center text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>}
+              {!isPasswordSame && <p className="m-2 text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>}
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-xs m-2" value={gender} onChange={(e) => setGender(e.target.value)}>
+                <select className="select select-bordered w-full max-w-md m-2" value={gender} onChange={(e) => setGender(e.target.value)}>
                   <option value="성별" disabled>
                     성별
                   </option>
@@ -100,7 +100,7 @@ function RegisterForm() {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-xs m-2" value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
+                <select className="select select-bordered w-full max-w-md m-2" value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
                   <option value="연령대" disabled>
                     연령대
                   </option>
@@ -115,7 +115,7 @@ function RegisterForm() {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-xs m-2" value={job} onChange={(e) => setJob(e.target.value)}>
+                <select className="select select-bordered w-full max-w-md m-2" value={job} onChange={(e) => setJob(e.target.value)}>
                   <option value="직업군" disabled>
                     직업군
                   </option>
@@ -128,12 +128,18 @@ function RegisterForm() {
                 </select>
               </label>
             </div>
+          </form>
+          <div>
             <label className="flex items-center justify-center mt-6">
-              <button className="btn btn-primary m-4" type="submit" disabled={!isFormValid}>
-                가입완료
+              <button
+                type="submit"
+                className="group relative w-3/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                disabled={!isFormValid}
+              >
+                가입 완료
               </button>
             </label>
-          </form>
+          </div>
         </div>
       </div>
     </div>
