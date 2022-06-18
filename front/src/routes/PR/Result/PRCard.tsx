@@ -5,7 +5,7 @@ const PRCard = () => {
   const [pillResult, setPillResult] = useState(MockupData);
 
   // * Card에 목업 데이터 넣어서 뿌려주는 중
-  // * Modal에 첫번째 값만 불러와지는 Error가 있음
+  // * Modal에 첫번째 값만 전달되는 문제가 있음. => 모달은 map을 돌리면 안되나..? 더 구글링으로 찾아보고 없으면 변수값을 state로 주는 방법 고려...
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
