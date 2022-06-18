@@ -20,8 +20,12 @@ const SubscribeService = {
     const notifications: Promise<SendResult>[] = [];
     devicesArray.forEach((subscription) => {
       const deviceToken = subscription.getDataValue("device_token");
+      const notificationData = {
+        title: "Hey, this is a push notification!",
+        body: "Subscribe Pill my rhythm",
+      };
       notifications.push(
-        webpush.sendNotification(deviceToken, "Test Push Notification").catch((error) => {
+        webpush.sendNotification(deviceToken, JSON.stringify(notificationData)).catch((error) => {
           throw new HttpException(500, error);
         }),
       );
