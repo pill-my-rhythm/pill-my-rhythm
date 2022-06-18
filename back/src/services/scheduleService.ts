@@ -1,3 +1,4 @@
+import { User } from "../db/User";
 import { Schedule } from "../db/Schedule";
 import { Checklist } from "../db/Checklist";
 import { DailySupplement } from "../db/DailySupplement";
@@ -14,6 +15,7 @@ const ScheduleService = {
     const dailySupplement = await DailySupplement.findById(fk_user_id);
     return { schedule, checklist, dailySupplement };
   },
+
   addSchedule: async (fk_user_id: string, data: IScheduleCreateInput) => {
     const schedule = await Schedule.findByTime(fk_user_id, data.start, data.finish);
     if (schedule) {
@@ -23,10 +25,25 @@ const ScheduleService = {
     const newSchedule = await Schedule.createSchedule(data);
     return newSchedule;
   },
+
+  deleteSchedule: async (fk_user_id: string, pk_schedule_id: number) => {
+    const user = await User.findById(fk_user_id);
+    if (!user) {
+      throw new HttpException(401, "가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
+    }
+    const schedule = await Schedule.findById(pk_schedule_id);
+    if (!schedule) {
+      throw new HttpException(401, "등록한 일정이 없습니다.");
+    }
+    const deletedSchedule = await Schedule.deleteSchedule(fk_user_id, pk_schedule_id);
+    return deletedSchedule;
+  },
+
   addDailySupplement: async (data: IDailySupplementCreateInput) => {
     const dailySupplement = await DailySupplement.createDailySchedule(data);
     return dailySupplement;
   },
+
   deleteDailySupplement: async (fk_user_id: string, pk_plan_id: number) => {
     const dailySupplement = await DailySupplement.deletedDailySchedule(fk_user_id, pk_plan_id);
     return dailySupplement;
