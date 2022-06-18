@@ -10,13 +10,44 @@ import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 
 const Wrapper = styled.div`
-  margin: 20px;
-  width: 240px;
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const ListWrapper = styled.div`
+  height: auto;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  padding: 10px 10px 10px 10px;
+  width: 280px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  color: black;
+`;
+
+const ScheduleWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 50px 0px 50px;
+  width: 75%;
 `;
 
 const Title = styled.h2`
-  margin-left: 270px;
-  margin-bottom: 40px;
+  padding-bottom: 20px;
+`;
+
+const ListTitle = styled.h3`
+  text-align: left;
+  padding: 40px 0px 20px 50px;
+  font-size: 24px;
+  font-weight: 700;
+`;
+
+const DateLabel = styled.label`
+  background-color: transparent;
 `;
 
 export interface Appintments {
@@ -66,15 +97,20 @@ function Calendar() {
     e.cancel = true;
   };
 
-  const testModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("클릭됨");
-  };
-
   const renderDateCell = (data: { text: string }, index: number) => {
     return (
-      <b style={{ color: "green", fontWeight: "bold" }}>
-        <button onClick={testModal}>{data.text}</button>
-      </b>
+      <>
+        <DateLabel onClick={() => console.log(data.text)} htmlFor="my-modal-4" className="modal-button cursor-pointer">
+          {data.text}
+        </DateLabel>
+        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+        <label htmlFor="my-modal-4" className="modal cursor-pointer">
+          <label className="modal-box relative" htmlFor="">
+            <h3 className="text-lg font-bold">Title</h3>
+            <p className="py-4">description</p>
+          </label>
+        </label>
+      </>
     );
   };
 
@@ -83,28 +119,33 @@ function Calendar() {
       <Wrapper>
         <ScrollView id="scroll">
           <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
-            {tasks.map((task) => (
-              <ListItem task={task} key={task.text} />
-            ))}
+            <ListTitle>Todo</ListTitle>
+            <ListWrapper>
+              {tasks.map((task) => (
+                <ListItem task={task} key={task.text} />
+              ))}
+            </ListWrapper>
           </Draggable>
         </ScrollView>
       </Wrapper>
-      <Title className="text-3xl font-extrabold text-gray-900">Scheduler</Title>
-      <Scheduler
-        timeZone="Asia/Seoul"
-        id="scheduler"
-        dataSource={appointments}
-        views={views}
-        defaultCurrentDate={currentDate}
-        height={600}
-        startDayHour={8}
-        onAppointmentFormOpening={onAppointmentFormOpening}
-        onAppointmentDeleting={onAppointmentDeleting}
-        showAllDayPanel={false}
-        dateCellRender={renderDateCell}
-      >
-        <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
-      </Scheduler>
+      <ScheduleWrapper>
+        <Title className="text-3xl font-extrabold text-gray-900">Scheduler</Title>
+        <Scheduler
+          timeZone="Asia/Seoul"
+          id="scheduler"
+          dataSource={appointments}
+          views={views}
+          defaultCurrentDate={currentDate}
+          height={600}
+          startDayHour={8}
+          onAppointmentFormOpening={onAppointmentFormOpening}
+          onAppointmentDeleting={onAppointmentDeleting}
+          showAllDayPanel={false}
+          dateCellRender={renderDateCell}
+        >
+          <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
+        </Scheduler>
+      </ScheduleWrapper>
     </React.Fragment>
   );
 }
