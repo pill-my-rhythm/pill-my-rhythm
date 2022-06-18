@@ -14,6 +14,8 @@ tags:
   - description: User가 추천받은 영양제 정보 API 입니다.
   - name: schedule
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
+  - name: bookmark
+  - description: User BookMark API 입니다.
 paths:
   /user/register:
     $ref: "./paths/user.yaml#/~1user~1register"
@@ -37,6 +39,10 @@ paths:
     $ref: "./paths/schedule.yaml#/~1schedule~1daily-supplement"
   /checklist/create:
     $ref: "./paths/schedule.yaml#/~1checklist~1create"
+  /bookmark:
+    $ref: "./paths/bookmark.yaml#/~1bookmark"
+  /bookmark/create/{supplement_id}:
+    $ref: "./paths/bookmark.yaml#/~1bookmark~1create~1{supplement_id}"
 components:
   schemas:
     User:
