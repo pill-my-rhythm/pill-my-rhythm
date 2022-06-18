@@ -5,19 +5,37 @@ export const tasksAtom = atom({
   key: "task",
   default: [
     {
-      text: "1",
+      text: "매일 같은 시간에 기상하기",
     },
     {
-      text: "2",
+      text: "낮에 하루 한 번 이상 산책하기",
     },
     {
-      text: "3",
+      text: "규칙적인 식사하기",
     },
     {
-      text: "4",
+      text: "틈틈이 운동하기",
     },
     {
-      text: "5",
+      text: "스케쥴러에 등록한 영양제 챙겨먹기",
+    },
+    {
+      text: "매일 같은 시간에 취침하기",
+    },
+  ],
+});
+
+export const dayHoursAtom = atom({
+  key: "dayHour",
+  default: [
+    {
+      text: "아침",
+    },
+    {
+      text: "점심",
+    },
+    {
+      text: "저녁",
     },
   ],
 });
