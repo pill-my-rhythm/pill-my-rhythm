@@ -19,7 +19,7 @@ const ListWrapper = styled.div`
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0%);
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px 0px 10px;
   width: 280px;
   border-radius: 10px;
   background-color: #fafafa;
@@ -48,6 +48,13 @@ const ListTitle = styled.h3`
 
 const DateLabel = styled.label`
   background-color: transparent;
+`;
+
+const TodoWrapaper = styled.div`
+  display: flex;
+  text-align: left;
+  color: black;
+  padding: 10px;
 `;
 
 export interface Appintments {
@@ -100,14 +107,19 @@ function Calendar() {
   const renderDateCell = (data: { text: string }, index: number) => {
     return (
       <>
-        <DateLabel onClick={() => console.log(data.text)} htmlFor="my-modal-4" className="modal-button cursor-pointer">
+        {/* onClick={() => console.log(data.text)} */}
+        <DateLabel htmlFor="my-modal-4" className="modal-button cursor-pointer">
           {data.text}
         </DateLabel>
         <input type="checkbox" id="my-modal-4" className="modal-toggle" />
         <label htmlFor="my-modal-4" className="modal cursor-pointer">
-          <label className="modal-box relative" htmlFor="">
-            <h3 className="text-lg font-bold">Title</h3>
-            <p className="py-4">description</p>
+          <label className="modal-box max-w-xs" htmlFor="">
+            {tasks.map((task) => (
+              <TodoWrapaper key={task.text}>
+                <input type="checkbox" className="checkbox checkbox-sm checkbox-primary mr-3" />
+                {task.text}
+              </TodoWrapaper>
+            ))}
           </label>
         </label>
       </>
