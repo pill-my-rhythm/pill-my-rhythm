@@ -5,9 +5,10 @@ import { IScheduleCreateInput } from "../interfaces/scheduleInput";
 
 const Schedule = {
   findByWeek: async (fk_user_id: string, start: Date, finish: Date) => {
-    const schedule = await Schedules.findOne({
+    const schedule = await Schedules.findAll({
       where: { start: { [Op.between]: [start, finish] } },
-      include: { model: Users, where: { pk_user_id: fk_user_id } },
+      include: { model: Users, attributes: [], where: { pk_user_id: fk_user_id } },
+      order: [["start", "ASC"]],
     });
     return schedule;
   },

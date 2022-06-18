@@ -27,6 +27,10 @@ const ScheduleService = {
     const dailySupplement = await DailySupplement.createDailySchedule(data);
     return dailySupplement;
   },
+  deleteDailySupplement: async (fk_user_id: string, pk_plan_id: number) => {
+    const dailySupplement = await DailySupplement.deletedDailySchedule(fk_user_id, pk_plan_id);
+    return dailySupplement;
+  },
 };
 
 export { ScheduleService };

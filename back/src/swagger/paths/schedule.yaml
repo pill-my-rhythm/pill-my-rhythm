@@ -84,10 +84,24 @@
         $ref: "../openapi.yaml#/components/responses/successResponse"
       "400":
         description: accessToken이 유효하지 않습니다.
-# /schedule/daily-supplement
-# POST
-# header: get-Cookie
-# request, body : 영양제 일련번호, 구분
+/schedule/daily-supplement/{plan_id}:
+  delete:
+    tags:
+      - schedule
+    summary: 아침, 점심, 저녁 영양제 삭제 API 입니다.
+    description: (필수) accessToken, plan_id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: plan_id
+        schema:
+          type: number
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
 
 # 4) 체크리스트 생성
 /checklist/create:
