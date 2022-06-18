@@ -208,6 +208,24 @@ paths:
           $ref: '#/components/responses/successResponse'
         '400':
           description: accessToken이 유효하지 않습니다.
+  '/schedule/daily-supplement/{plan_id}':
+    delete:
+      tags:
+        - schedule
+      summary: '아침, 점심, 저녁 영양제 삭제 API 입니다.'
+      description: '(필수) accessToken, plan_id'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: plan_id
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
   /checklist/create:
     post:
       tags:
@@ -248,7 +266,7 @@ paths:
       tags:
         - bookmark
       summary: 전체 (회원) 북마크 조회 API 입니다.
-      description: '(필수) accessToken, start, finish'
+      description: (필수) accessToken
       security:
         - bearerAuth: []
       responses:
