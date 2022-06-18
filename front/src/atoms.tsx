@@ -1,13 +1,28 @@
 import { atom, selector } from "recoil";
+import { Appintments } from "./routes/Schedule/Calendar";
 
-interface IToDoState {
-  [key: string]: string[];
-}
+export const tasksAtom = atom({
+  key: "task",
+  default: [
+    {
+      text: "1",
+    },
+    {
+      text: "2",
+    },
+    {
+      text: "3",
+    },
+    {
+      text: "4",
+    },
+    {
+      text: "5",
+    },
+  ],
+});
 
-export const listState = atom<IToDoState>({
-  key: "list",
-  default: {
-    calendar: ["16"],
-    to_do: ["a", "b", "c", "d", "e", "f"],
-  },
+export const appointmentsAtom = atom<Appintments[]>({
+  key: "appointment",
+  default: [],
 });
