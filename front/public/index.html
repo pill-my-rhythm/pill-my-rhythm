@@ -37,18 +37,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-      if ("serviceWorker" in navigator && "PushManager" in window) {
-        console.log("Service Worker and Push is supported");
-
-        addEventListener("load", async () => {
-          const sw = await navigator.serviceWorker.register("./sw.js").catch((error) => {
-            console.error("Service Worker Error", error);
-          });
-        });
-      } else {
-        console.warn("Push messaging is not supported");
-      }
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>
