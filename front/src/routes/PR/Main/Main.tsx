@@ -9,14 +9,15 @@ const Main = () => {
   };
 
   const subscribe = async () => {
-    let sw = await navigator.serviceWorker.ready;
-    let push = await sw.pushManager.subscribe({
+    console.log("subscribe function");
+    const sw = await navigator.serviceWorker.ready;
+    const push = await sw.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: "BH5Flu4EjF6RP9znw1dnqkLsIeQHVdnod_ozd4ip71N1uZLkRHYKtvT98rjjSuqEgCiFkZo4VQRQVNLdYy10Dzw",
     });
     console.log(JSON.stringify(push));
     // 사용자 기기 정보로 구독 요청
-    Api.post("subscribe/create", `${JSON.stringify(push)}`);
+    Api.post("subscribe/create", { device_token: push });
   };
 
   return (
