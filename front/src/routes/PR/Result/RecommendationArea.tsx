@@ -1,7 +1,11 @@
 import React from "react";
 import PRCard from "./PRCard";
+import { UserData } from "./Result";
 
 const RecommendationArea = () => {
+  // user: UserData
+  // console.log("#R-AreaUser", user);
+
   return (
     <div className="min-h-screen bg-base-200">
       <div className="w-screen p-2 flex flex-col items-center justify-center">
