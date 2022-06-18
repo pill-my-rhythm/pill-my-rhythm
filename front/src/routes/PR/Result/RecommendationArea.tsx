@@ -1,14 +1,7 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import PRCard from "./PRCard";
 
-import { UserStateContext } from "../../../Dispatcher";
-
 const RecommendationArea = () => {
-  const userState = useContext(UserStateContext);
-  const isLogin = !!userState.user;
-
-  // const name = userState.user.userInfo.user_name;
-
   return (
     <div className="min-h-screen bg-base-200">
       <div className="w-screen p-2 flex flex-col items-center justify-center">
