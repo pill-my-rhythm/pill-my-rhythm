@@ -58,80 +58,83 @@ function RegisterForm() {
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
-
-          <p className="mt-2 text-center text-sm text-gray-600"> 회원 가입을 환영합니다.</p>
+          <p className="m-3 text-center text-sm text-gray-600"> 회원 가입을 환영합니다.</p>
         </div>
-        <form className="m-2 items-center" onSubmit={handleSubmit}>
-          <div>
-            <label>
-              <input className="input w-full max-w-xs m-2" type="text" value={name} placeholder="이름" onChange={(e) => setName(e.target.value)} />
+        <div className="flex items-center justify-center">
+          <form className="m-2 items-center" onSubmit={handleSubmit}>
+            <div>
+              <label>
+                <input className="input w-full min-w-4xl m-2" type="text" value={name} placeholder="이름" onChange={(e) => setName(e.target.value)} />
+              </label>
+            </div>
+            <div>
+              <label>
+                <input className="input w-full max-w-xs m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+              </label>
+            </div>
+            <div>
+              <label>
+                <input className="input w-full max-w-xs m-2" type="password" value={password} placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} />
+              </label>
+            </div>
+            <div>
+              <label>
+                <input className="input w-full max-w-xs m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+              </label>
+              <br />
+              {!isPasswordSame && <p className="mt-2 mb-2 text-center text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>}
+            </div>
+            <div>
+              <label>
+                <select className="select select-bordered w-full max-w-xs m-2" value={gender} onChange={(e) => setGender(e.target.value)}>
+                  <option value="성별" disabled>
+                    성별
+                  </option>
+                  <option value="M">남성</option>
+                  <option value="F">여성</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <label>
+                <select className="select select-bordered w-full max-w-xs m-2" value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
+                  <option value="연령대" disabled>
+                    연령대
+                  </option>
+                  <option>10대</option>
+                  <option>20대</option>
+                  <option>30대</option>
+                  <option>40대</option>
+                  <option>50대</option>
+                  <option>60대 이상</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <label>
+                <select className="select select-bordered w-full max-w-xs m-2" value={job} onChange={(e) => setJob(e.target.value)}>
+                  <option value="직업군" disabled>
+                    직업군
+                  </option>
+                  <option>교육</option>
+                  <option>제조</option>
+                  <option>디자인</option>
+                  <option>개발</option>
+                  <option>서비스</option>
+                  <option>기타</option>
+                </select>
+              </label>
+            </div>
+            <label className="flex items-center justify-center mt-6">
+              <button className="btn btn-primary m-4" type="submit" disabled={!isFormValid}>
+                가입완료
+              </button>
             </label>
-          </div>
-          <div>
-            <label>
-              <input className="input w-full max-w-xs m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
-            </label>
-          </div>
-          <div>
-            <label>
-              <input className="input w-full max-w-xs m-2" type="password" value={password} placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} />
-            </label>
-          </div>
-          <div>
-            <label>
-              <input className="input w-full max-w-xs m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
-            </label>
-            <br />
-            {!isPasswordSame && "비밀번호가 일치하지 않습니다."}
-          </div>
-          <div>
-            <label>
-              <select className="select select-bordered w-full max-w-xs m-2" value={gender} onChange={(e) => setGender(e.target.value)}>
-                <option disabled selected>
-                  성별
-                </option>
-                <option value="M">남성</option>
-                <option value="F">여성</option>
-              </select>
-            </label>
-          </div>
-          <div>
-            <label>
-              <select className="select select-bordered w-full max-w-xs m-2" value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
-                <option disabled selected>
-                  연령대
-                </option>
-                <option>10대</option>
-                <option>20대</option>
-                <option>30대</option>
-                <option>40대</option>
-                <option>50대</option>
-                <option>60대 이상</option>
-              </select>
-            </label>
-          </div>
-          <div>
-            <label>
-              <select className="select select-bordered w-full max-w-xs m-2" value={job} onChange={(e) => setJob(e.target.value)}>
-                <option disabled selected>
-                  직업군
-                </option>
-                <option>교육</option>
-                <option>제조</option>
-                <option>디자인</option>
-                <option>개발</option>
-                <option>서비스</option>
-                <option>기타</option>
-              </select>
-            </label>
-          </div>
-          <button className="btn btn-primary m-4" type="submit" disabled={!isFormValid}>
-            가입완료
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
