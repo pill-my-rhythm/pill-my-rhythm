@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import MockupData from "./MockupData";
 
 const PRCard = () => {
   const [pillResult, setPillResult] = useState(MockupData);
 
   // * Card에 목업 데이터 넣어서 뿌려주는 중
+  // * Modal에 첫번째 값만 불러와지는 Error가 있음
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
