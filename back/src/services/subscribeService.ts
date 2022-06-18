@@ -1,7 +1,7 @@
 import { Subscribe } from "../db/Subscribe";
 import { HttpException } from "../utils/error-util";
 import { ISendNotificationInput } from "../interfaces/subscribeInput";
-import webPush from "../utils/webPush";
+import webpush, { SendResult } from "web-push";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -17,9 +17,16 @@ const SubscribeService = {
   sendPushNotification: async (fk_user_id: string) => {
     const devicesArray = await Subscribe.findByUserId(fk_user_id);
 
-    devicesArray.forEach((element) => {
-      webPush(element.getDataValue("device_token"));
+    const notifications: Promise<SendResult>[] = [];
+    devicesArray.forEach((subscription) => {
+      const deviceToken = subscription.getDataValue("device_token");
+      notifications.push(
+        webpush.sendNotification(deviceToken, "Test Push Notification").catch((error) => {
+          throw new HttpException(500, error);
+        }),
+      );
     });
+    await Promise.all(notifications);
 
     return devicesArray;
   },
