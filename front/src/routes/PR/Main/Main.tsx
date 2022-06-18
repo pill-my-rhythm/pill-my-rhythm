@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import * as Api from "../../../Api";
 
@@ -7,6 +7,7 @@ const Main = () => {
   const tempNavigate = () => {
     navigate("/result");
   };
+  const [token, setToken] = useState("");
 
   const subscribe = async () => {
     console.log("subscribe function");
@@ -16,6 +17,7 @@ const Main = () => {
       applicationServerKey: "BH5Flu4EjF6RP9znw1dnqkLsIeQHVdnod_ozd4ip71N1uZLkRHYKtvT98rjjSuqEgCiFkZo4VQRQVNLdYy10Dzw",
     });
     console.log(JSON.stringify(push));
+    setToken(JSON.stringify(push));
     // 사용자 기기 정보로 구독 요청
     Api.post("subscribe/create", { device_token: push });
   };
@@ -58,8 +60,9 @@ const Main = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
-                <button onClick={() => subscribe()}>subscribe</button>
               </div>
+              <button onClick={() => subscribe()}>subscribe</button>
+              <p>{token}</p>
             </div>
           </div>
         </div>
