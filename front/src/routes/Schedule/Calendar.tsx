@@ -3,18 +3,19 @@ import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { appointmentsAtom, tasksAtom } from "../../atoms";
+import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
-import ListItem from "./TaskItem";
+import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
+import DayItem from "./DayItem";
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
 `;
 
-const ListWrapper = styled.div`
+const DayWrapper = styled.div`
   height: auto;
   position: absolute;
   left: 50%;
@@ -24,6 +25,10 @@ const ListWrapper = styled.div`
   border-radius: 10px;
   background-color: #fafafa;
   color: black;
+`;
+
+const ListWrapper = styled(DayWrapper)`
+  transform: translate(-50%, 60%);
 `;
 
 const ScheduleWrapper = styled.div`
@@ -71,6 +76,7 @@ const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
+  const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appintments>>(appointmentsAtom);
 
   const onAppointmentAdd = (e: any) => {
@@ -107,7 +113,6 @@ function Calendar() {
   const renderDateCell = (data: { text: string }, index: number) => {
     return (
       <>
-        {/* onClick={() => console.log(data.text)} */}
         <DateLabel htmlFor="my-modal-4" className="modal-button cursor-pointer">
           {data.text}
         </DateLabel>
@@ -131,12 +136,18 @@ function Calendar() {
       <Wrapper>
         <ScrollView id="scroll">
           <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
-            <ListTitle>Todo</ListTitle>
+            <ListTitle>Feed</ListTitle>
             <ListWrapper>
               {tasks.map((task) => (
-                <ListItem task={task} key={task.text} />
+                <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
+            {/* 문제 나는 모달 부분 */}
+            <DayWrapper>
+              {dayHour.map((task) => (
+                <DayItem task={task} key={task.text} />
+              ))}
+            </DayWrapper>
           </Draggable>
         </ScrollView>
       </Wrapper>

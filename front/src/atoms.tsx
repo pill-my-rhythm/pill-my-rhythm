@@ -25,6 +25,21 @@ export const tasksAtom = atom({
   ],
 });
 
+export const dayHoursAtom = atom({
+  key: "dayHour",
+  default: [
+    {
+      text: "아침",
+    },
+    {
+      text: "점심",
+    },
+    {
+      text: "저녁",
+    },
+  ],
+});
+
 export const appointmentsAtom = atom<Appintments[]>({
   key: "appointment",
   default: [],
