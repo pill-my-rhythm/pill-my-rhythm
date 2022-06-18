@@ -7,19 +7,32 @@ const Main = () => {
   const tempNavigate = () => {
     navigate("/result");
   };
-  const [token, setToken] = useState("");
+  const [subToken, setSubToken] = useState("");
+  const [unSubToken, setUnSubToken] = useState("");
 
   const subscribe = async () => {
     console.log("subscribe function");
     const sw = await navigator.serviceWorker.ready;
-    const push = await sw.pushManager.subscribe({
+    const subscription = await sw.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: "BH5Flu4EjF6RP9znw1dnqkLsIeQHVdnod_ozd4ip71N1uZLkRHYKtvT98rjjSuqEgCiFkZo4VQRQVNLdYy10Dzw",
+      applicationServerKey: "BDv0IQi0fy3NMgFRelPhSxnbsE7PWx-N_0I0JKzz9OGdMIFUmOOZKwTIw-aA9syxQ85hrHdiO_nShXmZprPYL30",
     });
-    console.log(JSON.stringify(push));
-    setToken(JSON.stringify(push));
+    console.log(JSON.stringify(subscription));
+    setSubToken(JSON.stringify(subscription));
     // 사용자 기기 정보로 구독 요청
-    Api.post("subscribe/create", { device_token: push });
+    await Api.post("subscribe/create", { device_token: subscription });
+  };
+
+  const unsubscribe = async () => {
+    console.log("unsubscribe function");
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+    if (!subscription) return;
+
+    // 사용자 기기 정보로 구독  취소 요청
+    await subscription.unsubscribe();
+    setUnSubToken(JSON.stringify(subscription));
+    await Api.post("subscribe/delete", { device_token: subscription });
   };
 
   return (
@@ -62,7 +75,9 @@ const Main = () => {
                 </button>
               </div>
               <button onClick={() => subscribe()}>subscribe</button>
-              <p>{token}</p>
+              <button onClick={() => unsubscribe()}>unsubscribe</button>
+              <p>{subToken}</p>
+              <p>{unSubToken}</p>
             </div>
           </div>
         </div>
