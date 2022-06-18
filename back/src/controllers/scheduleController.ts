@@ -16,6 +16,7 @@ const ScheduleController = {
       next(error);
     }
   },
+
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
@@ -27,6 +28,19 @@ const ScheduleController = {
       next(error);
     }
   },
+
+  deleteSchedule: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const pk_schedule_id = Number(req.params.schedule_id);
+      const deletedSchedule = await ScheduleService.deleteSchedule(fk_user_id, pk_schedule_id);
+
+      res.status(201).json(deletedSchedule);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   createDailySupplement: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
@@ -39,6 +53,7 @@ const ScheduleController = {
       next(error);
     }
   },
+
   deleteDailySupplement: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;

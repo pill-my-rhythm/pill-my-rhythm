@@ -24,6 +24,9 @@ ScheduleRouter.post(
   ScheduleController.create,
 );
 
+// 생체 리듬, 스케줄 삭제
+ScheduleRouter.delete("/delete/:schedule_id", ScheduleController.deleteSchedule);
+
 // Daily Supplement 등록
 ScheduleRouter.post("/daily-supplement", ScheduleController.createDailySupplement);
 
