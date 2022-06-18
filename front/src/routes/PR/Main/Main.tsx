@@ -1,6 +1,18 @@
 import React from "react";
+import * as Api from "../../../Api";
 
 const Main = () => {
+  const subscribe = async () => {
+    let sw = await navigator.serviceWorker.ready;
+    let push = await sw.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: "BH5Flu4EjF6RP9znw1dnqkLsIeQHVdnod_ozd4ip71N1uZLkRHYKtvT98rjjSuqEgCiFkZo4VQRQVNLdYy10Dzw",
+    });
+    console.log(JSON.stringify(push));
+    // 사용자 기기 정보로 구독 요청
+    Api.post("subscribe/create", `${JSON.stringify(push)}`);
+  };
+
   return (
     <div
       className="hero min-h-screen"
@@ -38,6 +50,7 @@ const Main = () => {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
+                <button onClick={() => subscribe()}>subscribe</button>
               </div>
             </div>
           </div>
