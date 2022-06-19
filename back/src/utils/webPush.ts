@@ -7,5 +7,5 @@ const vapidKeys = {
 };
 
 export default (): void => {
-  webpush.setVapidDetails("mailto:example@yourdomain.org", vapidKeys.publicKey, vapidKeys.privateKey);
+  webpush.setVapidDetails("mailto:s0n9h2@gmail.com", vapidKeys.publicKey, vapidKeys.privateKey);
 };
