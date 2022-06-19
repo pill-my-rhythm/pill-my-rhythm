@@ -16,6 +16,11 @@ const Subscribe = {
     const devicesArray = await Subscribes.findAll({ where: { fk_user_id } });
     return devicesArray;
   },
+
+  delete: async (fk_user_id: string, device_token: ISendNotificationInput) => {
+    const unsubscription = await Subscribes.destroy({ where: { fk_user_id, device_token } });
+    return unsubscription;
+  },
 };
 
 export { Subscribe };
