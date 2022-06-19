@@ -34,6 +34,16 @@ const SubscribeService = {
 
     return devicesArray;
   },
+
+  deleteSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
+    const subscription = await Subscribe.findByUserAndDevice(fk_user_id, device_token);
+    if (!subscription) {
+      throw new HttpException(401, "구독 정보가 없는 기기입니다.");
+    }
+
+    const unsubscription = await Subscribe.delete(fk_user_id, device_token);
+    return unsubscription;
+  },
 };
 
 export { SubscribeService };
