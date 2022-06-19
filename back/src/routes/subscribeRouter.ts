@@ -21,7 +21,7 @@ SubscribeRouter.post(
   "/delete",
   // [check("device_token").exists().isJSON(), validatorErrorChecker],
   [check("device_token").exists(), validatorErrorChecker],
-  SubscribeController.subscribeNotification,
+  SubscribeController.unsubscribe,
 );
 
 // 사용자별 푸시 알림 테스트
