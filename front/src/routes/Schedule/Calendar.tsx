@@ -62,7 +62,7 @@ const TodoWrapaper = styled.div`
   padding: 10px;
 `;
 
-export interface Appintments {
+export interface Appointments {
   allDay: boolean;
   endDate: Date;
   startDate: Date;
@@ -77,7 +77,7 @@ const draggingGroupName = "appointmentsGroup";
 function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
-  const [appointments, setAppointments] = useRecoilState<Array<Appintments>>(appointmentsAtom);
+  const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
 
   const onAppointmentAdd = (e: any) => {
     // index : 움직인 item의 index 값
@@ -85,16 +85,14 @@ function Calendar() {
     // tasks : 리스트 아이템
     // appointments : 캘린더에 움직여진 item의 정보
     const index = tasks.indexOf(e.fromData);
-    const appointmentsCopy = [...appointments];
     if (index >= 0) {
-      appointmentsCopy.push(e.itemData);
-      setAppointments([...appointmentsCopy]);
+      setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
     }
   };
 
   const onAppointmentDeleting = (e: any) => {
     e.cancel = true;
-    const index = appointments.findIndex((appointments) => appointments.text === e.appointmentData.text);
+    const index = appointments.findIndex((appointments) => appointments.endDate === e.appointmentData.endDate);
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
       appointmentsCopy.splice(index, 1);

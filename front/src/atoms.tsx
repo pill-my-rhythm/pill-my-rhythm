@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { Appintments } from "./routes/Schedule/Calendar";
+import { Appointments } from "./routes/Schedule/Calendar";
 
 export const tasksAtom = atom({
   key: "task",
@@ -40,7 +40,7 @@ export const dayHoursAtom = atom({
   ],
 });
 
-export const appointmentsAtom = atom<Appintments[]>({
+export const appointmentsAtom = atom<Appointments[]>({
   key: "appointment",
   default: [],
 });
