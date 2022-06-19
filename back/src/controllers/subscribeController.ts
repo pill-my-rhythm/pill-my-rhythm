@@ -25,6 +25,18 @@ const SubscribeController = {
       next(error);
     }
   },
+
+  unsubscribe: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const device_token: ISendNotificationInput = req.body.device_token;
+
+      const unsubscription = await SubscribeService.deleteSubscription(fk_user_id, device_token);
+      res.status(200).json(unsubscription);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { SubscribeController };
