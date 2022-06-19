@@ -8,13 +8,13 @@ if (typeof window !== "undefined") {
     const data = event.data.json();
     // 브라우저는 전달된 Promise가 확인될 때까지 서비스 워커를 활성화 및 실행 상태로 유지
     event.waitUntil(
-      self.registration.showNotification(data.title, {
+      window.self.registration.showNotification(data.title, {
         body: data.body,
       }),
     );
 
     // 브라우저는 전달된 Promise가 확인될 때까지 서비스 워커를 활성화 및 실행 상태로 유지
-    event.waitUntil(window.self.registration.showNotification("Pill my rhythm", options));
+    // event.waitUntil(window.self.registration.showNotification("Pill my rhythm", options));
   });
 }
 
