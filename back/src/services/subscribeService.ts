@@ -2,6 +2,8 @@ import { Subscribe } from "../db/Subscribe";
 import { HttpException } from "../utils/error-util";
 import { ISendNotificationInput } from "../interfaces/subscribeInput";
 import webpush from "web-push";
+import { Schedule } from "../db/Schedule";
+import { DailySupplement } from "../db/DailySupplement";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -17,10 +19,8 @@ const SubscribeService = {
   sendPushNotification: async (fk_user_id: string) => {
     const devicesArray = await Subscribe.findByUserId(fk_user_id);
 
-    // const notifications: Promise<SendResult>[] = [];
     devicesArray.forEach((subscription) => {
       const deviceToken = subscription.getDataValue("device_token");
-      console.log(deviceToken);
       const notificationData = {
         title: "Hey, this is a push notification!",
         body: "Subscribe Pill my rhythm!!!!!!",
@@ -30,9 +30,21 @@ const SubscribeService = {
         throw new HttpException(500, error);
       });
     });
-    // await Promise.all(notifications);
 
     return devicesArray;
+  },
+
+  pushSupplementSchedules: async (time: Date) => {
+    const supplementSchedules = await Schedule.findByOnlyTime(time);
+    supplementSchedules.forEach(async (schedule) => {
+      const dailySupplement = await DailySupplement.findByIdAndToDo(schedule);
+      dailySupplement.forEach((element) => {
+        console.log(element);
+      });
+      console.log(dailySupplement.values());
+    });
+
+    return supplementSchedules;
   },
 
   deleteSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
