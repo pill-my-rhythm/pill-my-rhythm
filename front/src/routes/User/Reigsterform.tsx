@@ -35,6 +35,9 @@ function RegisterForm() {
   // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
+  const ages = ["10대", "20대", "30대", "40대", "50대", "60대 이상"];
+  const jobs = ["교육", "제조", "디자인", "개발", "서비스", "기타"];
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (e) => {
     e.preventDefault();
 
@@ -104,12 +107,9 @@ function RegisterForm() {
                   <option value="연령대" disabled>
                     연령대
                   </option>
-                  <option>10대</option>
-                  <option>20대</option>
-                  <option>30대</option>
-                  <option>40대</option>
-                  <option>50대</option>
-                  <option>60대 이상</option>
+                  {ages.map((pr) => (
+                    <option key={pr}>{pr}</option>
+                  ))}
                 </select>
               </label>
             </div>
@@ -119,27 +119,24 @@ function RegisterForm() {
                   <option value="직업군" disabled>
                     직업군
                   </option>
-                  <option>교육</option>
-                  <option>제조</option>
-                  <option>디자인</option>
-                  <option>개발</option>
-                  <option>서비스</option>
-                  <option>기타</option>
+                  {jobs.map((pr) => (
+                    <option key={pr}>{pr}</option>
+                  ))}
                 </select>
               </label>
             </div>
+            <div>
+              <label className="flex items-center justify-center mt-6">
+                <button
+                  type="submit"
+                  className="group relative w-3/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  disabled={!isFormValid}
+                >
+                  가입 완료
+                </button>
+              </label>
+            </div>
           </form>
-          <div>
-            <label className="flex items-center justify-center mt-6">
-              <button
-                type="submit"
-                className="group relative w-3/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                disabled={!isFormValid}
-              >
-                가입 완료
-              </button>
-            </label>
-          </div>
         </div>
       </div>
     </div>

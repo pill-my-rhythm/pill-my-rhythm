@@ -7,7 +7,7 @@ import { UserStateContext } from "../../../Dispatcher";
 export interface UserData {
   age_range: string;
   createdAt: Date;
-  deletedAt: null;
+  deletedAt?: null;
   email: string;
   gender: string;
   job: string;

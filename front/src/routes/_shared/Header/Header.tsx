@@ -13,21 +13,22 @@ const Header = () => {
   const isLogin = !!userState.user;
 
   // 로그아웃 클릭 시 실행되는 함수
-  const logout: React.MouseEventHandler<HTMLButtonElement> | undefined = async () => {
+  const logout: React.MouseEventHandler<HTMLButtonElement> = async () => {
     try {
-      console.log("#user", userState.user);
-      console.log("#user.accessToken", userState.user.accessToken);
+      await del("user/logout");
+      // console.log("# Logout success", data);
 
-      const data = await del("user/logout");
-      console.log("# Logout success", data);
-
-      // sessionStorage 에 저장했던 JWT 토큰을 삭제함.
+      // * sessionStorage 에 저장했던 JWT 토큰을 삭제함.
       sessionStorage.removeItem("userToken");
-      // dispatch 함수를 이용해 로그아웃함.
+
+      // * dispatch 함수를 이용해 로그아웃함.
       await dispatch({ type: "LOGOUT" });
-      // 기본 페이지로 돌아감.
+      // * 로그아웃 알림!
+      alert("로그아웃 완료!");
+      // * 기본 페이지로 돌아감.
       navigate("/");
     } catch (err) {
+      alert("로그아웃에 실패했습니다.");
       console.log("# Logout Error", err);
     }
   };
