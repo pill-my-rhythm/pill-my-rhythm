@@ -12,6 +12,7 @@ const Schedule = {
     });
     return schedule;
   },
+
   createSchedule: async (newScheduleData: IScheduleCreateInput) => {
     const schedule = await Schedules.create(newScheduleData);
     return schedule;
@@ -23,6 +24,15 @@ const Schedule = {
       include: { model: Users, where: { pk_user_id: fk_user_id } },
     });
     return schedule;
+  },
+
+  findByOnlyTime: async (time: Date) => {
+    const schedules = await Schedules.findAll({
+      attributes: ["fk_user_id", "to_do"],
+      where: { type: "S", start: time },
+      include: { model: Users, attributes: ["user_name"] },
+    });
+    return schedules;
   },
 };
 
