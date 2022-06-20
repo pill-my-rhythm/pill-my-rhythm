@@ -1,9 +1,10 @@
 import { Subscribe } from "../db/Subscribe";
 import { HttpException } from "../utils/error-util";
-import { ISendNotificationInput } from "../interfaces/subscribeInput";
+import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import webpush from "web-push";
 import { Schedule } from "../db/Schedule";
 import { DailySupplement } from "../db/DailySupplement";
+import { SubscribeRouter } from "../routes/subscribeRouter";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -35,15 +36,25 @@ const SubscribeService = {
   },
 
   pushSupplementSchedules: async (time: Date) => {
-    const supplementSchedules = await Schedule.findByOnlyTime(time);
-    supplementSchedules.forEach(async (schedule) => {
-      const dailySupplement = await DailySupplement.findByIdAndToDo(schedule);
-      dailySupplement.forEach((element) => {
-        console.log(element);
+    const supplementSchedules: any = await Schedule.findByOnlyTime(time);
+    const supplementArray: string[] = [];
+    supplementSchedules.forEach(async (schedule: any) => {
+      const dailySupplement: any = await DailySupplement.findByIdAndToDo(schedule);
+      dailySupplement.forEach((element: any) => {
+        supplementArray.push(element.Supplement.name);
       });
-      console.log(dailySupplement.values());
+      const supplements = supplementArray.join();
+      console.log(supplements);
     });
 
+    console.log("언제?");
+    // const pushData: pushData = {
+    //   user_name: supplementSchedules.User["user_name"],
+    //   to_do: supplementSchedules.to_do,
+    //   supplements: supplements,
+    // };
+
+    // console.log(pushData);
     return supplementSchedules;
   },
 
