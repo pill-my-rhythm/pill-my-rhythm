@@ -14,6 +14,20 @@ const DailySupplement = {
     });
     return schedule;
   },
+  findByIdAndToDo: async (schedule: any) => {
+    const fk_user_id = schedule.fk_user_id;
+    const to_do = schedule.to_do;
+    const dailySchedule = await DailySupplements.findAll({
+      attributes: ["fk_supplement_id"],
+      where: { type: to_do },
+      include: [
+        { model: Users, attributes: [], where: { pk_user_id: fk_user_id } },
+        { model: Supplements, attributes: ["name"] },
+      ],
+    });
+    const pushData = dailySchedule.map((element) => element.get({ plain: true }));
+    return pushData;
+  },
   createDailySchedule: async (data: IDailySupplementCreateInput) => {
     const dailySchedule = await DailySupplements.create(data);
     return dailySchedule;
