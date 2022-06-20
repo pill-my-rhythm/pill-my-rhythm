@@ -128,18 +128,18 @@ function RegisterForm() {
                 </select>
               </label>
             </div>
+            <div>
+              <label className="flex items-center justify-center mt-6">
+                <button
+                  type="submit"
+                  className="group relative w-3/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  disabled={!isFormValid}
+                >
+                  가입 완료
+                </button>
+              </label>
+            </div>
           </form>
-          <div>
-            <label className="flex items-center justify-center mt-6">
-              <button
-                type="submit"
-                className="group relative w-3/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                disabled={!isFormValid}
-              >
-                가입 완료
-              </button>
-            </label>
-          </div>
         </div>
       </div>
     </div>
