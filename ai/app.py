@@ -1,11 +1,8 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from test_model import test_model
 
 # Flask 앱
 app = Flask(__name__)
-CORS(app)
-
 
 @app.route("/")
 def hello_world():
@@ -13,10 +10,11 @@ def hello_world():
 
 @app.route("/recommend", methods=['GET'])
 def recommend():
-    sentence = request.get_json()['sentence']
+    sentence = request.args.to_dict().get("sentence")
     supplement = test_model(sentence)
-    return supplement
+    result = {}
+    result['index'] = supplement
+    return jsonify(result)
 
-
-if __name__ == '__main__':
+if __name__ == '__main__': 
     app.run(port=5002, debug=True)
