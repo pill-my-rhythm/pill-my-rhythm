@@ -26,8 +26,11 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
       const res = await get("user/current");
       const currentUser = res.data;
 
+      if (!dispatch) return;
+
       console.log("# currentUser", currentUser);
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
+
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: currentUser,

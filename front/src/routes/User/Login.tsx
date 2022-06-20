@@ -45,6 +45,8 @@ const LoginForm = () => {
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       console.log("#user", user);
 
+      if (!dispatch) return;
+
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: user,
