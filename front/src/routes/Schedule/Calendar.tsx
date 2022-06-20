@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { get, post } from "../../Api";
 import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
@@ -78,16 +79,34 @@ function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
+  const start = "2022-02-01";
+  const finish = "2022-02-07";
+  // console.log(views);
+  useEffect(() => {
+    get(`schedule?start=${start}&finish=${finish}`).then((res) => console.log(res.data));
+  }, []);
 
-  const onAppointmentAdd = (e: any) => {
+  const onAppointmentAdd = async (e: any) => {
     // index : 움직인 item의 index 값
     // e.itemData : 움직인 item의 정보
     // tasks : 리스트 아이템
     // appointments : 캘린더에 움직여진 item의 정보
+    // e.cancel = true;
     const index = tasks.indexOf(e.fromData);
     if (index >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
+      try {
+        await post("schedule/create", {
+          type: "B",
+          start: e.itemData.startDate,
+          finish: e.itemData.endDate,
+          to_do: e.itemData.text,
+        });
+      } catch (err) {
+        console.log("스케줄 생성 오류", err);
+      }
     }
+    // console.log(e.itemData.endDate, e.itemData.startDate, e.itemData.text);
   };
 
   const onAppointmentDeleting = (e: any) => {
@@ -141,11 +160,11 @@ function Calendar() {
               ))}
             </ListWrapper>
             {/* 문제 나는 모달 부분 */}
-            <DayWrapper>
+            {/* <DayWrapper>
               {dayHour.map((task) => (
                 <DayItem task={task} key={task.text} />
               ))}
-            </DayWrapper>
+            </DayWrapper> */}
           </Draggable>
         </ScrollView>
       </Wrapper>
