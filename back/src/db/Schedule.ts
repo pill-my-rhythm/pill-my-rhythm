@@ -32,7 +32,8 @@ const Schedule = {
       where: { type: "S", start: time },
       include: { model: Users, attributes: ["user_name"] },
     });
-    return schedules;
+    const scheduleData = schedules.map((element) => element.get({ plain: true }));
+    return scheduleData;
   },
 };
 
