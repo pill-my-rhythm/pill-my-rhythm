@@ -35,6 +35,7 @@ function RegisterForm() {
   // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
+  // option용 Array
   const ages = ["10대", "20대", "30대", "40대", "50대", "60대 이상"];
   const jobs = ["교육", "제조", "디자인", "개발", "서비스", "기타"];
 
@@ -52,9 +53,13 @@ function RegisterForm() {
         job: job,
       });
 
+      // alert 문구 추가
+      alert("회원가입을 환영합니다!");
       // 로그인 페이지로 이동함.
+
       navigate("/login");
     } catch (err) {
+      alert("회원가입에 실패하였습니다.");
       console.log("회원가입에 실패하였습니다.", err);
     }
   };
