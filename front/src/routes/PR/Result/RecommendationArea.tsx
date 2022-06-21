@@ -1,9 +1,9 @@
 import React from "react";
 import PRCard from "./PRList";
-import { UserData } from "./Result";
-const RecommendationArea = ({ user }: UserData, isLogin: Boolean) => {
-  console.log("#R-AreaUser", user);
+import { Props } from "./Result";
 
+const RecommendationArea = ({ user, isLogin }: Props) => {
+  console.log("#R-AreaUser", user);
   return (
     <div className="min-h-screen bg-base-200">
       <div className="w-screen p-2 flex flex-col items-center justify-center">
