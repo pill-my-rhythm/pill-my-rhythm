@@ -33,6 +33,8 @@ paths:
     $ref: "./paths/user.yaml#/~1user~1refresh"
   /schedule:
     $ref: "./paths/schedule.yaml#/~1schedule"
+  /schedule/week:
+    $ref: "./paths/schedule.yaml#/~1schedule~1week"
   /schedule/create:
     $ref: "./paths/schedule.yaml#/~1schedule~1create"
   /schedule/daily-supplement:
