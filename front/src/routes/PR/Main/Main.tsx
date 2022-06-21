@@ -16,7 +16,7 @@ const Main = () => {
     // 사용자 기기 정보로 구독 요청
     const subscription = await sw.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: "BDv0IQi0fy3NMgFRelPhSxnbsE7PWx-N_0I0JKzz9OGdMIFUmOOZKwTIw-aA9syxQ85hrHdiO_nShXmZprPYL30",
+      applicationServerKey: process.env.REACT_APP_WEB_PUSH_PUBLIC_KEY,
     });
     console.log(JSON.stringify(subscription));
     setSubToken(JSON.stringify(subscription));
