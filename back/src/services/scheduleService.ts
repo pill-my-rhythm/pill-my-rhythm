@@ -13,6 +13,7 @@ const ScheduleService = {
     }
     const checklist = await Checklist.findByWeek(fk_user_id, data);
     const dailySupplement = await DailySupplement.findById(fk_user_id);
+    // TODO: 북마크 정보 추가돼야 함
     return { schedule, checklist, dailySupplement };
   },
 
@@ -21,8 +22,9 @@ const ScheduleService = {
     if (!schedule) {
       throw new HttpException(401, "등록한 일정이 없습니다.");
     }
+    const checklist = await Checklist.findByWeek(fk_user_id, data);
 
-    return { schedule };
+    return { schedule, checklist };
   },
 
   addSchedule: async (fk_user_id: string, data: IScheduleCreateInput) => {
