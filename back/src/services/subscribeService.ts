@@ -3,7 +3,6 @@ import { HttpException } from "../utils/error-util";
 import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import webpush from "web-push";
 import { Schedule } from "../db/Schedule";
-import { DailySupplement } from "../db/DailySupplement";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
