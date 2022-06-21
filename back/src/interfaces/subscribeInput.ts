@@ -10,7 +10,7 @@ export interface ISendNotificationInput {
 }
 
 export interface pushData {
-  user_name: string;
-  to_do: string;
+  name: string;
+  when: string;
   supplements: string;
 }
