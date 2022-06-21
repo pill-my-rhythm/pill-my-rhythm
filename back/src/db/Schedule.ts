@@ -1,7 +1,10 @@
-import { Op } from "./models";
+import { Op, col } from "./models";
 import { Users } from "./models/user";
+import { DailySupplements } from "./models/dailySupplement";
 import { Schedules } from "./models/schedule";
 import { IScheduleCreateInput } from "../interfaces/scheduleInput";
+import { where } from "sequelize/types";
+import { Supplements } from "./models/supplement";
 
 const Schedule = {
   findByWeek: async (fk_user_id: string, start: Date, finish: Date) => {
@@ -27,13 +30,15 @@ const Schedule = {
   },
 
   findByOnlyTime: async (time: Date) => {
-    const schedules = await Schedules.findAll({
-      attributes: ["fk_user_id", "to_do"],
-      where: { type: "S", start: time },
-      include: { model: Users, attributes: ["user_name"] },
+    const supplementSchedules = await Schedules.findAll({
+      include: {
+        all: true,
+        nested: true,
+        attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+      },
     });
-    const scheduleData = schedules.map((element) => element.get({ plain: true }));
-    return scheduleData;
+    const supplementSchedulesData = supplementSchedules.map((element) => element.get({ plain: true }));
+    return supplementSchedulesData;
   },
 };
 
