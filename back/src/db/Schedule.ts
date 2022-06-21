@@ -1,10 +1,10 @@
 import { Op, col } from "./models";
 import { Users } from "./models/user";
-import { DailySupplements } from "./models/dailySupplement";
 import { Schedules } from "./models/schedule";
-import { IScheduleCreateInput } from "../interfaces/scheduleInput";
-import { where } from "sequelize/types";
+import { Subscribes } from "./models/subscribe";
+import { DailySupplements } from "./models/dailySupplement";
 import { Supplements } from "./models/supplement";
+import { IScheduleCreateInput } from "../interfaces/scheduleInput";
 
 const Schedule = {
   findByWeek: async (fk_user_id: string, start: Date, finish: Date) => {
@@ -38,6 +38,11 @@ const Schedule = {
         model: Users,
         attributes: ["user_name"],
         include: [
+          {
+            required: true,
+            model: Subscribes,
+            attributes: ["device_token"],
+          },
           {
             required: true,
             model: DailySupplements,
