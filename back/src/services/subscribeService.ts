@@ -76,7 +76,7 @@ const SubscribeService = {
       throw new HttpException(401, "구독 정보가 없는 기기입니다.");
     }
 
-    const unsubscription = await Subscribe.delete(fk_user_id, device_token);
+    const unsubscription = await Subscribe.delete(device_token);
     return unsubscription;
   },
 };
