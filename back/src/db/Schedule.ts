@@ -32,9 +32,21 @@ const Schedule = {
   findByOnlyTime: async (time: Date) => {
     const supplementSchedules = await Schedules.findAll({
       include: {
-        all: true,
-        nested: true,
-        attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+        model: Users,
+        attributes: ["user_name"],
+        include: [
+          {
+            model: DailySupplements,
+            attributes: ["fk_supplement_id"],
+            // where: { type: Schedules.to_do },
+            include: [
+              {
+                model: Supplements,
+                attributes: ["name"],
+              },
+            ],
+          },
+        ],
       },
     });
     const supplementSchedulesData = supplementSchedules.map((element) => element.get({ plain: true }));
