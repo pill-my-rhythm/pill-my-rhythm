@@ -6,7 +6,7 @@ import { HttpException } from "../utils/error-util";
 import { IScheduleCreateInput, IGetScheduleInput, IDailySupplementCreateInput } from "../interfaces/scheduleInput";
 
 const ScheduleService = {
-  getWeeklySchedule: async (fk_user_id: string, data: IGetScheduleInput) => {
+  getSchedulePage: async (fk_user_id: string, data: IGetScheduleInput) => {
     const schedule = await Schedule.findByWeek(fk_user_id, data.start, data.finish);
     if (!schedule) {
       throw new HttpException(401, "등록한 일정이 없습니다.");

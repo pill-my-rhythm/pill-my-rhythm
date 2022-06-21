@@ -3,14 +3,14 @@ import { ScheduleService } from "../services/scheduleService";
 import { IScheduleCreateInput } from "../interfaces/scheduleInput";
 
 const ScheduleController = {
-  getWeeklySchedule: async (req: Request, res: Response, next: NextFunction) => {
+  getSchedulePage: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
       const s: string = req.query.start as string;
       const f: string = req.query.finish as string;
       const start: Date = new Date(s);
       const finish: Date = new Date(f);
-      const result = await ScheduleService.getWeeklySchedule(fk_user_id, { start, finish });
+      const result = await ScheduleService.getSchedulePage(fk_user_id, { start, finish });
       res.status(201).json(result);
     } catch (error) {
       next(error);
