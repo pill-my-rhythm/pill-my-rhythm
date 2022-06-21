@@ -72,15 +72,15 @@ export interface Appointments {
 
 let now = new Date();
 const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-const views: Array<Object> = [{ type: "day", intervalCount: 7 }];
+const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
-  const start = "2022-02-01";
-  const finish = "2022-02-07";
+  const start = "2022-06-20";
+  const finish = "2022-06-26";
   // console.log(views);
   useEffect(() => {
     get(`schedule?start=${start}&finish=${finish}`).then((res) => console.log(res.data));
@@ -128,6 +128,7 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string }, index: number) => {
+    // console.log(data, index);
     return (
       <>
         <DateLabel htmlFor="my-modal-4" className="modal-button cursor-pointer">
@@ -176,12 +177,14 @@ function Calendar() {
           dataSource={appointments}
           views={views}
           defaultCurrentDate={currentDate}
+          defaultCurrentView="week"
           height={600}
           startDayHour={8}
           onAppointmentFormOpening={onAppointmentFormOpening}
           onAppointmentDeleting={onAppointmentDeleting}
           showAllDayPanel={false}
           dateCellRender={renderDateCell}
+          firstDayOfWeek={1}
         >
           <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
         </Scheduler>
