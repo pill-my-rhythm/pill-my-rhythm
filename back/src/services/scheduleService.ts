@@ -16,6 +16,15 @@ const ScheduleService = {
     return { schedule, checklist, dailySupplement };
   },
 
+  getWeeklySchedule: async (fk_user_id: string, data: IGetScheduleInput) => {
+    const schedule = await Schedule.findByWeek(fk_user_id, data.start, data.finish);
+    if (!schedule) {
+      throw new HttpException(401, "등록한 일정이 없습니다.");
+    }
+
+    return { schedule };
+  },
+
   addSchedule: async (fk_user_id: string, data: IScheduleCreateInput) => {
     const schedule = await Schedule.findByTime(fk_user_id, data.start, data.finish);
     if (schedule) {
