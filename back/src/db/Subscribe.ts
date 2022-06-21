@@ -1,5 +1,5 @@
 import { Subscribes } from "./models/subscribe";
-import { ISendNotificationInput } from "../interfaces/subscribeInput";
+import { ISubscriptionInput, ISendNotificationInput } from "../interfaces/subscribeInput";
 import { Users } from "./models/user";
 
 const Subscribe = {
@@ -11,8 +11,8 @@ const Subscribe = {
     return subscription;
   },
 
-  create: async (fk_user_id: string, device_token: ISendNotificationInput) => {
-    const newSubscription = await Subscribes.create({ fk_user_id, device_token });
+  create: async (newSubscriptionData: ISubscriptionInput) => {
+    const newSubscription = await Subscribes.create(newSubscriptionData);
     return newSubscription;
   },
 
