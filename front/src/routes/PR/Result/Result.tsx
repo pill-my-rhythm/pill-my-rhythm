@@ -5,7 +5,7 @@ import Promotion from "./Promotion";
 import { UserStateContext } from "../../../Dispatcher";
 
 export interface UserData {
-  user: { age_range: string; createdAt: Date; deletedAt: null; email: string; gender: string; job: string; password: string; pk_user_id: string; updatedAt: Date; user_name: string };
+  user: { age_range: string; createdAt: Date; deletedAt?: null; email: string; gender: string; job: string; password: string; pk_user_id: string; updatedAt: Date; user_name: string };
 }
 
 const Result = () => {
