@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
@@ -79,12 +79,19 @@ function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
-  const start = "2022-06-20";
-  const finish = "2022-06-26";
-  // console.log(views);
+
+  const [firstday, setFirstday] = useState<Date>();
+  const [lastday, setLastday] = useState<Date>();
+
+  const onCurrentDateChange = (e: any) => {
+    let curr = new Date(e);
+    setFirstday(new Date(curr.setDate(curr.getDate() - curr.getDay() + 1)));
+    setLastday(new Date(curr.setDate(curr.getDate() - curr.getDay() + 7)));
+  };
+
   useEffect(() => {
-    get(`schedule?start=${start}&finish=${finish}`).then((res) => console.log(res.data));
-  }, []);
+    get(`schedule?start=${firstday}&finish=${lastday}`).then((res) => console.log(res.data));
+  }, [firstday, lastday]);
 
   const onAppointmentAdd = async (e: any) => {
     // index : 움직인 item의 index 값
@@ -185,6 +192,7 @@ function Calendar() {
           showAllDayPanel={false}
           dateCellRender={renderDateCell}
           firstDayOfWeek={1}
+          onCurrentDateChange={onCurrentDateChange}
         >
           <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
         </Scheduler>
