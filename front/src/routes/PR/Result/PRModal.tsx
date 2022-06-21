@@ -4,12 +4,9 @@ import { PillData } from "./PRList";
 const PRModal = ({ pr }: PillData) => {
   return (
     <div>
-      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      여기까진 값이 전달이 되는데
-      <label htmlFor="my-modal-4" className="modal cursor-pointer">
-        여기서부터 안됌~모달배경화면영역~
+      <input type="checkbox" id={`modal-${pr.name}`} className="modal-toggle" />
+      <label htmlFor={`modal-${pr.name}`} className="modal cursor-pointer">
         <label className="modal-box relative" htmlFor="">
-          ~여긴모달내부영역~
           <h3 className="text-lg text-teal-600 font-bold mb-6">{pr.name}</h3>
           <div className="flex flex-row">
             <div className="grid grid-rows-2 flex-row justify-center items-center">

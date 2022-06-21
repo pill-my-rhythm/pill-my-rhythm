@@ -18,7 +18,7 @@ const PRCard = ({ pr }: PillData) => {
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
           </svg>
-          <label htmlFor="my-modal-4" className="btn modal-button btn-primary">
+          <label htmlFor={`modal-${pr.name}`} className="btn modal-button btn-primary">
             더 알아보기
           </label>
           <PRModal pr={pr} key={pr.id} />
