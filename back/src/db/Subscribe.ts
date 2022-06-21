@@ -17,12 +17,16 @@ const Subscribe = {
   },
 
   findByUserId: async (fk_user_id: string) => {
-    const devicesArray = await Subscribes.findAll({ where: { fk_user_id } });
+    // const devicesArray = await Subscribes.findAll({ where: { fk_user_id } });
+    const devicesArray = await Subscribes.findAll();
     return devicesArray;
   },
 
-  delete: async (fk_user_id: string, device_token: ISendNotificationInput) => {
-    const unsubscription = await Subscribes.destroy({ where: { fk_user_id, device_token } });
+  delete: async (device_token: ISendNotificationInput) => {
+    const unsubscription = await Subscribes.destroy({
+      where: { device_token },
+    });
+    // const unsubscription = await Subscribes.destroy();
     return unsubscription;
   },
 };
