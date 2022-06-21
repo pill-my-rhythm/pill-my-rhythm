@@ -90,7 +90,7 @@ function Calendar() {
   };
 
   useEffect(() => {
-    get(`schedule?start=${firstday}&finish=${lastday}`).then((res) => console.log(res.data));
+    get(`schedule/week?start=${firstday}&finish=${lastday}`).then((res) => console.log(res.data));
   }, [firstday, lastday]);
 
   const onAppointmentAdd = async (e: any) => {
