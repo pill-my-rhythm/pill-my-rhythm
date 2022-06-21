@@ -44,7 +44,7 @@ self.addEventListener(
       // User selected the Archive action.
       case "checklist-action":
         // TODO: front 구현 후 링크 수정해야 함
-        event.waitUntil(self.clients.openWindow("http://localhost:3000/schedule/checklist"}`));
+        event.waitUntil(self.clients.openWindow("http://localhost:3000/schedule/checklist"));
         break;
       // no default
     }
