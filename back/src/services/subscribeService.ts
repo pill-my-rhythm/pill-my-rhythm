@@ -10,8 +10,8 @@ const SubscribeService = {
     if (subscription) {
       throw new HttpException(401, "이미 구독 신청을 한 기기입니다.");
     }
-
-    const newSubscription = await Subscribe.create(fk_user_id, device_token);
+    const newSubscriptionData = { fk_user_id, device_token };
+    const newSubscription = await Subscribe.create(newSubscriptionData);
     return newSubscription;
   },
 
