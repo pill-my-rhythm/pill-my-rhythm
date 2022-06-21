@@ -43,6 +43,17 @@ Schedules.init(
     to_do: {
       type: DataTypes.STRING(50),
       allowNull: true,
+      get() {
+        const to_do = this.getDataValue("to_do");
+        switch (to_do) {
+          case "B":
+            return "아침";
+          case "L":
+            return "점심";
+          case "D":
+            return "저녁";
+        }
+      },
     },
   },
   {
