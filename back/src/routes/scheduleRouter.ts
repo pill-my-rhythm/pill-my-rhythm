@@ -11,6 +11,9 @@ ScheduleRouter.use(verifyToken);
 // 전체 스케줄 조회
 ScheduleRouter.get("/", ScheduleController.getSchedulePage);
 
+// 일주일 스케줄 조회
+ScheduleRouter.get("/week", ScheduleController.getWeeklySchedule);
+
 // 생체 리듬, 스케줄 추가
 ScheduleRouter.post(
   "/create",
