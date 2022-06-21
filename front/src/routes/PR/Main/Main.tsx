@@ -13,13 +13,14 @@ const Main = () => {
   const subscribe = async () => {
     console.log("subscribe function");
     const sw = await navigator.serviceWorker.ready;
+    // 사용자 기기 정보로 구독 요청
     const subscription = await sw.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: "BDv0IQi0fy3NMgFRelPhSxnbsE7PWx-N_0I0JKzz9OGdMIFUmOOZKwTIw-aA9syxQ85hrHdiO_nShXmZprPYL30",
     });
     console.log(JSON.stringify(subscription));
     setSubToken(JSON.stringify(subscription));
-    // 사용자 기기 정보로 구독 요청
+    // 사용자 기기 정보 DB에 추가
     await Api.post("subscribe/create", { device_token: subscription });
   };
 
@@ -29,9 +30,10 @@ const Main = () => {
     const subscription = await registration.pushManager.getSubscription();
     if (!subscription) return;
 
-    // 사용자 기기 정보로 구독  취소 요청
+    // 사용자 기기 정보로 구독 취소 요청
     await subscription.unsubscribe();
     setUnSubToken(JSON.stringify(subscription));
+    // 사용자 기기 정보 DB에서 삭제
     await Api.post("subscribe/delete", { device_token: subscription });
   };
 
