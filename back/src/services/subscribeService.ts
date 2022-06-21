@@ -4,7 +4,6 @@ import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import webpush from "web-push";
 import { Schedule } from "../db/Schedule";
 import { DailySupplement } from "../db/DailySupplement";
-import { SubscribeRouter } from "../routes/subscribeRouter";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -36,26 +35,40 @@ const SubscribeService = {
   },
 
   pushSupplementSchedules: async (time: Date) => {
-    const supplementSchedules: any = await Schedule.findByOnlyTime(time);
-    const supplementArray: string[] = [];
-    supplementSchedules.forEach(async (schedule: any) => {
-      const dailySupplement: any = await DailySupplement.findByIdAndToDo(schedule);
-      dailySupplement.forEach((element: any) => {
-        supplementArray.push(element.Supplement.name);
+    const supplementSchedulesDataArray: any = await Schedule.findByOnlyTime(time);
+    supplementSchedulesDataArray.forEach(async (scheduleData: any) => {
+      const supplementArray: string[] = [];
+      for (const supplement of scheduleData.User.DailySupplements) {
+        supplementArray.push(supplement.Supplement.name);
+      }
+
+      const pushData: pushData = {
+        user_name: scheduleData.User["user_name"],
+        to_do: scheduleData.to_do,
+        supplements: supplementArray.join(),
+      };
+      console.log(pushData);
+
+      const notificationData = {
+        title: "Pill my rhythm",
+        body: `${pushData.user_name}님, ${pushData.to_do} 영양제 드실 시간이에요!\n ${pushData.supplements} 영양제를 복용해주세요.`,
+      };
+      const deviceToken: any = {
+        keys: {
+          auth: "xQMwB8tlfWzRUMMJFPpSnA",
+          p256dh: "BC4SjIP-vG6PIC_g9eYRzQYvSxdXWvd2ethQ-T_3XIc7maENsxkXl9VBk3SANpRasduN2KuWmjeWoRciU41ZQ7c",
+        },
+        endpoint:
+          "https://fcm.googleapis.com/fcm/send/dedvLG7BGYc:APA91bEwZ6rZaZQ9qApc7xrIUPHfPp2OWcRIum-V5czhZNkfXKkEqvHM3hAhP443MdWR-jmLhZ9HkWRz2uMY2OALVInewsFxrL3FWIjv_JINOOMFKIGVsCDGbxEiaNIQEGojXrH0KzSV",
+        expirationTime: null,
+      };
+      webpush.sendNotification(deviceToken, JSON.stringify(notificationData)).catch((error) => {
+        console.error(error);
+        throw new HttpException(500, error);
       });
-      const supplements = supplementArray.join();
-      console.log(supplements);
     });
 
-    console.log("언제?");
-    // const pushData: pushData = {
-    //   user_name: supplementSchedules.User["user_name"],
-    //   to_do: supplementSchedules.to_do,
-    //   supplements: supplements,
-    // };
-
-    // console.log(pushData);
-    return supplementSchedules;
+    return supplementSchedulesDataArray;
   },
 
   deleteSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
