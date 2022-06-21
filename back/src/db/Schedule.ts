@@ -31,16 +31,17 @@ const Schedule = {
 
   findByOnlyTime: async (time: Date) => {
     const supplementSchedules = await Schedules.findAll({
+      attributes: ["to_do"],
+      where: { type: "S", start: time, "$User.DailySupplements.type$": { [Op.eq]: col("Schedules.to_do") } },
       include: {
-        required: true,
+        required: true, // inner join
         model: Users,
         attributes: ["user_name"],
         include: [
           {
-            required: true, // inner join
+            required: true,
             model: DailySupplements,
             attributes: ["fk_supplement_id"],
-            // where: { type: Schedules.to_do },
             include: [
               {
                 required: true,
