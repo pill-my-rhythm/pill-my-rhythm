@@ -69,5 +69,5 @@ def test_model(new_data):
         recommendation_indices = random.sample(recommendation_indices,3)
     return recommendation_indices
 
-result = test_model("간 건강에 좋은 영양제 추천해주세요")
-print(result)
+# result = test_model("간 건강에 좋은 영양제 추천해주세요")
+# print(result)
