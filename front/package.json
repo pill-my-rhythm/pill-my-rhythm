@@ -1,6 +1,7 @@
 {
   "name": "front",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@cubedoodl/react-simple-scheduler": "^1.2.9",
