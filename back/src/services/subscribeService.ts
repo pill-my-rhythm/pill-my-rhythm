@@ -79,6 +79,15 @@ const SubscribeService = {
       throw new HttpException(401, "구독 정보가 없는 기기입니다.");
     }
 
+    const notificationData = {
+      title: "Pill my rhythm",
+      body: "영양제 스케줄 알림 기능을 더이상 구독하지 않습니다.",
+    };
+    webpush.sendNotification(device_token, JSON.stringify(notificationData)).catch((error) => {
+      console.error(error);
+      throw new HttpException(500, error);
+    });
+
     const unsubscription = await Subscribe.delete(device_token);
     return unsubscription;
   },
