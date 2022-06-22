@@ -28,7 +28,9 @@ const SubscribeController = {
 
   pushSupplements: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const time: Date = req.body.time;
+      const strtime: any = req.query.time;
+      const time: Date = new Date(strtime);
+      console.log(time);
 
       const supplementSchedules = await SubscribeService.pushSupplementSchedules(time);
       res.status(200).json(supplementSchedules);
