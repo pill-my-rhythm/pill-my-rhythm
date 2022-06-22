@@ -12,6 +12,15 @@ const SubscribeService = {
     }
     const newSubscriptionData = { fk_user_id, device_token };
     const newSubscription = await Subscribe.create(newSubscriptionData);
+
+    const notificationData = {
+      title: "Pill my rhythm",
+      body: "영양제 스케줄 알림 기능을 활성화합니다.",
+    };
+    webpush.sendNotification(device_token, JSON.stringify(notificationData)).catch((error) => {
+      console.error(error);
+      throw new HttpException(500, error);
+    });
     return newSubscription;
   },
 
