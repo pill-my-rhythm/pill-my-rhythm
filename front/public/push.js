@@ -5,6 +5,7 @@ import webpush from "web-push";
 
 config({ path: "../.env", encoding: "utf8" });
 const backendPortNumber = "5000";
+// 배포하면 주소 변경해야 함
 const serverUrl = "http://localhost:" + backendPortNumber + "/";
 
 // VAPID keys should only be generated only once.
@@ -21,9 +22,14 @@ const rl = createInterface({
 });
 
 rl.on("line", async (time) => {
-  await axios.get(serverUrl + "subscribe/push-supplements", { params: { time: time } }).catch((error) => {
-    console.log(error);
-  });
+  await axios
+    .get(serverUrl + "subscribe/push-supplements", { params: { time: time } })
+    .then(() => {
+      console.log(`${time}에 설정된 푸시 알림을 전송했습니다.`);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   rl.close();
 });
 
