@@ -4,7 +4,7 @@ import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { get, post } from "../../Api";
-import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
+import { appointmentsAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
@@ -77,21 +77,23 @@ const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
-  const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
 
-  const [firstday, setFirstday] = useState<Date>();
-  const [lastday, setLastday] = useState<Date>();
+  const getWeek = (day: any) => {
+    let curr = new Date(day);
+    let firstday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
+    let lastday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 7));
+
+    return [firstday, lastday];
+  };
 
   const onCurrentDateChange = (e: any) => {
-    let curr = new Date(e);
-    setFirstday(new Date(curr.setDate(curr.getDate() - curr.getDay() + 1)));
-    setLastday(new Date(curr.setDate(curr.getDate() - curr.getDay() + 7)));
+    get(`schedule/week?start=${getWeek(e)[0]}&finish=${getWeek(e)[1]}`).then((res) => console.log(res.data));
   };
 
   useEffect(() => {
-    get(`schedule/week?start=${firstday}&finish=${lastday}`).then((res) => console.log(res.data));
-  }, [firstday, lastday]);
+    get(`schedule/?start=${getWeek(currentDate)[0]}&finish=${getWeek(currentDate)[1]}`).then((res) => console.log(res.data));
+  }, []);
 
   const onAppointmentAdd = async (e: any) => {
     // index : 움직인 item의 index 값
@@ -113,7 +115,6 @@ function Calendar() {
         console.log("스케줄 생성 오류", err);
       }
     }
-    // console.log(e.itemData.endDate, e.itemData.startDate, e.itemData.text);
   };
 
   const onAppointmentDeleting = (e: any) => {
@@ -135,7 +136,6 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string }, index: number) => {
-    // console.log(data, index);
     return (
       <>
         <DateLabel htmlFor="my-modal-4" className="modal-button cursor-pointer">
@@ -190,7 +190,7 @@ function Calendar() {
           onAppointmentFormOpening={onAppointmentFormOpening}
           onAppointmentDeleting={onAppointmentDeleting}
           showAllDayPanel={false}
-          dateCellRender={renderDateCell}
+          // dateCellRender={renderDateCell}
           firstDayOfWeek={1}
           onCurrentDateChange={onCurrentDateChange}
         >
