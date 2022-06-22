@@ -43,7 +43,7 @@ const SubscribeService = {
   },
 
   pushSupplementSchedules: async (time: Date) => {
-    const supplementSchedulesDataArray: any = await Schedule.findByOnlyTime(time);
+    const supplementSchedulesDataArray = await Schedule.findByOnlyTime(time);
     supplementSchedulesDataArray.forEach(async (scheduleData: any) => {
       const supplementArray: string[] = [];
       for (const supplement of scheduleData.User.DailySupplements) {
