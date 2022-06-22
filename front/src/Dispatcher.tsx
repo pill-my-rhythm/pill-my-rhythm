@@ -45,7 +45,7 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
   // useEffect함수를 통해 fetchCurrentUser 함수를 실행함.
   useEffect(() => {
     fetchCurrentUser();
-  }, []);
+  }, [userState.user_name]);
 
   if (!isFetchCompleted) {
     return <span> Loading..</span>;
