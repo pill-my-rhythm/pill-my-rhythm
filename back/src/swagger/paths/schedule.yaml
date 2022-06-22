@@ -50,6 +50,25 @@
       "400":
         description: accessToken이 유효하지 않습니다.
 
+/schedule/delete/{schedule_id}:
+  delete:
+    tags:
+      - schedule
+    summary: 생체 리듬, 스케줄 삭제 API 입니다.
+    description: (필수) accessToken, schedule_id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: schedule_id
+        schema:
+          type: number
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
+
 # 3) 생체 리듬, 스케줄 설정
 /schedule/create:
   post:
