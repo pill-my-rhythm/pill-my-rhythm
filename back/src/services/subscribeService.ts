@@ -59,6 +59,7 @@ const SubscribeService = {
       const notificationData = {
         title: `${pushData.name}님, ${pushData.when} 영양제 드실 시간이에요!`,
         body: `${pushData.supplements} 영양제를 복용해주세요.`,
+        jwtToken: "it has to be encrypted",
       };
 
       const subscriptionArray = scheduleData.User.Subscribes;
