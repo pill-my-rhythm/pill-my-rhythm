@@ -12,4 +12,7 @@ BookMarkRouter.get("/", BookMarkController.getAllBookmarks);
 // 북마크 추가
 BookMarkRouter.post("/create/:supplement_id", BookMarkController.create);
 
+// 북마크 삭제
+BookMarkRouter.delete("/:bookmark_id", BookMarkController.deleteBookmark);
+
 export { BookMarkRouter };

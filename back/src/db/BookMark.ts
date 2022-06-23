@@ -29,9 +29,26 @@ const BookMark = {
     });
     return schedule;
   },
+
   createBookMark: async (data: IBookMarkCreateInput) => {
     const newBookMark = await BookMarks.create(data);
     return newBookMark;
+  },
+
+  findByBookMarkUser: async (fk_user_id: string, pk_bookmark_id: number) => {
+    const bookmark = await BookMarks.findOne({
+      where: { pk_bookmark_id: pk_bookmark_id },
+      include: { model: Users, where: { pk_user_id: fk_user_id } },
+    });
+    return bookmark;
+  },
+
+  deleteSchedule: async (pk_bookmark_id: number) => {
+    const bookmark = await BookMarks.destroy({
+      where: { pk_bookmark_id: pk_bookmark_id },
+      force: true,
+    });
+    return bookmark;
   },
 };
 
