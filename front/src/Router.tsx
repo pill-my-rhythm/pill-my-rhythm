@@ -7,7 +7,8 @@ import Login from "./routes/User/Login";
 import Dispatcher from "./Dispatcher";
 import Result from "./routes/PR/Result";
 import Mypage from "./routes/User/MyPage";
-import Subscribe from "./routes/Schedule/Subscribe";
+import Subscribe from "./routes/Schedule/Mobile/Subscribe";
+import Checklist from "./routes/Schedule/Mobile/Checklist";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
           <Route path="/result" element={<Result />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/m/subscribe" element={<Subscribe />} />
+          <Route path="/m/checklist" element={<Checklist />} />
         </Routes>
       </BrowserRouter>
     </Dispatcher>
