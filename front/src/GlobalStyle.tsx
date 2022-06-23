@@ -63,6 +63,10 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.dx-widget {
+  font-family: 'Pretendard' !important;
+  background-color: white;
+}
 `;
 
 export default GlobalStyle;

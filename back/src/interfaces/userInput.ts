@@ -19,3 +19,7 @@ export interface IUserInfoUpdateInput {
   age_range: string;
   job: string;
 }
+
+export interface ITokenInput {
+  userId: string;
+}

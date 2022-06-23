@@ -1,42 +1,183 @@
-# [스케줄]
-
-# 1) 전체 스케줄 조회
-
+# 1) 스케줄 페이지 조회
 /schedule:
   get:
     tags:
       - schedule
-    summary: 전체 스케줄 조회 API 입니다.
-    description: (필수) accessToken
+    summary: 스케줄 페이지 조회 API 입니다. 일주일 스케줄, 체크리스트 정보와 하루 영양제 정보가 포함되어 있습니다.(북마크 정보 추가할 예정)
+    description: (필수) accessToken, start, finish
     security:
-      - authorization: []
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: start
+        schema:
+          type: string
+        description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
+      - in: query
+        name: finish
+        schema:
+          type: string
+        description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
-# (스케줄 테이블 정보 + 체크리스트 테이블 + 하루 영양제 테이블)
-# GET
-# header : get-Cookie
-# body : 날짜 (단위:1주일)
-# response : 일정 데이터 (단위: 1주일) (B,S) + 체크리스트 신호등 +  하루 영양제 정보(분류)
+      "400":
+        description: accessToken이 유효하지 않습니다.
 
-# 2) 생체 리듬, 스케줄 설정
+# 2) 일주일 스케줄과 체크리스트만 조회
+/schedule/week:
+  get:
+    tags:
+      - schedule
+    summary: 일주일 스케줄과 체크리스트만 조회하는 API 입니다.
+    description: (필수) accessToken, start, finish
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: start
+        schema:
+          type: string
+        description: GET /schedule/week?start='2020-02-01'&finish='2020-02-01'
+      - in: query
+        name: finish
+        schema:
+          type: string
+        description: GET /schedule/week?start='2020-02-01'&finish='2020-02-01'
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
 
-# /schedule/create
-# POST
-# DB) create, update, delete
+/schedule/delete/{schedule_id}:
+  delete:
+    tags:
+      - schedule
+    summary: 생체 리듬, 스케줄 삭제 API 입니다.
+    description: (필수) accessToken, schedule_id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: schedule_id
+        schema:
+          type: number
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
 
-# 3) 아침, 점심, 저녁 영양제 저장 API
+# 3) 생체 리듬, 스케줄 설정
+/schedule/create:
+  post:
+    tags:
+      - schedule
+    summary: 영양제 / 생체리듬 스케줄 생성 API 입니다.
+    description: (필수) accessToken, type, start, finish, to_do
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+              start:
+                type: string
+                format: date_time
+              finish:
+                type: string
+                format: date_time
+              to_do:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
 
-# /schedule/daily-supplement
-# POST
-# header: get-Cookie
-# request, body : 영양제 일련번호, 구분
+# 4) 아침, 점심, 저녁 영양제 저장 API
+/schedule/daily-supplement:
+  post:
+    tags:
+      - schedule
+    summary: 아침, 점심, 저녁 영양제 저장 API 입니다.
+    description: (필수) accessToken, type, fk_supplement_id
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+              fk_supplement_id:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
+/schedule/daily-supplement/{plan_id}:
+  delete:
+    tags:
+      - schedule
+    summary: 아침, 점심, 저녁 영양제 삭제 API 입니다.
+    description: (필수) accessToken, plan_id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: plan_id
+        schema:
+          type: number
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
 
-# 4) 체크리스트 생성
-# /schedule/check-list/create
-# POST
-# header: get-Cookie
-# request, body : 1~6번 답변
-
-# 5) 체크리스트 조회
-# /schedule/check-list
+# 5) 체크리스트 생성
+/checklist/create:
+  post:
+    tags:
+      - schedule
+    summary: 체크리스트 생성 API 입니다.
+    description: (필수) accessToken, date, one, two, three, four, five, six
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              one:
+                type: boolean
+              two:
+                type: boolean
+              three:
+                type: boolean
+              four:
+                type: boolean
+              five:
+                type: boolean
+              six:
+                type: boolean
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
