@@ -46,11 +46,19 @@ const Subscribe = () => {
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Subscribe with your phone</h2>
-          <p className="mt-2 text-center text-sm text-gray-600">Android에서만 가능합니다.</p>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Subscribe
+            <br />
+            with your phone
+          </h2>
+          <br />
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Android에서만 가능합니다. <br />
+            알림 권한 요청에 "허용"을 눌러주세요.
+          </p>
         </div>
         <div>
-          <button onClick={() => subscribe()}>subscribe</button>
+          <button onClick={() => subscribe()}>구독하기</button>
           <p>{subToken}</p>
         </div>
       </div>
