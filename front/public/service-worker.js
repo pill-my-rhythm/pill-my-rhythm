@@ -24,18 +24,14 @@ self.addEventListener("push", (event) => {
         {
           action: "checklist-action",
           title: "Checklist",
-          data: {
-            jwt: data.jwtToken,
-          },
           // icon: "/images/demos/action-4-128x128.png",
         },
       ],
       // data로 action 실행 시 객체 전송 가능
-      // TODO: 이건 BE로 보내서 checklist 작성 위해 토큰값 전송해야 할 듯, 근데 토큰이 refresh되는건 이제.. 생각해보자
-      // data: {
-      //   time: new Date(Date.now()).toString(),
-      //   message: "Hello, World!",
-      // },
+      // TODO: checklist 작성 위해 토큰값 전송, 근데 토큰이 refresh 되는 건 이제.. 생각해보자
+      data: {
+        jwt: data.jwtToken,
+      },
 
       requireInteraction: true, // chrome과 같이 충분히 큰 창에서 사용자가 직접 닫을 때까지 알림 사라지지 않음
     }),
@@ -54,10 +50,10 @@ self.addEventListener(
         break;
       // User selected the Archive action.
       case "checklist-action":
-        console.log(event);
-        const jwtToken = event.notification.data;
-
-        event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${jwtToken}`));
+        const { jwt } = event.notification.data;
+        // public 폴더 안에서는 .env 변수 접근 안 됨
+        // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${jwt}`));
+        event.waitUntil(self.clients.openWindow(`http://localhost:3000/m/checklist?jwt=${jwt}`));
         break;
       // no default
     }
