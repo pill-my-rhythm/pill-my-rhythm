@@ -37,6 +37,8 @@ paths:
     $ref: "./paths/schedule.yaml#/~1schedule~1week"
   /schedule/create:
     $ref: "./paths/schedule.yaml#/~1schedule~1create"
+  /schedule/delete/{schedule_id}:
+    $ref: "./paths/schedule.yaml#/~1schedule~1delete~1{schedule_id}"
   /schedule/daily-supplement:
     $ref: "./paths/schedule.yaml#/~1schedule~1daily-supplement"
   /schedule/daily-supplement/{plan_id}:
