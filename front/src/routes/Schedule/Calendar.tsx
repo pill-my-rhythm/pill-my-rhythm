@@ -10,6 +10,7 @@ import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 import DayItem from "./DayItem";
+import CheckList from "./CheckList";
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,17 +51,6 @@ const ListTitle = styled.h3`
   padding: 40px 0px 20px 50px;
   font-size: 24px;
   font-weight: 700;
-`;
-
-const DateLabel = styled.label`
-  background-color: transparent;
-`;
-
-const TodoWrapaper = styled.div`
-  display: flex;
-  text-align: left;
-  color: black;
-  padding: 10px;
 `;
 
 export interface Appointments {
@@ -136,24 +126,7 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string }, index: number) => {
-    return (
-      <>
-        <DateLabel htmlFor="my-modal-4" className="modal-button cursor-pointer">
-          {data.text}
-        </DateLabel>
-        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-        <label htmlFor="my-modal-4" className="modal cursor-pointer">
-          <label className="modal-box max-w-xs" htmlFor="">
-            {tasks.map((task) => (
-              <TodoWrapaper key={task.text}>
-                <input type="checkbox" className="checkbox checkbox-sm checkbox-primary mr-3" />
-                {task.text}
-              </TodoWrapaper>
-            ))}
-          </label>
-        </label>
-      </>
-    );
+    return <CheckList data={data} index={index} tasks={tasks} />;
   };
 
   return (
@@ -190,7 +163,7 @@ function Calendar() {
           onAppointmentFormOpening={onAppointmentFormOpening}
           onAppointmentDeleting={onAppointmentDeleting}
           showAllDayPanel={false}
-          // dateCellRender={renderDateCell}
+          dateCellRender={renderDateCell}
           firstDayOfWeek={1}
           onCurrentDateChange={onCurrentDateChange}
         >
