@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const DateLabel = styled.label`
@@ -9,6 +10,16 @@ const TodoWrapper = styled.div`
   text-align: left;
   color: black;
   padding: 10px;
+`;
+
+const CheckListTitle = styled.h1`
+  font-size: 26px;
+  margin-bottom: 10px;
+`;
+
+const CheckListBtn = styled.button`
+  width: 30%;
+  margin-top: 20px;
 `;
 
 interface CheckListProp {
@@ -26,12 +37,14 @@ const CheckList = ({ data, index, tasks }: CheckListProp) => {
       <input type="checkbox" id={`modal-${data.text}`} className="modal-toggle" />
       <label htmlFor={`modal-${data.text}`} className="modal cursor-pointer">
         <label className="modal-box max-w-xs" htmlFor="">
-          {tasks.map((task) => (
-            <TodoWrapper key={task.text}>
+          <CheckListTitle>{data.text}</CheckListTitle>
+          {tasks.map((task, index) => (
+            <TodoWrapper key={index}>
               <input type="checkbox" className="checkbox checkbox-sm checkbox-primary mr-3" />
               {task.text}
             </TodoWrapper>
           ))}
+          <CheckListBtn className="btn btn-primary">제출</CheckListBtn>
         </label>
       </label>
     </>

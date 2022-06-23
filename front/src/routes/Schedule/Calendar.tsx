@@ -3,7 +3,7 @@ import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { get, post } from "../../Api";
+import { del, get, post } from "../../Api";
 import { appointmentsAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
@@ -54,10 +54,10 @@ const ListTitle = styled.h3`
 `;
 
 export interface Appointments {
-  allDay: boolean;
   endDate: Date;
   startDate: Date;
   text: string;
+  id: number;
 }
 
 let now = new Date();
@@ -78,22 +78,30 @@ function Calendar() {
   };
 
   const onCurrentDateChange = (e: any) => {
-    get(`schedule/week?start=${getWeek(e)[0]}&finish=${getWeek(e)[1]}`).then((res) => console.log(res.data));
+    get(`schedule/week?start=${getWeek(e)[0]}&finish=${getWeek(e)[1]}`).then((res) => {
+      setAppointments(
+        [...res.data.schedule].map((data) => {
+          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+        }),
+      );
+    });
   };
 
   useEffect(() => {
-    get(`schedule/?start=${getWeek(currentDate)[0]}&finish=${getWeek(currentDate)[1]}`).then((res) => console.log(res.data));
-  }, []);
+    get(`schedule/?start=${getWeek(currentDate)[0]}&finish=${getWeek(currentDate)[1]}`).then((res) => {
+      setAppointments(
+        [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+        }),
+      );
+    });
+  }, [setAppointments]);
 
   const onAppointmentAdd = async (e: any) => {
-    // index : 움직인 item의 index 값
-    // e.itemData : 움직인 item의 정보
-    // tasks : 리스트 아이템
-    // appointments : 캘린더에 움직여진 item의 정보
-    // e.cancel = true;
     const index = tasks.indexOf(e.fromData);
     if (index >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
+      console.log(e.itemData);
       try {
         await post("schedule/create", {
           type: "B",
@@ -107,12 +115,13 @@ function Calendar() {
     }
   };
 
-  const onAppointmentDeleting = (e: any) => {
+  const onAppointmentDeleting = async (e: any) => {
     e.cancel = true;
     const index = appointments.findIndex((appointments) => appointments.endDate === e.appointmentData.endDate);
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
       appointmentsCopy.splice(index, 1);
+      // await del(`schedule/delete/${id}`);
       setAppointments([...appointmentsCopy]);
     }
   };
@@ -140,7 +149,6 @@ function Calendar() {
                 <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
-            {/* 문제 나는 모달 부분 */}
             {/* <DayWrapper>
               {dayHour.map((task) => (
                 <DayItem task={task} key={task.text} />
@@ -159,7 +167,7 @@ function Calendar() {
           defaultCurrentDate={currentDate}
           defaultCurrentView="week"
           height={600}
-          startDayHour={8}
+          startDayHour={6}
           onAppointmentFormOpening={onAppointmentFormOpening}
           onAppointmentDeleting={onAppointmentDeleting}
           showAllDayPanel={false}
