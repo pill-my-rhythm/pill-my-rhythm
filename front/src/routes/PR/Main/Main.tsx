@@ -14,7 +14,6 @@ const Main = () => {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTU5NjYyOTksImV4cCI6MTY1NTk2OTg5OX0.dr_TM6K5CJxJySBMi5vy5pKPVYCtv4ys4S7c-bsMmCU";
   const encodedPageLink = encodeURIComponent(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?jwt=${jwt_token}`);
   const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
-  console.log(QRcode);
 
   const subscribe = async () => {
     console.log("subscribe function");
