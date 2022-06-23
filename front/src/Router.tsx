@@ -8,7 +8,7 @@ import Dispatcher from "./Dispatcher";
 import Result from "./routes/PR/Result";
 import Mypage from "./routes/User/MyPage";
 import Subscribe from "./routes/Schedule/Mobile/Subscribe";
-import Checklist from "./routes/Schedule/Mobile/Checklist";
+import PushCheckList from "./routes/Schedule/Mobile/PushCheckList";
 
 function Router() {
   return (
@@ -23,7 +23,7 @@ function Router() {
           <Route path="/result" element={<Result />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/m/subscribe" element={<Subscribe />} />
-          <Route path="/m/checklist" element={<Checklist />} />
+          <Route path="/m/checklist" element={<PushCheckList />} />
         </Routes>
       </BrowserRouter>
     </Dispatcher>
