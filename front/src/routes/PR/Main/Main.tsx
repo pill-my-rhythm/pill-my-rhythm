@@ -9,6 +9,11 @@ const Main = () => {
   };
   const [subToken, setSubToken] = useState("");
   const [unSubToken, setUnSubToken] = useState("");
+  // TODO: 로그인시 저장한 accessToken으로 변경해야 함
+  const jwt_token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTU5NjYyOTksImV4cCI6MTY1NTk2OTg5OX0.dr_TM6K5CJxJySBMi5vy5pKPVYCtv4ys4S7c-bsMmCU";
+  const encodedPageLink = encodeURIComponent(`${process.env.REACT_APP_MODE}?jwt=${jwt_token}`);
+  const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
 
   const subscribe = async () => {
     console.log("subscribe function");
@@ -77,6 +82,8 @@ const Main = () => {
                 </button>
               </div>
               <button onClick={() => subscribe()}>subscribe</button>
+              {/* 이미지 만료 2023-02-28 */}
+              <img src={QRcode} alt="QRcode" width="100" height="100" />
               <button onClick={() => unsubscribe()}>unsubscribe</button>
               <p>{subToken}</p>
               <p>{unSubToken}</p>
