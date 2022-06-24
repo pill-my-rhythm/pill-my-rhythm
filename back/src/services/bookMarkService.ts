@@ -17,6 +17,11 @@ const BookMarkService = {
     if (!user) {
       throw new HttpException(401, "가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
     }
+    const bookmarkUser = await BookMark.findByBookMarkUser(data.fk_user_id, data.fk_supplement_id);
+    if (bookmarkUser) {
+      throw new HttpException(401, "이미 북마크한 영양제입니다.");
+    }
+
     const newBookMark = await BookMark.createBookMark(data);
     return newBookMark;
   },
