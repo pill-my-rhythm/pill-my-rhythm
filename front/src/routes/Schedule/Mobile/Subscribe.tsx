@@ -7,10 +7,17 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import { AES, enc } from "crypto-js";
 
 const Subscribe = () => {
   const queryString = new URLSearchParams(window.location.search);
-  let jwtToken = queryString.get("jwt");
+  let encryptedToken: any = queryString.get("token");
+  encryptedToken = encryptedToken.replaceAll(" ", "+");
+  console.log(encryptedToken);
+
+  const secretKey: any = process.env.REACT_APP_SECRET_KEY;
+  const decryptedToken = AES.decrypt(encryptedToken, secretKey);
+  const jwtToken = decryptedToken.toString(enc.Utf8);
   console.log(jwtToken);
 
   const [subToken, setSubToken] = useState("");
@@ -37,6 +44,9 @@ const Subscribe = () => {
           },
         },
       )
+      .then((res) => {
+        console.log(res);
+      })
       .then(() => {
         alert("모바일 구독 신청이 완료되었습니다.");
       });
