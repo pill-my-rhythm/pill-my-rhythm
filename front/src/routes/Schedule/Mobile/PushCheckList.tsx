@@ -98,7 +98,6 @@ const Checklist = () => {
           <p className="mt-2 text-center text-sm text-gray-600">{today}</p>
         </div>
         <div>
-          {/* <label className="modal-box max-w-xs" htmlFor=""> */}
           {tasks.map((task) => (
             <TodoWrapper key={task.text}>
               <input
