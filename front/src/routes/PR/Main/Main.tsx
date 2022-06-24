@@ -12,7 +12,7 @@ const Main = () => {
   const SearchPill = async (e: any) => {
     e.preventDefault();
     try {
-      const res = post(
+      const res = await post(
         "recommend",
         {
           sentence: search,
