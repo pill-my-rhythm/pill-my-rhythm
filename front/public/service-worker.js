@@ -23,7 +23,7 @@ self.addEventListener("push", (event) => {
         },
         {
           action: "checklist-action",
-          title: "Checklist",
+          title: "Today's Checklist",
           // icon: "/images/demos/action-4-128x128.png",
         },
       ],
@@ -43,13 +43,13 @@ self.addEventListener(
   (event) => {
     // 알림창 닫음
     event.notification.close();
-    // URL을 로드하는 새 창이나 탭이 열림
+    // User selected the Archive action.
     switch (event.action) {
       case "homepage-action":
+        // URL을 로드하는 새 창이나 탭이 열림
         event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}`));
         break;
-      // User selected the Archive action.
-      case "checklist-action":
+      case "checklist-action": // 오늘 날짜의 체크리스트
         const { jwt } = event.notification.data;
         // public 폴더 안에서는 .env 변수 접근 안 됨
         // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${jwt}`));
