@@ -1,9 +1,11 @@
-import { Subscribe } from "../db/Subscribe";
-import { HttpException } from "../utils/error-util";
-import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import webpush from "web-push";
-import { AES, enc } from "crypto-js";
+import { AES } from "crypto-js";
+import { Subscribe } from "../db/Subscribe";
+import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import { Schedule } from "../db/Schedule";
+import { HttpException } from "../utils/error-util";
+import { makeChecklistToken } from "../utils/jwt-util";
+import redisClient from "../utils/redis";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -44,6 +46,8 @@ const SubscribeService = {
   },
 
   pushSupplementSchedules: async (time: Date) => {
+    console.log(time);
+    console.log(time.toISOString());
     const supplementSchedulesDataArray = await Schedule.findByOnlyTime(time);
     supplementSchedulesDataArray.forEach(async (scheduleData: any) => {
       const supplementArray: string[] = [];
@@ -51,21 +55,26 @@ const SubscribeService = {
         supplementArray.push(supplement.Supplement.name);
       }
 
+      // Today's Checklist 페이지에 쓸 refresh token(만료 기간 하루) 발급 + redis 저장
+      const checklistToken = makeChecklistToken({ userId: scheduleData.User["pk_user_id"] });
+      redisClient.SETEX(`checklist-${time}-${scheduleData.User["pk_user_id"]}`, 86400, checklistToken);
+
       const pushData: pushData = {
         name: scheduleData.User["user_name"],
         when: scheduleData.to_do,
         supplements: supplementArray.join(", "),
+        jwtToken: checklistToken,
       };
 
-      const jwtToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwODU2NjUsImV4cCI6MTY1NjA4OTI2NX0.OKXodtjnvs_wPt3qi3IZ4UmYXoPEa_9PJuH5VjpyF5s";
+      // const jwtToken =
+      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwODU2NjUsImV4cCI6MTY1NjA4OTI2NX0.OKXodtjnvs_wPt3qi3IZ4UmYXoPEa_9PJuH5VjpyF5s";
 
       const secretKey = process.env.SECRET_KEY;
 
       const notificationData = {
         title: `${pushData.name}님, ${pushData.when} 영양제 드실 시간이에요!`,
         body: `${pushData.supplements} 영양제를 복용해주세요.`,
-        encryptedToken: AES.encrypt(jwtToken, secretKey).toString(),
+        encryptedToken: AES.encrypt(pushData.jwtToken, secretKey).toString(),
       };
 
       const subscriptionArray = scheduleData.User.Subscribes;
