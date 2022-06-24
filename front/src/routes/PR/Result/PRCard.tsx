@@ -1,36 +1,60 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserStateContext } from "../../../Dispatcher";
 import { PillData } from "./PRList";
 import PRModal from "./PRModal";
-import { post, del } from "../../../Api";
+import { get, post, del } from "../../../Api";
 import { BookMark, FilledBookMark } from "./BookMark";
-import styled from "styled-components";
 
 const PRCard = ({ pr }: PillData) => {
   const userState = useContext(UserStateContext);
-  const isLogin = !!userState.user;
-  console.log("PRCard#userState", userState);
-  console.log("PRCard#userStateToken", userState.user?.accessToken);
-  console.log(pr.id);
   const supplement_id = pr.id;
+  const bookmark_id = pr.id;
 
   const [bookMark, setBookMark] = useState<Boolean>(false);
+  const [bookMarkList, setBookMarkList] = useState([]);
 
-  const handleBookMark: any = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const checkBookMark = (bookMarkList: Array<any>) => {
+    if (bookMarkList.some((Supplement) => Supplement.pk_supplement_id === pr.id)) {
+      setBookMark(true);
+    } else {
+      setBookMark(false);
+    }
+  };
+
+  const loadBookMarkList = async () => {
+    try {
+      const res = await get("bookmark");
+      console.log(res);
+      setBookMarkList(res.data);
+      checkBookMark(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleBookMark: any = async (Bookmarked: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const data = {
         accessToken: userState.user.accessToken,
         supplement_id: pr.id,
       };
-      await post(`bookmark/create/${supplement_id}`, data);
-      // } else {
-      //   await del ("like/delete", "", data);
-      setBookMark(true);
+      if (!Bookmarked) {
+        const res = await post(`bookmark/create/${supplement_id}`, data);
+        console.log(res);
+      } else {
+        console.log("삭제");
+        await del("bookmark", `${pr.id}`);
+      }
+      loadBookMarkList();
+      console.log("#BookMark");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    loadBookMarkList();
+  }, [setBookMark]);
 
   return (
     <div className="card card-compact w-80 bg-base-100 shadow-xl m-4">
@@ -43,19 +67,13 @@ const PRCard = ({ pr }: PillData) => {
         </div>
         <p className="m-1 break-words">{pr.functuion}</p>
         <div className="card-actions justify-end items-center">
-          {!bookMark ? (
+          {bookMark ? (
             <label htmlFor="">
-              <TransparentButton type="button" onClick={() => handleBookMark(!bookMark)}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg>
-              </TransparentButton>
+              <BookMark onClick={() => handleBookMark(!bookMark)} />
             </label>
           ) : (
             <label htmlFor="">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2" fill="fill-red-500" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg>
+              <FilledBookMark onClick={() => handleBookMark(!bookMark)} />
             </label>
           )}
           <label htmlFor={`modal-${pr.name}`} className="btn modal-button btn-primary">
@@ -68,9 +86,3 @@ const PRCard = ({ pr }: PillData) => {
   );
 };
 export default PRCard;
-
-const TransparentButton = styled.button`
-  width: 40px;
-  height: 100%;
-  fill: #fff;
-`;
