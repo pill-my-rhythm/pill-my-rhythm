@@ -7,13 +7,13 @@ import { BookMark, FilledBookMark } from "./BookMark";
 
 const PRCard = ({ pr }: PillData) => {
   const userState = useContext(UserStateContext);
+  const isLogin = !!userState.user;
   const supplement_id = pr.pk_supplement_id;
-  const bookmark_id = pr.pk_supplement_id;
 
   const [bookMark, setBookMark] = useState<Boolean>(false);
   const [bookMarkList, setBookMarkList] = useState([]);
 
-  const checkBookMark = (bookMarkList: Array<any>) => {
+  const DBcheckBookMark = (bookMarkList: Array<any>) => {
     if (bookMarkList.some((Supplement) => Supplement.pk_supplement_id === pr.pk_supplement_id)) {
       setBookMark(true);
     } else {
@@ -24,29 +24,35 @@ const PRCard = ({ pr }: PillData) => {
   const loadBookMarkList = async () => {
     try {
       const res = await get("bookmark");
-      console.log(res);
       setBookMarkList(res.data);
-      checkBookMark(res.data);
+      DBcheckBookMark(res.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleBookMark: any = async (Bookmarked: React.MouseEvent<HTMLButtonElement>) => {
+  // if setBookMark(true) 면 filled
+  // if setBookMark(false)면 unfilled
+
+  const checkIngBookMark: any = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const data = {
         accessToken: userState.user.accessToken,
         supplement_id: pr.pk_supplement_id,
       };
-      if (!Bookmarked) {
-        const res = await post(`bookmark/create/${supplement_id}`, data);
-        console.log(res);
-      } else {
-        console.log("삭제");
-        await del("bookmark", `${pr.pk_supplement_id}`);
-      }
+      const res = await post(`bookmark/create/${supplement_id}`, data);
       loadBookMarkList();
-      console.log("#BookMark");
+      console.log("#BookMark", res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uncheckIngBookMark: any = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const res = await del("bookmark", `${pr.pk_supplement_id}`);
+      loadBookMarkList();
+      console.log("#BookMarkDelete", res);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +60,7 @@ const PRCard = ({ pr }: PillData) => {
 
   useEffect(() => {
     loadBookMarkList();
-  }, [setBookMark]);
+  }, [bookMark]);
 
   return (
     <div className="card card-compact w-80 bg-base-100 shadow-xl m-4">
@@ -71,11 +77,11 @@ const PRCard = ({ pr }: PillData) => {
         <div className="card-actions justify-end items-center">
           {bookMark ? (
             <label htmlFor="">
-              <BookMark onClick={() => handleBookMark(!bookMark)} />
+              <BookMark onClick={checkIngBookMark} />
             </label>
           ) : (
             <label htmlFor="">
-              <FilledBookMark onClick={() => handleBookMark(!bookMark)} />
+              <FilledBookMark onClick={uncheckIngBookMark} />
             </label>
           )}
           <label htmlFor={`modal-${pr.name}`} className="btn modal-button btn-primary">

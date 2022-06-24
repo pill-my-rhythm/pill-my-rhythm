@@ -20,7 +20,6 @@ export interface PillData {
 
 const PRList = () => {
   const { state }: any = useLocation();
-  console.log("#state", state);
   const pillResultList = state.results;
   const [pillResult, setPillResult] = useState(pillResultList);
 
