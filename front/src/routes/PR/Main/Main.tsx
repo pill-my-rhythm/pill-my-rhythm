@@ -5,9 +5,6 @@ import { post } from "../../../Api";
 const Main = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
-  const tempNavigate = () => {
-    navigate("/result");
-  };
 
   const SearchPill = async (e: any) => {
     e.preventDefault();
@@ -19,11 +16,10 @@ const Main = () => {
         },
         "AI",
       );
-      console.log("#res.data", res.data);
-      console.log("#res.data.results", res.data.results);
+      console.log(`${search}를 검색합니다.`);
       navigate(`/result`, { state: res.data });
     } catch (error) {
-      console.log(error);
+      console.log(`${error}로 인해 검색에 실패했습니다.`);
     }
   };
 
