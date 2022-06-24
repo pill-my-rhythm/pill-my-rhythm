@@ -44,6 +44,7 @@
   "scripts": {
     "lint": "eslint 'src/**/*.{js,ts}'",
     "start": "nodemon --exec ts-node index.ts",
+    "js-start": "node dist/index.js",
     "swagger": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile ./src/swagger.yaml --type yaml"
   }
 }
