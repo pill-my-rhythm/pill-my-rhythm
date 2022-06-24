@@ -3,6 +3,7 @@
 
 // 서비스 워커에서 발생하는(back에서 보낸) 푸시 이벤트를 수신
 // self는 서비스 워커 자체를 참조
+
 self.addEventListener("push", (event) => {
   const data = event.data.json();
 
@@ -30,7 +31,7 @@ self.addEventListener("push", (event) => {
       // data로 action 실행 시 객체 전송 가능
       // TODO: checklist 작성 위해 토큰값 전송, 근데 토큰이 refresh 되는 건 이제.. 생각해보자
       data: {
-        jwt: data.jwtToken,
+        encryptedToken: data.encryptedToken,
       },
 
       requireInteraction: true, // chrome과 같이 충분히 큰 창에서 사용자가 직접 닫을 때까지 알림 사라지지 않음
@@ -50,10 +51,10 @@ self.addEventListener(
         event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}`));
         break;
       case "checklist-action": // 오늘 날짜의 체크리스트
-        const { jwt } = event.notification.data;
+        const { encryptedToken } = event.notification.data;
         // public 폴더 안에서는 .env 변수 접근 안 됨
         // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${jwt}`));
-        event.waitUntil(self.clients.openWindow(`http://localhost:3000/m/checklist?jwt=${jwt}`));
+        event.waitUntil(self.clients.openWindow(`http://localhost:3000/m/checklist?token=${encryptedToken}`));
         break;
       // no default
     }
