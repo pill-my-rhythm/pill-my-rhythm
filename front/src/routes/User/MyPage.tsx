@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { UserStateContext } from "../../Dispatcher";
 import { put } from "../../Api";
+import UserBookMarkList from "./UserBookMarkPage";
 
 const MyPage = () => {
   const userState = useContext(UserStateContext);
@@ -42,6 +43,11 @@ const MyPage = () => {
   // // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
   // const isPasswordSame = password === confirmPassword;
 
-  return <img className="w-screen" src="https://blog.kakaocdn.net/dn/lYHux/btrE4nVMvMo/Hn1wvs9Mgf7m7m2oo4boB0/img.png" alt="목업 데이터" />;
+  return (
+    <>
+      {/* <img className="w-screen" src="https://blog.kakaocdn.net/dn/lYHux/btrE4nVMvMo/Hn1wvs9Mgf7m7m2oo4boB0/img.png" alt="목업 데이터" /> */}
+      <UserBookMarkList />;
+    </>
+  );
 };
 export default MyPage;
