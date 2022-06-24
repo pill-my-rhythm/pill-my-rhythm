@@ -45,9 +45,9 @@ const Checklist = () => {
 
   let today: string;
   const now = new Date();
-  const month = `${now.getUTCMonth() + 1}`.length === 1 ? "0" + `${now.getUTCMonth() + 1}` : now.getUTCMonth() + 1; //months from 1-12
-  const day = now.getUTCDate();
-  const year = now.getUTCFullYear();
+  const month = `${now.getMonth() + 1}`.length === 1 ? "0" + `${now.getMonth() + 1}` : now.getMonth() + 1; //months from 1-12
+  const day = now.getDate();
+  const year = now.getFullYear();
   today = year + "-" + month + "-" + day;
 
   const submit = async () => {
