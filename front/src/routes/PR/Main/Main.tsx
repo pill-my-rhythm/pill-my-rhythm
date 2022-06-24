@@ -30,6 +30,7 @@ const Main = () => {
     });
     console.log(JSON.stringify(subscription));
     setSubToken(JSON.stringify(subscription));
+
     // 사용자 기기 정보 DB에 추가
     await Api.post("subscribe/create", { device_token: subscription });
   };
@@ -38,13 +39,17 @@ const Main = () => {
     console.log("unsubscribe function");
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.getSubscription();
-    if (!subscription) return;
+    if (!subscription) {
+      alert("구독 정보가 없는 기기입니다.");
+      return;
+    }
+
+    // 사용자 기기 정보 DB에서 삭제
+    await Api.post("subscribe/delete", { device_token: subscription });
 
     // 사용자 기기 정보로 구독 취소 요청
     await subscription.unsubscribe();
     setUnSubToken(JSON.stringify(subscription));
-    // 사용자 기기 정보 DB에서 삭제
-    await Api.post("subscribe/delete", { device_token: subscription });
   };
 
   return (
