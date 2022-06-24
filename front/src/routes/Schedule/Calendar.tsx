@@ -105,8 +105,8 @@ function Calendar() {
       try {
         await post("schedule/create", {
           type: "B",
-          start: e.itemData.startDate,
-          finish: e.itemData.endDate,
+          start: new Date(e.itemData.startDate),
+          finish: new Date(e.itemData.endDate),
           to_do: e.itemData.text,
         });
       } catch (err) {
@@ -121,7 +121,7 @@ function Calendar() {
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
       appointmentsCopy.splice(index, 1);
-      // await del(`schedule/delete/${id}`);
+      await del(`schedule/delete/${e.appointmentData.id}`);
       setAppointments([...appointmentsCopy]);
     }
   };
