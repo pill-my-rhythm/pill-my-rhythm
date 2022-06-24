@@ -60,6 +60,25 @@ const PRCard = ({ pr }: PillData) => {
     }
   };
 
+  const HandleBookMarkChange: any = async (Ischecked: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const data = {
+        accessToken: userState.user.accessToken,
+        supplement_id: pr.pk_supplement_id,
+      };
+      if (!Ischecked) {
+        const res = await post(`bookmark/create/${supplement_id}`, data);
+        console.log("#BookMark", res);
+      } else {
+        const res = await del("bookmark", `${pr.pk_supplement_id}`);
+        console.log("#BookMarkDelete", res);
+      }
+      loadBookMarkList();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     loadBookMarkList();
   }, [setBookMarkList]);
@@ -84,12 +103,12 @@ const PRCard = ({ pr }: PillData) => {
               </label>
             ) : (
               <label htmlFor="">
-                <BookMark onClick={checkIngBookMark} />
+                <BookMark onClick={HandleBookMarkChange} />
               </label>
             )
           ) : (
             <label htmlFor="">
-              <FilledBookMark onClick={uncheckIngBookMark} />
+              <FilledBookMark onClick={HandleBookMarkChange} />
             </label>
           )}
           <label htmlFor={`modal-${pr.name}`} className="btn modal-button btn-primary">
