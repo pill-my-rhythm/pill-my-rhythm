@@ -32,3 +32,14 @@
 .dx-scheduler-navigator-caption {
   pointer-events: none;
 }
+
+.dx-scheduler-appointment {
+  box-sizing: content-box;
+  padding-right: 22px;
+}
+.dx-scheduler-timeline .dx-scheduler-appointment,
+.dx-scheduler-work-space-month .dx-scheduler-appointment,
+.dx-scheduler-all-day-appointment .dx-scheduler-appointment {
+  box-sizing: border-box;
+  padding-right: 0;
+}
