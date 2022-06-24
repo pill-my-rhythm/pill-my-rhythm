@@ -5,11 +5,12 @@
 // webpush data에 jwt_token값 들어 있음
 // 해당 jwt_token이랑 체크리스트 선택값으로 체크리스트 생성하도록 backend에 요청
 
-import React, { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import axios from "axios";
 import { tasksAtom } from "../../../atoms";
+import axios from "axios";
+import { AES, enc } from "crypto-js";
 
 const TodoWrapper = styled.div`
   display: flex;
@@ -20,7 +21,15 @@ const TodoWrapper = styled.div`
 
 const Checklist = () => {
   const queryString = new URLSearchParams(window.location.search);
-  let jwtToken = queryString.get("jwt");
+  let encryptedToken: any = queryString.get("token");
+  if (!encryptedToken) {
+    console.error("토큰값이 전송되지 않았습니다.");
+  }
+  encryptedToken = encryptedToken.replaceAll(" ", "+");
+
+  const secretKey: any = process.env.REACT_APP_SECRET_KEY;
+  const decryptedToken = AES.decrypt(encryptedToken, secretKey);
+  const jwtToken = decryptedToken.toString(enc.Utf8);
 
   const tasks = useRecoilValue(tasksAtom);
   const [checkedItems, setCheckedItems]: any = useState([]);
@@ -43,9 +52,7 @@ const Checklist = () => {
 
   const submit = async () => {
     console.log("checklist submit function");
-    console.log(tasks);
     const result = tasks.map((el: any) => (checkedItems.includes(el.text) ? true : false));
-    console.log(result);
 
     const checklistData = { date: today, one: result[0], two: result[1], three: result[2], four: result[3], five: result[4], six: result[5] };
     console.log(checklistData);
