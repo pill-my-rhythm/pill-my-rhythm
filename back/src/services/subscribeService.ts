@@ -2,6 +2,7 @@ import { Subscribe } from "../db/Subscribe";
 import { HttpException } from "../utils/error-util";
 import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import webpush from "web-push";
+import { AES, enc } from "crypto-js";
 import { Schedule } from "../db/Schedule";
 
 const SubscribeService = {
@@ -55,14 +56,29 @@ const SubscribeService = {
         when: scheduleData.to_do,
         supplements: supplementArray.join(", "),
       };
+      const auth = {
+        // TODO: "jwtToken" 부분 refresh_token으로..?
+        jwtToken:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwNzgwOTYsImV4cCI6MTY1NjA4MTY5Nn0.OdP-Uuntc2DP-mi74Ir_xNR1zlDiwb9BJMmsODotUQU",
+      };
+      const jwtToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwNzgwOTYsImV4cCI6MTY1NjA4MTY5Nn0.OdP-Uuntc2DP-mi74Ir_xNR1zlDiwb9BJMmsODotUQU";
+
+      const secretKey = process.env.SECRET_KEY;
 
       const notificationData = {
         title: `${pushData.name}님, ${pushData.when} 영양제 드실 시간이에요!`,
         body: `${pushData.supplements} 영양제를 복용해주세요.`,
-        // TODO: 변경해야 함
-        jwtToken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwNTAxNTEsImV4cCI6MTY1NjA1Mzc1MX0.QZoBj-Ig1gXVdWE_Q0Mc67ZdpR5TtrV-gVpXiDXbhZQ",
+        encryptedToken: AES.encrypt(jwtToken, secretKey).toString(),
       };
+      console.log(notificationData.encryptedToken);
+      console.log("");
+      const here = JSON.stringify(notificationData);
+      const sw = JSON.parse(here);
+      const bytes = AES.decrypt(sw.encryptedToken, secretKey);
+      console.log(bytes);
+      const decrypted = bytes.toString(enc.Utf8);
+      console.log("decrypted", decrypted);
 
       const subscriptionArray = scheduleData.User.Subscribes;
       for (const subscription of subscriptionArray) {
