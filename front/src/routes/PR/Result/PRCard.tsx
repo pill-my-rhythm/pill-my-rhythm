@@ -22,13 +22,15 @@ const PRCard = ({ pr }: PillData) => {
   };
 
   const loadBookMarkList = async () => {
-    try {
-      const res = await get("bookmark");
-      setBookMarkList(res.data);
-      DBcheckBookMark(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+    if (isLogin)
+      try {
+        const res = await get("bookmark");
+        setBookMarkList(res.data);
+        DBcheckBookMark(res.data);
+        console.log("loadBookMarkList", res.data);
+      } catch (error) {
+        console.log(error);
+      }
   };
 
   // if setBookMark(true) 면 filled
@@ -60,7 +62,7 @@ const PRCard = ({ pr }: PillData) => {
 
   useEffect(() => {
     loadBookMarkList();
-  }, [bookMark]);
+  }, [setBookMarkList]);
 
   return (
     <div className="card card-compact w-80 bg-base-100 shadow-xl m-4">
@@ -75,10 +77,16 @@ const PRCard = ({ pr }: PillData) => {
           <p className="m-1 break-words">{pr.function}</p>
         </div>
         <div className="card-actions justify-end items-center">
-          {!bookMark ? (
-            <label htmlFor="">
-              <BookMark onClick={checkIngBookMark} />
-            </label>
+          {!isLogin ? (
+            !bookMark ? (
+              <label htmlFor="">
+                <BookMark onClick={() => alert("회원 전용 서비스입니다!")} />
+              </label>
+            ) : (
+              <label htmlFor="">
+                <BookMark onClick={checkIngBookMark} />
+              </label>
+            )
           ) : (
             <label htmlFor="">
               <FilledBookMark onClick={uncheckIngBookMark} />
