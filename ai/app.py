@@ -11,6 +11,7 @@ load_dotenv()
 # Flask 앱
 app = Flask(__name__)
 CORS(app)
+CORS(app, resources={r'': {'origins': ''}}, expose_headers=["Content-disposition"])
 
 db = pymysql.connect(host = os.environ.get('host'), 
                     port = int(os.environ.get('port')), 
