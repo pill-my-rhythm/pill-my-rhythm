@@ -73,6 +73,7 @@ const SubscribeService = {
       const secretKey = process.env.SECRET_KEY;
 
       const notificationData = {
+        messageType: "supplement",
         title: `${pushData.name}님, ${pushData.when} 영양제 드실 시간이에요!`,
         body: `${pushData.supplements} 영양제를 복용해주세요.`,
         encryptedToken: AES.encrypt(pushData.jwtToken, secretKey).toString(),
@@ -80,7 +81,7 @@ const SubscribeService = {
 
       const subscriptionArray = scheduleData.User.Subscribes;
       for (const subscription of subscriptionArray) {
-        webpush.sendNotification(subscription.device_token, JSON.stringify(notificationData)).catch((error) => {
+        await webpush.sendNotification(subscription.device_token, JSON.stringify(notificationData)).catch((error) => {
           console.error(error);
           throw new HttpException(500, error);
         });
@@ -101,7 +102,7 @@ const SubscribeService = {
       title: "Pill my rhythm",
       body: "영양제 스케줄 알림 기능을 더이상 구독하지 않습니다.",
     };
-    webpush.sendNotification(device_token, JSON.stringify(notificationData)).catch((error) => {
+    await webpush.sendNotification(device_token, JSON.stringify(notificationData)).catch((error) => {
       console.error(error);
       throw new HttpException(500, error);
     });
