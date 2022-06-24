@@ -36,7 +36,7 @@ const Schedule = {
       include: {
         required: true, // inner join
         model: Users,
-        attributes: ["user_name"],
+        attributes: ["pk_user_id", "user_name"],
         include: [
           {
             required: true,
