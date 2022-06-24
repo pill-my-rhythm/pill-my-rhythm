@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
@@ -134,7 +134,7 @@ function Calendar() {
     e.cancel = true;
   };
 
-  const renderDateCell = (data: { text: string }, index: number) => {
+  const renderDateCell = (data: { text: string; date: Date }, index: number) => {
     return <CheckList data={data} index={index} tasks={tasks} />;
   };
 
