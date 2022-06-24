@@ -56,13 +56,9 @@ const SubscribeService = {
         when: scheduleData.to_do,
         supplements: supplementArray.join(", "),
       };
-      const auth = {
-        // TODO: "jwtToken" 부분 refresh_token으로..?
-        jwtToken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwNzgwOTYsImV4cCI6MTY1NjA4MTY5Nn0.OdP-Uuntc2DP-mi74Ir_xNR1zlDiwb9BJMmsODotUQU",
-      };
+
       const jwtToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwNzgwOTYsImV4cCI6MTY1NjA4MTY5Nn0.OdP-Uuntc2DP-mi74Ir_xNR1zlDiwb9BJMmsODotUQU";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwODU2NjUsImV4cCI6MTY1NjA4OTI2NX0.OKXodtjnvs_wPt3qi3IZ4UmYXoPEa_9PJuH5VjpyF5s";
 
       const secretKey = process.env.SECRET_KEY;
 
@@ -71,14 +67,6 @@ const SubscribeService = {
         body: `${pushData.supplements} 영양제를 복용해주세요.`,
         encryptedToken: AES.encrypt(jwtToken, secretKey).toString(),
       };
-      console.log(notificationData.encryptedToken);
-      console.log("");
-      const here = JSON.stringify(notificationData);
-      const sw = JSON.parse(here);
-      const bytes = AES.decrypt(sw.encryptedToken, secretKey);
-      console.log(bytes);
-      const decrypted = bytes.toString(enc.Utf8);
-      console.log("decrypted", decrypted);
 
       const subscriptionArray = scheduleData.User.Subscribes;
       for (const subscription of subscriptionArray) {
