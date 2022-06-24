@@ -1,28 +1,33 @@
 import React, { useState } from "react";
-import MockupData from "./MockupData";
 import PRCard from "./PRCard";
+import { useLocation } from "react-router";
 
 export interface PillData {
   pr: {
-    id: number;
-    name: string;
     caution: string;
     company: string;
-    functuion: string;
+    function: string;
     how_to_eat: string;
-    raw?: string;
-    img: string;
-    shop: string;
+    img_link: string;
+    link: string;
+    name: string;
+    pk_supplement_id: number;
+    raw: string;
+    shape: string;
+    update_date: number;
   };
 }
 
 const PRList = () => {
-  const [pillResult, setPillResult] = useState(MockupData);
+  const { state }: any = useLocation();
+  console.log("#state", state);
+  const pillResultList = state.results;
+  const [pillResult, setPillResult] = useState(pillResultList);
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
-      {pillResult.map((pr) => (
-        <PRCard pr={pr} key={pr.id} />
+      {pillResult.map((pr: PillData["pr"]) => (
+        <PRCard pr={pr} key={pr.pk_supplement_id} />
       ))}
     </div>
   );

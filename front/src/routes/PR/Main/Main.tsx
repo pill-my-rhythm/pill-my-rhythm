@@ -19,7 +19,9 @@ const Main = () => {
         },
         "AI",
       );
-      console.log("#res", res);
+      console.log("#res.data", res.data);
+      console.log("#res.data.results", res.data.results);
+      navigate(`/result`, { state: res.data });
     } catch (error) {
       console.log(error);
     }
