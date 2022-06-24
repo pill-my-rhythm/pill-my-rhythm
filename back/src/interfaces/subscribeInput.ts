@@ -13,4 +13,5 @@ export interface pushData {
   name: string;
   when: string;
   supplements: string;
+  jwtToken: string;
 }
