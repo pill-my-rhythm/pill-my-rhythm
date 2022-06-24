@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  version: 1.0.0
+  version: 0.0.1
   title: Web API docs
   description: team 17 API 문서입니다
   license:
@@ -14,15 +14,43 @@ tags:
   - description: User가 추천받은 영양제 정보 API 입니다.
   - name: schedule
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
+  - name: bookmark
+  - description: User BookMark API 입니다.
 paths:
   /user/register:
     $ref: "./paths/user.yaml#/~1user~1register"
   /user/login:
     $ref: "./paths/user.yaml#/~1user~1login"
-  /user/updateInfo:
-    $ref: "./paths/user.yaml#/~1user~1updateInfo"
+  /user/logout:
+    $ref: "./paths/user.yaml#/~1user~1logout"
+  /user/update-info:
+    $ref: "./paths/user.yaml#/~1user~1update-info"
   /user/withdrawal:
     $ref: "./paths/user.yaml#/~1user~1withdrawal"
+  /user/current:
+    $ref: "./paths/user.yaml#/~1user~1current"
+  /user/refresh:
+    $ref: "./paths/user.yaml#/~1user~1refresh"
+  /schedule:
+    $ref: "./paths/schedule.yaml#/~1schedule"
+  /schedule/week:
+    $ref: "./paths/schedule.yaml#/~1schedule~1week"
+  /schedule/create:
+    $ref: "./paths/schedule.yaml#/~1schedule~1create"
+  /schedule/delete/{schedule_id}:
+    $ref: "./paths/schedule.yaml#/~1schedule~1delete~1{schedule_id}"
+  /schedule/daily-supplement:
+    $ref: "./paths/schedule.yaml#/~1schedule~1daily-supplement"
+  /schedule/daily-supplement/{plan_id}:
+    $ref: "./paths/schedule.yaml#/~1schedule~1daily-supplement~1{plan_id}"
+  /checklist/create:
+    $ref: "./paths/schedule.yaml#/~1checklist~1create"
+  /bookmark:
+    $ref: "./paths/bookmark.yaml#/~1bookmark"
+  /bookmark/create/{supplement_id}:
+    $ref: "./paths/bookmark.yaml#/~1bookmark~1create~1{supplement_id}"
+  /bookmark/{bookmark_id}:
+    $ref: "./paths/bookmark.yaml#/~1bookmark~1{bookmark_id}"
 components:
   schemas:
     User:
@@ -74,10 +102,7 @@ components:
           schema:
             $ref: "#/components/schemas/Error"
   securitySchemes:
-    authorization: # arbitrary name for the security scheme
-      type: apiKey
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
       scheme: bearer
       bearerFormat: JWT
-      description: bearer를 앞에 붙여주세요. ex) bearer ajdhfjhaf
-      in: header
-      name: authorization
