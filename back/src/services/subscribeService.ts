@@ -59,7 +59,9 @@ const SubscribeService = {
       const notificationData = {
         title: `${pushData.name}님, ${pushData.when} 영양제 드실 시간이에요!`,
         body: `${pushData.supplements} 영양제를 복용해주세요.`,
-        jwtToken: "it has to be encrypted",
+        // TODO: 변경해야 함
+        jwtToken:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwNTAxNTEsImV4cCI6MTY1NjA1Mzc1MX0.QZoBj-Ig1gXVdWE_Q0Mc67ZdpR5TtrV-gVpXiDXbhZQ",
       };
 
       const subscriptionArray = scheduleData.User.Subscribes;
