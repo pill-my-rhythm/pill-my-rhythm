@@ -17,6 +17,7 @@ const SubscribeService = {
     const newSubscription = await Subscribe.create(newSubscriptionData);
 
     const notificationData = {
+      messageType: "info",
       title: "Pill my rhythm",
       body: "영양제 스케줄 알림 기능을 활성화합니다.",
     };
@@ -96,6 +97,7 @@ const SubscribeService = {
     }
 
     const notificationData = {
+      messageType: "info",
       title: "Pill my rhythm",
       body: "영양제 스케줄 알림 기능을 더이상 구독하지 않습니다.",
     };
