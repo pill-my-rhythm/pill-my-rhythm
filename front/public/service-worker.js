@@ -6,6 +6,21 @@
 
 self.addEventListener("push", (event) => {
   const data = event.data.json();
+  const messageType = data.messageType;
+
+  const infoMessageOptions = {
+    icon: "./icon-192x192.png",
+    badge: "./badge-72x72.png", // android에서만 보임
+    vibrate: [200, 100, 200, 100, 200, 100, 200], // android에서만 동작
+    body: data.body,
+  };
+
+  switch (messageType) {
+    case "info": {
+      event.waitUntil(self.registration.showNotification(data.title, infoMessageOptions));
+    }
+    // no default
+  }
 
   // 브라우저는 전달된 Promise가 확인될 때까지 서비스 워커를 활성화 및 실행 상태로 유지
   event.waitUntil(
@@ -48,7 +63,8 @@ self.addEventListener(
     switch (event.action) {
       case "homepage-action":
         // URL을 로드하는 새 창이나 탭이 열림
-        event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}`));
+        // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}`));
+        event.waitUntil(self.clients.openWindow("http://localhost:3000"));
         break;
       case "checklist-action": // 오늘 날짜의 체크리스트
         const { encryptedToken } = event.notification.data;
