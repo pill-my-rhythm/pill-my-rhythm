@@ -1,6 +1,7 @@
 import pymysql
 from test_model import test_model
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 import os 
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ load_dotenv()
 
 # Flask 앱
 app = Flask(__name__)
+CORS(app)
 
 db = pymysql.connect(host = os.environ.get('host'), 
                     port = int(os.environ.get('port')), 
