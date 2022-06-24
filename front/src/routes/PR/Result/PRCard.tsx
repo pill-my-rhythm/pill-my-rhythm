@@ -75,7 +75,7 @@ const PRCard = ({ pr }: PillData) => {
           <p className="m-1 break-words">{pr.function}</p>
         </div>
         <div className="card-actions justify-end items-center">
-          {bookMark ? (
+          {!bookMark ? (
             <label htmlFor="">
               <BookMark onClick={checkIngBookMark} />
             </label>
