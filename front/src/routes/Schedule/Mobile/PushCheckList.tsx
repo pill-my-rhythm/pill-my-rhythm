@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { tasksAtom } from "../../../atoms";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { AES, enc } from "crypto-js";
 
 const TodoWrapper = styled.div`
@@ -57,17 +57,36 @@ const Checklist = () => {
     const checklistData = { date: today, one: result[0], two: result[1], three: result[2], four: result[3], five: result[4], six: result[5] };
     console.log(checklistData);
 
+    type ServerError = { errorMessage: string };
     // 체크리스트 항목 정보 DB에 추가
-    await axios
-      .post(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_BACK_PORT}/checklist/create`, checklistData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
-      .then(() => {
-        alert("오늘의 체크리스트 작성이 완료되었습니다.");
-      });
+    try {
+      await axios
+        .post(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_BACK_PORT}/checklist/create`, checklistData, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        });
+      // .catch((error) => {
+      //   if (error.response) {
+      //     console.error(error);
+      //   }
+      // });
+      // .then(() => {
+      //   alert("오늘의 체크리스트 작성이 완료되었습니다.");
+      // });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const serverError = error as AxiosError<ServerError>;
+        if (serverError && serverError.response) {
+          return serverError.response.data;
+        }
+      }
+      return { errorMessage: error };
+    }
   };
 
   return (
