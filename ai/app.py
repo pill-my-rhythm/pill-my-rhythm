@@ -36,7 +36,7 @@ def recommend():
         cursor.execute(sql)
         print(cursor.description[0])
         recommend_supplement.append(dict(zip([column[0] for column in cursor.description], cursor.fetchone())))
-    db.close()
+    # db.close()
     return {'results': recommend_supplement}
 
 

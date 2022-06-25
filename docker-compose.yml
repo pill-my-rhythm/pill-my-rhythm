@@ -5,7 +5,7 @@ services:
   #   build:
   #     context: './front'
   #     dockerfile: Dockerfile
-  #   container_name: 'node-Pill-my-rhythm-app'
+  #   container_name: 'node-pill-my-rhythm-app'
   #   working_dir: '/usr/src/app/back'
   #   ports:
   #     - 80:80
@@ -22,11 +22,11 @@ services:
     ports:
       - 5000:5000
     links:
-      - redis
+      - redis_server
     networks:
       - pill-my-rhythm
 
-  redis:
+  redis_server:
     restart: 'on-failure'
     image: redis:alpine
     container_name: 'redis-app'

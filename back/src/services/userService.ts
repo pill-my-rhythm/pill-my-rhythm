@@ -34,7 +34,7 @@ const UserService = {
     // 로그인 성공 -> access token, refresh token 발급 + redis 저장
     const accessToken = makeToken({ userId: user.pk_user_id });
     const refreshToken = makeRefreshToken();
-    redisClient.set(user.pk_user_id, refreshToken);
+    redisClient.SETEX(user.pk_user_id, 1209600, refreshToken);
 
     const { pk_user_id, user_name, gender, age_range, job } = user;
     const userInfo = {
@@ -75,10 +75,12 @@ const UserService = {
     if (!user) {
       throw new HttpException(400, "가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
     }
+    const hashedPassword = await bcrypt.hash(updateDate.password, 10);
+    const newUserData = { ...updateDate };
+    newUserData["password"] = hashedPassword;
+    const newUpdatedUser = await User.update(pk_user_id, newUserData);
 
-    const updatedUser = await User.update(pk_user_id, updateDate);
-
-    return updatedUser;
+    return newUpdatedUser;
   },
 
   delete: async (pk_user_id: string) => {
