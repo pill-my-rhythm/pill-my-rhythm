@@ -5,7 +5,7 @@ import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import { Schedule } from "../db/Schedule";
 import { HttpException } from "../utils/error-util";
 import { makeChecklistToken } from "../utils/jwt-util";
-import redisClient from "../utils/redis";
+import { Response } from "express";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -47,8 +47,6 @@ const SubscribeService = {
   },
 
   pushSupplementSchedules: async (time: Date) => {
-    console.log(time);
-    console.log(time.toISOString());
     const supplementSchedulesDataArray = await Schedule.findByOnlyTime(time);
     supplementSchedulesDataArray.forEach(async (scheduleData: any) => {
       const supplementArray: string[] = [];
@@ -80,11 +78,17 @@ const SubscribeService = {
       };
 
       const subscriptionArray = scheduleData.User.Subscribes;
+
       for (const subscription of subscriptionArray) {
-        await webpush.sendNotification(subscription.device_token, JSON.stringify(notificationData)).catch((error) => {
-          console.error(error);
-          throw new HttpException(500, error);
-        });
+        try {
+          await webpush.sendNotification(subscription.device_token, JSON.stringify(notificationData));
+        } catch (error) {
+          // 사용자 토큰 만료되면 에러 발생
+          if (error instanceof Error) {
+            // DB에서 만료된 기기 정보 삭제 (후 메일 전송하기)
+            await Subscribe.delete(subscription.device_token);
+          }
+        }
       }
     });
 
