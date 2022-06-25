@@ -34,7 +34,7 @@ const UserService = {
     // 로그인 성공 -> access token, refresh token 발급 + redis 저장
     const accessToken = makeToken({ userId: user.pk_user_id });
     const refreshToken = makeRefreshToken();
-    redisClient.set(user.pk_user_id, refreshToken);
+    redisClient.SETEX(user.pk_user_id, 1209600, refreshToken);
 
     const { pk_user_id, user_name, gender, age_range, job } = user;
     const userInfo = {
