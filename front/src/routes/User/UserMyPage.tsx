@@ -19,7 +19,7 @@ const UserMyPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  // console.log("#myPage", myPage);
+  const LoadUserMypage = () => {};
 
   const handleMyPageEdit = (name: string, value: string) => {
     setMyPage((prev) => ({ ...prev, [name]: value }));
@@ -52,8 +52,7 @@ const UserMyPage = () => {
 
   useEffect(() => {
     console.log("editMode", editMode);
-    // setEditMode(false);
-  }, [editMode]);
+  }, [myPage]);
 
   return !editMode ? (
     <div className="min-h-full flex py-12 px-4 sm:px-6 lg:px-8">
