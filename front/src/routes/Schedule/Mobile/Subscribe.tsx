@@ -18,7 +18,6 @@ const Subscribe = () => {
   const secretKey: any = process.env.REACT_APP_SECRET_KEY;
   const decryptedToken = AES.decrypt(encryptedToken, secretKey);
   const jwtToken = decryptedToken.toString(enc.Utf8);
-  console.log(jwtToken);
 
   const [subToken, setSubToken] = useState("");
 
@@ -30,7 +29,7 @@ const Subscribe = () => {
       userVisibleOnly: true,
       applicationServerKey: process.env.REACT_APP_WEB_PUSH_PUBLIC_KEY,
     });
-    console.log(JSON.stringify(subscription));
+
     setSubToken(JSON.stringify(subscription));
     // 사용자 기기 정보 DB에 추가
     await axios
@@ -44,11 +43,8 @@ const Subscribe = () => {
           },
         },
       )
-      .then((res) => {
-        console.log(res);
-      })
       .then(() => {
-        alert("모바일 구독 신청이 완료되었습니다.");
+        alert("구독 신청이 완료되었습니다.");
       });
   };
 
