@@ -21,8 +21,11 @@ const CheckListTitle = styled.h1`
 `;
 
 const CheckListBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   width: 30%;
-  margin-top: 20px;
 `;
 
 interface CheckListProp {
