@@ -13,6 +13,7 @@ const UserBookMarkList = () => {
       console.log("#res", res);
       setUserBookMark(res.data);
       setPillResult(res.data);
+      console.log("#pillResult", pillResult);
       console.log("#userBookMark", userBookMark);
     } catch (error) {
       console.log(error);
@@ -24,10 +25,19 @@ const UserBookMarkList = () => {
   }, []);
 
   return (
-    <div className="flex flex-row flex-wrap justify-center">
-      {pillResult.map((pr: PillData["pr"]) => (
-        <PRCard pr={pr} key={pr.pk_supplement_id} />
-      ))}
+    <div className="min-h-full flex py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full space-y-8">
+        <div>
+          <h2 className="mt-6 mb-3 text-3xl font-extrabold text-gray-900">My Bookmarks List</h2>
+          <hr />
+          <p className="m-3 text-sm text-gray-600">당신이 북마크한 영양제 리스트를 확인해보세요!</p>
+        </div>
+        <div className="flex flex-row flex-wrap justify-center">
+          {pillResult.map((pr: any) => (
+            <PRCard pr={pr.Supplement} key={pr.fk_supplement_id} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
