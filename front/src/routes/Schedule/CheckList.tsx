@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { post } from "../../Api";
+import { get, post } from "../../Api";
 import { checkListAtom } from "../../atoms";
 
 const DateLabel = styled.label<ColorProp>`
@@ -31,13 +31,16 @@ interface CheckListProp {
     text: string;
   };
   level: { level: string; date: string }[];
+  currentDate: Date;
+  setLevel: any;
+  getWeek: (day: any) => Date[];
 }
 
 interface ColorProp {
   color?: string;
 }
 
-const CheckList = ({ data, level }: CheckListProp) => {
+const CheckList = ({ data, level, currentDate, getWeek, setLevel }: CheckListProp) => {
   const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
 
@@ -71,6 +74,10 @@ const CheckList = ({ data, level }: CheckListProp) => {
       five: result[4],
       six: result[5],
     });
+
+    await get(`schedule/week?start=${getWeek(currentDate)[0]}&finish=${getWeek(currentDate)[1]}`).then((res) => {
+      setLevel(res.data.checklist);
+    });
   };
   return (
     <>
@@ -95,9 +102,11 @@ const CheckList = ({ data, level }: CheckListProp) => {
               {task.text}
             </TodoWrapper>
           ))}
-          <CheckListBtn onClick={handleSubmit} className="btn btn-primary">
-            제출
-          </CheckListBtn>
+          <div className="modal-action">
+            <CheckListBtn onClick={handleSubmit} className="btn btn-primary">
+              제출
+            </CheckListBtn>
+          </div>
         </label>
       </label>
     </>
