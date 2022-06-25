@@ -4,7 +4,8 @@ import { Subscribe } from "../db/Subscribe";
 import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import { Schedule } from "../db/Schedule";
 import { HttpException } from "../utils/error-util";
-import { makeChecklistToken } from "../utils/jwt-util";
+import { makeChecklistToken, makeResubscribeToken } from "../utils/jwt-util";
+import { emailUtil } from "../utils/emailUtil";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -80,8 +81,16 @@ const SubscribeService = {
         } catch (error) {
           // 사용자 토큰 만료되면 에러 발생
           if (error instanceof Error) {
-            // DB에서 만료된 기기 정보 삭제 (후 메일 전송하기)
+            // DB에서 만료된 기기 정보 삭제 후 메일 전송하기
             await Subscribe.delete(subscription.device_token);
+
+            const resubscribeToken = makeResubscribeToken({ userId: scheduleData.User["pk_user_id"] });
+            const emailData = {
+              user_name: scheduleData.User["user_name"],
+              email: scheduleData.User["email"],
+              encryptedToken: AES.encrypt(resubscribeToken, secretKey).toString(),
+            };
+            await emailUtil.expirationEmail(emailData);
           }
         }
       }
