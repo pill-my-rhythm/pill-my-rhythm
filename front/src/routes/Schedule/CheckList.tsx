@@ -33,14 +33,15 @@ interface CheckListProp {
   level: { level: string; date: string }[];
   currentDate: Date;
   setLevel: any;
-  getWeek: (day: any) => Date[];
+  start: string;
+  end: string;
 }
 
 interface ColorProp {
   color?: string;
 }
 
-const CheckList = ({ data, level, currentDate, getWeek, setLevel }: CheckListProp) => {
+const CheckList = ({ data, level, currentDate, setLevel, start, end }: CheckListProp) => {
   const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
 
@@ -75,7 +76,7 @@ const CheckList = ({ data, level, currentDate, getWeek, setLevel }: CheckListPro
       six: result[5],
     });
 
-    await get(`schedule/week?start=${getWeek(currentDate)[0]}&finish=${getWeek(currentDate)[1]}`).then((res) => {
+    await get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
     });
   };

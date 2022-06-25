@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
@@ -11,6 +11,7 @@ import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 import DayItem from "./DayItem";
 import CheckList from "./CheckList";
+import moment, { unitOfTime } from "moment";
 
 const Wrapper = styled.div`
   display: flex;
@@ -60,8 +61,11 @@ export interface Appointments {
   id: number;
 }
 
-let now = new Date();
-const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+let start = moment()
+  .startOf("isoweek" as unitOfTime.StartOf)
+  .format();
+let end = moment().endOf("day").format();
+const currentDate = new Date(moment().format());
 const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
 
@@ -71,16 +75,12 @@ function Calendar() {
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
   const [level, setLevel]: any = useState([]);
 
-  const getWeek = (day: any) => {
-    let curr = new Date(day);
-    let firstday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
-    let lastday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 7));
-
-    return [firstday, lastday];
-  };
-
   const onCurrentDateChange = (e: any) => {
-    get(`schedule/week?start=${getWeek(e)[0]}&finish=${getWeek(e)[1]}`).then((res) => {
+    let start = moment(e)
+      .startOf("isoweek" as unitOfTime.StartOf)
+      .format();
+    let end = moment(e).format();
+    get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setAppointments(
         [...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
@@ -90,7 +90,7 @@ function Calendar() {
   };
 
   useEffect(() => {
-    get(`schedule/?start=${getWeek(currentDate)[0]}&finish=${getWeek(currentDate)[1]}`).then((res) => {
+    get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
       setAppointments(
         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
@@ -124,7 +124,7 @@ function Calendar() {
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
       appointmentsCopy.splice(index, 1);
-      console.log(e.appointmentData.id);
+      // console.log(e.appointmentData.id);
       await del(`schedule/delete/${e.appointmentData.id}`);
       setAppointments([...appointmentsCopy]);
     }
@@ -139,7 +139,7 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string; date: Date }) => {
-    return <CheckList data={data} level={level} currentDate={currentDate} getWeek={getWeek} setLevel={setLevel} />;
+    return <CheckList data={data} level={level} currentDate={currentDate} setLevel={setLevel} start={start} end={end} />;
   };
 
   return (
