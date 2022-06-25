@@ -10,17 +10,19 @@ const PRCard = ({ pr }: PillData) => {
   const isLogin = !!userState.user;
   const supplement_id = pr.pk_supplement_id;
   console.log("#pr.pk_supplement_id", pr.pk_supplement_id);
-  const [bookMark, setBookMark] = useState<Boolean>(false);
+  const [bookMark, setBookMark] = useState<Boolean>();
   const [bookMarkList, setBookMarkList] = useState([]);
 
   const DBcheckBookMark = (bookMarkList: Array<any>) => {
     if (bookMarkList.some((Supplement) => Supplement.Supplement.pk_supplement_id === pr.pk_supplement_id)) {
       setBookMark(true);
+      console.log("Supplement.Supplement.pk_supplement_id", bookMarkList);
       console.log("DBchecked");
     } else {
       setBookMark(false);
     }
   };
+  console.log("@pr", pr);
 
   const loadBookMarkList = async () => {
     if (isLogin)
@@ -32,33 +34,6 @@ const PRCard = ({ pr }: PillData) => {
       } catch (error) {
         console.log(error);
       }
-  };
-
-  // if setBookMark(true) 면 filled
-  // if setBookMark(false)면 unfilled
-
-  const checkIngBookMark: any = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      const data = {
-        accessToken: userState.user.accessToken,
-        supplement_id: pr.pk_supplement_id,
-      };
-      const res = await post(`bookmark/create/${supplement_id}`, data);
-      loadBookMarkList();
-      console.log("#BookMark", res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const uncheckIngBookMark: any = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      const res = await del("bookmark", `${pr.pk_supplement_id}`);
-      loadBookMarkList();
-      console.log("#BookMarkDelete", res);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const HandleBookMarkChange: any = async () => {
@@ -80,9 +55,15 @@ const PRCard = ({ pr }: PillData) => {
     }
   };
 
-  useEffect(() => {
-    DBcheckBookMark(bookMarkList);
-  }, [bookMarkList]);
+  // * 처음에 get해서 북마크 상태를 불러오는 게 맞았습니다! 그래서 다시 load하니까 잘 동작하더라구요.. 화면 공유해서 여쭤볼 때는 새로고침된 상태여서 무한 로딩이 일어났던 것 같습니다.
+  useEffect(
+    () => {
+      loadBookMarkList();
+      // DBcheckBookMark(bookMarkList);
+    },
+    [bookMark],
+    // [bookMark, bookMarkList],
+  );
 
   return (
     <div className="card card-compact w-80 bg-base-100 shadow-xl m-4">
