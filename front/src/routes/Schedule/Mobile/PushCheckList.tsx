@@ -67,17 +67,14 @@ const Checklist = () => {
             Authorization: `Bearer ${jwtToken}`,
           },
         })
-        .then((res) => {
-          console.log(res);
+        .catch((error) => {
+          if (error.response.data.message) {
+            alert(error.response.data.message);
+          }
+        })
+        .then(() => {
+          alert("오늘의 체크리스트 작성이 완료되었습니다.");
         });
-      // .catch((error) => {
-      //   if (error.response) {
-      //     console.error(error);
-      //   }
-      // });
-      // .then(() => {
-      //   alert("오늘의 체크리스트 작성이 완료되었습니다.");
-      // });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const serverError = error as AxiosError<ServerError>;
