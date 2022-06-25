@@ -63,7 +63,7 @@ const Subscribe = () => {
           </h2>
           <br />
           <p className="mt-2 text-center text-sm text-gray-600">
-            Android에서만 가능합니다. <br />
+            Web 혹은 Android에서만 가능합니다. <br />
             알림 권한 요청에 "허용"을 눌러주세요.
           </p>
         </div>
