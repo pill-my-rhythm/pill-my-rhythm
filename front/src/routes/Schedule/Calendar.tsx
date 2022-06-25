@@ -104,13 +104,20 @@ function Calendar() {
     const index = tasks.indexOf(e.fromData);
     if (index >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
-      console.log(e.itemData);
       try {
         await post("schedule/create", {
           type: "B",
           start: new Date(e.itemData.startDate),
           finish: new Date(e.itemData.endDate),
           to_do: e.itemData.text,
+        });
+
+        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+          setAppointments(
+            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+            }),
+          );
         });
       } catch (err) {
         console.log("스케줄 생성 오류", err);
@@ -124,7 +131,6 @@ function Calendar() {
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
       appointmentsCopy.splice(index, 1);
-      // console.log(e.appointmentData.id);
       await del(`schedule/delete/${e.appointmentData.id}`);
       setAppointments([...appointmentsCopy]);
     }
