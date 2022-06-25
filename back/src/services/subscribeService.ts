@@ -56,9 +56,9 @@ const SubscribeService = {
         supplementArray.push(supplement.Supplement.name);
       }
 
-      // Today's Checklist 페이지에 쓸 refresh token(만료 기간 하루) 발급 + redis 저장
+      // TODO: Today's Checklist 페이지에 쓸 refresh token(만료 기간 하루) 발급 + redis 저장
       const checklistToken = makeChecklistToken({ userId: scheduleData.User["pk_user_id"] });
-      redisClient.SETEX(`checklist-${time}-${scheduleData.User["pk_user_id"]}`, 86400, checklistToken);
+      // redisClient.SETEX(`checklist-${time}-${scheduleData.User["pk_user_id"]}`, 86400, checklistToken);
 
       const pushData: pushData = {
         name: scheduleData.User["user_name"],
