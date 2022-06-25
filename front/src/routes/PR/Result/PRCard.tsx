@@ -9,13 +9,14 @@ const PRCard = ({ pr }: PillData) => {
   const userState = useContext(UserStateContext);
   const isLogin = !!userState.user;
   const supplement_id = pr.pk_supplement_id;
-
+  console.log("#pr.pk_supplement_id", pr.pk_supplement_id);
   const [bookMark, setBookMark] = useState<Boolean>(false);
   const [bookMarkList, setBookMarkList] = useState([]);
 
   const DBcheckBookMark = (bookMarkList: Array<any>) => {
-    if (bookMarkList.some((Supplement) => Supplement.pk_supplement_id === pr.pk_supplement_id)) {
+    if (bookMarkList.some((Supplement) => Supplement.Supplement.pk_supplement_id === pr.pk_supplement_id)) {
       setBookMark(true);
+      console.log("DBchecked");
     } else {
       setBookMark(false);
     }
@@ -60,13 +61,13 @@ const PRCard = ({ pr }: PillData) => {
     }
   };
 
-  const HandleBookMarkChange: any = async (Ischecked: React.MouseEvent<HTMLButtonElement>) => {
+  const HandleBookMarkChange: any = async () => {
     try {
       const data = {
         accessToken: userState.user.accessToken,
         supplement_id: pr.pk_supplement_id,
       };
-      if (!Ischecked) {
+      if (!bookMark) {
         const res = await post(`bookmark/create/${supplement_id}`, data);
         console.log("#BookMark", res);
       } else {
@@ -80,8 +81,8 @@ const PRCard = ({ pr }: PillData) => {
   };
 
   useEffect(() => {
-    loadBookMarkList();
-  }, [setBookMarkList]);
+    DBcheckBookMark(bookMarkList);
+  }, [bookMarkList]);
 
   return (
     <div className="card card-compact w-80 bg-base-100 shadow-xl m-4">
@@ -97,15 +98,13 @@ const PRCard = ({ pr }: PillData) => {
         </div>
         <div className="card-actions justify-end items-center">
           {!isLogin ? (
-            !bookMark ? (
-              <label htmlFor="">
-                <BookMark onClick={() => alert("회원 전용 서비스입니다!")} />
-              </label>
-            ) : (
-              <label htmlFor="">
-                <BookMark onClick={HandleBookMarkChange} />
-              </label>
-            )
+            <label htmlFor="">
+              <BookMark onClick={() => alert("회원 전용 서비스입니다!")} />
+            </label>
+          ) : !bookMark ? (
+            <label htmlFor="">
+              <BookMark onClick={HandleBookMarkChange} />
+            </label>
           ) : (
             <label htmlFor="">
               <FilledBookMark onClick={HandleBookMarkChange} />
