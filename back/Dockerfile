@@ -1,4 +1,28 @@
-FROM node:16-alpine3.15
+FROM node:18-alpine3.15
+
+# -- install redis on ubuntu
+# RUN apk add --no-cache \
+#   build-base \
+#   bzip2-dev \
+#   ca-certificates \
+#   curl \
+#   git \
+#   libffi-dev \
+#   libxslt-dev \
+#   linux-headers \
+#   ncurses-dev \
+#   openssl-dev \
+#   readline-dev \
+#   sqlite-dev \
+#   gpg \
+#   bash
+
+# RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+# RUN echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+# RUN apt update
+# RUN apt install redis-server
+
+
 WORKDIR /usr/src/app
 COPY package*.json ./
 
