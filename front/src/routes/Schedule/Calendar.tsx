@@ -139,7 +139,7 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string; date: Date }) => {
-    return <CheckList data={data} level={level} currentDate={currentDate} setLevel={setLevel} start={start} end={end} />;
+    return <CheckList data={data} level={level} setLevel={setLevel} start={start} end={end} />;
   };
 
   return (

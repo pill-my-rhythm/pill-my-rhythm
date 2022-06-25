@@ -34,7 +34,6 @@ interface CheckListProp {
     text: string;
   };
   level: { level: string; date: string }[];
-  currentDate: Date;
   setLevel: any;
   start: string;
   end: string;
@@ -44,7 +43,7 @@ interface ColorProp {
   color?: string;
 }
 
-const CheckList = ({ data, level, currentDate, setLevel, start, end }: CheckListProp) => {
+const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
   const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
 
@@ -58,7 +57,6 @@ const CheckList = ({ data, level, currentDate, setLevel, start, end }: CheckList
     if (checked) {
       setCheckedInputs([...checkedInputs, id]);
     } else {
-      // 체크 해제
       setCheckedInputs(checkedInputs.filter((el: string) => el !== id));
     }
   };
