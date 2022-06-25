@@ -70,7 +70,7 @@ self.addEventListener(
       case "checklist-action": // 오늘 날짜의 체크리스트
         const { encryptedToken } = event.notification.data;
         // public 폴더 안에서는 .env 변수 접근 안 됨
-        // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${jwt}`));
+        // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${encryptedToken}`));
         event.waitUntil(self.clients.openWindow(`http://localhost:3000/m/checklist?token=${encryptedToken}`));
         break;
       // no default
