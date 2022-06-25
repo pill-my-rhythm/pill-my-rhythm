@@ -9,20 +9,19 @@ const PRCard = ({ pr }: PillData) => {
   const userState = useContext(UserStateContext);
   const isLogin = !!userState.user;
   const supplement_id = pr.pk_supplement_id;
-  console.log("#pr.pk_supplement_id", pr.pk_supplement_id);
+
+  // console.log("#pr.pk_supplement_id", pr.pk_supplement_id);
+
   const [bookMark, setBookMark] = useState<Boolean>();
   const [bookMarkList, setBookMarkList] = useState([]);
 
   const DBcheckBookMark = (bookMarkList: Array<any>) => {
     if (bookMarkList.some((Supplement) => Supplement.Supplement.pk_supplement_id === pr.pk_supplement_id)) {
       setBookMark(true);
-      console.log("Supplement.Supplement.pk_supplement_id", bookMarkList);
-      console.log("DBchecked");
     } else {
       setBookMark(false);
     }
   };
-  console.log("@pr", pr);
 
   const loadBookMarkList = async () => {
     if (isLogin)
@@ -30,7 +29,6 @@ const PRCard = ({ pr }: PillData) => {
         const res = await get("bookmark");
         setBookMarkList(res.data);
         DBcheckBookMark(res.data);
-        console.log("loadBookMarkList", res.data);
       } catch (error) {
         console.log(error);
       }

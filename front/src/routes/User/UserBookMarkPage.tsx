@@ -13,12 +13,13 @@ const UserBookMarkList = () => {
       console.log("#res", res);
       setUserBookMark(res.data);
       setPillResult(res.data);
-      console.log("#pillResult", pillResult);
-      console.log("#userBookMark", userBookMark);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // console.log("#pillResult", pillResult);
+  // console.log("#userBookMark", userBookMark);
 
   useEffect(() => {
     LoadBookMarkList();

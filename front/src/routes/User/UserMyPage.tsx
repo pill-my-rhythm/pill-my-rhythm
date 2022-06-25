@@ -19,7 +19,7 @@ const UserMyPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  console.log("#myPage", myPage);
+  // console.log("#myPage", myPage);
 
   const handleMyPageEdit = (name: string, value: string) => {
     setMyPage((prev) => ({ ...prev, [name]: value }));
@@ -40,7 +40,9 @@ const UserMyPage = () => {
   };
 
   // 비밀번호가 4글자 이상인지 여부를 확인함.
-  const isPasswordValid = myPage.password.length >= 8 || myPage.password.length === 0;
+  // if(password)가 값이 있는경우에만 실행되도록
+  //불러와주는애를만들어서 업데이트를 시켜줘라
+  const isPasswordValid = myPage.password?.length >= 8 || myPage.password?.length === 0;
 
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
   const isPasswordSame = myPage.password === confirmPassword;
@@ -49,8 +51,9 @@ const UserMyPage = () => {
   const jobs = ["교육", "제조", "디자인", "개발", "서비스", "기타"];
 
   useEffect(() => {
-    setEditMode(false);
-  }, [setEditMode]);
+    console.log("editMode", editMode);
+    // setEditMode(false);
+  }, [editMode]);
 
   return !editMode ? (
     <div className="min-h-full flex py-12 px-4 sm:px-6 lg:px-8">
@@ -70,7 +73,7 @@ const UserMyPage = () => {
         <button
           type="button"
           className="group relative w-2/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-          onChange={() => setEditMode(true)}
+          onClick={() => setEditMode(true)}
         >
           정보수정
         </button>
