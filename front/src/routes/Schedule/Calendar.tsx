@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { del, get, post } from "../../Api";
-import { appointmentsAtom, tasksAtom } from "../../atoms";
+import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
@@ -21,7 +21,7 @@ const DayWrapper = styled.div`
   height: auto;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, 10%);
   padding: 10px 10px 0px 10px;
   width: 280px;
   border-radius: 10px;
@@ -30,7 +30,7 @@ const DayWrapper = styled.div`
 `;
 
 const ListWrapper = styled(DayWrapper)`
-  transform: translate(-50%, 60%);
+  transform: translate(-50%, 80%);
 `;
 
 const ScheduleWrapper = styled.div`
@@ -67,7 +67,9 @@ const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
+  const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
+  const [level, setLevel]: any = useState([]);
 
   const getWeek = (day: any) => {
     let curr = new Date(day);
@@ -89,6 +91,7 @@ function Calendar() {
 
   useEffect(() => {
     get(`schedule/?start=${getWeek(currentDate)[0]}&finish=${getWeek(currentDate)[1]}`).then((res) => {
+      setLevel(res.data.checklist);
       setAppointments(
         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
@@ -121,6 +124,7 @@ function Calendar() {
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
       appointmentsCopy.splice(index, 1);
+      console.log(e.appointmentData.id);
       await del(`schedule/delete/${e.appointmentData.id}`);
       setAppointments([...appointmentsCopy]);
     }
@@ -134,12 +138,12 @@ function Calendar() {
     e.cancel = true;
   };
 
-  const renderDateCell = (data: { text: string; date: Date }, index: number) => {
-    return <CheckList data={data} index={index} tasks={tasks} />;
+  const renderDateCell = (data: { text: string; date: Date }) => {
+    return <CheckList data={data} level={level} />;
   };
 
   return (
-    <React.Fragment>
+    <>
       <Wrapper>
         <ScrollView id="scroll">
           <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
@@ -149,11 +153,11 @@ function Calendar() {
                 <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
-            {/* <DayWrapper>
+            <DayWrapper>
               {dayHour.map((task) => (
                 <DayItem task={task} key={task.text} />
               ))}
-            </DayWrapper> */}
+            </DayWrapper>
           </Draggable>
         </ScrollView>
       </Wrapper>
@@ -178,7 +182,7 @@ function Calendar() {
           <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
         </Scheduler>
       </ScheduleWrapper>
-    </React.Fragment>
+    </>
   );
 }
 

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { post } from "../../Api";
+import { checkListAtom } from "../../atoms";
 
-const DateLabel = styled.label`
-  background-color: transparent;
+const DateLabel = styled.label<ColorProp>`
+  background-color: ${(props) => props.color};
 `;
 
 const TodoWrapper = styled.div`
@@ -28,12 +30,22 @@ interface CheckListProp {
     date: Date;
     text: string;
   };
-  index: number;
-  tasks: { text: string }[];
+  level: { level: string; date: string }[];
 }
 
-const CheckList = ({ data, index, tasks }: CheckListProp) => {
+interface ColorProp {
+  color?: string;
+}
+
+const CheckList = ({ data, level }: CheckListProp) => {
+  const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
+
+  const allDay = level.map((data) => {
+    return { color: data.level, date: data.date.substring(8) };
+  });
+  const date = new Date(data.date).getDate().toString();
+  const color = allDay.find((day) => day.date === date)?.color;
 
   const changeHandler = (checked: boolean, id: string) => {
     if (checked) {
@@ -45,7 +57,7 @@ const CheckList = ({ data, index, tasks }: CheckListProp) => {
   };
 
   const handleSubmit = async () => {
-    const result = tasks.map((el: any) => (checkedInputs.includes(el.text) ? true : false));
+    const result = checkList.map((el: any) => (checkedInputs.includes(el.text) ? true : false));
     const offset = new Date().getTimezoneOffset() * 60000;
     const current = new Date(data.date.getTime() - offset);
     const checkListDate = current.toISOString().substring(0, 10);
@@ -62,14 +74,14 @@ const CheckList = ({ data, index, tasks }: CheckListProp) => {
   };
   return (
     <>
-      <DateLabel htmlFor={`modal-${data.text}`} className="modal-button cursor-pointer">
+      <DateLabel htmlFor={`modal-${data.text}`} className="modal-button cursor-pointer" color={color}>
         {data.text}
       </DateLabel>
       <input type="checkbox" id={`modal-${data.text}`} className="modal-toggle" />
       <label htmlFor={`modal-${data.text}`} className="modal cursor-pointer">
         <label className="modal-box max-w-xs" htmlFor="">
           <CheckListTitle>{data.text}</CheckListTitle>
-          {tasks.map((task, index) => (
+          {checkList.map((task, index) => (
             <TodoWrapper key={index}>
               <input
                 id={task.text}
