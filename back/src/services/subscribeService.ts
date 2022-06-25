@@ -5,7 +5,6 @@ import { ISendNotificationInput, pushData } from "../interfaces/subscribeInput";
 import { Schedule } from "../db/Schedule";
 import { HttpException } from "../utils/error-util";
 import { makeChecklistToken } from "../utils/jwt-util";
-import { Response } from "express";
 
 const SubscribeService = {
   createSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
@@ -54,9 +53,8 @@ const SubscribeService = {
         supplementArray.push(supplement.Supplement.name);
       }
 
-      // TODO: Today's Checklist 페이지에 쓸 refresh token(만료 기간 하루) 발급 + redis 저장
+      // Today's Checklist 페이지에 쓸 refresh token(만료 기간 하루) 발급
       const checklistToken = makeChecklistToken({ userId: scheduleData.User["pk_user_id"] });
-      // redisClient.SETEX(`checklist-${time}-${scheduleData.User["pk_user_id"]}`, 86400, checklistToken);
 
       const pushData: pushData = {
         name: scheduleData.User["user_name"],
@@ -64,9 +62,6 @@ const SubscribeService = {
         supplements: supplementArray.join(", "),
         jwtToken: checklistToken,
       };
-
-      // const jwtToken =
-      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwODU2NjUsImV4cCI6MTY1NjA4OTI2NX0.OKXodtjnvs_wPt3qi3IZ4UmYXoPEa_9PJuH5VjpyF5s";
 
       const secretKey = process.env.SECRET_KEY;
 
