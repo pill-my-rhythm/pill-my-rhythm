@@ -334,6 +334,24 @@ paths:
           $ref: '#/components/responses/successResponse'
         '401':
           description: accessToken이 유효하지 않습니다.
+  '/bookmark/{bookmark_id}':
+    delete:
+      tags:
+        - bookmark
+      summary: 북마크 삭제 API 입니다.
+      description: '(필수) accessToken, bookmark_id'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: bookmark_id
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
 components:
   schemas:
     User:
