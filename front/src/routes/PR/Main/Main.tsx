@@ -19,7 +19,7 @@ const Main = () => {
       console.log(`${search}를 검색합니다.`);
       navigate(`/result`, { state: res.data });
     } catch (error) {
-      console.log(`${error}로 인해 검색에 실패했습니다.`);
+      alert(`${error}로 인해 검색에 실패했습니다.`);
     }
   };
 
@@ -57,7 +57,7 @@ const Main = () => {
                 <div className="input-group">
                   {/* // * 메인 Search창 */}
                   <input
-                    type="text"
+                    type="search"
                     placeholder="요즘 눈이 안 좋아요... 면역력이 떨어졌어요..."
                     className="input input-bordered w-5/6 text-zinc-700 text-lg"
                     value={search}
