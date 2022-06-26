@@ -1,25 +1,32 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserStateContext } from "../../Dispatcher";
-import { put } from "../../Api";
+import { get, put } from "../../Api";
+import { Userdata } from "../PR/Result/RecommendationArea";
 
 const UserMyPage = () => {
   const userState = useContext(UserStateContext);
   const userInfo = userState.user?.userInfo;
-  console.log("userState.user?.userInfo", userInfo);
+  console.log("@userState.user?.userInfo", userInfo);
+  const [currentUser, setCurrentUser] = useState<Userdata>(userInfo);
+  console.log("@currentUser", currentUser);
 
-  const userName = userInfo.user_name;
-  const useremail = userInfo.email;
+  const userName = currentUser.user_name;
+  const useremail = currentUser.email;
   const [myPage, setMyPage] = useState({
     password: "",
-    gender: userInfo.gender,
-    age_range: userInfo.age_range,
-    job: userInfo.job,
+    gender: currentUser.gender,
+    age_range: currentUser.age_range,
+    job: currentUser.job,
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  const LoadUserMypage = () => {};
+  const LoadUserMypage = async () => {
+    const res = await get("user/current");
+    console.log("@res.data의 currentuser", res.data);
+    setCurrentUser(res.data);
+  };
 
   const handleMyPageEdit = (name: string, value: string) => {
     setMyPage((prev) => ({ ...prev, [name]: value }));
@@ -31,8 +38,7 @@ const UserMyPage = () => {
       const res = await put("user/update-info", {
         ...myPage,
       });
-      const EditedUser = res.data;
-      setMyPage(EditedUser);
+      setMyPage(res.data);
       setEditMode(false);
     } catch (error) {
       console.log("MyPage#error", error);
@@ -50,9 +56,15 @@ const UserMyPage = () => {
   const ages = ["10대", "20대", "30대", "40대", "50대", "60대 이상"];
   const jobs = ["교육", "제조", "디자인", "개발", "서비스", "기타"];
 
+  const GenderTranslate = (e: string) => {
+    if (e === "F") return "여성";
+    else return "남성";
+  };
+
   useEffect(() => {
-    console.log("editMode", editMode);
-  }, [myPage]);
+    LoadUserMypage();
+    setMyPage(myPage);
+  }, [myPage, editMode]);
 
   return !editMode ? (
     <div className="min-h-full flex py-12 px-4 sm:px-6 lg:px-8">
@@ -63,11 +75,11 @@ const UserMyPage = () => {
           <p className="m-3 text-sm text-gray-600">정보수정</p>
         </div>
         <div>
-          <p className="m-3">이름 : {userInfo.user_name}</p>
-          <p className="m-3">이메일 : {userInfo.email}</p>
-          <p className="m-3">성별 : {userInfo.gender}</p>
-          <p className="m-3">연령대 : {userInfo.age_range}</p>
-          <p className="m-3">직업군 : {userInfo.job}</p>
+          <p className="m-3">이름 : {currentUser.user_name}</p>
+          <p className="m-3">이메일 : {currentUser.email}</p>
+          <p className="m-3">성별 : {GenderTranslate(currentUser.gender)}</p>
+          <p className="m-3">연령대 : {currentUser.age_range}</p>
+          <p className="m-3">직업군 : {currentUser.job}</p>
         </div>
         <button
           type="button"
