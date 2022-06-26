@@ -31,9 +31,7 @@ const Main = () => {
       userVisibleOnly: true,
       applicationServerKey: process.env.REACT_APP_WEB_PUSH_PUBLIC_KEY,
     });
-    // .then((res) => {
-    //   console.log(res);
-    // });
+
     console.log(JSON.stringify(subscription));
     setSubToken(JSON.stringify(subscription));
 
