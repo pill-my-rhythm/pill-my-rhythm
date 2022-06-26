@@ -56,15 +56,15 @@ export const dayHoursAtom = atom({
   default: [
     {
       text: "아침",
-      type: "S",
+      type: "B",
     },
     {
       text: "점심",
-      type: "S",
+      type: "L",
     },
     {
       text: "저녁",
-      type: "S",
+      type: "D",
     },
   ],
 });

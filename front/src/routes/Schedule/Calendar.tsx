@@ -103,7 +103,7 @@ function Calendar() {
 
   const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
-    console.log(e.fromData.type);
+    const dayIndex = dayHour.indexOf(e.fromData);
     if (index >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
       try {
@@ -114,6 +114,27 @@ function Calendar() {
           to_do: e.itemData.text,
         });
 
+        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+          setAppointments(
+            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+            }),
+          );
+        });
+      } catch (err) {
+        console.log("스케줄 생성 오류", err);
+      }
+    }
+
+    if (dayIndex >= 0) {
+      setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
+      try {
+        await post("schedule/create", {
+          type: "S",
+          start: new Date(e.itemData.startDate),
+          finish: new Date(e.itemData.endDate),
+          to_do: e.itemData.type,
+        });
         await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
           setAppointments(
             [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
