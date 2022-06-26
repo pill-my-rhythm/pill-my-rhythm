@@ -32,24 +32,25 @@ const Schedule = {
   findByOnlyTime: async (time: Date) => {
     const supplementSchedules = await Schedules.findAll({
       attributes: ["to_do"],
-      where: { type: "S", start: time, "$User.DailySupplements.type$": { [Op.eq]: col("Schedules.to_do") } },
+      where: { type: "S", start: time },
       include: {
         required: true, // inner join
         model: Users,
         attributes: ["pk_user_id", "user_name", "email"],
         include: [
           {
-            required: true,
+            required: true, // inner join
             model: Subscribes,
             attributes: ["device_token"],
           },
           {
-            required: true,
+            required: false, // outer join, 영양제 일정만 있는 회원 정보도 불러오기
             model: DailySupplements,
             attributes: ["fk_supplement_id"],
+            where: { "$User.DailySupplements.type$": { [Op.eq]: col("Schedules.to_do") } },
             include: [
               {
-                required: true,
+                required: true, // inner join
                 model: Supplements,
                 attributes: ["name"],
               },
