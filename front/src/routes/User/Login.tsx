@@ -45,6 +45,8 @@ const LoginForm = () => {
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       console.log("#user", user);
 
+      if (!dispatch) return;
+
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: user,
@@ -52,8 +54,9 @@ const LoginForm = () => {
 
       // 기본 페이지로 이동함.
       navigate("/");
-    } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
+    } catch (error) {
+      alert(`${error}로 인해 로그인에 실패했습니다.`);
+      console.log("로그인에 실패하였습니다.\n", error);
     }
   };
 

@@ -33,6 +33,11 @@ const Header = () => {
     }
   };
 
+  const MoveLogin = () => {
+    alert("로그인 후 이용해주세요!");
+    navigate("/login");
+  };
+
   return (
     <div className="navbar flex-col md:flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md">
       <div className="flex-1">
@@ -65,9 +70,7 @@ const Header = () => {
               <button onClick={logout}>Logout</button>
             )}
             <ul className="p-2 bg-base-100">
-              <li>
-                <Link to="/mypage">My Page</Link>
-              </li>
+              <li>{!isLogin ? <button onClick={MoveLogin}>My Page</button> : <Link to="/mypage">My Page</Link>}</li>
             </ul>
           </li>
         </ul>

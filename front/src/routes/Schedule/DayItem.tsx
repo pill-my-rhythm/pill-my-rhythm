@@ -36,12 +36,12 @@ function DayItem({ task }: taskProps) {
   };
   return (
     <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
-      <DateLabel htmlFor="my-modal-4" className="modal-button cursor-pointer max-w-xs">
+      <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs">
         <Card>{task.text}</Card>
       </DateLabel>
 
-      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      <label htmlFor="my-modal-4" className="modal cursor-pointer">
+      <input type="checkbox" id={`modal-${task.text}`} className="modal-toggle" />
+      <label htmlFor={`modal-${task.text}`} className="modal cursor-pointer">
         <label className="modal-box" htmlFor="">
           <h3 className="text-lg font-bold">Title</h3>
           <p className="py-4">description</p>

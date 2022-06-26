@@ -1,14 +1,17 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { del, get, post } from "../../Api";
 import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 import DayItem from "./DayItem";
+import CheckList from "./CheckList";
+import moment, { unitOfTime } from "moment";
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,7 +22,7 @@ const DayWrapper = styled.div`
   height: auto;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, 10%);
   padding: 10px 10px 0px 10px;
   width: 280px;
   border-radius: 10px;
@@ -28,7 +31,7 @@ const DayWrapper = styled.div`
 `;
 
 const ListWrapper = styled(DayWrapper)`
-  transform: translate(-50%, 60%);
+  transform: translate(-50%, 80%);
 `;
 
 const ScheduleWrapper = styled.div`
@@ -51,53 +54,84 @@ const ListTitle = styled.h3`
   font-weight: 700;
 `;
 
-const DateLabel = styled.label`
-  background-color: transparent;
-`;
-
-const TodoWrapaper = styled.div`
-  display: flex;
-  text-align: left;
-  color: black;
-  padding: 10px;
-`;
-
-export interface Appintments {
-  allDay: boolean;
+export interface Appointments {
   endDate: Date;
   startDate: Date;
   text: string;
+  id: number;
 }
 
-let now = new Date();
-const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-const views: Array<Object> = [{ type: "day", intervalCount: 7 }];
+let start = moment()
+  .startOf("isoweek" as unitOfTime.StartOf)
+  .format();
+let end = moment().endOf("day").format();
+const currentDate = new Date(moment().format());
+const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
-  const [appointments, setAppointments] = useRecoilState<Array<Appintments>>(appointmentsAtom);
+  const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
+  const [level, setLevel]: any = useState([]);
 
-  const onAppointmentAdd = (e: any) => {
-    // index : 움직인 item의 index 값
-    // e.itemData : 움직인 item의 정보
-    // tasks : 리스트 아이템
-    // appointments : 캘린더에 움직여진 item의 정보
+  const onCurrentDateChange = (e: any) => {
+    let start = moment(e)
+      .startOf("isoweek" as unitOfTime.StartOf)
+      .format();
+    let end = moment(e).format();
+    get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setAppointments(
+        [...res.data.schedule].map((data) => {
+          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+        }),
+      );
+    });
+  };
+
+  useEffect(() => {
+    get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setLevel(res.data.checklist);
+      setAppointments(
+        [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+        }),
+      );
+    });
+  }, [setAppointments]);
+
+  const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
-    const appointmentsCopy = [...appointments];
     if (index >= 0) {
-      appointmentsCopy.push(e.itemData);
-      setAppointments([...appointmentsCopy]);
+      setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
+      try {
+        await post("schedule/create", {
+          type: "B",
+          start: new Date(e.itemData.startDate),
+          finish: new Date(e.itemData.endDate),
+          to_do: e.itemData.text,
+        });
+
+        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+          setAppointments(
+            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+            }),
+          );
+        });
+      } catch (err) {
+        console.log("스케줄 생성 오류", err);
+      }
     }
   };
 
-  const onAppointmentDeleting = (e: any) => {
+  const onAppointmentDeleting = async (e: any) => {
     e.cancel = true;
-    const index = appointments.findIndex((appointments) => appointments.text === e.appointmentData.text);
+    const index = appointments.findIndex((appointments) => appointments.endDate === e.appointmentData.endDate);
     const appointmentsCopy = [...appointments];
     if (index >= 0) {
       appointmentsCopy.splice(index, 1);
+      await del(`schedule/delete/${e.appointmentData.id}`);
       setAppointments([...appointmentsCopy]);
     }
   };
@@ -110,29 +144,12 @@ function Calendar() {
     e.cancel = true;
   };
 
-  const renderDateCell = (data: { text: string }, index: number) => {
-    return (
-      <>
-        <DateLabel htmlFor="my-modal-4" className="modal-button cursor-pointer">
-          {data.text}
-        </DateLabel>
-        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-        <label htmlFor="my-modal-4" className="modal cursor-pointer">
-          <label className="modal-box max-w-xs" htmlFor="">
-            {tasks.map((task) => (
-              <TodoWrapaper key={task.text}>
-                <input type="checkbox" className="checkbox checkbox-sm checkbox-primary mr-3" />
-                {task.text}
-              </TodoWrapaper>
-            ))}
-          </label>
-        </label>
-      </>
-    );
+  const renderDateCell = (data: { text: string; date: Date }) => {
+    return <CheckList data={data} level={level} setLevel={setLevel} start={start} end={end} />;
   };
 
   return (
-    <React.Fragment>
+    <>
       <Wrapper>
         <ScrollView id="scroll">
           <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
@@ -142,7 +159,6 @@ function Calendar() {
                 <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
-            {/* 문제 나는 모달 부분 */}
             <DayWrapper>
               {dayHour.map((task) => (
                 <DayItem task={task} key={task.text} />
@@ -159,17 +175,20 @@ function Calendar() {
           dataSource={appointments}
           views={views}
           defaultCurrentDate={currentDate}
+          defaultCurrentView="week"
           height={600}
-          startDayHour={8}
+          startDayHour={6}
           onAppointmentFormOpening={onAppointmentFormOpening}
           onAppointmentDeleting={onAppointmentDeleting}
           showAllDayPanel={false}
           dateCellRender={renderDateCell}
+          firstDayOfWeek={1}
+          onCurrentDateChange={onCurrentDateChange}
         >
           <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
         </Scheduler>
       </ScheduleWrapper>
-    </React.Fragment>
+    </>
   );
 }
 
