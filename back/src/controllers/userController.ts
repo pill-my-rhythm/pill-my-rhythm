@@ -42,7 +42,6 @@ const UserController = {
       const pk_user_id: Users["pk_user_id"] = req.currentUserId;
       const { password, gender, age_range, job }: IUserInfoUpdateInput = req.body;
       const updateDate = { password, gender, age_range, job };
-
       const result = await UserService.updateUserInfo(pk_user_id, updateDate);
       res.status(201).json(result);
     } catch (error) {
