@@ -64,7 +64,8 @@ export interface Appointments {
 let start = moment()
   .startOf("isoweek" as unitOfTime.StartOf)
   .format();
-let end = moment().endOf("day").format();
+let end = moment().isoWeekday("Sunday").format();
+
 const currentDate = new Date(moment().format());
 const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
@@ -79,7 +80,7 @@ function Calendar() {
     let start = moment(e)
       .startOf("isoweek" as unitOfTime.StartOf)
       .format();
-    let end = moment(e).format();
+    let end = moment(e).isoWeekday("Sunday").format();
     get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setAppointments(
         [...res.data.schedule].map((data) => {
@@ -102,6 +103,7 @@ function Calendar() {
 
   const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
+    console.log(e.fromData.type);
     if (index >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
       try {
@@ -159,11 +161,11 @@ function Calendar() {
                 <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
-            <DayWrapper>
-              {dayHour.map((task) => (
-                <DayItem task={task} key={task.text} />
-              ))}
-            </DayWrapper>
+            {/* <DayWrapper> */}
+            {dayHour.map((task) => (
+              <DayItem task={task} key={task.text} />
+            ))}
+            {/* </DayWrapper> */}
           </Draggable>
         </ScrollView>
       </Wrapper>
