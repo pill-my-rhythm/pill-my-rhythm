@@ -52,11 +52,7 @@ const Subscribe = () => {
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Subscribe
-            <br />
-            with your phone
-          </h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Subscribe our Service</h2>
           <br />
           <p className="mt-2 text-center text-sm text-gray-600">
             Web 혹은 Android에서만 가능합니다. <br />
