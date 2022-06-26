@@ -23,11 +23,17 @@ const Main = () => {
   const subscribe = async () => {
     console.log("subscribe function");
     const sw = await navigator.serviceWorker.ready;
+    if (Notification.permission === "denied") {
+      alert("알림 권한을 거부하셨습니다.\n구독을 원하신다면\n[브라우저 설정 - 개인정보 및 보안 - 사이트 설정]에서\nPill my rhythm 사이트의 알림 권한 차단을 재설정해주세요.");
+    }
     // 사용자 기기 정보로 구독 요청
     const subscription = await sw.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: process.env.REACT_APP_WEB_PUSH_PUBLIC_KEY,
     });
+    // .then((res) => {
+    //   console.log(res);
+    // });
     console.log(JSON.stringify(subscription));
     setSubToken(JSON.stringify(subscription));
 
