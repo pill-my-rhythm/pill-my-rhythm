@@ -11,5 +11,7 @@
     "skipLibCheck": true,
     "strictNullChecks": false,
     "typeRoots": ["./src/customType", "./node_modules/@types"]
-  }
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
 }

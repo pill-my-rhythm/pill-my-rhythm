@@ -1,9 +1,9 @@
-# 1) 전체 스케줄 조회
+# 1) 스케줄 페이지 조회
 /schedule:
   get:
     tags:
       - schedule
-    summary: 전체 스케줄 조회 API 입니다.
+    summary: 스케줄 페이지 조회 API 입니다. 일주일 스케줄, 체크리스트 정보와 하루 영양제 정보가 포함되어 있습니다.(북마크 정보 추가할 예정)
     description: (필수) accessToken, start, finish
     security:
       - bearerAuth: []
@@ -24,10 +24,52 @@
       "400":
         description: accessToken이 유효하지 않습니다.
 
-# 2) 생체 리듬, 스케줄 설정
-# /schedule/create
-# POST
-# DB) create, update, delete
+# 2) 일주일 스케줄과 체크리스트만 조회
+/schedule/week:
+  get:
+    tags:
+      - schedule
+    summary: 일주일 스케줄과 체크리스트만 조회하는 API 입니다.
+    description: (필수) accessToken, start, finish
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: query
+        name: start
+        schema:
+          type: string
+        description: GET /schedule/week?start='2020-02-01'&finish='2020-02-01'
+      - in: query
+        name: finish
+        schema:
+          type: string
+        description: GET /schedule/week?start='2020-02-01'&finish='2020-02-01'
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
+
+/schedule/delete/{schedule_id}:
+  delete:
+    tags:
+      - schedule
+    summary: 생체 리듬, 스케줄 삭제 API 입니다.
+    description: (필수) accessToken, schedule_id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: schedule_id
+        schema:
+          type: number
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
+
+# 3) 생체 리듬, 스케줄 설정
 /schedule/create:
   post:
     tags:
@@ -59,7 +101,7 @@
       "400":
         description: accessToken이 유효하지 않습니다.
 
-# 3) 아침, 점심, 저녁 영양제 저장 API
+# 4) 아침, 점심, 저녁 영양제 저장 API
 /schedule/daily-supplement:
   post:
     tags:
@@ -103,7 +145,7 @@
       "400":
         description: accessToken이 유효하지 않습니다.
 
-# 4) 체크리스트 생성
+# 5) 체크리스트 생성
 /checklist/create:
   post:
     tags:

@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  # frontend_server:
+  #   restart: 'on-failure'
+  #   build:
+  #     context: './front'
+  #     dockerfile: Dockerfile
+  #   container_name: 'node-pill-my-rhythm-app'
+  #   working_dir: '/usr/src/app/back'
+  #   ports:
+  #     - 80:80
+  #   networks:
+  #     - Pill-my-rhythm
+
+  backend_server:
+    restart: 'on-failure'
+    build:
+      context: './back'
+      dockerfile: Dockerfile
+    container_name: 'node-pill-my-rhythm-app'
+    working_dir: '/usr/src/app/back'
+    ports:
+      - 5000:5000
+    links:
+      - redis_server
+    networks:
+      - pill-my-rhythm
+
+  redis_server:
+    restart: 'on-failure'
+    image: redis:alpine
+    container_name: 'redis-app'
+    networks:
+      - pill-my-rhythm
+
+  #   image: tbr06057/node-Pill-my-rhythm-app:test
+  #   restart: 'on-failure'
+  #   ports:
+  #     - 5000:5000
+  #   depends_on:
+  #     - redis
+  #   networks:
+  #     - Pill-my-rhythm
+  # redis:
+  #   image: redis:alpine
+  #   restart: 'on-failure'
+  #   ports:
+  #     - 6379:6379
+  #   networks:
+  #     - Pill-my-rhythm
+
+networks:
+  pill-my-rhythm:

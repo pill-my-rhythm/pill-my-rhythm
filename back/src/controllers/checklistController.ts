@@ -9,7 +9,7 @@ const ChecklistController = {
       const { date, one, two, three, four, five, six }: IChecklistCreateInput = req.body;
       const newChecklist = await ChecklistService.addChecklist({ fk_user_id, date, one, two, three, four, five, six });
 
-      res.status(201).json(newChecklist);
+      res.status(200).json(newChecklist);
     } catch (error) {
       next(error);
     }
