@@ -1,18 +1,24 @@
 version: '3.8'
 services:
+  # frontend_server:
+  #   restart: 'on-failure'
+  #   build:
+  #     context: './front'
+  #     dockerfile: Dockerfile
+  #   container_name: 'react-pill-my-rhythm-app'
+  #   ports:
+  #     - 80:80
+  #   links:
+  #     - redis_server
+  #     - backend_server
+  #   env_file:
+  #     - './front/.env'
+
   frontend_server:
+    image: tbr06057/react-pill-my-rhythm-app:test
     restart: 'on-failure'
-    build:
-      context: './front'
-      dockerfile: Dockerfile
-    container_name: 'react-pill-my-rhythm-app'
     ports:
       - 80:80
-    links:
-      - redis_server
-      - backend_server
-    env_file:
-      - './front/.env'
 
   backend_server:
     restart: 'on-failure'
@@ -31,14 +37,18 @@ services:
     restart: 'on-failure'
     image: redis:alpine
     container_name: 'redis-app'
-
+  # ai_server:
+  #   restart: 'on-failure'
+  #   build:
+  #     context: './ai'
+  #     dockerfile: Dockerfile
+  #   container_name: 'python-pill-my-rhythm-app'
+  #   ports:
+  #     - 5002:5002
+  #   links:
+  #     - backend_server
   ai_server:
+    image: tbr06057/python-pill-my-rhythm-app:test
     restart: 'on-failure'
-    build:
-      context: './ai'
-      dockerfile: Dockerfile
-    container_name: 'python-pill-my-rhythm-app'
     ports:
       - 5002:5002
-    links:
-      - backend_server
