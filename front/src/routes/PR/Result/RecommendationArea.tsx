@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserStateContext } from "../../../Dispatcher";
-import PRCard from "./PRList";
+import PRList from "./PRList";
 import { Props } from "./Result";
 
 export interface Userdata {
@@ -31,24 +31,24 @@ const RecommendationArea = ({ isLogin }: Props) => {
           <img className="w-11 h-11 mr-3" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
           {!isLogin ? <h2>당신에게는 이런 영양제를 추천드려요!</h2> : <h2>{user?.user_name}님께는 이런 영양제를 추천드려요!</h2>}
         </div>
-        <div className="w-fit alert alert-warning shadow-lg mb-10">
+        <div className="w-fit alert alert-warning shadow-lg mb-10 mx-4">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
               />
             </svg>
             <span className="select-none leading-normal">
-              Pill my rhytym의 AI 분석은 당신의 증상 향상에 도움이 되는 <u>건강기능식품</u>을 추천드리는 서비스입니다. <br />
+              Pill my rhytym의 AI 분석은 당신의 증상 개선에 도움이 되는 <u>건강기능식품</u>을 추천드리는 서비스입니다. <br />
               질병의 진단 및 치료는 전문적인 의료기관을 이용하세요.
             </span>
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-center ">
-          <PRCard />
+          <PRList />
         </div>
       </div>
     </div>
