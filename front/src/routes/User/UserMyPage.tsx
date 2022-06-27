@@ -126,29 +126,38 @@ const UserMyPage = () => {
               </label>
               <input type="checkbox" id="withdraw-modal" className="modal-toggle" />
               <label htmlFor="withdraw-modal" className="modal cursor-pointer">
-                <label className="modal-box relative justify-center" htmlFor="">
-                  <h3 className="text-lg font-bold">정말 탈퇴하실 건가요...?😢</h3>
-                  <p className="py-2 text-sm">Pill my rythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!</p>
-                  <p className="py-2 text-sm">불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!</p>
-                  <p className="py-2 text-sm">그래도 저희 서비스가 필요 없으시다면...</p>
-                  <p className="py-2 text-red-500">GoodByeMyRhythm</p>
-                  <p className="py-2 text-sm">이라고 입력해주세요!</p>
-                  <input className="input m-2" type="text" name="withdraw" value={withdrawSentence} placeholder="GoodByeMyRhythm" onChange={(e) => setWithdrawSentence(e.target.value)} />
-                  {!withdrawalValid ? (
-                    <button
-                      className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
-                      disabled
-                    >
-                      탈퇴
-                    </button>
-                  ) : (
-                    <button
-                      className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
-                      onClick={withdrawUser}
-                    >
-                      탈퇴
-                    </button>
-                  )}
+                <label className="modal-box relative justify-center select-none" htmlFor="">
+                  <h3 className="text-lg font-bold text-center py-4">정말 탈퇴하실 건가요...?😢</h3>
+                  <p className="py-1 text-sm text-center">Pill my rhythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!</p>
+                  <p className="py-1 text-sm text-center">불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!</p>
+                  <p className="py-1 text-sm text-center">그래도 저희 서비스가 필요 없으시다면...</p>
+                  <p className="py-1 text-red-500 font-bold text-center">GoodByeMyRhythm</p>
+                  <p className="py-1 text-sm text-center">이라고 입력해주세요!</p>
+                  <div className="flex flex-row justify-center items-center py-4">
+                    <input
+                      className="input m-2 border border-red-400"
+                      type="text"
+                      name="withdraw"
+                      value={withdrawSentence}
+                      placeholder="GoodByeMyRhythm"
+                      onChange={(e) => setWithdrawSentence(e.target.value)}
+                    />
+                    {!withdrawalValid ? (
+                      <button
+                        className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        disabled
+                      >
+                        회원탈퇴
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        onClick={withdrawUser}
+                      >
+                        회원탈퇴
+                      </button>
+                    )}
+                  </div>
                 </label>
               </label>
             </div>
@@ -161,7 +170,8 @@ const UserMyPage = () => {
       <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">My Page</h2>
-          <p className="m-3 text-sm text-gray-600">정보수정</p>
+          <hr className="my-3" />
+          <p className="m-3 text-sm text-gray-600">회원 정보 수정 페이지 입니다.</p>
         </div>
         <div className="grid place-content-stretch">
           <form className="m-2 items-center" onSubmit={handleSubmit}>
@@ -253,7 +263,7 @@ const UserMyPage = () => {
                 </select>
               </label>
             </div>
-            <div className="bg-red-200 flex flex-wrap justify-center items-center py-2 px-4">
+            <div className="flex flex-wrap justify-center items-center py-2 px-4">
               <button
                 type="submit"
                 className="btn ml-5 mr-5 group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
