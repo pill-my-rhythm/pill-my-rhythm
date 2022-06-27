@@ -53,7 +53,6 @@ const PRCard = ({ pr }: PillData) => {
     }
   };
 
-  // * 처음에 get해서 북마크 상태를 불러오는 게 맞았습니다! 그래서 다시 load하니까 잘 동작하더라구요.. 화면 공유해서 여쭤볼 때는 새로고침된 상태여서 무한 로딩이 일어났던 것 같습니다.
   useEffect(
     () => {
       loadBookMarkList();
