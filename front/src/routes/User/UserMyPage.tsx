@@ -92,7 +92,7 @@ const UserMyPage = () => {
   }, [myPage, editMode]);
 
   return !editMode ? (
-    <div className="min-h-full flex py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-full bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED] flex py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full space-y-8">
         <div>
           <h2 className="mt-6 mb-3 text-3xl font-extrabold text-gray-900">My Page</h2>
@@ -166,7 +166,7 @@ const UserMyPage = () => {
       </div>
     </div>
   ) : (
-    <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-full flex bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">My Page</h2>

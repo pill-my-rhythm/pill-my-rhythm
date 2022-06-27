@@ -26,7 +26,7 @@ const UserBookMarkList = () => {
   }, []);
 
   return (
-    <div className="min-h-full flex py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-full bg-gradient-to-br from-[#7FDCDC] to-[#E3F2ED] flex py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full space-y-8">
         <div>
           <h2 className="mt-6 mb-3 text-3xl font-extrabold text-gray-900">My Bookmarks List</h2>

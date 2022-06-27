@@ -2,7 +2,7 @@ import React from "react";
 
 const VideoArea = () => {
   return (
-    <div className="min-h-screen bg-[#5ae1dc]">
+    <div className="min-h-screen bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED]">
       <div className="w-screen min-h-screen p-2 flex flex-wrap flex-row-reverse items-center justify-center">
         <div className="p-4 w-full md:w-5/12 ">
           <iframe className="w-full aspect-video rounded-lg shadow-2xl" src="https://www.youtube.com/embed/LTdLVar1FUU" title="youtube" />
