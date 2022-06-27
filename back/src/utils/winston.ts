@@ -1,4 +1,6 @@
 import fs from "fs";
+import moment from "moment";
+import "moment-timezone";
 import winston from "winston";
 import "winston-daily-rotate-file";
 
@@ -22,13 +24,16 @@ const errorTransport = new winston.transports.DailyRotateFile({
   maxFiles: "30d", // 30일치 저장
 });
 
+moment.tz.setDefault("Asia/Seoul"); // 로그 시간대 한국 기준으로 변경
+const timeStamp = () => moment().format("YYYY-MM-DD HH:mm:ss");
+
 const logger = winston.createLogger({
   transports: [infoTransport, errorTransport],
 });
 
 const stream = {
   write: (message: string) => {
-    logger.info(message);
+    logger.info(`${timeStamp()} ${message}`);
   },
 };
 
