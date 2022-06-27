@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import Draggable from "devextreme-react/draggable";
 import styled from "styled-components";
-import { get, post } from "../../Api";
+import { get } from "../../Api";
+import Supplements from "./Supplements";
 
 const draggingGroupName = "appointmentsGroup";
-
-const CardWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const Card = styled.div`
   border-radius: 5px;
@@ -39,15 +35,9 @@ function DayItem({ task }: taskProps) {
   };
 
   const handleClick = async () => {
-    await get(`bookmark`).then((res) => setSupplementInfo(res.data));
-  };
-
-  const handleCardClick = async () => {
-    console.log(task.type);
-    // await post("schedule/daily-supplement", {
-    //   type: task.type,
-    //   fk_supplement_id: supplementInfo.fk_supplement_id,
-    // });
+    await get(`bookmark`).then((res) => {
+      setSupplementInfo(res.data);
+    });
   };
 
   return (
@@ -60,8 +50,9 @@ function DayItem({ task }: taskProps) {
       <label htmlFor={`modal-${task.text}`} className="modal cursor-pointer">
         <label className="modal-box" htmlFor="">
           <h3 className="text-lg font-bold">{task.text}</h3>
-          {supplementInfo.map((info: { Supplement: { name: string } }) => (
-            <Card onClick={handleCardClick}>{info.Supplement.name}</Card>
+
+          {supplementInfo.map((info: any) => (
+            <Supplements info={info} task={task} key={info.fk_supplement_id} />
           ))}
         </label>
       </label>

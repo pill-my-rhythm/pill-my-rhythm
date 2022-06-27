@@ -95,7 +95,7 @@ function Calendar() {
     get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
       setAppointments(
-        [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+        [...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
         }),
       );
@@ -114,14 +114,6 @@ function Calendar() {
           finish: new Date(e.itemData.endDate),
           to_do: e.itemData.text,
         });
-
-        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-          setAppointments(
-            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-            }),
-          );
-        });
       } catch (err) {
         console.log("스케줄 생성 오류", err);
       }
@@ -136,17 +128,17 @@ function Calendar() {
           finish: new Date(e.itemData.endDate),
           to_do: e.itemData.type,
         });
-        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-          setAppointments(
-            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-            }),
-          );
-        });
       } catch (err) {
         console.log("스케줄 생성 오류", err);
       }
     }
+    await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setAppointments(
+        [...res.data.schedule].map((data) => {
+          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+        }),
+      );
+    });
   };
 
   const onAppointmentDeleting = async (e: any) => {
