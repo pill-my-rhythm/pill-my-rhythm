@@ -119,31 +119,31 @@ const UserMyPage = () => {
               </button>
               <label
                 htmlFor="withdraw-modal"
-                className="btn modal-button btn-error group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                className="btn modal-button btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
                 onClick={CancelEditMode}
               >
                 회원탈퇴
               </label>
               <input type="checkbox" id="withdraw-modal" className="modal-toggle" />
               <label htmlFor="withdraw-modal" className="modal cursor-pointer">
-                <label className="modal-box relative" htmlFor="">
+                <label className="modal-box relative justify-center" htmlFor="">
                   <h3 className="text-lg font-bold">정말 탈퇴하실 건가요...?😢</h3>
-                  <p className="py-4">Pill my rythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!</p>
-                  <p className="py-4">불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!</p>
-                  <p className="py-4">그래도 저희 서비스가 필요 없으시다면...</p>
-                  <p className="py-4 text-red-500">GoodByeMyRhythm</p>
-                  <p className="py-4">이라고 입력해주세요!</p>
+                  <p className="py-2 text-sm">Pill my rythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!</p>
+                  <p className="py-2 text-sm">불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!</p>
+                  <p className="py-2 text-sm">그래도 저희 서비스가 필요 없으시다면...</p>
+                  <p className="py-2 text-red-500">GoodByeMyRhythm</p>
+                  <p className="py-2 text-sm">이라고 입력해주세요!</p>
                   <input className="input m-2" type="text" name="withdraw" value={withdrawSentence} placeholder="GoodByeMyRhythm" onChange={(e) => setWithdrawSentence(e.target.value)} />
                   {!withdrawalValid ? (
                     <button
-                      className="btn btn-error group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
                       disabled
                     >
                       탈퇴
                     </button>
                   ) : (
                     <button
-                      className="btn btn-error group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
                       onClick={withdrawUser}
                     >
                       탈퇴
