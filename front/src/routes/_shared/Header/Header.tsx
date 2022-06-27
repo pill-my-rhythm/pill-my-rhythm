@@ -38,6 +38,14 @@ const Header = () => {
     navigate("/login");
   };
 
+  const ControlMyPage = () => {
+    if (isLogin) {
+      navigate("/mypage");
+    } else {
+      MoveLogin();
+    }
+  };
+
   return (
     <div className="navbar flex-col md:flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md">
       <div className="flex-1">
@@ -67,10 +75,17 @@ const Header = () => {
                 </svg>
               </Link>
             ) : (
-              <button onClick={logout}>Logout</button>
+              <button onClick={logout}>
+                Logout
+                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                </svg>
+              </button>
             )}
             <ul className="p-2 bg-base-100">
-              <li>{!isLogin ? <button onClick={MoveLogin}>My Page</button> : <Link to="/mypage">My Page</Link>}</li>
+              <li>
+                <button onClick={ControlMyPage}>My Page</button>
+              </li>
             </ul>
           </li>
         </ul>
