@@ -82,6 +82,7 @@ function Calendar() {
       .format();
     let end = moment(e).isoWeekday("Sunday").format();
     get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setLevel(res.data.checklist);
       setAppointments(
         [...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
