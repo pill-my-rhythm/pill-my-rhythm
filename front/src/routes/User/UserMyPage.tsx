@@ -44,6 +44,7 @@ const UserMyPage = () => {
       setMyPage(res.data);
       setEditMode(false);
     } catch (error) {
+      alert(`${error}\n 회원정보 수정에 실패했습니다!`);
       console.log("MyPage#error", error);
     }
   };
