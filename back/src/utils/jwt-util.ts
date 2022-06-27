@@ -23,6 +23,18 @@ const makeRefreshToken = () => {
   return refreshToken;
 };
 
+// checklist용 access token 발급
+const makeChecklistToken = (Object: ITokenInput) => {
+  const token = jwt.sign(Object, secretKey, { expiresIn: "1d" });
+  return token;
+};
+
+// 구독 갱신용 access token 발급
+const makeResubscribeToken = (Object: ITokenInput) => {
+  const token = jwt.sign(Object, secretKey, { expiresIn: "3d" });
+  return token;
+};
+
 // access token 유효성 검사
 const verifyToken = (token: string) => {
   try {
@@ -61,4 +73,4 @@ const verifyRefreshToken = async (token: string, userId: string) => {
   }
 };
 
-export { makeToken, makeRefreshToken, verifyToken, verifyRefreshToken };
+export { makeToken, makeRefreshToken, makeChecklistToken, makeResubscribeToken, verifyToken, verifyRefreshToken };
