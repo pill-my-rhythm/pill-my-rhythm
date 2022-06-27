@@ -104,12 +104,13 @@ const UserMyPage = () => {
           <figure>
             <img className="w-60 h-60 m-5" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
           </figure>
-          <div className="card-body leading-normal">
-            <h2 className="card-title">{currentUser.user_name}님, 안녕하세요!</h2>
-            <p>이메일 : {currentUser.email}</p>
-            <p>성별 : {translateGender(currentUser.gender)}</p>
-            <p>연령대 : {currentUser.age_range}</p>
-            <p>직업군 : {currentUser.job}</p>
+          <div className="card-body leading-normal justify-center">
+            <h2 className="card-title">👑 {currentUser.user_name}님, 안녕하세요!</h2>
+            <hr className="my-1 border border-teal-100" />
+            <p>💊 이메일 : {currentUser.email}</p>
+            <p>💊 성별 : {translateGender(currentUser.gender)}</p>
+            <p>💊 연령대 : {currentUser.age_range}</p>
+            <p>💊 직업군 : {currentUser.job}</p>
             <div className="card-actions justify-end">
               <button
                 type="button"
