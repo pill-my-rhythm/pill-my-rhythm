@@ -2,6 +2,7 @@ FROM node:18-alpine3.15 AS builder
 ENV NODE_ENV production
 WORKDIR /app
 COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn install
 COPY . .

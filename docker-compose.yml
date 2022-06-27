@@ -11,6 +11,8 @@ services:
     links:
       - redis_server
       - backend_server
+    env_file:
+      - './front/.env'
 
   backend_server:
     restart: 'on-failure'
@@ -22,6 +24,8 @@ services:
       - 5000:5000
     links:
       - redis_server
+    env_file:
+      - './back/.env'
 
   redis_server:
     restart: 'on-failure'
