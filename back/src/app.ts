@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
+import morgan from "morgan";
 
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
@@ -15,6 +16,8 @@ import { errorMiddleware } from "./middlewares/errorMiddleware";
 const app: express.Application = express();
 const swaggerSpec = YAML.load(path.join(__dirname, "./swagger.yaml"));
 
+// morgan (request, response formatting)
+app.use(morgan("combined"));
 // swagger
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
