@@ -2,12 +2,29 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import * as Api from "../../../Api";
 import { AES } from "crypto-js";
+import { post } from "../../../Api";
 
 const Main = () => {
   const navigate = useNavigate();
-  const tempNavigate = () => {
-    navigate("/result");
+  const [search, setSearch] = useState<string>("");
+
+  const SearchPill = async (e: any) => {
+    e.preventDefault();
+    try {
+      const res = await post(
+        "recommend",
+        {
+          sentence: search,
+        },
+        "AI",
+      );
+      console.log(`${search}를 검색합니다.`);
+      navigate(`/result`, { state: res.data });
+    } catch (error) {
+      alert(`${error}로 인해 검색에 실패했습니다.`);
+    }
   };
+  /*
   const [subToken, setSubToken] = useState("");
   const [unSubToken, setUnSubToken] = useState("");
 
@@ -55,6 +72,7 @@ const Main = () => {
     await subscription.unsubscribe();
     setUnSubToken(JSON.stringify(subscription));
   };
+  */
 
   return (
     // img 추후에 asset에 저장할 것!
@@ -85,23 +103,32 @@ const Main = () => {
             <br />
           </p>
           <div className="flex-none gap-2">
-            <div className="form-control">
-              <div className="input-group">
-                {/* // * 메인 Search창 */}
-                <input type="text" placeholder="요즘 눈이 안 좋아요... 면역력이 떨어졌어요..." className="input input-bordered w-5/6 text-zinc-700 text-lg" />
-                <button className="btn btn-primary" onClick={tempNavigate}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
+            <form action="#" method="POST" onSubmit={SearchPill}>
+              <div className="form-control">
+                <div className="input-group">
+                  {/* // * 메인 Search창 */}
+                  <input
+                    type="search"
+                    placeholder="요즘 눈이 안 좋아요... 면역력이 떨어졌어요..."
+                    className="input input-bordered w-5/6 text-zinc-700 text-lg"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <button type="submit" className="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <button onClick={() => subscribe()}>subscribe</button>
+              {/* <button onClick={() => subscribe()}>subscribe</button> */}
               {/* 로고 이미지 만료 2023-02-28 */}
-              <img src={QRcode} alt="QRcode" width="100" height="100" />
-              <button onClick={() => unsubscribe()}>unsubscribe</button>
-              <p>{subToken}</p>
-              <p>{unSubToken}</p>
-            </div>
+              {/* <img src={QRcode} alt="QRcode" width="100" height="100" /> */}
+              {/* <button onClick={() => unsubscribe()}>unsubscribe</button> */}
+              {/* <p>{subToken}</p> */}
+              {/* <p>{unSubToken}</p> */}
+            {/* </div> */}
+            </form>
           </div>
         </div>
       </div>
