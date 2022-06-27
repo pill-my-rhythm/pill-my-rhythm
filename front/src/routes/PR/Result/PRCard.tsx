@@ -69,12 +69,11 @@ const PRCard = ({ pr }: PillData) => {
         <img className="w-48 m-6 rounded-lg backdrop-contrast-125 bg-white/30" src={pr.img_link} alt="pills" />
       </figure>
       <div className="card-body">
-        <div className="flex flex-row flex-wrap items-center">
-          <h2 className="card-title">{pr.name}</h2>
+        <div className="flex flex-row flex-wrap items-center break-words">
+          <h2 className="card-title px-2">{pr.name}</h2>
         </div>
-        <div className="">
-          <p className="m-1 break-words">{pr.function}</p>
-        </div>
+        <hr />
+        <p className="p-2 h-max m-1 break-words">{pr.function}</p>
         <div className="card-actions justify-end items-center">
           {!isLogin ? (
             <label htmlFor="">
