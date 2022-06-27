@@ -9,7 +9,7 @@ COPY . .
 RUN yarn build
 COPY ./src/swagger.yaml ./dist/src/
 COPY ./src/swagger ./dist/src/
-COPY .env ./dist/
+# COPY .env ./dist/
 COPY package.json ./dist/
 
 WORKDIR ./dist
