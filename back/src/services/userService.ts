@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import redisClient from "../utils/redis";
 import { User } from "../db/User";
 import { Users } from "../db/models/user";
+import { Analysis_ } from "../db/Analysis";
 import { makeToken, makeRefreshToken } from "../utils/jwt-util";
 import { HttpException } from "../utils/error-util";
 import { IUserInput, IUserInfoUpdateInput } from "../interfaces/userInput";
@@ -90,6 +91,20 @@ const UserService = {
     }
     const deletedUser = await User.deleteById(pk_user_id);
     return deletedUser;
+  },
+
+  getUserAnalysisSupplement: async (pk_user_id: string) => {
+    const userInfo = await User.findUserInfo(pk_user_id);
+    if (!userInfo) {
+      throw new HttpException(400, "가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
+    }
+    if (!userInfo.age_range && !userInfo.gender) {
+      return null;
+    }
+    const pre_age = userInfo.age_range.split("대")[0];
+    const pre_gender = userInfo.gender.toLowerCase();
+    const userAnalysisSupplement = await Analysis_.findByUserInfo(pre_age, pre_gender);
+    return userAnalysisSupplement;
   },
 };
 
