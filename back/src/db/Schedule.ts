@@ -49,6 +49,7 @@ const Schedule = {
     const supplementSchedule = await Schedules.findOne({
       // start가 하루 안에 포함되는 것으로 필터링
       where: {
+        type: "S",
         to_do: to_do,
         start: { [Op.between]: [moment(start).startOf("day").format(), moment(start).endOf("day").format()] },
       },
