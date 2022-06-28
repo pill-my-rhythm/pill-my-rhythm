@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import * as Api from "../../../Api";
+import { AES } from "crypto-js";
 import { post } from "../../../Api";
 
 const Main = () => {
@@ -19,7 +21,7 @@ const Main = () => {
       console.log(`${search}를 검색합니다.`);
       navigate(`/result`, { state: res.data });
     } catch (error) {
-      console.log(`${error}로 인해 검색에 실패했습니다.`);
+      alert(`${error}로 인해 검색에 실패했습니다.`);
     }
   };
 
@@ -57,7 +59,7 @@ const Main = () => {
                 <div className="input-group">
                   {/* // * 메인 Search창 */}
                   <input
-                    type="text"
+                    type="search"
                     placeholder="요즘 눈이 안 좋아요... 면역력이 떨어졌어요..."
                     className="input input-bordered w-5/6 text-zinc-700 text-lg"
                     value={search}
@@ -70,6 +72,13 @@ const Main = () => {
                   </button>
                 </div>
               </div>
+              {/* <button onClick={() => subscribe()}>subscribe</button> */}
+              {/* 로고 이미지 만료 2023-02-28 */}
+              {/* <img src={QRcode} alt="QRcode" width="100" height="100" /> */}
+              {/* <button onClick={() => unsubscribe()}>unsubscribe</button> */}
+              {/* <p>{subToken}</p> */}
+              {/* <p>{unSubToken}</p> */}
+              {/* </div> */}
             </form>
           </div>
         </div>

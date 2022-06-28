@@ -47,5 +47,6 @@ DailySupplements.init(
 //   foreignKey: { name: "fk_user_id", allowNull: false },
 // });
 
+Users.hasMany(DailySupplements, { foreignKey: { name: "fk_user_id", allowNull: false } });
 DailySupplements.belongsTo(Users, { foreignKey: { name: "fk_user_id", allowNull: false } });
 DailySupplements.belongsTo(Supplements, { foreignKey: { name: "fk_supplement_id", allowNull: false } });
