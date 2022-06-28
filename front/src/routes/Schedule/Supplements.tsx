@@ -17,10 +17,10 @@ interface infoProps {
 
 function Supplements({ info, task }: infoProps) {
   const handleCardClick = async () => {
-    // await post("schedule/daily-supplement", {
-    //   type: task.type,
-    //   fk_supplement_id: info.fk_supplement_id,
-    // });
+    await post("schedule/daily-supplement", {
+      type: task.type,
+      fk_supplement_id: info.fk_supplement_id,
+    });
   };
   return <Card onClick={handleCardClick}>{info.Supplement.name}</Card>;
 }

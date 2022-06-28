@@ -4,7 +4,7 @@ import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { del, get, post } from "../../Api";
-import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
+import { appointmentsAtom, dayHoursAtom, supplementAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
@@ -74,6 +74,7 @@ function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
+  const [supplements, setSupplements] = useRecoilState(supplementAtom);
   const [level, setLevel]: any = useState([]);
 
   const onCurrentDateChange = (e: any) => {
@@ -94,13 +95,14 @@ function Calendar() {
   useEffect(() => {
     get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
+      setSupplements(res.data.dailySupplement);
       setAppointments(
         [...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
         }),
       );
     });
-  }, [setAppointments]);
+  }, [setAppointments, setSupplements]);
 
   const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
@@ -178,6 +180,9 @@ function Calendar() {
             {/* <DayWrapper> */}
             {dayHour.map((task) => (
               <DayItem task={task} key={task.text} />
+            ))}
+            {supplements.map((data: any) => (
+              <div key={data.fk_supplement_id}>{data.Supplement.name}</div>
             ))}
             {/* </DayWrapper> */}
           </Draggable>

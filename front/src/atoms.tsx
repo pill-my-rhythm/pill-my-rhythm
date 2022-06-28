@@ -1,6 +1,11 @@
 import { atom, selector } from "recoil";
 import { Appointments } from "./routes/Schedule/Calendar";
 
+export const supplementAtom = atom({
+  key: "supplements",
+  default: [],
+});
+
 export const tasksAtom = atom({
   key: "task",
   default: [
