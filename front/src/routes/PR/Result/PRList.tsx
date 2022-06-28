@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Promotion from "./Promotion";
-import PRCard from "./PRCard";
+import PRCard from "../../_shared/PRCard";
 import { useLocation } from "react-router";
 
 export interface PillData {

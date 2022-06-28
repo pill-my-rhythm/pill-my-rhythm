@@ -1,5 +1,5 @@
 import React from "react";
-import { PillData } from "./PRList";
+import { PillData } from "../PR/Result/PRList";
 
 const PRModal = ({ pr }: PillData) => {
   return (
