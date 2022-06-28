@@ -15,7 +15,7 @@ const Schedule = {
 
   findByWeek: async (fk_user_id: string, start: Date, finish: Date) => {
     const schedule = await Schedules.findAll({
-      where: { start: { [Op.between]: [start, finish] } },
+      where: { start: { [Op.between]: [moment(start).startOf("day").format(), moment(finish).endOf("day").format()] } },
       include: { model: Users, attributes: [], where: { pk_user_id: fk_user_id } },
       order: [["start", "ASC"]],
     });
