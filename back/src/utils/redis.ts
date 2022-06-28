@@ -2,9 +2,13 @@ import * as redis from "redis";
 import dotenv from "dotenv";
 dotenv.config();
 
-// const port = process.env.REDIS_PORT || 6379;
-// const redisHost = process.env.REDIS_HOST || "127.0.0.1";
+// const REDIS_URL = "redis_server";
+
 const redisClient = redis.createClient();
+
+// const redisClient = redis.createClient({
+//   url: `redis://${REDIS_URL}:6379`,
+// });
 
 redisClient.connect();
 

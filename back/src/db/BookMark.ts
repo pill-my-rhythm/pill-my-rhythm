@@ -35,10 +35,13 @@ const BookMark = {
     return newBookMark;
   },
 
-  findByBookMarkUser: async (fk_user_id: string, pk_bookmark_id: number) => {
+  findByBookMarkUser: async (fk_user_id: string, fk_supplement_id: number) => {
     const bookmark = await BookMarks.findOne({
-      where: { pk_bookmark_id: pk_bookmark_id },
-      include: { model: Users, where: { pk_user_id: fk_user_id } },
+      attributes: ["pk_bookmark_id"],
+      include: [
+        { model: Users, attributes: [], where: { pk_user_id: fk_user_id } },
+        { model: Supplements, attributes: [], where: { pk_supplement_id: fk_supplement_id } },
+      ],
     });
     return bookmark;
   },

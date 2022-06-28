@@ -95,6 +95,17 @@
     responses:
       "200":
         $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/analysis-supplement:
+  get:
+    tags:
+      - user
+    summary: 유저 정보 기반 영양제 추천
+    description: (필수) accessToken / 회원의 연령, 성별 정보가 없을 시 null 값이 반환됩니다. 그래서 null 값 반환되면 연령, 성별 정보를 수정하고 추천받으라는 식으로 진행하면 좋을거같아요.
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
 /user/refresh:
   get:
     tags:

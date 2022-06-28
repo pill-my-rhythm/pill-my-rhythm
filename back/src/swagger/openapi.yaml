@@ -29,6 +29,8 @@ paths:
     $ref: "./paths/user.yaml#/~1user~1withdrawal"
   /user/current:
     $ref: "./paths/user.yaml#/~1user~1current"
+  /user/analysis-supplement:
+    $ref: "./paths/user.yaml#/~1user~1analysis-supplement"
   /user/refresh:
     $ref: "./paths/user.yaml#/~1user~1refresh"
   /schedule:
@@ -49,8 +51,8 @@ paths:
     $ref: "./paths/bookmark.yaml#/~1bookmark"
   /bookmark/create/{supplement_id}:
     $ref: "./paths/bookmark.yaml#/~1bookmark~1create~1{supplement_id}"
-  /bookmark/{bookmark_id}:
-    $ref: "./paths/bookmark.yaml#/~1bookmark~1{bookmark_id}"
+  /bookmark/{supplement_id}:
+    $ref: "./paths/bookmark.yaml#/~1bookmark~1{supplement_id}"
 components:
   schemas:
     User:

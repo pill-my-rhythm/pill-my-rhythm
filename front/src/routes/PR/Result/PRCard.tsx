@@ -1,62 +1,98 @@
-import React, { useState } from "react";
-import MockupData from "./MockupData";
+import React, { useContext, useEffect, useState } from "react";
+import { UserStateContext } from "../../../Dispatcher";
+import { PillData } from "./PRList";
+import PRModal from "./PRModal";
+import { get, post, del } from "../../../Api";
+import { BookMark, FilledBookMark } from "./BookMark";
 
-const PRCard = () => {
-  const [pillResult, setPillResult] = useState(MockupData);
+const PRCard = ({ pr }: PillData) => {
+  const userState = useContext(UserStateContext);
+  const isLogin = !!userState.user;
+  const supplement_id = pr.pk_supplement_id;
 
-  // * Card에 목업 데이터 넣어서 뿌려주는 중
-  // * Modal에 첫번째 값만 전달되는 문제가 있음. => 모달은 map을 돌리면 안되나..? 더 구글링으로 찾아보고 없으면 변수값을 state로 주는 방법 고려...
+  // console.log("#pr.pk_supplement_id", pr.pk_supplement_id);
+
+  const [bookMark, setBookMark] = useState<Boolean>();
+  const [bookMarkList, setBookMarkList] = useState([]);
+
+  const DBcheckBookMark = (bookMarkList: Array<any>) => {
+    if (bookMarkList.some((Supplement) => Supplement.Supplement.pk_supplement_id === pr.pk_supplement_id)) {
+      setBookMark(true);
+    } else {
+      setBookMark(false);
+    }
+  };
+
+  const loadBookMarkList = async () => {
+    if (isLogin)
+      try {
+        const res = await get("bookmark");
+        setBookMarkList(res.data);
+        DBcheckBookMark(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+  };
+
+  const HandleBookMarkChange: any = async () => {
+    try {
+      const data = {
+        accessToken: userState.user.accessToken,
+        supplement_id: pr.pk_supplement_id,
+      };
+      if (!bookMark) {
+        const res = await post(`bookmark/create/${supplement_id}`, data);
+        console.log("#BookMark", res);
+      } else {
+        const res = await del("bookmark", `${pr.pk_supplement_id}`);
+        console.log("#BookMarkDelete", res);
+      }
+      loadBookMarkList();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(
+    () => {
+      loadBookMarkList();
+      // DBcheckBookMark(bookMarkList);
+    },
+    [bookMark],
+    // [bookMark, bookMarkList],
+  );
 
   return (
-    <div className="flex flex-row flex-wrap justify-center">
-      {pillResult.map((pr) => (
-        <div className="card card-compact w-80 bg-base-100 shadow-xl m-4" key={pr.id}>
-          <figure>
-            <img className="w-48 m-6 rounded-lg backdrop-contrast-125 bg-white/30" src={pr.img} alt="pills" />
-          </figure>
-          <div className="card-body">
-            <div className="flex flex-row flex-wrap items-center">
-              <h2 className="card-title">{pr.name}</h2>
-            </div>
-            <p className="m-1 break-words">{pr.functuion}</p>
-            <div className="card-actions justify-end items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg>
-              <label htmlFor="my-modal-4" className="btn modal-button btn-primary">
-                더 알아보기
-              </label>
-              <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-              <label htmlFor="my-modal-4" className="modal cursor-pointer">
-                <label className="modal-box relative" htmlFor="">
-                  <h3 className="text-lg text-teal-600 font-bold mb-6">{pr.name}</h3>
-                  <div className="flex flex-row">
-                    <div className="grid grid-rows-2 flex-row justify-center items-center">
-                      <img className="w-48 rounded-lg" src={pr.img} alt="pills" />
-                      <p className="py-2 mr-4">{pr.raw}</p>
-                    </div>
-                    <div>
-                      <p className="py-2 font-bold">제조사</p>
-                      <p>{pr.company}</p>
-                      <p className="py-2 font-bold">효능 </p>
-                      <p>{pr.functuion}</p>
-                      <p className="py-2 font-bold">사용법 </p>
-                      <p>{pr.how_to_eat}</p>
-                      <p className="pt-2 font-bold text-red-600">복용 전 유의사항</p>
-                      <p className="py-2">{pr.caution}</p>
-                    </div>
-                  </div>
-                  <div className="flex justify-end pt-2">
-                    <button className="btn btn-primary" onClick={() => window.open(pr.shop, "_blank")}>
-                      주문하러 가기
-                    </button>
-                  </div>
-                </label>
-              </label>
-            </div>
-          </div>
+    <div className="card card-compact w-80 bg-base-100 shadow-xl m-4">
+      <figure>
+        <img className="w-48 m-6 rounded-lg backdrop-contrast-125 bg-white/30" src={pr.img_link} alt="pills" />
+      </figure>
+      <div className="card-body">
+        <div className="flex flex-row flex-wrap items-center break-words">
+          <h2 className="card-title px-2">{pr.name}</h2>
         </div>
-      ))}
+        <hr />
+        <p className="p-2 h-max m-1 break-words">{pr.function}</p>
+        <div className="card-actions justify-end items-center">
+          {!isLogin ? (
+            <label htmlFor="">
+              <BookMark onClick={() => alert("회원 전용 서비스입니다!")} />
+            </label>
+          ) : !bookMark ? (
+            <label htmlFor="">
+              <BookMark onClick={HandleBookMarkChange} />
+            </label>
+          ) : (
+            <label htmlFor="">
+              <FilledBookMark onClick={HandleBookMarkChange} />
+            </label>
+          )}
+          <label htmlFor={`modal-${pr.name}`} className="btn modal-button btn-primary">
+            더 알아보기
+          </label>
+          <PRModal pr={pr} key={pr.pk_supplement_id} />
+        </div>
+      </div>
     </div>
   );
 };

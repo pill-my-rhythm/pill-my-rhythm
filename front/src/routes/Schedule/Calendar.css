@@ -28,3 +28,18 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   color: #5ae1dc;
 }
+
+.dx-scheduler-navigator-caption {
+  pointer-events: none;
+}
+
+.dx-scheduler-appointment {
+  box-sizing: content-box;
+  padding-right: 22px;
+}
+.dx-scheduler-timeline .dx-scheduler-appointment,
+.dx-scheduler-work-space-month .dx-scheduler-appointment,
+.dx-scheduler-all-day-appointment .dx-scheduler-appointment {
+  box-sizing: border-box;
+  padding-right: 0;
+}

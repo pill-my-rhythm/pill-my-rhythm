@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import redisClient from "../utils/redis";
 import { User } from "../db/User";
 import { Users } from "../db/models/user";
+import { Analysis_ } from "../db/Analysis";
 import { makeToken, makeRefreshToken } from "../utils/jwt-util";
 import { HttpException } from "../utils/error-util";
 import { IUserInput, IUserInfoUpdateInput } from "../interfaces/userInput";
@@ -34,7 +35,7 @@ const UserService = {
     // 로그인 성공 -> access token, refresh token 발급 + redis 저장
     const accessToken = makeToken({ userId: user.pk_user_id });
     const refreshToken = makeRefreshToken();
-    redisClient.set(user.pk_user_id, refreshToken);
+    redisClient.SETEX(user.pk_user_id, 1209600, refreshToken);
 
     const { pk_user_id, user_name, gender, age_range, job } = user;
     const userInfo = {
@@ -75,10 +76,12 @@ const UserService = {
     if (!user) {
       throw new HttpException(400, "가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
     }
+    const hashedPassword = await bcrypt.hash(updateDate.password, 10);
+    const newUserData = { ...updateDate };
+    newUserData["password"] = hashedPassword;
+    const newUpdatedUser = await User.update(pk_user_id, newUserData);
 
-    const updatedUser = await User.update(pk_user_id, updateDate);
-
-    return updatedUser;
+    return newUpdatedUser;
   },
 
   delete: async (pk_user_id: string) => {
@@ -88,6 +91,20 @@ const UserService = {
     }
     const deletedUser = await User.deleteById(pk_user_id);
     return deletedUser;
+  },
+
+  getUserAnalysisSupplement: async (pk_user_id: string) => {
+    const userInfo = await User.findUserInfo(pk_user_id);
+    if (!userInfo) {
+      throw new HttpException(400, "가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
+    }
+    if (!userInfo.age_range && !userInfo.gender) {
+      return null;
+    }
+    const pre_age = userInfo.age_range.split("대")[0];
+    const pre_gender = userInfo.gender.toLowerCase();
+    const userAnalysisSupplement = await Analysis_.findByUserInfo(pre_age, pre_gender);
+    return userAnalysisSupplement;
   },
 };
 
