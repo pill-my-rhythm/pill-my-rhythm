@@ -20,18 +20,24 @@ services:
     ports:
       - 80:80
 
+  # backend_server:
+  #   restart: 'on-failure'
+  #   build:
+  #     context: './back'
+  #     dockerfile: Dockerfile
+  #   container_name: 'node-pill-my-rhythm-app'
+  #   ports:
+  #     - 5000:5000
+  #   links:
+  #     - redis_server
+  #   env_file:
+  #     - './back/.env'
+
   backend_server:
+    image: tbr06057/node-pill-my-rhythm-app:test
     restart: 'on-failure'
-    build:
-      context: './back'
-      dockerfile: Dockerfile
-    container_name: 'node-pill-my-rhythm-app'
     ports:
       - 5000:5000
-    links:
-      - redis_server
-    env_file:
-      - './back/.env'
 
   redis_server:
     restart: 'on-failure'
