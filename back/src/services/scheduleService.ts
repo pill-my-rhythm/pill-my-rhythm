@@ -32,6 +32,11 @@ const ScheduleService = {
     if (schedule) {
       throw new HttpException(409, "선택한 시간에 다른 일정이 있습니다.");
     }
+    const supplementSchedule = await Schedule.findBySupplementSchedule(fk_user_id, data.start, data.to_do);
+    if (supplementSchedule) {
+      throw new HttpException(409, "아침, 점심, 저녁 일정은 하루에 한 번만 추가가 가능합니다.");
+    }
+
     data.fk_user_id = fk_user_id;
     const newSchedule = await Schedule.createSchedule(data);
     return newSchedule;
