@@ -15,7 +15,7 @@ services:
   #     - './front/.env'
 
   frontend_server:
-    image: tbr06057/react-pill-my-rhythm-app:test
+    image: tbr06057/react-pill-my-rhythm-app:test1
     restart: 'on-failure'
     ports:
       - 80:80
@@ -34,7 +34,7 @@ services:
   #     - './back/.env'
 
   backend_server:
-    image: tbr06057/node-pill-my-rhythm-app:test
+    image: tbr06057/node-pill-my-rhythm-app:test1
     restart: 'on-failure'
     ports:
       - 5000:5000
