@@ -42,7 +42,6 @@ const UserController = {
       const pk_user_id: Users["pk_user_id"] = req.currentUserId;
       const { password, gender, age_range, job }: IUserInfoUpdateInput = req.body;
       const updateDate = { password, gender, age_range, job };
-
       const result = await UserService.updateUserInfo(pk_user_id, updateDate);
       res.status(201).json(result);
     } catch (error) {
@@ -67,6 +66,17 @@ const UserController = {
       const userInfo = await UserService.getUserInfo(pk_user_id);
 
       res.status(200).json(userInfo);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  userAnalysisSupplement: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const pk_user_id = req.currentUserId;
+      const userAnalysisSupplement = await UserService.getUserAnalysisSupplement(pk_user_id);
+
+      res.status(200).json(userAnalysisSupplement);
     } catch (error) {
       next(error);
     }

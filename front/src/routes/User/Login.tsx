@@ -45,6 +45,8 @@ const LoginForm = () => {
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       console.log("#user", user);
 
+      if (!dispatch) return;
+
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: user,
@@ -52,8 +54,9 @@ const LoginForm = () => {
 
       // 기본 페이지로 이동함.
       navigate("/");
-    } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
+    } catch (error) {
+      alert(`${error}로 인해 로그인에 실패했습니다.`);
+      console.log("로그인에 실패하였습니다.\n", error);
     }
   };
 
@@ -66,7 +69,7 @@ const LoginForm = () => {
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or
+            or
             <Link to="/register" className="font-medium text-teal-600 hover:text-teal-500">
               {"  "}Sign up
             </Link>
@@ -109,7 +112,7 @@ const LoginForm = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
@@ -124,7 +127,7 @@ const LoginForm = () => {
                 Forgot your password?{" "}
               </a>
             </div>
-          </div>
+          </div> */}
 
           <div>
             <button
