@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
-import { appointmentsAtom, dayHoursAtom, supplementAtom, tasksAtom } from "../../atoms";
+import { appointmentsAtom, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
@@ -12,6 +12,7 @@ import "./Calendar.css";
 import DayItem from "./DayItem";
 import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
+import SupItem from "./SupItem";
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,6 +62,22 @@ export interface Appointments {
   id: number;
 }
 
+export interface Supplements {
+  Supplement: { name: string };
+  createdAt: string;
+  deletedAt: null;
+  fk_supplement_id: number;
+  fk_user_id: string;
+  pk_plan_id: number;
+  type: string;
+  updatedAt: string;
+}
+
+export interface Levels {
+  date: string;
+  level: string;
+}
+
 let start = moment()
   .startOf("isoweek" as unitOfTime.StartOf)
   .format();
@@ -74,8 +91,8 @@ function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
-  const [supplements, setSupplements] = useRecoilState(supplementAtom);
-  const [level, setLevel]: any = useState([]);
+  const [supplements, setSupplements] = useRecoilState<Array<Supplements>>(supplementAtom);
+  const setLevel = useSetRecoilState<Array<Levels>>(levelsAtom);
 
   const onCurrentDateChange = (e: any) => {
     let start = moment(e)
@@ -102,7 +119,7 @@ function Calendar() {
         }),
       );
     });
-  }, [setAppointments, setSupplements]);
+  }, [setAppointments, setLevel, setSupplements]);
 
   const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
@@ -163,7 +180,7 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string; date: Date }) => {
-    return <CheckList data={data} level={level} setLevel={setLevel} start={start} end={end} />;
+    return <CheckList data={data} start={start} end={end} />;
   };
 
   return (
@@ -177,14 +194,14 @@ function Calendar() {
                 <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
-            {/* <DayWrapper> */}
             {dayHour.map((task) => (
-              <DayItem task={task} key={task.text} />
+              <DayItem task={task} key={task.text} start={start} end={end} />
             ))}
-            {supplements.map((data: any) => (
-              <div key={data.fk_supplement_id}>{data.Supplement.name}</div>
-            ))}
-            {/* </DayWrapper> */}
+            <DayWrapper>
+              {supplements.map((data: Supplements) => (
+                <SupItem data={data} key={data.pk_plan_id} start={start} end={end} />
+              ))}
+            </DayWrapper>
           </Draggable>
         </ScrollView>
       </Wrapper>

@@ -1,5 +1,8 @@
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { post } from "../../Api";
+import { get, post } from "../../Api";
+import { supplementAtom } from "../../atoms";
+import { supInfo } from "./DayItem";
 
 const Card = styled.div`
   border-radius: 5px;
@@ -11,15 +14,21 @@ const Card = styled.div`
 `;
 
 interface infoProps {
-  info: any;
+  info: supInfo;
   task: { text: string; type: string };
+  start: string;
+  end: string;
 }
 
-function Supplements({ info, task }: infoProps) {
+function Supplements({ info, task, start, end }: infoProps) {
+  const setSupplements = useSetRecoilState(supplementAtom);
   const handleCardClick = async () => {
     await post("schedule/daily-supplement", {
       type: task.type,
       fk_supplement_id: info.fk_supplement_id,
+    });
+    await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setSupplements(res.data.dailySupplement);
     });
   };
   return <Card onClick={handleCardClick}>{info.Supplement.name}</Card>;

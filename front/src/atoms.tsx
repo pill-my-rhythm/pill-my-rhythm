@@ -1,7 +1,7 @@
-import { atom, selector } from "recoil";
-import { Appointments } from "./routes/Schedule/Calendar";
+import { atom } from "recoil";
+import { Appointments, Levels, Supplements } from "./routes/Schedule/Calendar";
 
-export const supplementAtom = atom({
+export const supplementAtom = atom<Supplements[]>({
   key: "supplements",
   default: [],
 });
@@ -76,5 +76,10 @@ export const dayHoursAtom = atom({
 
 export const appointmentsAtom = atom<Appointments[]>({
   key: "appointment",
+  default: [],
+});
+
+export const levelsAtom = atom<Levels[]>({
+  key: "level",
   default: [],
 });

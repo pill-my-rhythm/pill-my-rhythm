@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { get, post } from "../../Api";
-import { checkListAtom } from "../../atoms";
+import { checkListAtom, levelsAtom } from "../../atoms";
+import { Levels } from "./Calendar";
 
 const DateLabel = styled.label<ColorProp>`
   background-color: ${(props) => props.color};
@@ -33,8 +34,6 @@ interface CheckListProp {
     date: Date;
     text: string;
   };
-  level: { level: string; date: string }[];
-  setLevel: any;
   start: string;
   end: string;
 }
@@ -43,7 +42,8 @@ interface ColorProp {
   color?: string;
 }
 
-const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
+const CheckList = ({ data, start, end }: CheckListProp) => {
+  const [level, setLevel] = useRecoilState<Array<Levels>>(levelsAtom);
   const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
 
@@ -61,6 +61,7 @@ const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
     } else {
       setCheckedInputs(checkedInputs.filter((el: string) => el !== id));
     }
+    console.log(checkedInputs);
   };
 
   const handleSubmit = async () => {

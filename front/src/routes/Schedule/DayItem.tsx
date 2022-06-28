@@ -20,10 +20,35 @@ const DateLabel = styled.label`
 
 interface taskProps {
   task: { text: string; type: string };
+  start: string;
+  end: string;
 }
 
-function DayItem({ task }: taskProps) {
-  const [supplementInfo, setSupplementInfo]: any = useState([]);
+export interface supInfo {
+  Supplement: {
+    caution: string;
+    company: string;
+    function: string;
+    how_to_eat: string;
+    img_link: string;
+    link: string;
+    name: string;
+    pk_supplement_id: number;
+    raw: string;
+    shape: string;
+    update_date: number;
+  };
+  createdAt: string;
+  deletedAt: null;
+  fk_supplement_id: number;
+  fk_user_id: string;
+  pk_plan_id: number;
+  type: string;
+  updatedAt: string;
+}
+
+function DayItem({ task, start, end }: taskProps) {
+  const [supplementInfo, setSupplementInfo] = useState<supInfo[]>([]);
   const onItemDragStart = (e: any) => {
     e.itemData = e.fromData;
   };
@@ -51,8 +76,8 @@ function DayItem({ task }: taskProps) {
         <label className="modal-box" htmlFor="">
           <h3 className="text-lg font-bold">{task.text}</h3>
 
-          {supplementInfo.map((info: any) => (
-            <Supplements info={info} task={task} key={info.fk_supplement_id} />
+          {supplementInfo.map((info: supInfo) => (
+            <Supplements info={info} task={task} key={info.createdAt} start={start} end={end} />
           ))}
         </label>
       </label>
