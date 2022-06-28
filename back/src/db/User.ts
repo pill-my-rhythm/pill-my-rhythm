@@ -23,6 +23,10 @@ const User = {
     const user = await Users.findOne({ where: { pk_user_id } });
     return user;
   },
+  findUserInfo: async (pk_user_id: string) => {
+    const user = await Users.findOne({ attributes: ["age_range", "gender"], where: { pk_user_id } });
+    return user;
+  },
   update: async (pk_user_id: string, updateDate: IUserInfoUpdateInput) => {
     const updatedUser = await Users.update(updateDate, { where: { pk_user_id } });
     return updatedUser;

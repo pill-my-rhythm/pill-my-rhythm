@@ -27,8 +27,8 @@ const BookMarkController = {
   deleteBookmark: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
-      const pk_bookmark_id = Number(req.params.bookmark_id);
-      const deletedBookmark = await BookMarkService.deleteBookmark(fk_user_id, pk_bookmark_id);
+      const fk_supplement_id = Number(req.params.supplement_id);
+      const deletedBookmark = await BookMarkService.deleteBookmark(fk_user_id, fk_supplement_id);
 
       res.status(200).json(deletedBookmark);
     } catch (error) {
