@@ -42,10 +42,9 @@ def recommend():
         recommend_supplement.append(dict(zip([column[0] for column in cursor.description], cursor.fetchone())))
     
     if fk_user_id is not None: 
-        insert_sql = """INSERT INTO tb_recommend (created_at, updated_at, fk_user_id, fk_supplement_id) VALUES (now(), now(), fk_user_id, %s)"""
+        insert_sql = """INSERT INTO tb_recommend (created_at, updated_at, fk_user_id, fk_supplement_id) VALUES (now(), now(), %s, %s)"""
         for idx in supplement: 
-            print(idx)
-            cursor.execute(insert_sql, (idx))
+            cursor.execute(insert_sql, (fk_user_id,idx))
         db.commit()
     
     # db.close()
