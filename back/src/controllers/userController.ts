@@ -70,6 +70,17 @@ const UserController = {
       next(error);
     }
   },
+
+  userAnalysisSupplement: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const pk_user_id = req.currentUserId;
+      const userAnalysisSupplement = await UserService.getUserAnalysisSupplement(pk_user_id);
+
+      res.status(200).json(userAnalysisSupplement);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { UserController };

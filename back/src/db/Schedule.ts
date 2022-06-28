@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Op, col } from "./models";
 import { Users } from "./models/user";
 import { Schedules } from "./models/schedule";
@@ -42,6 +43,19 @@ const Schedule = {
       include: { model: Users, where: { pk_user_id: fk_user_id } },
     });
     return schedule;
+  },
+
+  findBySupplementSchedule: async (fk_user_id: string, start: Date, to_do: string) => {
+    const supplementSchedule = await Schedules.findOne({
+      // start가 하루 안에 포함되는 것으로 필터링
+      where: {
+        type: "S",
+        to_do: to_do,
+        start: { [Op.between]: [moment(start).startOf("day").format(), moment(start).endOf("day").format()] },
+      },
+      include: { model: Users, where: { pk_user_id: fk_user_id } },
+    });
+    return supplementSchedule;
   },
 
   findByOnlyTime: async (time: Date) => {
