@@ -55,12 +55,12 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal p-0">
+        <ul className="menu menu-horizontal p-0 text-center">
           <li>
             <Link to="/">Search</Link>
           </li>
           <li>
-            <Link to="/schedule">Schedular</Link>
+            <Link to="/schedule">Scheduler</Link>
           </li>
           {/* // * 아직 미구현! */}
           <li>
