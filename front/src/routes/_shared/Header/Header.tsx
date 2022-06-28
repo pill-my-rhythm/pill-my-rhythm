@@ -73,19 +73,60 @@ const Header = () => {
   ) : (
     <div className="navbar flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md">
       <div className="flex-1 justify-between">
+        <div className="flex-none md:hidden">
+          <ul className="flex menu menu-horizontal p-0 text-center">
+            <li tabIndex={0}>
+              <button className="btn btn-square btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+              {!isLogin ? (
+                <ul className="p-2 bg-base-100">
+                  <li className="font-bold">
+                    <Link to="/login">Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/">Search</Link>
+                  </li>
+                  <li>
+                    <Link to="/schedule">Scheduler</Link>
+                  </li>
+                  <li>
+                    <Link to="/">Contact us</Link>
+                  </li>
+                  <li>
+                    <button onClick={ControlMyPage}>My Page</button>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="p-2 bg-base-100">
+                  <li>
+                    <Link to="/">Search</Link>
+                  </li>
+                  <li>
+                    <Link to="/schedule">Scheduler</Link>
+                  </li>
+                  <li>
+                    <Link to="/">Contact us</Link>
+                  </li>
+                  <li>
+                    <button onClick={ControlMyPage}>My Page</button>
+                  </li>
+                  <li>
+                    <button onClick={logout}>Logout</button>
+                  </li>
+                </ul>
+              )}
+            </li>
+          </ul>
+        </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           <img src="https://blog.kakaocdn.net/dn/bro2IW/btrEji2iHDE/gJHWwqC1zfOCxRpv2cOwP0/img.png" alt="icon" width={30} height={30} className="mr-2" />
           Pill my rhythm
         </Link>
-        <div className="md:hidden">
-          <button className="btn btn-square btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
       </div>
-      <div className="bg-red-200 md:flex hidden">
+      <div className="md:flex hidden">
         <ul className="menu menu-horizontal p-0 text-center">
           <li>
             <Link to="/">Search</Link>
@@ -128,8 +169,6 @@ const Header = () => {
               </ul>
             </li>
           )}
-          {/* <ul className="p-2 bg-base-100">
-           */}
         </ul>
       </div>
     </div>
