@@ -8,18 +8,31 @@ services:
   #   container_name: 'react-pill-my-rhythm-app'
   #   ports:
   #     - 80:80
+  #     - 443:443
   #   links:
   #     - redis_server
   #     - backend_server
-  #   env_file:
-  #     - './front/.env'
+  #   volumes:
+  #     - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
+  #     - ./data/certbot/conf:/etc/letsencrypt
+  #     - ./data/certbot/www:/var/www/certbot
 
   frontend_server:
     image: tbr06057/react-pill-my-rhythm-app:test1
     restart: 'on-failure'
+    volumes:
+      - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     ports:
       - 80:80
-
+      - 443:443
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
   # backend_server:
   #   restart: 'on-failure'
   #   build:
@@ -34,7 +47,7 @@ services:
   #     - './back/.env'
 
   backend_server:
-    image: tbr06057/node-pill-my-rhythm-app:test1
+    image: tbr06057/node-pill-my-rhythm-app:test
     restart: 'on-failure'
     ports:
       - 5000:5000
