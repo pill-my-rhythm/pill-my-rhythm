@@ -4,6 +4,7 @@ node_modules
 **/.DS_Store
 **/.env.production
 front/build/
+back/src/logs
 **.pem
 **.csr
 **.key
