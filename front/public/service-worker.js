@@ -45,11 +45,15 @@ self.addEventListener("push", (event) => {
   switch (messageType) {
     case "info": {
       // 브라우저는 전달된 Promise가 확인될 때까지 서비스 워커를 활성화 및 실행 상태로 유지
-      event.waitUntil(self.registration.showNotification(data.title, infoMessageOptions));
+      event.waitUntil(
+        self.registration.showNotification(data.title, infoMessageOptions)
+      );
       break;
     }
     case "supplement": {
-      event.waitUntil(self.registration.showNotification(data.title, supplementMessageOptions));
+      event.waitUntil(
+        self.registration.showNotification(data.title, supplementMessageOptions)
+      );
     }
     // no default
   }
@@ -65,16 +69,22 @@ self.addEventListener(
       case "homepage-action":
         // URL을 로드하는 새 창이나 탭이 열림
         // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}`));
-        event.waitUntil(self.clients.openWindow("http://localhost:3000"));
+        event.waitUntil(
+          self.clients.openWindow("http://kdt-ai4-team17.elicecoding.com:3000")
+        );
         break;
       case "checklist-action": // 오늘 날짜의 체크리스트
         const { encryptedToken } = event.notification.data;
         // public 폴더 안에서는 .env 변수 접근 안 됨
         // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${encryptedToken}`));
-        event.waitUntil(self.clients.openWindow(`http://localhost:3000/m/checklist?token=${encryptedToken}`));
+        event.waitUntil(
+          self.clients.openWindow(
+            `http://kdt-ai4-team17.elicecoding.com:3000/m/checklist?token=${encryptedToken}`
+          )
+        );
         break;
       // no default
     }
   },
-  false,
+  false
 );
