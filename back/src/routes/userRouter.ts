@@ -38,6 +38,9 @@ UserRouter.delete("/withdrawal", verifyToken, UserController.withdrawal);
 // 현재 회원 정보 조회
 UserRouter.get("/current", verifyToken, UserController.currentUserInfo);
 
+// 현재 회원 데이터 분석 추천 영양제
+UserRouter.get("/analysis-supplement", verifyToken, UserController.userAnalysisSupplement);
+
 // token 재발급
 UserRouter.get("/refresh", verifyRefresh);
 
