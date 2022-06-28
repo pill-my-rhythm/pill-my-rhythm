@@ -64,7 +64,8 @@ export interface Appointments {
 let start = moment()
   .startOf("isoweek" as unitOfTime.StartOf)
   .format();
-let end = moment().endOf("day").format();
+let end = moment().isoWeekday("Sunday").format();
+
 const currentDate = new Date(moment().format());
 const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
@@ -79,8 +80,9 @@ function Calendar() {
     let start = moment(e)
       .startOf("isoweek" as unitOfTime.StartOf)
       .format();
-    let end = moment(e).format();
+    let end = moment(e).isoWeekday("Sunday").format();
     get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setLevel(res.data.checklist);
       setAppointments(
         [...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
@@ -102,6 +104,7 @@ function Calendar() {
 
   const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
+    const dayIndex = dayHour.indexOf(e.fromData);
     if (index >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
       try {
@@ -112,6 +115,27 @@ function Calendar() {
           to_do: e.itemData.text,
         });
 
+        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+          setAppointments(
+            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+            }),
+          );
+        });
+      } catch (err) {
+        console.log("스케줄 생성 오류", err);
+      }
+    }
+
+    if (dayIndex >= 0) {
+      setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
+      try {
+        await post("schedule/create", {
+          type: "S",
+          start: new Date(e.itemData.startDate),
+          finish: new Date(e.itemData.endDate),
+          to_do: e.itemData.type,
+        });
         await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
           setAppointments(
             [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
@@ -159,11 +183,11 @@ function Calendar() {
                 <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
-            <DayWrapper>
-              {dayHour.map((task) => (
-                <DayItem task={task} key={task.text} />
-              ))}
-            </DayWrapper>
+            {/* <DayWrapper> */}
+            {dayHour.map((task) => (
+              <DayItem task={task} key={task.text} />
+            ))}
+            {/* </DayWrapper> */}
           </Draggable>
         </ScrollView>
       </Wrapper>

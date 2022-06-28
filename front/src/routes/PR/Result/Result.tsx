@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import VideoArea from "./VideoArea";
 import RecommendationArea from "./RecommendationArea";
-import Promotion from "./Promotion";
 import { UserStateContext } from "../../../Dispatcher";
 
 export interface Props {
@@ -16,7 +15,6 @@ const Result = () => {
     <div className="overflow-scroll:hidden">
       <VideoArea />
       <RecommendationArea isLogin={isLogin} />
-      <Promotion />
     </div>
   );
 };

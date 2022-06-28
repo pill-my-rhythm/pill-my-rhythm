@@ -47,11 +47,13 @@ const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
   const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
 
-  const allDay = level.map((data) => {
+  const weekColorInfo = level.map((data) => {
     return { color: data.level, date: data.date.substring(8) };
   });
+
   const date = new Date(data.date).getDate().toString();
-  const color = allDay.find((day) => day.date === date)?.color;
+  const zeroFill = date.length < 2 ? `0${date}` : date;
+  const color = weekColorInfo.find((day) => day.date === zeroFill)?.color;
 
   const changeHandler = (checked: boolean, id: string) => {
     if (checked) {

@@ -53,7 +53,6 @@ const PRCard = ({ pr }: PillData) => {
     }
   };
 
-  // * 처음에 get해서 북마크 상태를 불러오는 게 맞았습니다! 그래서 다시 load하니까 잘 동작하더라구요.. 화면 공유해서 여쭤볼 때는 새로고침된 상태여서 무한 로딩이 일어났던 것 같습니다.
   useEffect(
     () => {
       loadBookMarkList();
@@ -69,12 +68,11 @@ const PRCard = ({ pr }: PillData) => {
         <img className="w-48 m-6 rounded-lg backdrop-contrast-125 bg-white/30" src={pr.img_link} alt="pills" />
       </figure>
       <div className="card-body">
-        <div className="flex flex-row flex-wrap items-center">
-          <h2 className="card-title">{pr.name}</h2>
+        <div className="flex flex-row flex-wrap items-center break-words">
+          <h2 className="card-title px-2">{pr.name}</h2>
         </div>
-        <div className="">
-          <p className="m-1 break-words">{pr.function}</p>
-        </div>
+        <hr />
+        <p className="p-2 h-max m-1 break-words">{pr.function}</p>
         <div className="card-actions justify-end items-center">
           {!isLogin ? (
             <label htmlFor="">

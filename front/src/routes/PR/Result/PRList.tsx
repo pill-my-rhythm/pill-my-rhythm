@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Promotion from "./Promotion";
 import PRCard from "./PRCard";
 import { useLocation } from "react-router";
 
@@ -21,14 +22,32 @@ export interface PillData {
 const PRList = () => {
   const { state }: any = useLocation();
   const pillResultList = state.results;
-  const [pillResult, setPillResult] = useState(pillResultList);
+  const [pillResult, setPillResult] = useState<Array<PillData["pr"]>>(pillResultList);
+  const [resultData, setResultData] = useState<Boolean>(true);
 
-  return (
+  console.log("#pillResultList", pillResultList);
+  console.log("#pillResult", pillResult);
+
+  const CheckResult = () => {
+    if (pillResult.length === 0) {
+      console.log("빈배열");
+      setResultData(false);
+    }
+  };
+
+  useEffect(() => {
+    CheckResult();
+  }, [resultData]);
+
+  return resultData ? (
     <div className="flex flex-row flex-wrap justify-center">
       {pillResult.map((pr: PillData["pr"]) => (
         <PRCard pr={pr} key={pr.pk_supplement_id} />
       ))}
+      <Promotion />
     </div>
+  ) : (
+    <div>데이터없쏘오오오오오오오오</div>
   );
 };
 export default PRList;
