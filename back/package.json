@@ -53,6 +53,8 @@
   },
   "scripts": {
     "lint": "eslint 'src/**/*.{js,ts}'",
+    "build": "tsc",
+    "js-start": "node ./dist/index.js",
     "start": "nodemon --exec ts-node index.ts",
     "start:https": "nodemon --exec ts-node index.ts --https",
     "swagger": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile ./src/swagger.yaml --type yaml"

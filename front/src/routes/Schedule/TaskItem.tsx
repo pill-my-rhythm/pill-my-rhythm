@@ -5,9 +5,10 @@ import styled from "styled-components";
 const draggingGroupName = "appointmentsGroup";
 const Card = styled.div`
   border-radius: 5px;
-  margin-bottom: 7px;
-  padding: 10px 10px;
+  margin-bottom: 8px;
+  padding: 15px 24px 15px 24px;
   background-color: white;
+  font-size: 14px;
 `;
 
 interface taskProps {

@@ -3,13 +3,29 @@ import { ScheduleService } from "../services/scheduleService";
 import { IScheduleCreateInput } from "../interfaces/scheduleInput";
 
 const ScheduleController = {
+  getSchedulePage: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const queryStart: string = req.query.start as string;
+      const queryFinish: string = req.query.finish as string;
+      const start: Date = new Date(queryStart);
+      const finish: Date = new Date(queryFinish);
+
+      const result = await ScheduleService.getSchedulePage(fk_user_id, { start, finish });
+      res.status(201).json(result);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   getWeeklySchedule: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
-      const s: string = req.query.start as string;
-      const f: string = req.query.finish as string;
-      const start: Date = new Date(s);
-      const finish: Date = new Date(f);
+      const queryStart: string = req.query.start as string;
+      const queryFinish: string = req.query.finish as string;
+      const start: Date = new Date(queryStart);
+      const finish: Date = new Date(queryFinish);
+
       const result = await ScheduleService.getWeeklySchedule(fk_user_id, { start, finish });
       res.status(201).json(result);
     } catch (error) {
@@ -29,6 +45,18 @@ const ScheduleController = {
     }
   },
 
+  deleteSchedule: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const pk_schedule_id = Number(req.params.schedule_id);
+      const deletedSchedule = await ScheduleService.deleteSchedule(fk_user_id, pk_schedule_id);
+
+      res.status(201).json(deletedSchedule);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   createDailySupplement: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
@@ -41,6 +69,7 @@ const ScheduleController = {
       next(error);
     }
   },
+
   deleteDailySupplement: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
