@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PRCard from "../PR/Result/PRCard";
+import PRCard from "../_shared/PRCard";
 import { get } from "../../Api";
 import { PillData } from "../PR/Result/PRList";
 

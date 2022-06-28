@@ -25,9 +25,10 @@ const UserMyPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [editMode, setEditMode] = useState(false);
 
+  // 현재 유저 정보를 가져옴
   const loadUserMypage = async () => {
     const res = await get("user/current");
-    console.log("@res.data의 currentuser", res.data);
+    // console.log("@res.data의 currentuser", res.data);
     setCurrentUser(res.data);
   };
 
@@ -35,6 +36,7 @@ const UserMyPage = () => {
     setMyPage((prev) => ({ ...prev, [name]: value }));
   };
 
+  // 회원 정보 수정
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
@@ -50,8 +52,6 @@ const UserMyPage = () => {
   };
 
   // 비밀번호가 4글자 이상인지 여부를 확인함.
-  // if(password)가 값이 있는경우에만 실행되도록
-  //불러와주는애를만들어서 업데이트를 시켜줘라
   const isPasswordValid = myPage.password?.length >= 8 || myPage.password?.length === 0;
 
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
@@ -75,6 +75,7 @@ const UserMyPage = () => {
     setEditMode(false);
   };
 
+  // 회원 탈퇴 기능
   const withdrawUser = async () => {
     try {
       await del("user/withdrawal");
@@ -284,6 +285,3 @@ const UserMyPage = () => {
   );
 };
 export default UserMyPage;
-function e(e: any): React.ChangeEventHandler<HTMLInputElement> | undefined {
-  throw new Error("Function not implemented.");
-}
