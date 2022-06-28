@@ -20,8 +20,6 @@ const DateLabel = styled.label`
 
 interface taskProps {
   task: { text: string; type: string };
-  start: string;
-  end: string;
 }
 
 export interface supInfo {
@@ -47,7 +45,7 @@ export interface supInfo {
   updatedAt: string;
 }
 
-function DayItem({ task, start, end }: taskProps) {
+function DayItem({ task }: taskProps) {
   const [supplementInfo, setSupplementInfo] = useState<supInfo[]>([]);
   const onItemDragStart = (e: any) => {
     e.itemData = e.fromData;
@@ -77,7 +75,7 @@ function DayItem({ task, start, end }: taskProps) {
           <h3 className="text-lg font-bold">{task.text}</h3>
 
           {supplementInfo.map((info: supInfo) => (
-            <Supplements info={info} task={task} key={info.createdAt} start={start} end={end} />
+            <Supplements info={info} task={task} key={info.createdAt} />
           ))}
         </label>
       </label>

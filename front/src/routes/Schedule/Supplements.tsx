@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { get, post } from "../../Api";
-import { supplementAtom } from "../../atoms";
+import { end, start, supplementAtom } from "../../atoms";
 import { supInfo } from "./DayItem";
 
 const Card = styled.div`
@@ -16,11 +16,9 @@ const Card = styled.div`
 interface infoProps {
   info: supInfo;
   task: { text: string; type: string };
-  start: string;
-  end: string;
 }
 
-function Supplements({ info, task, start, end }: infoProps) {
+function Supplements({ info, task }: infoProps) {
   const setSupplements = useSetRecoilState(supplementAtom);
   const handleCardClick = async () => {
     await post("schedule/daily-supplement", {

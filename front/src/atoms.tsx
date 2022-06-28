@@ -1,5 +1,12 @@
+import moment, { unitOfTime } from "moment";
 import { atom } from "recoil";
 import { Appointments, Levels, Supplements } from "./routes/Schedule/Calendar";
+
+export const currentDate = new Date(moment().format());
+export let start = moment()
+  .startOf("isoweek" as unitOfTime.StartOf)
+  .format();
+export let end = moment().isoWeekday("Sunday").format();
 
 export const supplementAtom = atom<Supplements[]>({
   key: "supplements",

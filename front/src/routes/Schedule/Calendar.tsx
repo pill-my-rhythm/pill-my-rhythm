@@ -4,7 +4,7 @@ import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
-import { appointmentsAtom, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
+import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
@@ -78,12 +78,6 @@ export interface Levels {
   level: string;
 }
 
-let start = moment()
-  .startOf("isoweek" as unitOfTime.StartOf)
-  .format();
-let end = moment().isoWeekday("Sunday").format();
-
-const currentDate = new Date(moment().format());
 const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
 
@@ -180,7 +174,7 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string; date: Date }) => {
-    return <CheckList data={data} start={start} end={end} />;
+    return <CheckList data={data} />;
   };
 
   return (
@@ -195,11 +189,11 @@ function Calendar() {
               ))}
             </ListWrapper>
             {dayHour.map((task) => (
-              <DayItem task={task} key={task.text} start={start} end={end} />
+              <DayItem task={task} key={task.text} />
             ))}
             <DayWrapper>
               {supplements.map((data: Supplements) => (
-                <SupItem data={data} key={data.pk_plan_id} start={start} end={end} />
+                <SupItem data={data} key={data.pk_plan_id} />
               ))}
             </DayWrapper>
           </Draggable>
