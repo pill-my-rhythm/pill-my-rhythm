@@ -9,7 +9,7 @@ const UserBookMarkList = () => {
   const LoadBookMarkList = async () => {
     try {
       const res = await get("bookmark");
-      console.log("#res", res);
+      // console.log("#res", res);
       setUserBookMark(res.data);
       setPillResult(res.data);
     } catch (error) {

@@ -35,7 +35,7 @@ const UserMyPage = () => {
 
   const loadUserMypage = async () => {
     const res = await get("user/current");
-    console.log("@res.data의 currentuser", res.data);
+    // console.log("@res.data의 currentuser", res.data);
     setCurrentUser(res.data);
   };
 

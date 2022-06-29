@@ -22,8 +22,8 @@ const UserRecommendPage = () => {
     try {
       const res = await get("user/analysis-supplement");
       setPillResult(res.data);
-      console.log("pillResult", pillResult);
-      console.log("#user", user);
+      // console.log("pillResult", pillResult);
+      // console.log("#user", user);
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +37,7 @@ const UserRecommendPage = () => {
 
   useEffect(() => {
     loadAnalysisData();
-    console.log("@user", user);
+    // console.log("@user", user);
   }, []);
 
   return (
