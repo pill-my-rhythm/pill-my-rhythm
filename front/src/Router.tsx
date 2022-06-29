@@ -9,6 +9,7 @@ import Result from "./routes/Search/Result";
 import Mypage from "./routes/User/MyPage";
 import Subscribe from "./routes/Schedule/Mobile/Subscribe";
 import PushCheckList from "./routes/Schedule/Mobile/PushCheckList";
+import Pmrguide from "./routes/Pmr";
 
 function Router() {
   return (
@@ -17,6 +18,8 @@ function Router() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/pillmyrhythm" element={<Pmrguide />} />
+          <Route path="/mypage" element={<Mypage />} />
           <Route path="/schedule" element={<Calendar />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
