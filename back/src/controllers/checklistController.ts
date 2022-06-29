@@ -26,6 +26,18 @@ const ChecklistController = {
       next(error);
     }
   },
+
+  getYearly: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const currentDate: string = req.query.currentDate as string;
+      const yearlyChecklist = await ChecklistService.getYearlyChecklist(fk_user_id, currentDate);
+
+      res.status(200).json(yearlyChecklist);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { ChecklistController };
