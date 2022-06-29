@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
+import Scheduler, { AppointmentDragging, Editing } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -217,6 +217,7 @@ function Calendar() {
           firstDayOfWeek={1}
           onCurrentDateChange={onCurrentDateChange}
         >
+          <Editing allowResizing={false} />
           <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
         </Scheduler>
       </ScheduleWrapper>
