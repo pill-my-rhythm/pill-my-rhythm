@@ -40,7 +40,7 @@ const RecommendationArea = ({ isLogin }: Props) => {
                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
               />
             </svg>
-            <span className="select-none leading-normal">
+            <span className="select-none leading-normal text-sm md:text-md">
               Pill my rhytym의 AI 분석은 당신의 증상 개선에 도움이 되는 <u>건강기능식품</u>을 추천드리는 서비스입니다. <br />
               질병의 진단 및 치료는 전문적인 의료기관을 이용하세요.
             </span>
