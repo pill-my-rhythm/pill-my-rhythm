@@ -1,5 +1,17 @@
-import { atom, selector } from "recoil";
-import { Appointments } from "./routes/Schedule/Calendar";
+import moment, { unitOfTime } from "moment";
+import { atom } from "recoil";
+import { Appointments, Levels, Supplements } from "./routes/Schedule/Calendar";
+
+export const currentDate = new Date(moment().format());
+export let start = moment()
+  .startOf("isoweek" as unitOfTime.StartOf)
+  .format();
+export let end = moment().isoWeekday("Sunday").format();
+
+export const supplementAtom = atom<Supplements[]>({
+  key: "supplements",
+  default: [],
+});
 
 export const tasksAtom = atom({
   key: "task",
@@ -71,5 +83,10 @@ export const dayHoursAtom = atom({
 
 export const appointmentsAtom = atom<Appointments[]>({
   key: "appointment",
+  default: [],
+});
+
+export const levelsAtom = atom<Levels[]>({
+  key: "level",
   default: [],
 });

@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import Draggable from "devextreme-react/draggable";
 import styled from "styled-components";
-import { get, post } from "../../Api";
+import { get } from "../../Api";
+import Supplements from "./Supplements";
 
 const draggingGroupName = "appointmentsGroup";
-
-const CardWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const Card = styled.div`
   border-radius: 5px;
@@ -26,8 +22,31 @@ interface taskProps {
   task: { text: string; type: string };
 }
 
+export interface supInfo {
+  Supplement: {
+    caution: string;
+    company: string;
+    function: string;
+    how_to_eat: string;
+    img_link: string;
+    link: string;
+    name: string;
+    pk_supplement_id: number;
+    raw: string;
+    shape: string;
+    update_date: number;
+  };
+  createdAt: string;
+  deletedAt: null;
+  fk_supplement_id: number;
+  fk_user_id: string;
+  pk_plan_id: number;
+  type: string;
+  updatedAt: string;
+}
+
 function DayItem({ task }: taskProps) {
-  const [supplementInfo, setSupplementInfo]: any = useState([]);
+  const [supplementInfo, setSupplementInfo] = useState<supInfo[]>([]);
   const onItemDragStart = (e: any) => {
     e.itemData = e.fromData;
   };
@@ -39,15 +58,9 @@ function DayItem({ task }: taskProps) {
   };
 
   const handleClick = async () => {
-    await get(`bookmark`).then((res) => setSupplementInfo(res.data));
-  };
-
-  const handleCardClick = async () => {
-    console.log(task.type);
-    // await post("schedule/daily-supplement", {
-    //   type: task.type,
-    //   fk_supplement_id: supplementInfo.fk_supplement_id,
-    // });
+    await get(`bookmark`).then((res) => {
+      setSupplementInfo(res.data);
+    });
   };
 
   return (
@@ -60,8 +73,9 @@ function DayItem({ task }: taskProps) {
       <label htmlFor={`modal-${task.text}`} className="modal cursor-pointer">
         <label className="modal-box" htmlFor="">
           <h3 className="text-lg font-bold">{task.text}</h3>
-          {supplementInfo.map((info: { Supplement: { name: string } }) => (
-            <Card onClick={handleCardClick}>{info.Supplement.name}</Card>
+
+          {supplementInfo.map((info: supInfo) => (
+            <Supplements info={info} task={task} key={info.createdAt} />
           ))}
         </label>
       </label>

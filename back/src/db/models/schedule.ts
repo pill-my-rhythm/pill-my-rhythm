@@ -52,6 +52,8 @@ Schedules.init(
             return "점심";
           case "D":
             return "저녁";
+          default:
+            return to_do;
         }
       },
     },

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
-import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
+import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
@@ -12,6 +12,7 @@ import "./Calendar.css";
 import DayItem from "./DayItem";
 import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
+import SupItem from "./SupItem";
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,12 +62,22 @@ export interface Appointments {
   id: number;
 }
 
-let start = moment()
-  .startOf("isoweek" as unitOfTime.StartOf)
-  .format();
-let end = moment().isoWeekday("Sunday").format();
+export interface Supplements {
+  Supplement: { name: string };
+  createdAt: string;
+  deletedAt: null;
+  fk_supplement_id: number;
+  fk_user_id: string;
+  pk_plan_id: number;
+  type: string;
+  updatedAt: string;
+}
 
-const currentDate = new Date(moment().format());
+export interface Levels {
+  date: string;
+  level: string;
+}
+
 const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
 
@@ -74,7 +85,8 @@ function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
-  const [level, setLevel]: any = useState([]);
+  const [supplements, setSupplements] = useRecoilState<Array<Supplements>>(supplementAtom);
+  const setLevel = useSetRecoilState<Array<Levels>>(levelsAtom);
 
   const onCurrentDateChange = (e: any) => {
     let start = moment(e)
@@ -94,13 +106,14 @@ function Calendar() {
   useEffect(() => {
     get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
+      setSupplements(res.data.dailySupplement);
       setAppointments(
-        [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+        [...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
         }),
       );
     });
-  }, [setAppointments]);
+  }, [setAppointments, setLevel, setSupplements]);
 
   const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
@@ -113,14 +126,6 @@ function Calendar() {
           start: new Date(e.itemData.startDate),
           finish: new Date(e.itemData.endDate),
           to_do: e.itemData.text,
-        });
-
-        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-          setAppointments(
-            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-            }),
-          );
         });
       } catch (err) {
         console.log("스케줄 생성 오류", err);
@@ -136,17 +141,17 @@ function Calendar() {
           finish: new Date(e.itemData.endDate),
           to_do: e.itemData.type,
         });
-        await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-          setAppointments(
-            [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-              return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-            }),
-          );
-        });
       } catch (err) {
         console.log("스케줄 생성 오류", err);
       }
     }
+    await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setAppointments(
+        [...res.data.schedule].map((data) => {
+          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+        }),
+      );
+    });
   };
 
   const onAppointmentDeleting = async (e: any) => {
@@ -169,7 +174,7 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string; date: Date }) => {
-    return <CheckList data={data} level={level} setLevel={setLevel} start={start} end={end} />;
+    return <CheckList data={data} />;
   };
 
   return (
@@ -183,11 +188,14 @@ function Calendar() {
                 <TaskItem task={task} key={task.text} />
               ))}
             </ListWrapper>
-            {/* <DayWrapper> */}
             {dayHour.map((task) => (
               <DayItem task={task} key={task.text} />
             ))}
-            {/* </DayWrapper> */}
+            <DayWrapper>
+              {supplements.map((data: Supplements) => (
+                <SupItem data={data} key={data.pk_plan_id} />
+              ))}
+            </DayWrapper>
           </Draggable>
         </ScrollView>
       </Wrapper>
