@@ -5,9 +5,9 @@ import axios from "axios";
 // const aiserverUrl = window.location.protocol + "//" + window.location.hostname + ":" + aiPortNumber + "/";
 // const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
 const aiserverUrl =
-  window.location.protocol + "//" + window.location.hostname + "/api";
+  window.location.protocol + "//" + window.location.hostname + "/ai/";
 const serverUrl =
-  window.location.protocol + "//" + window.location.hostname + "/ai";
+  window.location.protocol + "//" + window.location.hostname + "/api/";
 
 async function get(
   endpoint: string,
