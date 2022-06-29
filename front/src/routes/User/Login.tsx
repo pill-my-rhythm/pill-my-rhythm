@@ -35,12 +35,17 @@ const LoginForm = () => {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (e) => {
     e.preventDefault();
 
-    try {
-      // "user/login" 엔드포인트로 post요청함.
-      const res = await post("user/login", {
-        email,
-        password,
-      });
+    // "user/login" 엔드포인트로 post요청함.
+    const res: any = await post("user/login", {
+      email,
+      password,
+    }).catch((error) => {
+      console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    });
+    if (res) {
       // 유저 정보는 response의 data임.
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
@@ -62,9 +67,6 @@ const LoginForm = () => {
 
       // 기본 페이지로 이동함.
       navigate("/");
-    } catch (error) {
-      alert(`${error}로 인해 로그인에 실패했습니다.`);
-      console.log("로그인에 실패하였습니다.\n", error);
     }
   };
 
