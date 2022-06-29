@@ -4,15 +4,15 @@
   "private": true,
   "dependencies": {
     "@cubedoodl/react-simple-scheduler": "^1.2.9",
+    "@nivo/calendar": "^0.79.1",
+    "@nivo/colors": "^0.79.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/crypto-js": "^4.1.1",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.38",
-    "@types/react": "^18.0.10",
     "@types/react-beautiful-dnd": "^13.1.2",
-    "@types/react-dom": "^18.0.5",
     "@types/recoil": "^0.0.9",
     "@types/styled-components": "^5.1.25",
     "@types/tailwindcss": "^3.0.10",
@@ -62,7 +62,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^18.0.12",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.7",
     "eslint": "^8.17.0",
