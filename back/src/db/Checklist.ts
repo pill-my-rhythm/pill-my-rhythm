@@ -39,7 +39,6 @@ const Checklist = {
       include: { model: Users, attributes: [], where: { pk_user_id: fk_user_id } },
       order: [["date", "ASC"]],
     });
-    console.log(moment(currentDate).startOf("year").format());
     return checklists;
   },
 };
