@@ -87,13 +87,13 @@ const Header = () => {
                     <Link to="/login">Login</Link>
                   </li>
                   <li>
+                    <Link to="/">Pill + rhythm</Link>
+                  </li>
+                  <li>
                     <Link to="/">Search</Link>
                   </li>
                   <li>
                     <Link to="/schedule">Scheduler</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Contact us</Link>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -102,13 +102,13 @@ const Header = () => {
               ) : (
                 <ul className="p-2 bg-base-100">
                   <li>
+                    <Link to="/">Pill + rhythm</Link>
+                  </li>
+                  <li>
                     <Link to="/">Search</Link>
                   </li>
                   <li>
                     <Link to="/schedule">Scheduler</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Contact us</Link>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -129,14 +129,13 @@ const Header = () => {
       <div className="md:flex hidden">
         <ul className="menu menu-horizontal p-0 text-center">
           <li>
+            <Link to="/">Pill + rhythm</Link>
+          </li>
+          <li>
             <Link to="/">Search</Link>
           </li>
           <li>
             <Link to="/schedule">Scheduler</Link>
-          </li>
-          {/* // * 아직 미구현! */}
-          <li>
-            <Link to="/">Contact us</Link>
           </li>
           {!isLogin ? (
             <li tabIndex={0}>
