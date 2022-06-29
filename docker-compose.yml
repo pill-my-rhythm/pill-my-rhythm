@@ -24,7 +24,7 @@ services:
     image: tbr06057/react-pill-my-rhythm-app:test1
     restart: "on-failure"
     volumes:
-      - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
+            #   - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
       - ./certbot/www:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     ports:
