@@ -22,6 +22,7 @@ const UserRecommendPage = () => {
   const loadAnalysisData = async () => {
     try {
       const res = await get("user/analysis-supplement");
+      console.log("res", res);
       setPillResult(res.data);
       console.log("pillResult", pillResult);
     } catch (error) {

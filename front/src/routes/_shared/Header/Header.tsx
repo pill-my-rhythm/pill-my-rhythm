@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../../Dispatcher";
 import { del } from "../../../Api";
+import { useRecoilState } from "recoil";
+import { LoginState } from "../../../atoms";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const Header = () => {
 
   // 전역상태에서 user가 null이 아니라면 로그인 성공 상태임.
   const isLogin = !!userState.user;
-
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
   // 모바일 체크 함수
   const checkParams = () => {
     const currentParams = location.pathname;
@@ -29,6 +31,7 @@ const Header = () => {
       await del("user/logout");
       // console.log("# Logout success", data);
 
+      setIsLoggedIn(false);
       // * sessionStorage 에 저장했던 JWT 토큰을 삭제함.
       sessionStorage.removeItem("userToken");
 

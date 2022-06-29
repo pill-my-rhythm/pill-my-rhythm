@@ -7,7 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { post } from "../../Api";
 import { DispatchContext } from "../../Dispatcher";
 
+import { LoginState } from "../../atoms";
+import { useRecoilState } from "recoil";
+
 const LoginForm = () => {
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
+
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
@@ -42,6 +47,9 @@ const LoginForm = () => {
       const jwtToken = user.accessToken;
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
       sessionStorage.setItem("userToken", jwtToken);
+
+      setIsLoggedIn(true);
+
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       console.log("#user", user);
 
