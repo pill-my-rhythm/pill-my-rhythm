@@ -23,12 +23,12 @@ db = pymysql.connect(host = os.environ.get('host'),
 cursor = db.cursor()
 
 
-@app.route("/")
+@app.route("/ai")
 def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route("/recommend", methods=['POST'])
+@app.route("/ai/recommend", methods=['POST'])
 @verifyToken
 def recommend():
     sentence = request.get_json()["sentence"]

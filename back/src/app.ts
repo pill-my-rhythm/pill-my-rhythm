@@ -18,7 +18,7 @@ const app: express.Application = express();
 const swaggerSpec = YAML.load(path.join(__dirname, "./swagger.yaml"));
 
 // swagger
-app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(cors());
 app.use(express.json());
@@ -26,15 +26,15 @@ app.use(express.urlencoded({ extended: false }));
 // morgan (request, response formatting)
 app.use(morgan("combined", { stream }));
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/api", (req: Request, res: Response) => {
   res.send("hello typescript express!");
 });
 
-app.use("/user", UserRouter);
-app.use("/bookmark", BookMarkRouter);
-app.use("/schedule", ScheduleRouter);
-app.use("/checklist", ChecklistRouter);
-app.use("/subscribe", SubscribeRouter);
+app.use("/api/user", UserRouter);
+app.use("/api/bookmark", BookMarkRouter);
+app.use("/api/schedule", ScheduleRouter);
+app.use("/api/checklist", ChecklistRouter);
+app.use("/api/subscribe", SubscribeRouter);
 app.use(errorMiddleware);
 
 export default app;
