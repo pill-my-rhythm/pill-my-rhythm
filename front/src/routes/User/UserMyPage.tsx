@@ -101,75 +101,79 @@ const UserMyPage = () => {
   }, [myPage, editMode]);
 
   return !editMode ? (
-    <div className="min-h-full bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED] flex py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full space-y-8">
+    <div className="min-h-full bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED] flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full md:w-[68.75rem] space-y-8">
         <div>
           <h2 className="mt-6 mb-3 text-3xl font-extrabold text-gray-900">My Page</h2>
           <hr />
           <p className="m-3 text-sm text-gray-600">회원 정보 수정 페이지 입니다.</p>
         </div>
-        <div className="card md:card-side bg-base-100 shadow-xl">
-          <figure>
-            <img className="w-60 h-60 m-5" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
-          </figure>
-          <div className="card-body leading-normal justify-center">
-            <h2 className="card-title">👑 {currentUser.user_name}님, 안녕하세요!</h2>
-            <hr className="my-1 border border-teal-100" />
-            <p>💊 이메일 : {currentUser.email}</p>
-            <p>💊 성별 : {translateGender(currentUser.gender)}</p>
-            <p>💊 연령대 : {currentUser.age_range}</p>
-            <p>💊 직업군 : {currentUser.job}</p>
-            <div className="card-actions justify-end">
-              <button
-                type="button"
-                className="btn group relative flex justify-center border border-transparent p-2 text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                onClick={() => setEditMode(true)}
-              >
-                정보수정
-              </button>
-              <label
-                htmlFor="withdraw-modal"
-                className="btn modal-button btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
-                onClick={CancelEditMode}
-              >
-                회원탈퇴
-              </label>
-              <input type="checkbox" id="withdraw-modal" className="modal-toggle" />
-              <label htmlFor="withdraw-modal" className="modal cursor-pointer">
-                <label className="modal-box relative justify-center select-none" htmlFor="">
-                  <h3 className="text-lg font-bold text-center py-4">정말 탈퇴하실 건가요...?😢</h3>
-                  <p className="py-1 text-sm text-center">Pill my rhythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!</p>
-                  <p className="py-1 text-sm text-center">불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!</p>
-                  <p className="py-1 text-sm text-center">그래도 저희 서비스가 필요 없으시다면...</p>
-                  <p className="py-1 text-red-500 font-bold text-center">GoodByeMyRhythm</p>
-                  <p className="py-1 text-sm text-center">이라고 입력해주세요!</p>
-                  <div className="flex flex-row justify-center items-center py-4">
-                    <input
-                      className="input m-2 border border-red-400"
-                      type="text"
-                      name="withdraw"
-                      value={withdrawSentence}
-                      placeholder="GoodByeMyRhythm"
-                      onChange={(e) => setWithdrawSentence(e.target.value)}
-                    />
-                    {!withdrawalValid ? (
-                      <button
-                        className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
-                        disabled
-                      >
-                        회원탈퇴
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
-                        onClick={withdrawUser}
-                      >
-                        회원탈퇴
-                      </button>
-                    )}
-                  </div>
+        <div className="flex justify-center">
+          <div className="card md:card-side bg-base-100 shadow-xl w-[56.25rem]">
+            <figure>
+              <img className="w-60 h-60 m-5" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
+            </figure>
+            <div className="card-body leading-normal justify-center">
+              <div className="my-4 leading-loose">
+                <h2 className="card-title">👑 {currentUser.user_name}님, 안녕하세요!</h2>
+                <hr className="my-1 border border-teal-100" />
+                <p>💊 이메일 : {currentUser.email}</p>
+                <p>💊 성별 : {translateGender(currentUser.gender)}</p>
+                <p>💊 연령대 : {currentUser.age_range}</p>
+                <p>💊 직업군 : {currentUser.job}</p>
+              </div>
+              <div className="card-actions justify-end">
+                <button
+                  type="button"
+                  className="btn group relative flex justify-center border border-transparent p-2 text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  onClick={() => setEditMode(true)}
+                >
+                  정보수정
+                </button>
+                <label
+                  htmlFor="withdraw-modal"
+                  className="btn modal-button btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  onClick={CancelEditMode}
+                >
+                  회원탈퇴
                 </label>
-              </label>
+                <input type="checkbox" id="withdraw-modal" className="modal-toggle" />
+                <label htmlFor="withdraw-modal" className="modal cursor-pointer">
+                  <label className="modal-box relative justify-center select-none" htmlFor="">
+                    <h3 className="text-lg font-bold text-center py-4">정말 탈퇴하실 건가요...?😢</h3>
+                    <p className="py-1 text-sm text-center">Pill my rhythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!</p>
+                    <p className="py-1 text-sm text-center">불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!</p>
+                    <p className="py-1 text-sm text-center">그래도 저희 서비스가 필요 없으시다면...</p>
+                    <p className="py-1 text-red-500 font-bold text-center">GoodByeMyRhythm</p>
+                    <p className="py-1 text-sm text-center">이라고 입력해주세요!</p>
+                    <div className="flex flex-row justify-center items-center py-4">
+                      <input
+                        className="input m-2 border border-red-400"
+                        type="text"
+                        name="withdraw"
+                        value={withdrawSentence}
+                        placeholder="GoodByeMyRhythm"
+                        onChange={(e) => setWithdrawSentence(e.target.value)}
+                      />
+                      {!withdrawalValid ? (
+                        <button
+                          className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                          disabled
+                        >
+                          회원탈퇴
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-warning group relative flex justify-center btn ml-5 mr-5 p-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                          onClick={withdrawUser}
+                        >
+                          회원탈퇴
+                        </button>
+                      )}
+                    </div>
+                  </label>
+                </label>
+              </div>
             </div>
           </div>
         </div>

@@ -41,8 +41,8 @@ const UserRecommendPage = () => {
   }, []);
 
   return (
-    <div className="min-h-full bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED] flex py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full space-y-8">
+    <div className="min-h-full bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED] flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full md:w-[68.75rem] space-y-8">
         <div>
           <h2 className="mt-6 mb-3 text-3xl font-extrabold text-gray-900">
             {user.age_range}, {translateGender(user.gender)}분들은 주로 이런 영양제를 섭취중입니다!
