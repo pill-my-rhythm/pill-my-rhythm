@@ -1,28 +1,8 @@
-version: "3.8"
+version: '3.8'
 services:
-  # frontend_server:
-  #   restart: "on-failure"
-  #   build:
-  #     context: "./front"
-  #     dockerfile: Dockerfile
-  #   container_name: "react-pill-my-rhythm-app"
-  #   volumes:
-  #     - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
-  #     - ./data/certbot/conf:/etc/letsencrypt
-  #     - ./data/certbot/www:/var/www/certbot
-  #     - ./www:/var/www/html
-  #   ports:
-  #     - 80:80
-  #     - 443:433
-  #   links:
-  #     - redis_server
-  #     - backend_server
-  #   env_file:
-  #     - "./front/.env"
-
   frontend_server:
-    image: tbr06057/react-pill-my-rhythm-app:test6
-    restart: "on-failure"
+    image: tbr06057/react-pill-my-rhythm-app:test7
+    restart: 'on-failure'
     volumes:
       - ./certbot/www:/etc/letsencrypt
       - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
@@ -32,52 +12,19 @@ services:
       - 80:80
       - 443:443
 
- #certbot:
-  #  depends_on:
-   #   - frontend_server
-   # image: certbot/certbot
-   # restart: "on-failure"
-   # volumes:
-   #   - ./data/certbot/conf:/etc/letsencrypt
-    #  - ./data/certbot/www:/var/www/certbot
-     # - ./www:/var/www/html
-   # command: certonly --webroot --webroot-path=/var/www/html --email pill.my.rhythm@gmail.com --agree-tos --no-eff-email --force-renewal -d kdt-ai4-team17.elicecoding.com
-
-  # backend_server:
-  #   restart: 'on-failure'
-  #   build:
-  #     context: './back'
-  #     dockerfile: Dockerfile
-  #   container_name: 'node-pill-my-rhythm-app'
-  #   ports:
-  #     - 5000:5000
-  #   links:
-  #     - redis_server
-  #   env_file:
-  #     - './back/.env'
-
   backend_server:
     image: tbr06057/node-pill-my-rhythm-app:test2
-    restart: "on-failure"
+    restart: 'on-failure'
     ports:
       - 5000:5000
 
   redis_server:
-    restart: "on-failure"
+    restart: 'on-failure'
     image: redis:alpine
-    container_name: "redis-app"
-  # ai_server:
-  #   restart: 'on-failure'
-  #   build:
-  #     context: './ai'
-  #     dockerfile: Dockerfile
-  #   container_name: 'python-pill-my-rhythm-app'
-  #   ports:
-  #     - 5002:5002
-  #   links:
-  #     - backend_server
+    container_name: 'redis-app'
+
   ai_server:
-    image: tbr06057/python-pill-my-rhythm-app:test
-    restart: "on-failure"
+    image: tbr06057/python-pill-my-rhythm-app:test1
+    restart: 'on-failure'
     ports:
       - 5002:5002
