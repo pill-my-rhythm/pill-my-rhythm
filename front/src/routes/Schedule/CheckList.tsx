@@ -79,16 +79,16 @@ const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
         five: result[4],
         six: result[5],
       });
-
-      await get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-        setLevel(res.data.checklist);
-      });
     } catch (error: any) {
       console.log(error);
       if (error.response.data.message) {
         alert(error.response.data.message);
       }
     }
+
+    await get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setLevel(res.data.checklist);
+    });
   };
   return (
     <>
