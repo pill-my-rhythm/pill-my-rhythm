@@ -296,6 +296,3 @@ const UserMyPage = () => {
   );
 };
 export default UserMyPage;
-function e(e: any): React.ChangeEventHandler<HTMLInputElement> | undefined {
-  throw new Error("Function not implemented.");
-}
