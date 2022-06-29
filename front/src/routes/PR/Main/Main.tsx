@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import * as Api from "../../../Api";
+import { post } from "../../../Api";
 import { AES } from "crypto-js";
 import Searchbar from "../../_shared/Searchbar";
-import { UserStateContext } from "../../Dispatcher";
 
 const Main = () => {
-  const userState = useContext(UserStateContext);
-  console.log(userState);
-  // !
-
+  // ! @영우님 메인 안에 함수들은 다 가져가셔도 됩니다( 메인페이지에서 필수로 동작하는 함수 x)
   const [subToken, setSubToken] = useState("");
   const [unSubToken, setUnSubToken] = useState("");
 
@@ -37,7 +33,7 @@ const Main = () => {
     setSubToken(JSON.stringify(subscription));
 
     // 사용자 기기 정보 DB에 추가
-    await Api.post("subscribe/create", { device_token: subscription });
+    await post("subscribe/create", { device_token: subscription });
   };
 
   const unsubscribe = async () => {
@@ -50,7 +46,7 @@ const Main = () => {
     }
 
     // 사용자 기기 정보 DB에서 삭제
-    await Api.post("subscribe/delete", { device_token: subscription });
+    await post("subscribe/delete", { device_token: subscription });
 
     // 사용자 기기 정보로 구독 취소 요청
     await subscription.unsubscribe();
