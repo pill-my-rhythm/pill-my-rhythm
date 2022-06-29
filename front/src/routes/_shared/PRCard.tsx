@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserStateContext } from "../../Dispatcher";
-import { PillData } from "../PR/Result/PRList";
+import { PillData } from "../Search/Result/PRList";
 import PRModal from "./PRModal";
 import { get, post, del } from "../../Api";
 import { BookMark, FilledBookMark } from "./BookMark";

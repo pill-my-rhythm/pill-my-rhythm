@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../Dispatcher";
 import { get, put, del } from "../../Api";
-import { Userdata } from "../PR/Result/RecommendationArea";
+import { Userdata } from "../Search/Result/RecommendationArea";
 import { CurrentuserState } from "../../atoms";
 import { useRecoilValue } from "recoil";
 
