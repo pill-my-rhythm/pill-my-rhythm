@@ -48,8 +48,11 @@ const PRCard = ({ pr }: PillData) => {
         console.log("#BookMarkDelete", res);
       }
       loadBookMarkList();
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
     }
   };
 
