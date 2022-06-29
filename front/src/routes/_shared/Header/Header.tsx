@@ -87,7 +87,7 @@ const Header = () => {
                     <Link to="/login">Login</Link>
                   </li>
                   <li>
-                    <Link to="/">Pill + rhythm</Link>
+                    <Link to="/pillmyrhythmpillmyrhythm">Pill + rhythm</Link>
                   </li>
                   <li>
                     <Link to="/">Search</Link>
@@ -102,7 +102,7 @@ const Header = () => {
               ) : (
                 <ul className="p-2 bg-base-100">
                   <li>
-                    <Link to="/">Pill + rhythm</Link>
+                    <Link to="/pillmyrhythm">Pill + rhythm</Link>
                   </li>
                   <li>
                     <Link to="/">Search</Link>
@@ -129,7 +129,7 @@ const Header = () => {
       <div className="md:flex hidden">
         <ul className="menu menu-horizontal p-0 text-center">
           <li>
-            <Link to="/">Pill + rhythm</Link>
+            <Link to="/pillmyrhythm">Pill + rhythm</Link>
           </li>
           <li>
             <Link to="/">Search</Link>
