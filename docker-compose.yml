@@ -21,26 +21,27 @@ services:
   #     - "./front/.env"
 
   frontend_server:
-    image: tbr06057/react-pill-my-rhythm-app:test1
+    image: tbr06057/react-pill-my-rhythm-app:test6
     restart: "on-failure"
     volumes:
-            #   - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
       - ./certbot/www:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      #- ./certbot/www:/etc/letsencrypt
+      #- ./certbot/www:/var/www/certbot
     ports:
       - 80:80
       - 443:443
 
-  certbot:
-    depends_on:
-      - frontend_server
-    image: certbot/certbot
-    restart: "on-failure"
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-      - ./www:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email pill.my.rhythm@gmail.com --agree-tos --no-eff-email --force-renewal -d kdt-ai4-team17.elicecoding.com
+ #certbot:
+  #  depends_on:
+   #   - frontend_server
+   # image: certbot/certbot
+   # restart: "on-failure"
+   # volumes:
+   #   - ./data/certbot/conf:/etc/letsencrypt
+    #  - ./data/certbot/www:/var/www/certbot
+     # - ./www:/var/www/html
+   # command: certonly --webroot --webroot-path=/var/www/html --email pill.my.rhythm@gmail.com --agree-tos --no-eff-email --force-renewal -d kdt-ai4-team17.elicecoding.com
 
   # backend_server:
   #   restart: 'on-failure'
@@ -56,7 +57,7 @@ services:
   #     - './back/.env'
 
   backend_server:
-    image: tbr06057/node-pill-my-rhythm-app:test1
+    image: tbr06057/node-pill-my-rhythm-app:test2
     restart: "on-failure"
     ports:
       - 5000:5000
