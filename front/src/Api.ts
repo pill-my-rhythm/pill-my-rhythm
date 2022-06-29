@@ -1,29 +1,48 @@
 import axios from "axios";
 
-const backendPortNumber = "5000";
-const aiPortNumber = "5002";
-const aiserverUrl = window.location.protocol + "//" + window.location.hostname + ":" + aiPortNumber + "/";
-const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
+// const backendPortNumber = "5000";
+// const aiPortNumber = "5002";
+// const aiserverUrl = window.location.protocol + "//" + window.location.hostname + ":" + aiPortNumber + "/";
+// const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
+const aiserverUrl =
+  window.location.protocol + "//" + window.location.hostname + "/api";
+const serverUrl =
+  window.location.protocol + "//" + window.location.hostname + "/ai";
 
-async function get(endpoint: string, params = "", destination: "AI" | "BACK" = "BACK") {
-  return axios.get((destination === "AI" ? aiserverUrl : serverUrl) + endpoint + params, {
-    // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-    },
-  });
+async function get(
+  endpoint: string,
+  params = "",
+  destination: "AI" | "BACK" = "BACK"
+) {
+  return axios.get(
+    (destination === "AI" ? aiserverUrl : serverUrl) + endpoint + params,
+    {
+      // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      },
+    }
+  );
 }
 
-async function post(endpoint: string, data: any, destination: "AI" | "BACK" = "BACK") {
+async function post(
+  endpoint: string,
+  data: any,
+  destination: "AI" | "BACK" = "BACK"
+) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
   const bodyData = JSON.stringify(data);
-  return axios.post((destination === "AI" ? aiserverUrl : serverUrl) + endpoint, bodyData, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-    },
-  });
+  return axios.post(
+    (destination === "AI" ? aiserverUrl : serverUrl) + endpoint,
+    bodyData,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      },
+    }
+  );
 }
 
 async function put(endpoint: string, data: any) {

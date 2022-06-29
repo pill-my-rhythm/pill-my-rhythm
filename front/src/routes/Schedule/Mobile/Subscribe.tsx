@@ -34,14 +34,14 @@ const Subscribe = () => {
     // 사용자 기기 정보 DB에 추가
     await axios
       .post(
-        `${process.env.REACT_APP_MODE}:${process.env.REACT_APP_BACK_PORT}/subscribe/create`,
+        `${process.env.REACT_APP_MODE}/api/subscribe/create`,
         { device_token: subscription },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${jwtToken}`,
           },
-        },
+        }
       )
       .then(() => {
         alert("구독 신청이 완료되었습니다.");
@@ -52,7 +52,9 @@ const Subscribe = () => {
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Subscribe our Service</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Subscribe our Service
+          </h2>
           <br />
           <p className="mt-2 text-center text-sm text-gray-600">
             Web 혹은 Android에서만 가능합니다. <br />
