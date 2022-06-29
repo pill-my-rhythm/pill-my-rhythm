@@ -34,11 +34,11 @@ const Main = () => {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ODU1OGI1Zi03MDhlLTQ2YzUtYTA3OC01MjkwYTk1YjNmMDUiLCJpYXQiOjE2NTYzOTk2NTgsImV4cCI6MTY1NjQwMzI1OH0.c-Zk7Kvs7CWWYL5y4GivOi6W9zeIOrqPgF9V-q8AQxI";
   const encryptedToken = AES.encrypt(jwtToken, secretKey).toString();
   const encodedPageLink = encodeURIComponent(
-    `${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?token=${encryptedToken}`
+    `${process.env.REACT_APP_MODE}/m/subscribe?token=${encryptedToken}`
   );
   const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
   console.log(
-    `${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?token=${encryptedToken}`
+    `${process.env.REACT_APP_MODE}/m/subscribe?token=${encryptedToken}`
   );
 
   const subscribe = async () => {
@@ -142,14 +142,14 @@ const Main = () => {
                   </button>
                 </div>
               </div>
-              <button onClick={() => subscribe()}>subscribe</button>
-              {/* 로고 이미지 만료 2023-02-28 */}
-              <img src={QRcode} alt="QRcode" width="100" height="100" />
-              <button onClick={() => unsubscribe()}>unsubscribe</button>
-              <p>{subToken}</p>
-              <p>{unSubToken}</p>
             </form>
           </div>
+          <button onClick={() => subscribe()}>subscribe</button>
+          {/* 로고 이미지 만료 2023-02-28 */}
+          <img src={QRcode} alt="QRcode" width="100" height="100" />
+          <button onClick={() => unsubscribe()}>unsubscribe</button>
+          <p>{subToken}</p>
+          <p>{unSubToken}</p>
         </div>
       </div>
     </div>

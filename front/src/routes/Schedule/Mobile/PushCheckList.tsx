@@ -45,28 +45,45 @@ const Checklist = () => {
 
   let today: string;
   const now = new Date();
-  const month = `${now.getMonth() + 1}`.length === 1 ? "0" + `${now.getMonth() + 1}` : now.getMonth() + 1; //months from 1-12
+  const month =
+    `${now.getMonth() + 1}`.length === 1
+      ? "0" + `${now.getMonth() + 1}`
+      : now.getMonth() + 1; //months from 1-12
   const day = now.getDate();
   const year = now.getFullYear();
   today = year + "-" + month + "-" + day;
 
   const submit = async () => {
     console.log("checklist submit function");
-    const result = tasks.map((el: any) => (checkedItems.includes(el.text) ? true : false));
+    const result = tasks.map((el: any) =>
+      checkedItems.includes(el.text) ? true : false
+    );
 
-    const checklistData = { date: today, one: result[0], two: result[1], three: result[2], four: result[3], five: result[4], six: result[5] };
+    const checklistData = {
+      date: today,
+      one: result[0],
+      two: result[1],
+      three: result[2],
+      four: result[3],
+      five: result[4],
+      six: result[5],
+    };
     console.log(checklistData);
 
     type ServerError = { errorMessage: string };
     // 체크리스트 항목 정보 DB에 추가
     try {
       await axios
-        .post(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_BACK_PORT}/checklist/create`, checklistData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        })
+        .post(
+          `${process.env.REACT_APP_MODE}/api/checklist/create`,
+          checklistData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        )
         .catch((error) => {
           if (error.response.data.message) {
             alert(error.response.data.message);
@@ -90,7 +107,9 @@ const Checklist = () => {
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Today's Checklist</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Today's Checklist
+          </h2>
           <br />
           <p className="mt-2 text-center text-sm text-gray-600">{today}</p>
         </div>

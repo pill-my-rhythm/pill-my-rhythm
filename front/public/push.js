@@ -4,10 +4,9 @@ import axios from "axios";
 import webpush from "web-push";
 
 config({ path: "../.env", encoding: "utf8" });
-const backendPortNumber = "5000";
+// const backendPortNumber = "5000";
 // 배포하면 주소 변경해야 함
-const serverUrl =
-  "http://kdt-ai4-team17.elicecoding.com:" + backendPortNumber + "/";
+const serverUrl = "https://kdt-ai4-team17.elicecoding.com/api/";
 
 // VAPID keys should only be generated only once.
 const vapidKeys = {

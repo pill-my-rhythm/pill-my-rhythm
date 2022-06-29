@@ -13,7 +13,8 @@ export default (): void => {
 };
 
 // 배포하면 주소 변경해야 함
-const serverUrl = "http://kdt-ai4-team17.elicecoding.com:" + process.env.PORT + "/";
+// const serverUrl = "http://localhost:" + process.env.PORT + "/";
+const serverUrl = "https://kdt-ai4-team17.elicecoding.com/api/";
 
 const push = async (time: Date) => {
   await axios
