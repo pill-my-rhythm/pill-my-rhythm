@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserStateContext } from "../../../Dispatcher";
+import React, { useEffect } from "react";
 import PRList from "./PRList";
 import { Props } from "./Result";
+import { CurrentuserState } from "../../../atoms";
+import { useRecoilValue } from "recoil";
 
 export interface Userdata {
   age_range: string;
@@ -17,21 +18,19 @@ export interface Userdata {
 }
 
 const RecommendationArea = ({ isLogin }: Props) => {
-  const userState = useContext(UserStateContext);
-  const [user, setUser] = useState<Userdata | null>(null);
+  const user = useRecoilValue(CurrentuserState);
 
-  useEffect(() => {
-    setUser(userState.user?.userInfo);
-  }, [userState.user?.userInfo]);
+  // useEffect(() => {
+  // }, [userState.user?.userInfo]);
 
   return (
     <div className="bg-base-200">
       <div className="w-screen p-2 flex flex-col items-center justify-center">
-        <div className="text-4xl font-bold text-zinc-700 px-6 pt-20 pb-10 leading-normal flex flex-row">
+        <div className="text-3xl md:text-4xl font-bold text-zinc-700 px-6 pt-20 pb-10 leading-normal flex flex-row">
           <img className="w-11 h-11 mr-3" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
           {!isLogin ? <h2>당신에게는 이런 영양제를 추천드려요!</h2> : <h2>{user?.user_name}님께는 이런 영양제를 추천드려요!</h2>}
         </div>
-        <div className="w-fit alert alert-warning shadow-lg mb-10 mx-4">
+        <div className="w-fit alert alert-warning shadow-lg mb-10 mx-4 bg-transparent border-solid border-2 border-red-400 text-red-500">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
               <path
