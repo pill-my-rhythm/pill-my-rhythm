@@ -69,19 +69,26 @@ const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
     const current = new Date(data.date.getTime() - offset);
     const checkListDate = current.toISOString().substring(0, 10);
 
-    await post("checklist/create", {
-      date: checkListDate,
-      one: result[0],
-      two: result[1],
-      three: result[2],
-      four: result[3],
-      five: result[4],
-      six: result[5],
-    });
+    try {
+      await post("checklist/create", {
+        date: checkListDate,
+        one: result[0],
+        two: result[1],
+        three: result[2],
+        four: result[3],
+        five: result[4],
+        six: result[5],
+      });
 
-    await get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-      setLevel(res.data.checklist);
-    });
+      await get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+        setLevel(res.data.checklist);
+      });
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
   };
   return (
     <>
