@@ -3,13 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../Dispatcher";
 import { get, put, del } from "../../Api";
 import { Userdata } from "../PR/Result/RecommendationArea";
+import { CurrentuserState } from "../../atoms";
+import { useRecoilValue } from "recoil";
 
 const UserMyPage = () => {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
-  const userState = useContext(UserStateContext);
-  const userInfo = userState.user?.userInfo;
+  // const userState = useContext(UserStateContext);
+  // const userInfo = userState.user?.userInfo;
   // console.log("@userState.user?.userInfo", userInfo);
+
+  // recoil로 상태 값 가져오는 부분 추가
+  const Recoiluser = useRecoilValue(CurrentuserState);
+  // console.log("Recoiluser", Recoiluser);
+  const userInfo = Recoiluser;
+
   const [currentUser, setCurrentUser] = useState<Userdata>(userInfo);
   // console.log("@currentUser", currentUser);
 
