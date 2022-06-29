@@ -13,6 +13,7 @@ import DayItem from "./DayItem";
 import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
 import SupItem from "./SupItem";
+import Subscribe from "./Subscribe";
 
 const Wrapper = styled.div`
   display: flex;
@@ -182,7 +183,8 @@ function Calendar() {
       <Wrapper>
         <ScrollView id="scroll">
           <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
-            <ListTitle>Feed</ListTitle>
+            {/* <ListTitle>Feed</ListTitle> */}
+            <Subscribe />
             <ListWrapper>
               {tasks.map((task) => (
                 <TaskItem task={task} key={task.text} />
