@@ -5,6 +5,17 @@ import { get, post } from "../../Api";
 import { checkListAtom, end, levelsAtom, start } from "../../atoms";
 import { Levels } from "./Calendar";
 
+interface CheckListProp {
+  data: {
+    date: Date;
+    text: string;
+  };
+}
+
+interface ColorProp {
+  color?: string;
+}
+
 const DateLabel = styled.label<ColorProp>`
   color: #000;
   background-color: ${(props) => {
@@ -41,17 +52,6 @@ const CheckListBtn = styled.button`
   margin: 0 auto;
   width: 30%;
 `;
-
-interface CheckListProp {
-  data: {
-    date: Date;
-    text: string;
-  };
-}
-
-interface ColorProp {
-  color?: string;
-}
 
 const CheckList = ({ data }: CheckListProp) => {
   const [level, setLevel] = useRecoilState<Array<Levels>>(levelsAtom);
