@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   frontend_server:
-    image: tbr06057/react-pill-my-rhythm-app:test
+    image: tbr06057/react-pill-my-rhythm-app:test2
     restart: 'on-failure'
     volumes:
       - ./certbot/www:/etc/letsencrypt
@@ -24,7 +24,7 @@ services:
     container_name: 'redis-app'
 
   ai_server:
-    image: tbr06057/python-pill-my-rhythm-app:test2
+    image: tbr06057/python-pill-my-rhythm-app:test3
     restart: 'on-failure'
     ports:
       - 5002:5002
