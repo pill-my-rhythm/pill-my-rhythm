@@ -49,6 +49,14 @@ const Header = () => {
     navigate("/login");
   };
 
+  const ControlScheduler = () => {
+    if (isLogin) {
+      navigate("/schedule");
+    } else {
+      MoveLogin();
+    }
+  };
+
   const ControlMyPage = () => {
     if (isLogin) {
       navigate("/mypage");
@@ -71,7 +79,7 @@ const Header = () => {
       </div>
     </div>
   ) : (
-    <div className="navbar flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md">
+    <div className="navbar flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md backdrop-blur bg-white/80 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
       <div className="flex-1 justify-between">
         <div className="flex-none md:hidden">
           <ul className="flex menu menu-horizontal p-0 text-center">
@@ -93,7 +101,7 @@ const Header = () => {
                     <Link to="/">Search</Link>
                   </li>
                   <li>
-                    <p onClick={MoveLogin}>Scheduler</p>
+                    <button onClick={ControlScheduler}>Scheduler</button>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -108,7 +116,7 @@ const Header = () => {
                     <Link to="/">Search</Link>
                   </li>
                   <li>
-                    <Link to="/schedule">Scheduler</Link>
+                    <button onClick={ControlScheduler}>Scheduler</button>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -135,7 +143,7 @@ const Header = () => {
             <Link to="/">Search</Link>
           </li>
           <li>
-            <Link to="/schedule">Scheduler</Link>
+            <button onClick={ControlScheduler}>Scheduler</button>
           </li>
           {!isLogin ? (
             <li tabIndex={0}>

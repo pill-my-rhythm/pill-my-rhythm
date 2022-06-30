@@ -8,6 +8,9 @@
   cursor: default;
 }
 
+.dx-toolbar-after {
+  display: none;
+}
 
 .dx-scrollable-content {
   position: relative;
@@ -19,7 +22,7 @@
 
 .dx-draggable-dragging > * {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  color: #5ae1dc;
+  border-radius: 0.5rem;
 }
 
 .dx-scheduler-navigator-caption {
@@ -35,4 +38,17 @@
 .dx-scheduler-all-day-appointment .dx-scheduler-appointment {
   box-sizing: border-box;
   padding-right: 0;
+}
+
+.dx-buttongroup-item.dx-button.dx-button-mode-contained:not(.dx-item-selected) {
+  background-color: white;
+}
+
+.dx-button-mode-contained {
+  border-color: white;
+}
+
+.dx-buttongroup-item.dx-button.dx-button-mode-contained.dx-button-normal.dx-state-hover {
+  background-color: white;
+  border: none;
 }

@@ -207,70 +207,76 @@ function Calendar() {
   };
 
   return (
-    <div className="overflow-hidden">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto">
-          <Subscribe />
-          <nav className="lg:text-sm lg:leading-6 relative top-[3.8125rem]">
-            <ScrollView id="scroll">
-              <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
-                <ul>
-                  {dayHour.map((task) => (
-                    <DayItem task={task} key={task.text} />
-                  ))}
-                  <li className="mt-12 lg:mt-8">
-                    <h5 className="mb-8 lg:mb-3 font-semibold text-slate-900 dark:text-slate-200">생채리듬 Todo</h5>
-                    <ul className="space-y-6 lg:space-y-2 border-l border-slate-100 dark:border-slate-800">
-                      {tasks.map((task) => (
-                        <TaskItem task={task} key={task.text} />
-                      ))}
-                    </ul>
-                  </li>
-                </ul>
-                {/* {tasks.map((task) => (
-                  <TaskItem task={task} key={task.text} />
-                ))}
-
-                {supplements.map((data: Supplements) => (
-                  <SupItem data={data} key={data.pk_plan_id} />
-                ))} */}
-              </Draggable>
-            </ScrollView>
-          </nav>
-        </div>
-        <div className="lg:pl-[19.5rem]">
-          <main className="max-w-3xl mx-auto relative z-20 pt-10 xl:max-w-none">
-            <header id="header" className="mb-10 md:flex md:items-start">
-              <div className="flex-auto max-w-4xl">
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
-                <p className="mt-4 text-base text-slate-700 dark:text-slate-400">PMR 스케쥴러로 영양제 일정관리를 간편하게 시작해보세요.</p>
-              </div>
-            </header>
-            <section className="mb-16 relative">
-              <Scheduler
-                timeZone="Asia/Seoul"
-                id="scheduler"
-                dataSource={appointments}
-                views={views}
-                defaultCurrentDate={currentDate}
-                defaultCurrentView="week"
-                height={600}
-                startDayHour={6}
-                onAppointmentFormOpening={onAppointmentFormOpening}
-                onAppointmentDeleting={onAppointmentDeleting}
-                showAllDayPanel={false}
-                dateCellRender={renderDateCell}
-                firstDayOfWeek={1}
-                onCurrentDateChange={onCurrentDateChange}
-              >
-                <Editing allowResizing={false} />
-                <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
-              </Scheduler>
-            </section>
-          </main>
+    <>
+      <div className="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none opacity-80">
+        <div className="w-[108rem] flex-none flex justify-end">
+          <img src="https://tailwindcss.com/_next/static/media/docs@30.beeb08605f12f699c5abc3814763b65e.avif" alt="" className="w-[71.75rem] flex-none max-w-none dark:hidden" />
         </div>
       </div>
-    </div>
+      <div className="overflow-hidden">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <div className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto bg-slate-100">
+            <Subscribe />
+            <div className="divider" />
+            <nav className="lg:text-sm lg:leading-6 mt-7">
+              <ScrollView id="scroll">
+                <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
+                  <ul>
+                    <div className="py-5 px-5 max-w-sm mx-auto bg-white rounded-xl shadow-lg">
+                      {dayHour.map((task) => (
+                        <DayItem task={task} key={task.text} />
+                      ))}
+                    </div>
+
+                    <li className="mt-12 lg:mt-8">
+                      <ul className="space-y-6 lg:space-y-2 border-l border-slate-100 dark:border-slate-800">
+                        {tasks.map((task) => (
+                          <TaskItem task={task} key={task.text} />
+                        ))}
+                      </ul>
+                    </li>
+                  </ul>
+                  {/* {supplements.map((data: Supplements) => (
+                    <SupItem data={data} key={data.pk_plan_id} />
+                  ))} */}
+                </Draggable>
+              </ScrollView>
+            </nav>
+          </div>
+          <div className="lg:pl-[19.5rem]">
+            <main className="max-w-3xl mx-auto relative z-20 pt-10 xl:max-w-none">
+              <header id="header" className="mb-10 md:flex md:items-start">
+                <div className="flex-auto max-w-4xl">
+                  <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
+                  <p className="mt-4 text-base text-slate-700 dark:text-slate-400">PMR 스케쥴러로 영양제 일정관리를 간편하게 시작해보세요.</p>
+                </div>
+              </header>
+              <section className="mb-16 relative">
+                <Scheduler
+                  timeZone="Asia/Seoul"
+                  id="scheduler"
+                  dataSource={appointments}
+                  views={views}
+                  defaultCurrentDate={currentDate}
+                  defaultCurrentView="week"
+                  height={600}
+                  startDayHour={6}
+                  onAppointmentFormOpening={onAppointmentFormOpening}
+                  onAppointmentDeleting={onAppointmentDeleting}
+                  showAllDayPanel={false}
+                  dateCellRender={renderDateCell}
+                  firstDayOfWeek={1}
+                  onCurrentDateChange={onCurrentDateChange}
+                >
+                  <Editing allowResizing={false} />
+                  <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
+                </Scheduler>
+              </section>
+            </main>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

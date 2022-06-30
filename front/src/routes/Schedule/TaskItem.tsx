@@ -4,11 +4,10 @@ import styled from "styled-components";
 
 const draggingGroupName = "appointmentsGroup";
 const Card = styled.div`
-  border-radius: 5px;
+  border-radius: 0.5rem;
   margin-bottom: 8px;
-  padding: 15px 24px 15px 24px;
+  padding: 15px 15px;
   background-color: white;
-  font-size: 14px;
 `;
 
 interface taskProps {
@@ -26,11 +25,11 @@ function TaskItem({ task }: taskProps) {
   };
   return (
     <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
-      <li>
+      <Card>
         <span className="block border-l pl-4 -ml-px border-transparent hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
           {task.text}
         </span>
-      </li>
+      </Card>
     </Draggable>
   );
 }

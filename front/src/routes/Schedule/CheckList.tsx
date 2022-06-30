@@ -6,7 +6,20 @@ import { checkListAtom, end, levelsAtom, start } from "../../atoms";
 import { Levels } from "./Calendar";
 
 const DateLabel = styled.label<ColorProp>`
-  background-color: ${(props) => props.color};
+  color: #000;
+  background-color: ${(props) => {
+    if (props.color === "red") {
+      return "#fca5a5";
+    } else if (props.color === "yellow") {
+      return "#fef08a";
+    } else if (props.color === "green") {
+      return "#5eead4";
+    } else {
+      return;
+    }
+  }};
+  border-radius: 1rem;
+  padding: 5px 10px;
 `;
 
 const TodoWrapper = styled.div`
@@ -59,7 +72,6 @@ const CheckList = ({ data }: CheckListProp) => {
     } else {
       setCheckedInputs(checkedInputs.filter((el: string) => el !== id));
     }
-    console.log(checkedInputs);
   };
 
   const handleSubmit = async () => {
