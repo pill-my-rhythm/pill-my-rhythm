@@ -71,7 +71,7 @@ const Header = () => {
       </div>
     </div>
   ) : (
-    <div className="navbar flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md">
+    <div className="navbar flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md backdrop-blur bg-white/80 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
       <div className="flex-1 justify-between">
         <div className="flex-none md:hidden">
           <ul className="flex menu menu-horizontal p-0 text-center">
@@ -87,13 +87,13 @@ const Header = () => {
                     <Link to="/login">Login</Link>
                   </li>
                   <li>
-                    <Link to="/">Search</Link>
+                    <Link to="/pillmyrhythmpillmyrhythm">About Pmr</Link>
                   </li>
                   <li>
                     <p onClick={MoveLogin}>Scheduler</p>
                   </li>
                   <li>
-                    <Link to="/">Contact us</Link>
+                    <Link to="/schedule">Scheduler</Link>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -102,13 +102,13 @@ const Header = () => {
               ) : (
                 <ul className="p-2 bg-base-100">
                   <li>
+                    <Link to="/pillmyrhythm">About Pmr</Link>
+                  </li>
+                  <li>
                     <Link to="/">Search</Link>
                   </li>
                   <li>
                     <Link to="/schedule">Scheduler</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Contact us</Link>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -129,14 +129,13 @@ const Header = () => {
       <div className="md:flex hidden">
         <ul className="menu menu-horizontal p-0 text-center">
           <li>
+            <Link to="/pillmyrhythm">About Pmr</Link>
+          </li>
+          <li>
             <Link to="/">Search</Link>
           </li>
           <li>
             <Link to="/schedule">Scheduler</Link>
-          </li>
-          {/* // * 아직 미구현! */}
-          <li>
-            <Link to="/">Contact us</Link>
           </li>
           {!isLogin ? (
             <li tabIndex={0}>
