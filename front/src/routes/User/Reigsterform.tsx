@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -62,9 +63,11 @@ function RegisterForm() {
       alert("회원가입을 환영합니다!");
       // 로그인 페이지로 이동함.
       navigate("/login");
-    } catch (err) {
-      alert("회원가입에 실패하였습니다.");
-      console.log("회원가입에 실패하였습니다.", err);
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
     }
   };
 

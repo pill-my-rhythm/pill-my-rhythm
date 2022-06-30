@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserStateContext } from "../../../Dispatcher";
-import { PillData } from "./PRList";
+import { UserStateContext } from "../../Dispatcher";
+import { PillData } from "../Search/Result/PRList";
 import PRModal from "./PRModal";
-import { get, post, del } from "../../../Api";
+import { get, post, del } from "../../Api";
 import { BookMark, FilledBookMark } from "./BookMark";
 
 const PRCard = ({ pr }: PillData) => {
@@ -48,8 +48,11 @@ const PRCard = ({ pr }: PillData) => {
         console.log("#BookMarkDelete", res);
       }
       loadBookMarkList();
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
     }
   };
 

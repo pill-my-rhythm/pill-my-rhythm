@@ -13,7 +13,7 @@ export function loginReducer(userState: any, action: { type: any; payload: any }
         user: null,
       };
     case "WITHDRAW":
-      console.log("%c로그아웃!", "color: #d93d1a;");
+      console.log("%c회원탈퇴!", "color: #d93d1a;");
       return {
         ...userState,
         user: null,
