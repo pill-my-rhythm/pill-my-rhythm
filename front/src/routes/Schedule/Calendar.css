@@ -39,3 +39,16 @@
   box-sizing: border-box;
   padding-right: 0;
 }
+
+.dx-buttongroup-item.dx-button.dx-button-mode-contained:not(.dx-item-selected) {
+  background-color: white;
+}
+
+.dx-button-mode-contained {
+  border-color: white;
+}
+
+.dx-buttongroup-item.dx-button.dx-button-mode-contained.dx-button-normal.dx-state-hover {
+  background-color: white;
+  border: none;
+}

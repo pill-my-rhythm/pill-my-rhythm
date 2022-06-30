@@ -12,8 +12,10 @@ const DateLabel = styled.label<ColorProp>`
       return "#fca5a5";
     } else if (props.color === "yellow") {
       return "#fef08a";
-    } else {
+    } else if (props.color === "green") {
       return "#5eead4";
+    } else {
+      return;
     }
   }};
   border-radius: 1rem;
