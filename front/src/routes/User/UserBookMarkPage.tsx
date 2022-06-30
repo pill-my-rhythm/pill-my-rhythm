@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import PRCard from "../PR/Result/PRCard";
+import PRCard from "../_shared/PRCard";
 import { get } from "../../Api";
-import { PillData } from "../PR/Result/PRList";
 
 const UserBookMarkList = () => {
   const [userBookMark, setUserBookMark] = useState([]);
@@ -10,7 +9,7 @@ const UserBookMarkList = () => {
   const LoadBookMarkList = async () => {
     try {
       const res = await get("bookmark");
-      console.log("#res", res);
+      // console.log("#res", res);
       setUserBookMark(res.data);
       setPillResult(res.data);
     } catch (error) {
@@ -18,16 +17,13 @@ const UserBookMarkList = () => {
     }
   };
 
-  // console.log("#pillResult", pillResult);
-  // console.log("#userBookMark", userBookMark);
-
   useEffect(() => {
     LoadBookMarkList();
   }, []);
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-[#7FDCDC] to-[#E3F2ED] flex py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full space-y-8">
+    <div className="min-h-full bg-gradient-to-br from-[#7FDCDC] to-[#E3F2ED] flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full md:w-[68.75rem] space-y-8">
         <div>
           <h2 className="mt-6 mb-3 text-3xl font-extrabold text-gray-900">My Bookmarks List</h2>
           <hr />

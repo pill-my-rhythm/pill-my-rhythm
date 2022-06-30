@@ -114,7 +114,13 @@ function Calendar() {
           finish: new Date(e.itemData.endDate),
           to_do: e.itemData.text,
         });
+      } catch (error: any) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
 
+      try {
         await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
           setAppointments(
             [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
@@ -122,8 +128,8 @@ function Calendar() {
             }),
           );
         });
-      } catch (err) {
-        console.log("스케줄 생성 오류", err);
+      } catch (error) {
+        console.log(error);
       }
     }
 
@@ -136,6 +142,13 @@ function Calendar() {
           finish: new Date(e.itemData.endDate),
           to_do: e.itemData.type,
         });
+      } catch (error: any) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+
+      try {
         await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
           setAppointments(
             [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
@@ -143,8 +156,8 @@ function Calendar() {
             }),
           );
         });
-      } catch (err) {
-        console.log("스케줄 생성 오류", err);
+      } catch (error) {
+        console.log(error);
       }
     }
   };

@@ -5,3 +5,5 @@ node_modules
 **/.env.production
 front/build/
 back/src/logs
+**/*.csr
+**/*.key
