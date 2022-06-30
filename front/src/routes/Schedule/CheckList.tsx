@@ -1,11 +1,25 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { get, post } from "../../Api";
-import { checkListAtom } from "../../atoms";
+import { checkListAtom, end, levelsAtom, start } from "../../atoms";
+import { Levels } from "./Calendar";
 
 const DateLabel = styled.label<ColorProp>`
-  background-color: ${(props) => props.color};
+  color: #000;
+  background-color: ${(props) => {
+    if (props.color === "red") {
+      return "#fca5a5";
+    } else if (props.color === "yellow") {
+      return "#fef08a";
+    } else if (props.color === "green") {
+      return "#5eead4";
+    } else {
+      return;
+    }
+  }};
+  border-radius: 1rem;
+  padding: 5px 10px;
 `;
 
 const TodoWrapper = styled.div`
@@ -33,17 +47,14 @@ interface CheckListProp {
     date: Date;
     text: string;
   };
-  level: { level: string; date: string }[];
-  setLevel: any;
-  start: string;
-  end: string;
 }
 
 interface ColorProp {
   color?: string;
 }
 
-const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
+const CheckList = ({ data }: CheckListProp) => {
+  const [level, setLevel] = useRecoilState<Array<Levels>>(levelsAtom);
   const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
 
