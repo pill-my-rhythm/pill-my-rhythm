@@ -24,11 +24,18 @@ const errorTransport = new winston.transports.DailyRotateFile({
   maxFiles: "30d", // 30일치 저장
 });
 
+const pushTransport = new winston.transports.DailyRotateFile({
+  filename: "push.log",
+  dirname: logDir,
+  level: "info",
+  maxFiles: "30d", // 30일치 저장
+});
+
 moment.tz.setDefault("Asia/Seoul"); // 로그 시간대 한국 기준으로 변경
 const timeStamp = () => moment().format("YYYY-MM-DD HH:mm:ss");
 
 const logger = winston.createLogger({
-  transports: [infoTransport, errorTransport],
+  transports: [infoTransport, errorTransport, pushTransport],
 });
 
 const stream = {
