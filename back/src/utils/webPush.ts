@@ -21,8 +21,8 @@ const push = async (time: Date) => {
     .get(serverUrl + "subscribe/push-supplements", { params: { time: time } })
     .then((res) => {
       console.log(`${time}에 설정된 푸시 알림을 전송했습니다.`);
-      console.log(res);
-      logger.push(`${time} ${res}`);
+      console.log(res.data);
+      logger.push(`${time}`, res.data));
     })
     .catch((error: Error) => {
       console.log(error);
