@@ -1,6 +1,7 @@
 import axios from "axios";
 import webpush from "web-push";
 import schedule from "node-schedule";
+import { logger } from "../utils/winston";
 
 // VAPID keys should only be generated only once.
 const vapidKeys = {
@@ -18,8 +19,10 @@ const serverUrl = "http://localhost:" + process.env.PORT + "/";
 const push = async (time: Date) => {
   await axios
     .get(serverUrl + "subscribe/push-supplements", { params: { time: time } })
-    .then(() => {
+    .then((res) => {
       console.log(`${time}에 설정된 푸시 알림을 전송했습니다.`);
+      console.log(res);
+      logger.push(`${time} ${res}`);
     })
     .catch((error: Error) => {
       console.log(error);
