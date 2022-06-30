@@ -1,8 +1,19 @@
+import moment, { unitOfTime } from "moment";
+import { Appointments, Levels, Supplements } from "./routes/Schedule/Calendar";
 import { atom, selector } from "recoil";
-import { Appointments } from "./routes/Schedule/Calendar";
 import { get } from "./Api";
 import { recoilPersist } from "recoil-persist";
 const { persistAtom } = recoilPersist();
+export const currentDate = new Date(moment().format());
+export let start = moment()
+  .startOf("isoweek" as unitOfTime.StartOf)
+  .format();
+export let end = moment().isoWeekday("Sunday").format();
+
+export const supplementAtom = atom<Supplements[]>({
+  key: "supplements",
+  default: [],
+});
 
 export const tasksAtom = atom({
   key: "task",
@@ -103,4 +114,9 @@ export const CurrentuserState = atom({
     },
   }),
   effects_UNSTABLE: [persistAtom],
+});
+
+export const levelsAtom = atom<Levels[]>({
+  key: "level",
+  default: [],
 });
