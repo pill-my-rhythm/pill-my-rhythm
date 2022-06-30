@@ -31,6 +31,7 @@
     "recoil": "^0.7.4",
     "recoil-persist": "^4.2.0",
     "scheduler-calendar": "^4.0.0",
+    "serve": "^13.0.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.1",
     "tailwindcss-typescript": "^1.1.2",
