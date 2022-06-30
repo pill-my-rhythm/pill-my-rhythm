@@ -9,6 +9,7 @@ import Result from "./routes/PR/Result";
 import Mypage from "./routes/User/MyPage";
 import Subscribe from "./routes/Schedule/Mobile/Subscribe";
 import PushCheckList from "./routes/Schedule/Mobile/PushCheckList";
+import Yearly from "./routes/Schedule/yearly";
 
 function Router() {
   return (
@@ -24,6 +25,8 @@ function Router() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/m/subscribe" element={<Subscribe />} />
           <Route path="/m/checklist" element={<PushCheckList />} />
+          {/* 여기에 추가 */}
+          <Route path="/yealry/checklist" element={<Yearly />} />
         </Routes>
       </BrowserRouter>
     </Dispatcher>
