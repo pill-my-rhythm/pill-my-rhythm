@@ -93,7 +93,7 @@ const Header = () => {
                     <Link to="/">Search</Link>
                   </li>
                   <li>
-                    <Link to="/schedule">Scheduler</Link>
+                    <p onClick={MoveLogin}>Scheduler</p>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>

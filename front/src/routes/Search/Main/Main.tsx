@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import * as Api from "../../../Api";
-import { AES } from "crypto-js";
 import { post } from "../../../Api";
+import { AES } from "crypto-js";
 import Searchbar from "../../_shared/Searchbar";
 
 const Main = () => {
   return (
-    // img 추후에 asset에 저장할 것!
     <div
       className="hero min-h-screen"
       style={{ backgroundImage: "url(" + "https://r7q6w9z6.rocketcdn.me/career/wp-content/uploads/2021/05/image_processing20210222-9274-1wg7luu.gif?w=1000&h=800" + ")" }}
@@ -42,7 +39,6 @@ const Main = () => {
             {/* <button onClick={() => unsubscribe()}>unsubscribe</button> */}
             {/* <p>{subToken}</p> */}
             {/* <p>{unSubToken}</p> */}
-            {/* </div> */}
           </div>
         </div>
       </div>

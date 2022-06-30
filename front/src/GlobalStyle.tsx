@@ -41,7 +41,7 @@ body {
 ::-webkit-scrollbar {
   display: none;
   }
-menu, ol, ul {
+menu, ol, ul, li {
   list-style: none;
 }
 blockquote, q {

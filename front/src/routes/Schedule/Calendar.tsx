@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import Scheduler, { AppointmentDragging } from "devextreme-react/scheduler";
+import { useEffect } from "react";
+import Scheduler, { AppointmentDragging, Editing } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
-import { appointmentsAtom, dayHoursAtom, tasksAtom } from "../../atoms";
+import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
 import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
@@ -12,6 +12,8 @@ import "./Calendar.css";
 import DayItem from "./DayItem";
 import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
+import SupItem from "./SupItem";
+import Subscribe from "./Subscribe";
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,12 +63,22 @@ export interface Appointments {
   id: number;
 }
 
-let start = moment()
-  .startOf("isoweek" as unitOfTime.StartOf)
-  .format();
-let end = moment().isoWeekday("Sunday").format();
+export interface Supplements {
+  Supplement: { name: string };
+  createdAt: string;
+  deletedAt: null;
+  fk_supplement_id: number;
+  fk_user_id: string;
+  pk_plan_id: number;
+  type: string;
+  updatedAt: string;
+}
 
-const currentDate = new Date(moment().format());
+export interface Levels {
+  date: string;
+  level: string;
+}
+
 const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
 
@@ -74,7 +86,8 @@ function Calendar() {
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
-  const [level, setLevel]: any = useState([]);
+  const [supplements, setSupplements] = useRecoilState<Array<Supplements>>(supplementAtom);
+  const setLevel = useSetRecoilState<Array<Levels>>(levelsAtom);
 
   const onCurrentDateChange = (e: any) => {
     let start = moment(e)
@@ -94,13 +107,14 @@ function Calendar() {
   useEffect(() => {
     get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
+      setSupplements(res.data.dailySupplement);
       setAppointments(
-        [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+        [...res.data.schedule].map((data) => {
           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
         }),
       );
     });
-  }, [setAppointments]);
+  }, [setAppointments, setLevel, setSupplements]);
 
   const onAppointmentAdd = async (e: any) => {
     const index = tasks.indexOf(e.fromData);
@@ -160,6 +174,13 @@ function Calendar() {
         console.log(error);
       }
     }
+    await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+      setAppointments(
+        [...res.data.schedule].map((data) => {
+          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+        }),
+      );
+    });
   };
 
   const onAppointmentDeleting = async (e: any) => {
@@ -182,50 +203,74 @@ function Calendar() {
   };
 
   const renderDateCell = (data: { text: string; date: Date }) => {
-    return <CheckList data={data} level={level} setLevel={setLevel} start={start} end={end} />;
+    return <CheckList data={data} />;
   };
 
   return (
-    <>
-      <Wrapper>
-        <ScrollView id="scroll">
-          <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
-            <ListTitle>Feed</ListTitle>
-            <ListWrapper>
-              {tasks.map((task) => (
-                <TaskItem task={task} key={task.text} />
-              ))}
-            </ListWrapper>
-            {/* <DayWrapper> */}
-            {dayHour.map((task) => (
-              <DayItem task={task} key={task.text} />
-            ))}
-            {/* </DayWrapper> */}
-          </Draggable>
-        </ScrollView>
-      </Wrapper>
-      <ScheduleWrapper>
-        <Title className="text-3xl font-extrabold text-gray-900">Scheduler</Title>
-        <Scheduler
-          timeZone="Asia/Seoul"
-          id="scheduler"
-          dataSource={appointments}
-          views={views}
-          defaultCurrentDate={currentDate}
-          defaultCurrentView="week"
-          height={600}
-          startDayHour={6}
-          onAppointmentFormOpening={onAppointmentFormOpening}
-          onAppointmentDeleting={onAppointmentDeleting}
-          showAllDayPanel={false}
-          dateCellRender={renderDateCell}
-          firstDayOfWeek={1}
-          onCurrentDateChange={onCurrentDateChange}
-        >
-          <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
-        </Scheduler>
-      </ScheduleWrapper>
-    </>
+    <div className="overflow-hidden">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto">
+          <Subscribe />
+          <nav className="lg:text-sm lg:leading-6 relative top-[3.8125rem]">
+            <ScrollView id="scroll">
+              <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
+                <ul>
+                  {dayHour.map((task) => (
+                    <DayItem task={task} key={task.text} />
+                  ))}
+                  <li className="mt-12 lg:mt-8">
+                    <h5 className="mb-8 lg:mb-3 font-semibold text-slate-900 dark:text-slate-200">생채리듬 Todo</h5>
+                    <ul className="space-y-6 lg:space-y-2 border-l border-slate-100 dark:border-slate-800">
+                      {tasks.map((task) => (
+                        <TaskItem task={task} key={task.text} />
+                      ))}
+                    </ul>
+                  </li>
+                </ul>
+                {/* {tasks.map((task) => (
+                  <TaskItem task={task} key={task.text} />
+                ))}
+
+                {supplements.map((data: Supplements) => (
+                  <SupItem data={data} key={data.pk_plan_id} />
+                ))} */}
+              </Draggable>
+            </ScrollView>
+          </nav>
+        </div>
+        <div className="lg:pl-[19.5rem]">
+          <main className="max-w-3xl mx-auto relative z-20 pt-10 xl:max-w-none">
+            <header id="header" className="mb-10 md:flex md:items-start">
+              <div className="flex-auto max-w-4xl">
+                <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
+                <p className="mt-4 text-base text-slate-700 dark:text-slate-400">PMR 스케쥴러로 영양제 일정관리를 간편하게 시작해보세요.</p>
+              </div>
+            </header>
+            <section className="mb-16 relative">
+              <Scheduler
+                timeZone="Asia/Seoul"
+                id="scheduler"
+                dataSource={appointments}
+                views={views}
+                defaultCurrentDate={currentDate}
+                defaultCurrentView="week"
+                height={600}
+                startDayHour={6}
+                onAppointmentFormOpening={onAppointmentFormOpening}
+                onAppointmentDeleting={onAppointmentDeleting}
+                showAllDayPanel={false}
+                dateCellRender={renderDateCell}
+                firstDayOfWeek={1}
+                onCurrentDateChange={onCurrentDateChange}
+              >
+                <Editing allowResizing={false} />
+                <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
+              </Scheduler>
+            </section>
+          </main>
+        </div>
+      </div>
+    </div>
   );
 }
 
