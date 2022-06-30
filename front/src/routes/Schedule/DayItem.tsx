@@ -9,9 +9,8 @@ const draggingGroupName = "appointmentsGroup";
 const Card = styled.div`
   border-radius: 5px;
   margin-bottom: 8px;
-  padding: 15px 24px 15px 24px;
+  padding: 15px 0px;
   background-color: white;
-  font-size: 14px;
 `;
 
 const DateLabel = styled.label`
@@ -66,7 +65,18 @@ function DayItem({ task }: taskProps) {
   return (
     <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
       <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs" onClick={handleClick}>
-        <Card>{task.text}</Card>
+        <Card>
+          <span className="text-black group flex items-center lg:text-sm lg:leading-6 mb-4 font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
+            <div className="mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10 group-hover:shadow-indigo-200 dark:group-hover:bg-indigo-500 dark:bg-slate-800 dark:highlight-white/5">
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                <path d="m6 9 6-3 6 3v6l-6 3-6-3V9Z" className="fill-indigo-100 group-hover:fill-indigo-200 dark:fill-slate-400" />
+                <path d="m6 9 6 3v7l-6-3V9Z" className="fill-indigo-300 group-hover:fill-indigo-400 dark:group-hover:fill-indigo-300 dark:fill-slate-500" />
+                <path d="m18 9-6 3v7l6-3V9Z" className="fill-indigo-400 group-hover:fill-indigo-500 dark:group-hover:fill-indigo-400 dark:fill-slate-600" />
+              </svg>
+            </div>
+            {task.text}
+          </span>
+        </Card>
       </DateLabel>
 
       <input type="checkbox" id={`modal-${task.text}`} className="modal-toggle" />

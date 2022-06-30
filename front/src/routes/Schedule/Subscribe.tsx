@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AES } from "crypto-js";
 import { post } from "../../Api";
+import { UserStateContext } from "../../Dispatcher";
 
 function Subscribe() {
+  const userState = useContext(UserStateContext);
   const [subToken, setSubToken] = useState("");
   const [unSubToken, setUnSubToken] = useState("");
 
-  // TODO: 구독 버튼 위치 옮긴 뒤 로그인시 저장한 accessToken으로 변경해야 함
   const secretKey: any = process.env.REACT_APP_SECRET_KEY;
-  const jwtToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YzAzNDlmMS1lMGI3LTQ1YmMtODUxNS01MDU2N2M4N2EyMmMiLCJpYXQiOjE2NTYwODk4MjgsImV4cCI6MTY1NjA5MzQyOH0.xUjK_gWkgJmYNHBAPkellBB9K-nHAVc1mXczESx9u6U";
+  const jwtToken = String(userState.user.accessToken);
   const encryptedToken = AES.encrypt(jwtToken, secretKey).toString();
   const encodedPageLink = encodeURIComponent(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?token=${encryptedToken}`);
   const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
