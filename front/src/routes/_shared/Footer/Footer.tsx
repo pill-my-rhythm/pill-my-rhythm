@@ -6,7 +6,7 @@ const Footer = () => {
       <div>
         <img src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" width="50" height="50" alt="pill" />
         <p>
-          ACME Industries Ltd.
+          Pill my rhythm 
           <br />
           Copyright © 2022 - All right reserved
         </p>
