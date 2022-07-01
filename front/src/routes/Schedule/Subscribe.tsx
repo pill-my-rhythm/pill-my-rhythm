@@ -102,7 +102,10 @@ function Subscribe() {
                 <img src={QRcode} alt="QRcode" width="170" height="170" className="rounded-xl" />
                 <div className="flex-col px-5">
                   <h2 className="card-title mb-1">모바일 알림 서비스</h2>
-                  <p>모바일에서 QR 찍고, 영양제 알림을 받아보세요!</p>
+                  <p className="leading-5">
+                    영양제 일정 알림 서비스는 현재 ios에서 지원되지 않아 Android 또는 Web에서만 가능합니다. <br />
+                    Android 접속시 google 애플리케이션의 google lens를 이용하는 것을 추천드립니다.
+                  </p>
                 </div>
               </figure>
             </div>

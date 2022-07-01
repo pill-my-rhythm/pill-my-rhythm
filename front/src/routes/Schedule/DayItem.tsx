@@ -6,6 +6,7 @@ import Supplements from "./Supplements";
 import { useRecoilState } from "recoil";
 import { supplementAtom } from "../../atoms";
 import SupItem from "./SupItem";
+import img from "../../assets/tab.png";
 
 const draggingGroupName = "appointmentsGroup";
 
@@ -72,16 +73,20 @@ function DayItem({ task }: taskProps) {
     <>
       <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
         <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs" onClick={handleClick}>
-          <Card>
-            <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-black">
-              <div className="mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10 group-hover:shadow-teal-200 dark:group-hover:bg-teal-500 dark:bg-slate-800 dark:highlight-white/5">
-                <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none">
+          <Card className="bg-white rounded-xl shadow-md">
+            <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-black flex justify-between">
+              {/* <div className="mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10 group-hover:shadow-teal-200 dark:group-hover:bg-teal-500 dark:bg-slate-800 dark:highlight-white/5"> */}
+              {/* <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none">
                   <path d="m6 9 6-3 6 3v6l-6 3-6-3V9Z" className="fill-teal-100 group-hover:fill-teal-200 dark:fill-slate-400" />
                   <path d="m6 9 6 3v7l-6-3V9Z" className="fill-teal-300 group-hover:fill-teal-400 dark:group-hover:fill-teal-300 dark:fill-slate-500" />
                   <path d="m18 9-6 3v7l6-3V9Z" className="fill-teal-400 group-hover:fill-teal-500 dark:group-hover:fill-teal-400 dark:fill-slate-600" />
-                </svg>
+                </svg> */}
+
+              {/* </div> */}
+              <div> {task.text}</div>
+              <div>
+                <img width="20" height="20" src="https://i.ibb.co/jZp3SQ3/tab.png" alt="약 이미지" />
               </div>
-              {task.text}
             </span>
           </Card>
         </DateLabel>
@@ -97,9 +102,12 @@ function DayItem({ task }: taskProps) {
           </label>
         </label>
       </Draggable>
-      {supType.map((info: supInfo) => (
-        <SupItem key={info.pk_plan_id} info={info} />
-      ))}
+
+      <ul role="list" className="marker:text-teal-400 list-disc pl-8 space-y-3 text-slate-500 mb-2">
+        {supType.map((info: supInfo) => (
+          <SupItem key={info.pk_plan_id} info={info} />
+        ))}
+      </ul>
     </>
   );
 }
