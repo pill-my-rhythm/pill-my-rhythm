@@ -13,7 +13,7 @@ const DateLabel = styled.label<ColorProp>`
     } else if (props.color === "yellow") {
       return "#fef08a";
     } else if (props.color === "green") {
-      return "#5eead4";
+      return "#70df95";
     } else {
       return;
     }
@@ -108,7 +108,7 @@ const CheckList = ({ data }: CheckListProp) => {
       </DateLabel>
       <input type="checkbox" id={`modal-${data.text}`} className="modal-toggle" />
       <label htmlFor={`modal-${data.text}`} className="modal cursor-pointer">
-        <label className="modal-box max-w-xs" htmlFor="">
+        <label className="modal-box max-w-xs" htmlFor={`modal-${data.text}`}>
           <CheckListTitle>{data.text}</CheckListTitle>
           {checkList.map((task, index) => (
             <TodoWrapper key={index}>
