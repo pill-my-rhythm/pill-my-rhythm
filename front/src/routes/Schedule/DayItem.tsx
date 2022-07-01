@@ -66,7 +66,7 @@ function DayItem({ task }: taskProps) {
     <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
       <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs" onClick={handleClick}>
         <Card>
-          <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
+          <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-black">
             <div className="mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10 group-hover:shadow-teal-200 dark:group-hover:bg-teal-500 dark:bg-slate-800 dark:highlight-white/5">
               <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none">
                 <path d="m6 9 6-3 6 3v6l-6 3-6-3V9Z" className="fill-teal-100 group-hover:fill-teal-200 dark:fill-slate-400" />
@@ -82,7 +82,7 @@ function DayItem({ task }: taskProps) {
       <input type="checkbox" id={`modal-${task.text}`} className="modal-toggle" />
       <label htmlFor={`modal-${task.text}`} className="modal cursor-pointer">
         <label className="modal-box" htmlFor="">
-          <h3 className="text-lg font-bold">{task.text}</h3>
+          <h3 className="text-lg text-black font-semibold mb-1">{task.text}</h3>
 
           {supplementInfo.map((info: supInfo) => (
             <Supplements info={info} task={task} key={info.createdAt} />

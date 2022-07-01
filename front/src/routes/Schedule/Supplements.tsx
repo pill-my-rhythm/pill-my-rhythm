@@ -29,7 +29,24 @@ function Supplements({ info, task }: infoProps) {
       setSupplements(res.data.dailySupplement);
     });
   };
-  return <Card onClick={handleCardClick}>{info.Supplement.name}</Card>;
+
+  return (
+    <>
+      <div className="bg-white rounded-xl cursor-pointer" onClick={handleCardClick}>
+        <div className="md:flex">
+          <div className="md:shrink-0">
+            <img className="h-36 w-full object-cover rounded-xl" src={info.Supplement.img_link} alt="약 이미지" />
+          </div>
+          <div className="pl-8 self-center">
+            <p className="uppercase tracking-wide text-sm text-teal-500 font-semibold">{info.Supplement.company}</p>
+            <p className="block mt-1 text-base font-medium text-black">{info.Supplement.name}</p>
+            <p className="mt-2 text-slate-500 text-[15px]">{info.Supplement.how_to_eat}</p>
+          </div>
+        </div>
+      </div>
+      <div className="divider" />
+    </>
+  );
 }
 
 export default Supplements;

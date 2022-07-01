@@ -7,6 +7,7 @@ import { verifyToken } from "../middlewares/verifyToken";
 const ChecklistRouter = Router();
 ChecklistRouter.use(verifyToken);
 
+// 체크리스트 생성
 ChecklistRouter.post(
   "/create",
   [
@@ -22,10 +23,14 @@ ChecklistRouter.post(
   ChecklistController.create,
 );
 
+// 주간 체크리스트 조회
 ChecklistRouter.get(
   "/weekly",
   [check("start").exists().isDate(), check("end").exists().isDate(), validatorErrorChecker],
   ChecklistController.getWeekly,
 );
+
+// 연간 체크리스트 조회
+ChecklistRouter.get("/yearly", ChecklistController.getYearly);
 
 export { ChecklistRouter };
