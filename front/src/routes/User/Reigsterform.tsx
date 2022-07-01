@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +22,11 @@ function RegisterForm() {
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
-    return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    return email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
   };
 
   //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
@@ -39,7 +42,8 @@ function RegisterForm() {
   const isNameValid = name.length >= 2;
 
   // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
-  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+  const isFormValid =
+    isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
   // option용 Array
   const ages = ["10대", "20대", "30대", "40대", "50대", "60대 이상"];
@@ -75,33 +79,68 @@ function RegisterForm() {
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
-          <p className="m-3 text-center text-sm text-gray-600"> 회원 가입을 환영합니다.</p>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Sign up
+          </h2>
+          <p className="m-3 text-center text-sm text-gray-600">
+            {" "}
+            회원 가입을 환영합니다.
+          </p>
         </div>
         <div className="grid place-content-stretch">
           <form className="m-2 items-center" onSubmit={handleSubmit}>
             <div>
               <label>
                 {isNameValid ? (
-                  <input className="input w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="text"
+                    value={name}
+                    placeholder="이름 (2글자 이상 8글자 미만)"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 ) : (
-                  <input className="input input-error w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
+                  <input
+                    className="input input-error w-full max-w-md m-2"
+                    type="text"
+                    value={name}
+                    placeholder="이름 (2글자 이상 8글자 미만)"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 )}
               </label>
             </div>
             <div>
               <label>
                 {isEmailValid ? (
-                  <input className="input w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="text"
+                    value={email}
+                    placeholder="이메일"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 ) : (
-                  <input className="input input-error w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                  <input
+                    className="input input-error w-full max-w-md m-2"
+                    type="text"
+                    value={email}
+                    placeholder="이메일"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 )}
               </label>
             </div>
             <div>
               <label>
                 {isPasswordValid ? (
-                  <input className="input w-full max-w-md m-2" type="password" value={password} placeholder="비밀번호 (8글자 이상 12글자 이하)" onChange={(e) => setPassword(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="password"
+                    value={password}
+                    placeholder="비밀번호 (8글자 이상 12글자 이하)"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 ) : (
                   <input
                     className="input input-error w-full max-w-md m-2"
@@ -116,20 +155,38 @@ function RegisterForm() {
             <div>
               <label>
                 {isPasswordSame ? (
-                  <input className="input w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="password"
+                    value={confirmPassword}
+                    placeholder="비밀번호확인"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
                 ) : (
                   <>
                     {" "}
-                    <input className="input input-error w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <input
+                      className="input input-error w-full max-w-md m-2"
+                      type="password"
+                      value={confirmPassword}
+                      placeholder="비밀번호확인"
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
                     <br />
-                    <p className="m-2 text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>
+                    <p className="m-2 text-sm text-red-400">
+                      비밀번호가 일치하지 않습니다.
+                    </p>
                   </>
                 )}
               </label>
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={gender} onChange={(e) => setGender(e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                >
                   <option value="성별" disabled>
                     성별
                   </option>
@@ -140,7 +197,11 @@ function RegisterForm() {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={ageRange}
+                  onChange={(e) => setAgeRange(e.target.value)}
+                >
                   <option value="연령대" disabled>
                     연령대
                   </option>
@@ -152,7 +213,11 @@ function RegisterForm() {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={job} onChange={(e) => setJob(e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={job}
+                  onChange={(e) => setJob(e.target.value)}
+                >
                   <option value="직업군" disabled>
                     직업군
                   </option>
