@@ -40,7 +40,7 @@ body {
 ::-webkit-scrollbar {
   display: none;
   }
-menu, ol, ul, li {
+menu, ol, ul {
   list-style: none;
 }
 blockquote, q {

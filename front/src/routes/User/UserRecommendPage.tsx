@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { get } from "../../Api";
 import AnalysisCard from "../_shared/AnalysisCard";
 // import { CurrentuserState } from "../../atoms";
-import { useRecoilValue } from "recoil";
 
 export interface AnalysisData {
   pk_analysis_id: number;
@@ -17,7 +16,7 @@ export interface AnalysisData {
 const UserRecommendPage = ({ Recoiluser }: any) => {
   const [pillResult, setPillResult] = useState<Array<AnalysisData>>([]);
   const user = Recoiluser;
-  console.log("UserReccomedPage#user", user);
+  // console.log("UserReccomedPage#user", user);
 
   const loadAnalysisData = async () => {
     try {
