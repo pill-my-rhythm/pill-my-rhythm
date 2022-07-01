@@ -92,23 +92,48 @@ function Calendar() {
           alert(error.response.data.message);
         }
       }
+    }
+    //   try {
+    //     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+    //       setAppointments(
+    //         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+    //           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+    //         }),
+    //       );
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
 
-      if (dayIndex >= 0) {
-        setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
-        try {
-          await post("schedule/create", {
-            type: "S",
-            start: new Date(e.itemData.startDate),
-            finish: new Date(e.itemData.endDate),
-            to_do: e.itemData.type,
-          });
-        } catch (error: any) {
-          if (error.response.data.message) {
-            alert(error.response.data.message);
-          }
+    if (dayIndex >= 0) {
+      setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
+      try {
+        await post("schedule/create", {
+          type: "S",
+          start: new Date(e.itemData.startDate),
+          finish: new Date(e.itemData.endDate),
+          to_do: e.itemData.type,
+        });
+      } catch (error: any) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
         }
       }
     }
+
+    //   try {
+    //     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+    //       setAppointments(
+    //         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
+    //           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+    //         }),
+    //       );
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setAppointments(
         [...res.data.schedule].map((data) => {
