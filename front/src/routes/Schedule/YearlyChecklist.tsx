@@ -3,7 +3,7 @@ import Tooltip from "@uiw/react-tooltip";
 import HeatMap from "@uiw/react-heat-map";
 import { get } from "../../Api";
 
-const Demo = () => {
+const YearlyChecklist = () => {
   const year = new Date().getFullYear();
   const [data, setData] = useState();
   const LoadYearlyData = async () => {
@@ -53,7 +53,7 @@ const Demo = () => {
       }}
       panelColors={{
         0: "#EBEDF0",
-        2: "#9ceab2",
+        2: "#70df95",
         3: "#fef08a",
         4: "#fca5a5",
       }}
@@ -61,4 +61,4 @@ const Demo = () => {
   );
 };
 
-export default Demo;
+export default YearlyChecklist;
