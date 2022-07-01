@@ -8,10 +8,10 @@ const ScheduleRouter = Router();
 
 ScheduleRouter.use(verifyToken);
 
-// 전체 스케줄 조회
+// 주간 스케줄 조회 (스케줄, 체크리스트, 데일리 영양제)
 ScheduleRouter.get("/", ScheduleController.getSchedulePage);
 
-// 일주일 스케줄 조회
+// 주간 스케줄 조회 (스케줄, 체크리스트)
 ScheduleRouter.get("/week", ScheduleController.getWeeklySchedule);
 
 // 생체 리듬, 스케줄 추가

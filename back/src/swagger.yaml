@@ -113,6 +113,17 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/successResponse'
+  /user/analysis-supplement:
+    get:
+      tags:
+        - user
+      summary: 유저 정보 기반 영양제 추천
+      description: '(필수) accessToken / 회원의 연령, 성별 정보가 없을 시 null 값이 반환됩니다. 그래서 null 값 반환되면 연령, 성별 정보를 수정하고 추천받으라는 식으로 진행하면 좋을거같아요.'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
   /user/refresh:
     get:
       tags:
@@ -303,6 +314,25 @@ paths:
           $ref: '#/components/responses/successResponse'
         '400':
           description: accessToken이 유효하지 않습니다.
+  /checklist/yearly:
+    get:
+      tags:
+        - schedule
+      summary: 연간 체크리스트 조회하는 API 입니다.
+      description: '(필수) accessToken, currentDate (query)'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: currentDate
+          schema:
+            type: string
+          description: GET /checklist/yearly?currentDate='2022-06-30'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
   /bookmark:
     get:
       tags:
@@ -333,6 +363,24 @@ paths:
         '200':
           $ref: '#/components/responses/successResponse'
         '401':
+          description: accessToken이 유효하지 않습니다.
+  '/bookmark/{supplement_id}':
+    delete:
+      tags:
+        - bookmark
+      summary: 북마크 삭제 API 입니다.
+      description: '(필수) accessToken, supplement_id'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: supplement_id
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
           description: accessToken이 유효하지 않습니다.
 components:
   schemas:

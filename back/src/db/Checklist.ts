@@ -1,4 +1,5 @@
 import { Op } from "./models";
+import moment from "moment";
 import { Checklists } from "./models/checklist";
 import { Users } from "./models/user";
 import { IChecklistCreateType, IChecklistWeeklyInput } from "../interfaces/checklistInput";
@@ -21,6 +22,22 @@ const Checklist = {
     const checklists = await Checklists.findAll({
       attributes: ["date", "level"],
       where: { date: { [Op.between]: [start, finish] } },
+      include: { model: Users, attributes: [], where: { pk_user_id: fk_user_id } },
+      order: [["date", "ASC"]],
+    });
+    return checklists;
+  },
+
+  findByYear: async (fk_user_id: string, currentDate: Date) => {
+    console.log(moment(currentDate).startOf("year").format());
+    console.log(moment(currentDate).endOf("year").format());
+    const checklists = await Checklists.findAll({
+      attributes: ["date", "level"],
+      where: {
+        date: {
+          [Op.between]: [moment(currentDate).startOf("year").format(), moment(currentDate).endOf("year").format()],
+        },
+      },
       include: { model: Users, attributes: [], where: { pk_user_id: fk_user_id } },
       order: [["date", "ASC"]],
     });

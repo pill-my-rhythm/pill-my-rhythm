@@ -9,7 +9,7 @@ const ChecklistController = {
       const { date, one, two, three, four, five, six }: IChecklistCreateInput = req.body;
       const newChecklist = await ChecklistService.addChecklist({ fk_user_id, date, one, two, three, four, five, six });
 
-      res.status(201).json(newChecklist);
+      res.status(200).json(newChecklist);
     } catch (error) {
       next(error);
     }
@@ -22,6 +22,18 @@ const ChecklistController = {
       const weeklyChecklist = await ChecklistService.getWeeklyChecklist(fk_user_id, { start, finish });
 
       res.status(200).json(weeklyChecklist);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  getYearly: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const currentDate: Date = new Date();
+      const yearlyChecklist = await ChecklistService.getYearlyChecklist(fk_user_id, currentDate);
+
+      res.status(200).json(yearlyChecklist);
     } catch (error) {
       next(error);
     }

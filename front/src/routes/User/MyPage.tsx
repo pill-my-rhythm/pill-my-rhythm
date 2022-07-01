@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import UserBookMarkList from "./UserBookMarkPage";
+import UserMyPage from "./UserMyPage";
+import UserRecommendPage from "./UserRecommendPage";
+import MyYearlyChecklist from "./MyYearlyChecklist";
+import { userState } from "../../atoms";
+import { useRecoilValue } from "recoil";
 
 const MyPage = () => {
-  return <img className="w-screen" src="https://blog.kakaocdn.net/dn/lYHux/btrE4nVMvMo/Hn1wvs9Mgf7m7m2oo4boB0/img.png" alt="목업 데이터" />;
+  const Recoiluser = useRecoilValue(userState);
+  console.log("MyPage#Recoiluser", Recoiluser);
+  // const refresh = () => {
+  //   if (window.location.href.indexOf("#reload") == -1) window.location.href += "#reload";
+  // };
+
+  // useEffect(() => {
+  //   refresh();
+  // }, []);
+
+  return (
+    <>
+      <UserMyPage Recoiluser={Recoiluser} />
+      <MyYearlyChecklist />
+      <UserBookMarkList />
+      <UserRecommendPage Recoiluser={Recoiluser} />
+    </>
+  );
 };
 export default MyPage;

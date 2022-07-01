@@ -1,13 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
+import { post } from "../../../Api";
+import { AES } from "crypto-js";
+import Searchbar from "../../_shared/Searchbar";
 
 const Main = () => {
-  const navigate = useNavigate();
-  const tempNavigate = () => {
-    navigate("/result");
-  };
   return (
-    // img 추후에 asset에 저장할 것!
     <div
       className="hero min-h-screen"
       style={{ backgroundImage: "url(" + "https://r7q6w9z6.rocketcdn.me/career/wp-content/uploads/2021/05/image_processing20210222-9274-1wg7luu.gif?w=1000&h=800" + ")" }}
@@ -29,23 +26,19 @@ const Main = () => {
             <br />
             나에게 필요한 영양제를 추천해주는 서비스가 있다면?
             <br />
-            지금 바로 내 상태를 간단하게 입력하고
+            지금 바로 내 건강 상태를 간단하게 입력하고
             <br />
             AI의 분석을 통해 나에게 필요한 영양제를 맞춤 추천 받아보세요!
             <br />
           </p>
           <div className="flex-none gap-2">
-            <div className="form-control">
-              <div className="input-group">
-                {/* // * 메인 Search창 */}
-                <input type="text" placeholder="요즘 눈이 안 좋아요... 면역력이 떨어졌어요..." className="input input-bordered w-5/6 text-zinc-700 text-lg" />
-                <button className="btn btn-primary" onClick={tempNavigate}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
+            <Searchbar />
+            {/* <button onClick={() => subscribe()}>subscribe</button> */}
+            {/* 로고 이미지 만료 2023-02-28 */}
+            {/* <img src={QRcode} alt="QRcode" width="100" height="100" /> */}
+            {/* <button onClick={() => unsubscribe()}>unsubscribe</button> */}
+            {/* <p>{subToken}</p> */}
+            {/* <p>{unSubToken}</p> */}
           </div>
         </div>
       </div>

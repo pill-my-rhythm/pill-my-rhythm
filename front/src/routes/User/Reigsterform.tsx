@@ -1,7 +1,10 @@
+import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { post } from "../../Api";
+
+//! 이메일 중복확인 기능 넣어야 함
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -25,20 +28,24 @@ function RegisterForm() {
 
   //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
   const isEmailValid = validateEmail(email);
+
   // 비밀번호가 4글자 이상인지 여부를 확인함.
   const isPasswordValid = password.length >= 8;
+
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
   const isPasswordSame = password === confirmPassword;
+
   // 이름이 2글자 이상인지 여부를 확인함.
   const isNameValid = name.length >= 2;
 
   // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
+  // option용 Array
   const ages = ["10대", "20대", "30대", "40대", "50대", "60대 이상"];
   const jobs = ["교육", "제조", "디자인", "개발", "서비스", "기타"];
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     try {
@@ -52,10 +59,15 @@ function RegisterForm() {
         job: job,
       });
 
+      // alert 문구 추가
+      alert("회원가입을 환영합니다!");
       // 로그인 페이지로 이동함.
       navigate("/login");
-    } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err);
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
     }
   };
 
@@ -70,25 +82,50 @@ function RegisterForm() {
           <form className="m-2 items-center" onSubmit={handleSubmit}>
             <div>
               <label>
-                <input className="input w-full max-w-md m-2" type="text" value={name} placeholder="이름" onChange={(e) => setName(e.target.value)} />
+                {isNameValid ? (
+                  <input className="input w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
+                ) : (
+                  <input className="input input-error w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
+                )}
               </label>
             </div>
             <div>
               <label>
-                <input className="input w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                {isEmailValid ? (
+                  <input className="input w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                ) : (
+                  <input className="input input-error w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                )}
               </label>
             </div>
             <div>
               <label>
-                <input className="input w-full max-w-md m-2" type="password" value={password} placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} />
+                {isPasswordValid ? (
+                  <input className="input w-full max-w-md m-2" type="password" value={password} placeholder="비밀번호 (8글자 이상 12글자 이하)" onChange={(e) => setPassword(e.target.value)} />
+                ) : (
+                  <input
+                    className="input input-error w-full max-w-md m-2"
+                    type="password"
+                    value={password}
+                    placeholder="비밀번호 (8글자 이상 12글자 이하)"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                )}
               </label>
             </div>
             <div>
               <label>
-                <input className="input w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                {isPasswordSame ? (
+                  <input className="input w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                ) : (
+                  <>
+                    {" "}
+                    <input className="input input-error w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <br />
+                    <p className="m-2 text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>
+                  </>
+                )}
               </label>
-              <br />
-              {!isPasswordSame && <p className="m-2 text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>}
             </div>
             <div>
               <label>

@@ -1,19 +1,15 @@
+* {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
 #scroll,
 #list {
   cursor: default;
 }
 
-#list {
-  width: auto;
-  border-radius: 5px;
-  margin-bottom: 7px;
-}
-
-#scroll {
-  width: 380px;
-  background-color: #f0f0f0;
-  margin-left: auto;
-  height: 100vh;
+.dx-toolbar-after {
+  display: none;
 }
 
 .dx-scrollable-content {
@@ -26,9 +22,33 @@
 
 .dx-draggable-dragging > * {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  color: #5ae1dc;
+  border-radius: 0.5rem;
 }
 
 .dx-scheduler-navigator-caption {
   pointer-events: none;
+}
+
+.dx-scheduler-appointment {
+  box-sizing: content-box;
+  padding-right: 22px;
+}
+.dx-scheduler-timeline .dx-scheduler-appointment,
+.dx-scheduler-work-space-month .dx-scheduler-appointment,
+.dx-scheduler-all-day-appointment .dx-scheduler-appointment {
+  box-sizing: border-box;
+  padding-right: 0;
+}
+
+.dx-buttongroup-item.dx-button.dx-button-mode-contained:not(.dx-item-selected) {
+  background-color: white;
+}
+
+.dx-button-mode-contained {
+  border-color: white;
+}
+
+.dx-buttongroup-item.dx-button.dx-button-mode-contained.dx-button-normal.dx-state-hover {
+  background-color: white;
+  border: none;
 }
