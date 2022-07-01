@@ -46,7 +46,7 @@ const Checklist = () => {
   let today: string;
   const now = new Date();
   const month = `${now.getMonth() + 1}`.length === 1 ? "0" + `${now.getMonth() + 1}` : now.getMonth() + 1; //months from 1-12
-  const day = now.getDate();
+  const day = `${now.getDate()}`.length === 1 ? "0" + `${now.getDate()}` : now.getDate();
   const year = now.getFullYear();
   today = year + "-" + month + "-" + day;
 
