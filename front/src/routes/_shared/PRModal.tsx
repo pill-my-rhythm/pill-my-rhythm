@@ -1,5 +1,5 @@
 import React from "react";
-import { PillData } from "../PR/Result/PRList";
+import { PillData } from "../Search/Result/PRList";
 
 const PRModal = ({ pr }: PillData) => {
   return (
@@ -33,6 +33,9 @@ const PRModal = ({ pr }: PillData) => {
           <div className="flex justify-end pt-2">
             <button className="btn btn-primary" onClick={() => window.open(pr.link, "_blank")}>
               주문하러 가기
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 px-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
             </button>
           </div>
         </label>

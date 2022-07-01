@@ -26,6 +26,11 @@ const ChecklistService = {
     const weeklyChecklist = await Checklist.findByWeek(fk_user_id, { start, finish });
     return weeklyChecklist;
   },
+
+  getYearlyChecklist: async (fk_user_id: string, currentDate: Date) => {
+    const yearlyChecklist = await Checklist.findByYear(fk_user_id, currentDate);
+    return yearlyChecklist;
+  },
 };
 
 export { ChecklistService };

@@ -2,12 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../../Dispatcher";
 import { del } from "../../../Api";
+import { userState } from "../../../atoms";
+import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userState = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);
+
+  // const ResetUser = useResetRecoilState(userState);
+  // const RecoilUserState = useRecoilValue(userState);
+  console.log("헤더에 userState", userState);
+  // console.log("#RecoilUserState", RecoilUserState);
 
   const [mobile, setMobile] = useState<Boolean>(false);
 
@@ -27,7 +34,8 @@ const Header = () => {
   const logout: React.MouseEventHandler<HTMLButtonElement> = async () => {
     try {
       await del("user/logout");
-      // console.log("# Logout success", data);
+      console.log("#로그아웃전유저", userState);
+      // ResetUser();
 
       // * sessionStorage 에 저장했던 JWT 토큰을 삭제함.
       sessionStorage.removeItem("userToken");
@@ -47,6 +55,14 @@ const Header = () => {
   const MoveLogin = () => {
     alert("로그인 후 이용해주세요!");
     navigate("/login");
+  };
+
+  const ControlScheduler = () => {
+    if (isLogin) {
+      navigate("/schedule");
+    } else {
+      MoveLogin();
+    }
   };
 
   const ControlMyPage = () => {
@@ -90,10 +106,10 @@ const Header = () => {
                     <Link to="/pillmyrhythmpillmyrhythm">About Pmr</Link>
                   </li>
                   <li>
-                    <p onClick={MoveLogin}>Scheduler</p>
+                    <Link to="/">Search</Link>
                   </li>
                   <li>
-                    <Link to="/schedule">Scheduler</Link>
+                    <button onClick={ControlScheduler}>Scheduler</button>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -108,7 +124,7 @@ const Header = () => {
                     <Link to="/">Search</Link>
                   </li>
                   <li>
-                    <Link to="/schedule">Scheduler</Link>
+                    <button onClick={ControlScheduler}>Scheduler</button>
                   </li>
                   <li>
                     <button onClick={ControlMyPage}>My Page</button>
@@ -135,7 +151,7 @@ const Header = () => {
             <Link to="/">Search</Link>
           </li>
           <li>
-            <Link to="/schedule">Scheduler</Link>
+            <button onClick={ControlScheduler}>Scheduler</button>
           </li>
           {!isLogin ? (
             <li tabIndex={0}>

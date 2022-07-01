@@ -8,7 +8,7 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { tasksAtom } from "../../../atoms";
+import { checkListAtom } from "../../../atoms";
 import axios, { AxiosError } from "axios";
 import { AES, enc } from "crypto-js";
 
@@ -31,7 +31,7 @@ const Checklist = () => {
   const decryptedToken = AES.decrypt(encryptedToken, secretKey);
   const jwtToken = decryptedToken.toString(enc.Utf8);
 
-  const tasks = useRecoilValue(tasksAtom);
+  const tasks = useRecoilValue(checkListAtom);
   const [checkedItems, setCheckedItems]: any = useState([]);
 
   const checkedItemHandler = (checked: boolean, id: string) => {

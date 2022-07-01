@@ -13,7 +13,6 @@ function Subscribe() {
   const encryptedToken = AES.encrypt(jwtToken, secretKey).toString();
   const encodedPageLink = encodeURIComponent(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?token=${encryptedToken}`);
   const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
-  console.log(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?token=${encryptedToken}`);
 
   const subscribe = async () => {
     console.log("subscribe function");
