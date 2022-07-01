@@ -21,10 +21,8 @@ interface expirationData {
 
 const emailUtil = {
   expirationEmail: async (data: expirationData) => {
-    const pageLink = `${process.env.APP_MODE}:${process.env.FRONT_PORT}/m/subscribe?token=${data.encryptedToken}`;
-    const encodedPageLink = encodeURIComponent(
-      `${process.env.APP_MODE}:${process.env.FRONT_PORT}/m/subscribe?token=${data.encryptedToken}`,
-    );
+    const pageLink = `${process.env.APP_MODE}/m/subscribe?token=${data.encryptedToken}`;
+    const encodedPageLink = encodeURIComponent(`${process.env.APP_MODE}/m/subscribe?token=${data.encryptedToken}`);
     const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
 
     await transporter
