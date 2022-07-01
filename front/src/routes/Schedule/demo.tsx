@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Tooltip from "@uiw/react-tooltip";
 import HeatMap from "@uiw/react-heat-map";
 import { get } from "../../Api";
@@ -16,10 +16,24 @@ const value = [
 ];
 
 const Demo = () => {
+  const [data, setData] = useState();
   const LoadYearlyData = async () => {
     try {
+      const colorMap: any = { green: 1, yellow: 2, red: 3 };
       const res = await get("checklist/yearly");
-      console.log("#res", res);
+      interface checklist {
+        level: string;
+        date: string;
+        count?: number;
+      }
+      const yearlyData = await res.data.map((element: checklist) => {
+        const level = element.level;
+        element.count = colorMap[level];
+        return element;
+      });
+      // const yearlyData = res.data;
+      console.log("#res", yearlyData);
+      setData(yearlyData);
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +45,7 @@ const Demo = () => {
 
   return (
     <HeatMap
-      value={value}
+      value={data}
       width={1000}
       height={200}
       space={3}
@@ -49,6 +63,14 @@ const Demo = () => {
             <rect {...props} />
           </Tooltip>
         );
+      }}
+      panelColors={{
+        0: "#EBEDF0",
+        2: "#8fe4a6",
+        3: "#fef08a",
+        4: "#fca5a5",
+        // 20: "#ad001d",
+        // 30: "#000",
       }}
     />
   );
