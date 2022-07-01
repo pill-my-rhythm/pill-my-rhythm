@@ -1,14 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "./routes/PR/Main";
+import Main from "./routes/Search/Main";
 import Header from "./routes/_shared/Header";
 import Calendar from "./routes/Schedule/Calendar";
 import Register from "./routes/User/Reigsterform";
 import Login from "./routes/User/Login";
 import Dispatcher from "./Dispatcher";
-import Result from "./routes/PR/Result";
+import Result from "./routes/Search/Result";
 import Mypage from "./routes/User/MyPage";
 import Subscribe from "./routes/Schedule/Mobile/Subscribe";
 import PushCheckList from "./routes/Schedule/Mobile/PushCheckList";
+import Pmrguide from "./routes/Pmr";
+import Footer from "./routes/_shared/Footer";
 import Demo from "./routes/Schedule/demo";
 
 function Router() {
@@ -18,6 +20,8 @@ function Router() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/pillmyrhythm" element={<Pmrguide />} />
+          <Route path="/mypage" element={<Mypage />} />
           <Route path="/schedule" element={<Calendar />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
@@ -28,6 +32,7 @@ function Router() {
           {/* 여기에 추가 */}
           <Route path="/yearly/checklist" element={<Demo />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </Dispatcher>
   );
