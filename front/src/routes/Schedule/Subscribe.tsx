@@ -11,14 +11,18 @@ function Subscribe() {
   const secretKey: any = process.env.REACT_APP_SECRET_KEY;
   const jwtToken = String(userState.user.accessToken);
   const encryptedToken = AES.encrypt(jwtToken, secretKey).toString();
-  const encodedPageLink = encodeURIComponent(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?token=${encryptedToken}`);
+  const encodedPageLink = encodeURIComponent(
+    `${process.env.REACT_APP_MODE}/m/subscribe?token=${encryptedToken}`
+  );
   const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
 
   const subscribe = async () => {
     console.log("subscribe function");
     const sw = await navigator.serviceWorker.ready;
     if (Notification.permission === "denied") {
-      alert("알림 권한을 거부하셨습니다.\n구독을 원하신다면\n[브라우저 설정 - 개인정보 및 보안 - 사이트 설정]에서\nPill my rhythm 사이트의 알림 권한 차단을 재설정해주세요.");
+      alert(
+        "알림 권한을 거부하셨습니다.\n구독을 원하신다면\n[브라우저 설정 - 개인정보 및 보안 - 사이트 설정]에서\nPill my rhythm 사이트의 알림 권한 차단을 재설정해주세요."
+      );
     }
     // 사용자 기기 정보로 구독 요청
     const subscription = await sw.pushManager.subscribe({
@@ -54,7 +58,9 @@ function Subscribe() {
       <div className="text-center space-y-2 sm:text-left">
         <div className="space-y-0.5">
           <p className="text-md text-black font-semibold mb-1">구독 서비스</p>
-          <p className="text-slate-500 font-medium text-sm">영양제 일정 알림을 받아보세요!</p>
+          <p className="text-slate-500 font-medium text-sm">
+            영양제 일정 알림을 받아보세요!
+          </p>
         </div>
 
         {!subToken ? (
@@ -92,7 +98,13 @@ function Subscribe() {
           <label className="modal-box relative" htmlFor="">
             <div className="card">
               <figure>
-                <img src={QRcode} alt="QRcode" width="170" height="170" className="rounded-xl" />
+                <img
+                  src={QRcode}
+                  alt="QRcode"
+                  width="170"
+                  height="170"
+                  className="rounded-xl"
+                />
                 <div className="flex-col px-5">
                   <h2 className="card-title mb-1">모바일 알림 서비스</h2>
                   <p>모바일에서 QR 찍고, 영양제 알림을 받아보세요!</p>
