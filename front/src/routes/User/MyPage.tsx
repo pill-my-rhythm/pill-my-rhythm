@@ -9,13 +9,6 @@ import { useRecoilValue } from "recoil";
 const MyPage = () => {
   const Recoiluser = useRecoilValue(userState);
   console.log("MyPage#Recoiluser", Recoiluser);
-  // const refresh = () => {
-  //   if (window.location.href.indexOf("#reload") == -1) window.location.href += "#reload";
-  // };
-
-  // useEffect(() => {
-  //   refresh();
-  // }, []);
 
   return (
     <>
@@ -41,5 +34,3 @@ const MyPage = () => {
   );
 };
 export default MyPage;
-
-// https://blog.kakaocdn.net/dn/RL8Kv/btrBr5TDbYj/dklV6QQr0hgYlTWfr1AVbk/img.png
