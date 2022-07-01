@@ -94,29 +94,35 @@ export const appointmentsAtom = atom<Appointments[]>({
 //   effects_UNSTABLE: [persistAtom],
 // });
 
-export const CurrentuserState = atom({
-  key: "user",
-  default: selector({
-    key: "user/get",
-    get: async () => {
-      const token = sessionStorage.getItem("userToken");
-      if (!token) return null;
+// export const CurrentuserState = atom({
+//   key: "user",
+//   default: selector({
+//     key: "user/get",
+//     get: async () => {
+//       const token = sessionStorage.getItem("userToken");
+//       if (!token) return null;
 
-      try {
-        const res = await get("user/current");
-        const currentUser = res.data;
-        return currentUser;
-      } catch (error: any) {
-        sessionStorage.removeItem("userToken");
-        console.error(`in User Recoil: ${error.message}`);
-        return null;
-      }
-    },
-  }),
-  effects_UNSTABLE: [persistAtom],
-});
+//       try {
+//         const res = await get("user/current");
+//         const currentUser = res.data;
+//         return currentUser;
+//       } catch (error: any) {
+//         sessionStorage.removeItem("userToken");
+//         console.error(`in User Recoil: ${error.message}`);
+//         return null;
+//       }
+//     },
+//   }),
+//   effects_UNSTABLE: [persistAtom],
+// });
 
 export const levelsAtom = atom<Levels[]>({
   key: "level",
   default: [],
+});
+
+export const userState = atom({
+  key: "Recoiluser",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
 });
