@@ -33,9 +33,9 @@ const Demo = () => {
   return (
     <HeatMap
       value={data}
-      width={1000}
+      width={1050}
       height={200}
-      space={3}
+      space={5}
       startDate={new Date(`${year}/01/01`)}
       endDate={new Date(`${year}/12/31`)}
       legendCellSize={0}
@@ -53,11 +53,9 @@ const Demo = () => {
       }}
       panelColors={{
         0: "#EBEDF0",
-        2: "#8fe4a6",
+        2: "#9ceab2",
         3: "#fef08a",
         4: "#fca5a5",
-        // 20: "#ad001d",
-        // 30: "#000",
       }}
     />
   );
