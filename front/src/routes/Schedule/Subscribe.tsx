@@ -34,7 +34,14 @@ function Subscribe() {
     setSubToken(JSON.stringify(subscription));
 
     // 사용자 기기 정보 DB에 추가
-    await post("subscribe/create", { device_token: subscription });
+    try {
+      await post("subscribe/create", { device_token: subscription });
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
   };
 
   const unsubscribe = async () => {

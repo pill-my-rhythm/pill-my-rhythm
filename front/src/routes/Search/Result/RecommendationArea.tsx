@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PRList from "./PRList";
 import { Props } from "./Result";
 import { userState } from "../../../atoms";
@@ -19,7 +19,7 @@ export interface Userdata {
 
 const RecommendationArea = ({ isLogin }: Props) => {
   const Currentuser: any = useRecoilValue(userState);
-  console.log("#결과페이지유저", Currentuser);
+  // console.log("#결과페이지유저", Currentuser);
   const user = Currentuser;
 
   // useEffect(() => {

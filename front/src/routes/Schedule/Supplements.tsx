@@ -13,7 +13,7 @@ const Card = styled.div`
   cursor: pointer;
 `;
 
-interface infoProps {
+export interface infoProps {
   info: supInfo;
   task: { text: string; type: string };
 }
