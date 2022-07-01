@@ -1,9 +1,9 @@
-version: "3.8"
+version: '3.8'
 services:
   frontend_server:
     # image: tbr06057/react-pill-my-rhythm-app:test2
     image: s0n9h2/react-pill-my-rhythm-app:test2
-    restart: "on-failure"
+    restart: 'on-failure'
     volumes:
       - ./certbot/www:/etc/letsencrypt
       - ./front/nginx.conf:/etc/nginx/conf.d/nginx.conf
@@ -15,17 +15,17 @@ services:
 
   backend_server:
     image: tbr06057/node-pill-my-rhythm-app:test3
-    restart: "on-failure"
+    restart: 'on-failure'
     ports:
       - 5000:5000
 
   redis_server:
-    restart: "on-failure"
+    restart: 'on-failure'
     image: redis:alpine
-    container_name: "redis-app"
+    container_name: 'redis-app'
 
   ai_server:
-    image: tbr06057/python-pill-my-rhythm-app:test3
-    restart: "on-failure"
+    image: tbr06057/python-pill-my-rhythm-app:1.0.0
+    restart: 'on-failure'
     ports:
       - 5002:5002
