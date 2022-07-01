@@ -5,6 +5,17 @@ import { get, post } from "../../Api";
 import { checkListAtom, end, levelsAtom, start } from "../../atoms";
 import { Levels } from "./Calendar";
 
+interface CheckListProp {
+  data: {
+    date: Date;
+    text: string;
+  };
+}
+
+interface ColorProp {
+  color?: string;
+}
+
 const DateLabel = styled.label<ColorProp>`
   color: #000;
   background-color: ${(props) => {
@@ -13,7 +24,7 @@ const DateLabel = styled.label<ColorProp>`
     } else if (props.color === "yellow") {
       return "#fef08a";
     } else if (props.color === "green") {
-      return "#5eead4";
+      return "#70df95";
     } else {
       return;
     }
@@ -41,17 +52,6 @@ const CheckListBtn = styled.button`
   margin: 0 auto;
   width: 30%;
 `;
-
-interface CheckListProp {
-  data: {
-    date: Date;
-    text: string;
-  };
-}
-
-interface ColorProp {
-  color?: string;
-}
 
 const CheckList = ({ data }: CheckListProp) => {
   const [level, setLevel] = useRecoilState<Array<Levels>>(levelsAtom);
@@ -108,7 +108,7 @@ const CheckList = ({ data }: CheckListProp) => {
       </DateLabel>
       <input type="checkbox" id={`modal-${data.text}`} className="modal-toggle" />
       <label htmlFor={`modal-${data.text}`} className="modal cursor-pointer">
-        <label className="modal-box max-w-xs" htmlFor="">
+        <label className="modal-box max-w-xs" htmlFor={`modal-${data.text}`}>
           <CheckListTitle>{data.text}</CheckListTitle>
           {checkList.map((task, index) => (
             <TodoWrapper key={index}>
