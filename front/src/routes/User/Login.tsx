@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   const [user, setser] = useRecoilState(userState);
   const CurrentValue = useRecoilValue(userState);
-  console.log("#CurrentRecoilValue", CurrentValue);
+  // console.log("#CurrentRecoilValue", CurrentValue);
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
