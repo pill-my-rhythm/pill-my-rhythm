@@ -28,6 +28,16 @@ const DailySupplement = {
     const dailySupplement = dailySchedule.map((element) => element.get({ plain: true }));
     return dailySupplement;
   },
+  findDailySchedule: async (data: IDailySupplementCreateInput) => {
+    const addedSupplement = await DailySupplements.findOne({
+      where: { type: data.type },
+      include: [
+        { model: Users, attributes: [], where: { pk_user_id: data.fk_user_id } },
+        { model: Supplements, attributes: ["name"], where: { pk_supplement_id: data.fk_supplement_id } },
+      ],
+    });
+    return addedSupplement;
+  },
   createDailySchedule: async (data: IDailySupplementCreateInput) => {
     const dailySchedule = await DailySupplements.create(data);
     return dailySchedule;
