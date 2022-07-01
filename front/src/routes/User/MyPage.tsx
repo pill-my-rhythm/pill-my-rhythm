@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 
 const MyPage = () => {
   const Recoiluser = useRecoilValue(userState);
-  console.log("MyPage#Recoiluser", Recoiluser);
+  // console.log("MyPage#Recoiluser", Recoiluser);
 
   return (
     <>

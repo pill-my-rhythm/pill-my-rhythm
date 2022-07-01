@@ -28,7 +28,7 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
 
       if (!dispatch) return;
 
-      console.log("# currentUser", currentUser);
+      // ? console.log("# currentUser", currentUser);
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
 
       dispatch({
