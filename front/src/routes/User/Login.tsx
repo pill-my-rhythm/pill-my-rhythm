@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   const [user, setser] = useRecoilState(userState);
   const CurrentValue = useRecoilValue(userState);
-  console.log("#CurrentValue", CurrentValue);
+  console.log("#CurrentRecoilValue", CurrentValue);
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
@@ -51,9 +51,9 @@ const LoginForm = () => {
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
       sessionStorage.setItem("userToken", jwtToken);
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-      console.log("#user", user);
-
-      setser(user);
+      // console.log("#user", user);
+      setser(user.userInfo);
+      // console.log("로그인 유저 상태", user);
 
       if (!dispatch) return;
 
