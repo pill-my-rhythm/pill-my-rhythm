@@ -26,9 +26,7 @@ function TaskItem({ task }: taskProps) {
   return (
     <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
       <Card>
-        <span className="block border-l pl-4 -ml-px border-transparent hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
-          {task.text}
-        </span>
+        <span className="text-[14px] pl-2 -ml-px text-black">{task.text}</span>
       </Card>
     </Draggable>
   );

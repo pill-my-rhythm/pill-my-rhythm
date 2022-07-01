@@ -51,21 +51,21 @@ function Subscribe() {
     setUnSubToken(JSON.stringify(subscription));
   };
   return (
-    // <div className="flex-none gap-2">
-    //   <button onClick={() => subscribe()}>subscribe</button> <br />
-    //   {/* 로고 이미지 만료 2023-02-28 */}
-    //   <button onClick={() => unsubscribe()}>unsubscribe</button>
-    //   <img src={QRcode} alt="QRcode" width="100" height="100" />
-    //   <p>{subToken}</p>
-    //   <p>{unSubToken}</p>
-    // </div>
-    <div className="mt-10 py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+    <div className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
       <div className="text-center space-y-2 sm:text-left">
         <div className="space-y-0.5">
           <p className="text-md text-black font-semibold mb-1">구독 서비스</p>
           <p className="text-slate-500 font-medium text-sm">영양제 일정 알림을 받아보세요!</p>
         </div>
+
         {!subToken ? (
+          <button
+            onClick={() => subscribe()}
+            className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+          >
+            Subscribe
+          </button>
+        ) : unSubToken ? (
           <button
             onClick={() => subscribe()}
             className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
@@ -80,6 +80,28 @@ function Subscribe() {
             unsubscribe
           </button>
         )}
+
+        <label
+          htmlFor="QRcode"
+          className="modal-button cursor-pointer px-4 py-1 ml-2 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+        >
+          QR
+        </label>
+
+        <input type="checkbox" id="QRcode" className="modal-toggle" />
+        <label htmlFor="QRcode" className="modal cursor-pointer">
+          <label className="modal-box relative" htmlFor="">
+            <div className="card">
+              <figure>
+                <img src={QRcode} alt="QRcode" width="170" height="170" className="rounded-xl" />
+                <div className="flex-col px-5">
+                  <h2 className="card-title mb-1">모바일 알림 서비스</h2>
+                  <p>모바일에서 QR 찍고, 영양제 알림을 받아보세요!</p>
+                </div>
+              </figure>
+            </div>
+          </label>
+        </label>
       </div>
     </div>
   );
