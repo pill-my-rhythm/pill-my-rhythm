@@ -30,7 +30,7 @@ const ChecklistController = {
   getYearly: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
-      const currentDate: string = req.query.currentDate as string;
+      const currentDate: Date = new Date();
       const yearlyChecklist = await ChecklistService.getYearlyChecklist(fk_user_id, currentDate);
 
       res.status(200).json(yearlyChecklist);

@@ -27,7 +27,7 @@ const ChecklistService = {
     return weeklyChecklist;
   },
 
-  getYearlyChecklist: async (fk_user_id: string, currentDate: string) => {
+  getYearlyChecklist: async (fk_user_id: string, currentDate: Date) => {
     const yearlyChecklist = await Checklist.findByYear(fk_user_id, currentDate);
     return yearlyChecklist;
   },
