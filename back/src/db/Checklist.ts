@@ -29,6 +29,8 @@ const Checklist = {
   },
 
   findByYear: async (fk_user_id: string, currentDate: string) => {
+    console.log(moment(currentDate).startOf("year").format());
+    console.log(moment(currentDate).endOf("year").format());
     const checklists = await Checklists.findAll({
       attributes: ["date", "level"],
       where: {
