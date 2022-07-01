@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { get } from "../../Api";
 import AnalysisCard from "../_shared/AnalysisCard";
 // import { CurrentuserState } from "../../atoms";
-import { useRecoilValue } from "recoil";
 
 export interface AnalysisData {
   pk_analysis_id: number;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PRList from "./PRList";
 import { Props } from "./Result";
 import { userState } from "../../../atoms";

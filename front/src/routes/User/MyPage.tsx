@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import UserBookMarkList from "./UserBookMarkPage";
 import UserMyPage from "./UserMyPage";
 import UserRecommendPage from "./UserRecommendPage";

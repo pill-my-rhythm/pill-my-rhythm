@@ -3,7 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../../Dispatcher";
 import { del } from "../../../Api";
 import { userState as RecoilUserState } from "../../../atoms";
-import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
+import { useResetRecoilState } from "recoil";
 
 const Header = () => {
   const navigate = useNavigate();
