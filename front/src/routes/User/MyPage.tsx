@@ -18,10 +18,10 @@ const MyPage = () => {
 
   return (
     <>
-      <UserMyPage Recoiluser={Recoiluser} />
+      {/* <UserMyPage Recoiluser={Recoiluser} /> */}
       <MyYearlyChecklist />
       <UserBookMarkList />
-      <UserRecommendPage Recoiluser={Recoiluser} />
+      {/* <UserRecommendPage Recoiluser={Recoiluser} /> */}
     </>
   );
 };
