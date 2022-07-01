@@ -85,13 +85,7 @@ function RegisterForm() {
                 {isNameValid ? (
                   <input className="input w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
                 ) : (
-                  <input
-                    className="input input-bordered input-error w-full max-w-md m-2"
-                    type="text"
-                    value={name}
-                    placeholder="이름 (2글자 이상 8글자 미만)"
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                  <input className="input input-error w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
                 )}
               </label>
             </div>
@@ -100,7 +94,7 @@ function RegisterForm() {
                 {isEmailValid ? (
                   <input className="input w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
                 ) : (
-                  <input className="input input-bordered input-error w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                  <input className="input input-error w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
                 )}
               </label>
             </div>
@@ -110,7 +104,7 @@ function RegisterForm() {
                   <input className="input w-full max-w-md m-2" type="password" value={password} placeholder="비밀번호 (8글자 이상 12글자 이하)" onChange={(e) => setPassword(e.target.value)} />
                 ) : (
                   <input
-                    className="input input-bordered input-error w-full max-w-md m-2"
+                    className="input input-error w-full max-w-md m-2"
                     type="password"
                     value={password}
                     placeholder="비밀번호 (8글자 이상 12글자 이하)"
@@ -126,13 +120,7 @@ function RegisterForm() {
                 ) : (
                   <>
                     {" "}
-                    <input
-                      className="input input-bordered input-error w-full max-w-md m-2"
-                      type="password"
-                      value={confirmPassword}
-                      placeholder="비밀번호확인"
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
+                    <input className="input input-error w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
                     <br />
                     <p className="m-2 text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>
                   </>
