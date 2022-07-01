@@ -4,6 +4,7 @@ import HeatMap from "@uiw/react-heat-map";
 import { get } from "../../Api";
 
 const Demo = () => {
+  const year = new Date().getFullYear();
   const [data, setData] = useState();
   const LoadYearlyData = async () => {
     try {
@@ -19,8 +20,6 @@ const Demo = () => {
         element.count = colorMap[level];
         return element;
       });
-      // const yearlyData = res.data;
-      console.log("#res", yearlyData);
       setData(yearlyData);
     } catch (error) {
       console.log(error);
@@ -37,8 +36,8 @@ const Demo = () => {
       width={1000}
       height={200}
       space={3}
-      startDate={new Date("2022/01/01")}
-      endDate={new Date("2022/12/31")}
+      startDate={new Date(`${year}/01/01`)}
+      endDate={new Date(`${year}/12/31`)}
       legendCellSize={0}
       rectSize={14}
       rectProps={{
