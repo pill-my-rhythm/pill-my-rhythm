@@ -10,10 +10,14 @@ const Blankresult = () => {
         <p className="p-2 text-width-700">Pill my rhythm의 AI가 문장 분석을 실패했습니다.</p>
         <p className="leading-7 p-2 mb-4">
           <br />
-          혹시 '건강 상태'가 아닌 '증상'을 입력하신 건 아닌가요?
+          ❔ 혹시 '건강 상태'가 아닌 '증상'을 입력하신 건 아닌가요 ❔
           <br />
           콧물이 나요⭕ 비염이 심해요❌
+          <br /> <br />
+          ❕ AI가 정확한 문장을 분석할 수 있도록 맞춤법을 지켜주세요 ❕
           <br />
+          콧물이 나요⭕ 콧물이나요❌
+          <br /> <br /> <br />
           그럼, 다시 한번 시도해보시겠어요?
         </p>
         <div className="m-4">
