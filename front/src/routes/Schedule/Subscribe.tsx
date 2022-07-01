@@ -65,18 +65,21 @@ function Subscribe() {
           <p className="text-md text-black font-semibold mb-1">구독 서비스</p>
           <p className="text-slate-500 font-medium text-sm">영양제 일정 알림을 받아보세요!</p>
         </div>
-        <button
-          onClick={() => subscribe()}
-          className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
-        >
-          Subscribe
-        </button>
-        <button
-          onClick={() => unsubscribe()}
-          className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
-        >
-          unsubscribe
-        </button>
+        {!subToken ? (
+          <button
+            onClick={() => subscribe()}
+            className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+          >
+            Subscribe
+          </button>
+        ) : (
+          <button
+            onClick={() => unsubscribe()}
+            className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+          >
+            unsubscribe
+          </button>
+        )}
       </div>
     </div>
   );
