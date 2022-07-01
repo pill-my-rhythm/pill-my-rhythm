@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../../../Dispatcher";
 import { del } from "../../../Api";
-import { userState } from "../../../atoms";
-import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
+import { userState as RecoilUserState } from "../../../atoms";
+import { useResetRecoilState } from "recoil";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,9 +11,9 @@ const Header = () => {
   const userState = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);
 
-  // const ResetUser = useResetRecoilState(userState);
-  // const RecoilUserState = useRecoilValue(userState);
-  console.log("헤더에 userState", userState);
+  const ResetUser = useResetRecoilState(RecoilUserState);
+
+  // console.log("헤더에 userState", userState);
   // console.log("#RecoilUserState", RecoilUserState);
 
   const [mobile, setMobile] = useState<Boolean>(false);
@@ -34,8 +34,9 @@ const Header = () => {
   const logout: React.MouseEventHandler<HTMLButtonElement> = async () => {
     try {
       await del("user/logout");
-      console.log("#로그아웃전유저", userState);
-      // ResetUser();
+
+      // * Recoil 저장해둔 유저 상태값 초기화
+      ResetUser();
 
       // * sessionStorage 에 저장했던 JWT 토큰을 삭제함.
       sessionStorage.removeItem("userToken");

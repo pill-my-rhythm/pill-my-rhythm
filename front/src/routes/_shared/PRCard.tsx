@@ -42,10 +42,10 @@ const PRCard = ({ pr }: PillData) => {
       };
       if (!bookMark) {
         const res = await post(`bookmark/create/${supplement_id}`, data);
-        console.log("#BookMark", res);
+        // console.log("#BookMark", res);
       } else {
         const res = await del("bookmark", `${pr.pk_supplement_id}`);
-        console.log("#BookMarkDelete", res);
+        // console.log("#BookMarkDelete", res);
       }
       loadBookMarkList();
     } catch (error: any) {

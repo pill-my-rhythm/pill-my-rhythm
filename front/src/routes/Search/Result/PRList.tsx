@@ -26,12 +26,12 @@ const PRList = () => {
   const [pillResult, setPillResult] = useState<Array<PillData["pr"]>>(pillResultList);
   const [resultData, setResultData] = useState<Boolean>(true);
 
-  console.log("#pillResultList", pillResultList);
-  console.log("#pillResult", pillResult);
+  // console.log("#pillResultList", pillResultList);
+  // console.log("#pillResult", pillResult);
 
   const CheckResult = () => {
     if (pillResult.length === 0) {
-      console.log("빈배열");
+      // console.log("빈배열");
       setResultData(false);
     } else setResultData(true);
   };

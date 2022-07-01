@@ -1,33 +1,25 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserStateContext, DispatchContext } from "../../Dispatcher";
+import { DispatchContext } from "../../Dispatcher";
 import { get, put, del } from "../../Api";
 import { Userdata } from "../Search/Result/RecommendationArea";
 import { userState } from "../../atoms";
-import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 const UserMyPage = ({ Recoiluser }: any) => {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
-  // const userState = useContext(UserStateContext);
-  // const userInfo = userState.user?.userInfo;
-  // console.log("@userState.user?.userInfo", userInfo);
 
-  // recoil로 상태 값 가져오는 부분 추가
-  // const Recoiluser = useRecoilValue(userState);
-  // console.log("Recoiluser", Recoiluser);
+  const setUserState = useSetRecoilState<Userdata>(userState);
+
   const userInfo = Recoiluser;
-
-  const [currentUser, setCurrentUser] = useState<Userdata>(userInfo);
-  // console.log("@currentUser", currentUser);
-
-  const userName = currentUser.user_name;
-  const useremail = currentUser.email;
+  const userName = userInfo.user_name;
+  const useremail = userInfo.email;
   const [myPage, setMyPage] = useState({
     password: "",
-    gender: currentUser.gender,
-    age_range: currentUser.age_range,
-    job: currentUser.job,
+    gender: userInfo.gender,
+    age_range: userInfo.age_range,
+    job: userInfo.job,
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,7 +29,7 @@ const UserMyPage = ({ Recoiluser }: any) => {
   const loadUserMypage = async () => {
     const res = await get("user/current");
     // console.log("@res.data의 currentuser", res.data);
-    setCurrentUser(res.data);
+    setUserState(res.data);
   };
 
   const handleMyPageEdit = (name: string, value: string) => {
@@ -116,12 +108,12 @@ const UserMyPage = ({ Recoiluser }: any) => {
             </figure>
             <div className="card-body leading-normal justify-center">
               <div className="my-4 leading-loose">
-                <h2 className="card-title">👑 {currentUser.user_name}님, 안녕하세요!</h2>
+                <h2 className="card-title">👑 {userInfo.user_name}님, 안녕하세요!</h2>
                 <hr className="my-1 border border-teal-100" />
-                <p>💊 이메일 : {currentUser.email}</p>
-                <p>💊 성별 : {translateGender(currentUser.gender)}</p>
-                <p>💊 연령대 : {currentUser.age_range}</p>
-                <p>💊 직업군 : {currentUser.job}</p>
+                <p>💊 이메일 : {userInfo.email}</p>
+                <p>💊 성별 : {translateGender(userInfo.gender)}</p>
+                <p>💊 연령대 : {userInfo.age_range}</p>
+                <p>💊 직업군 : {userInfo.job}</p>
               </div>
               <div className="card-actions justify-end">
                 <button
