@@ -11,7 +11,7 @@ import Subscribe from "./routes/Schedule/Mobile/Subscribe";
 import PushCheckList from "./routes/Schedule/Mobile/PushCheckList";
 import Pmrguide from "./routes/Pmr";
 import Footer from "./routes/_shared/Footer";
-import Demo from "./routes/Schedule/demo";
+import Demo from "./routes/Schedule/YearlyChecklist";
 
 function Router() {
   return (
