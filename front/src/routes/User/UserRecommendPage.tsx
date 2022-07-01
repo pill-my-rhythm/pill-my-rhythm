@@ -17,7 +17,7 @@ export interface AnalysisData {
 const UserRecommendPage = ({ Recoiluser }: any) => {
   const [pillResult, setPillResult] = useState<Array<AnalysisData>>([]);
   const user = Recoiluser;
-  console.log("UserReccomedPage#user", user);
+  // console.log("UserReccomedPage#user", user);
 
   const loadAnalysisData = async () => {
     try {
