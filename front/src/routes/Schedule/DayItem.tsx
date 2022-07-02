@@ -75,7 +75,7 @@ function DayItem({ task }: taskProps) {
         <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs" onClick={handleClick}>
           <Card className="bg-white rounded-xl">
             <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-black flex justify-between">
-              <div> {task.text}</div>
+              <div>{task.text}</div>
               <div>
                 <img width="20" height="20" src="https://i.ibb.co/jZp3SQ3/tab.png" alt="약 이미지" />
               </div>
@@ -89,7 +89,7 @@ function DayItem({ task }: taskProps) {
           <h3 className="text-lg text-black font-semibold mb-1">{task.text}</h3>
 
           {supplementInfo.map((info: supInfo) => (
-            <Supplements info={info} task={task} key={info.pk_plan_id} />
+            <Supplements info={info} task={task} key={info.Supplement.caution} />
           ))}
         </label>
       </label>
