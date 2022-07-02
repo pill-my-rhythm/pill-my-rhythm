@@ -14,6 +14,7 @@ import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
 import SupItem from "./SupItem";
 import Subscribe from "./Subscribe";
+import useResize from "../../hooks/useResize";
 
 export interface Appointments {
   endDate: Date;
@@ -47,6 +48,7 @@ function Calendar() {
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
   const [supplements, setSupplements] = useRecoilState<Array<Supplements>>(supplementAtom);
   const setLevel = useSetRecoilState<Array<Levels>>(levelsAtom);
+  const widthSize = useResize(768);
 
   const onCurrentDateChange = (e: any) => {
     let start = moment(e)
@@ -176,13 +178,13 @@ function Calendar() {
           <ScrollView id="scroll">
             <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
               <ul>
-                <div className="py-5 px-5 max-w-sm mx-auto bg-white rounded-xl shadow-lg">
+                <div className="py-5 px-5 max-w-sm mx-auto bg-white rounded-xl">
                   {dayHour.map((task) => (
                     <DayItem task={task} key={task.text} />
                   ))}
                 </div>
 
-                <div className="mt-7 bg-white rounded-xl shadow-lg py-5 px-5">
+                <div className="mt-7 bg-white rounded-xl py-5 px-5">
                   {tasks.map((task) => (
                     <TaskItem task={task} key={task.text} />
                   ))}
@@ -200,7 +202,13 @@ function Calendar() {
         <header id="header" className="mb-10 md:flex md:items-start">
           <div className="flex-auto max-w-4xl">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
-            <p className="mt-4 text-base text-slate-700 dark:text-slate-400">PMR 스케쥴러로 영양제 일정관리를 간편하게 시작해보세요.</p>
+            <p className="mt-4 text-base text-slate-700 dark:text-slate-400">
+              왼쪽의 영양제 & 생체리듬 활동들을 드래그앤드롭으로 스케쥴러에 추가해보세요. <br />
+              아침 / 점심 / 저녁 영양제 클릭시 북마크 한 영양제를 추가할 수 있고 푸시 알림을 통해
+              <br /> 설정한 시간에 복용해야 할 영양제 정보를 받아보실 수 있습니다.
+              <br />
+              스케쥴러의 날짜 영역을 클릭하면 해당하는 날짜의 체크리스트를 작성하실 수 있습니다.
+            </p>
           </div>
         </header>
         <section className="mb-16 relative">
@@ -211,6 +219,7 @@ function Calendar() {
             views={views}
             defaultCurrentDate={currentDate}
             defaultCurrentView="week"
+            currentView={widthSize.isSizeSmall ? "day" : "week"}
             height={600}
             startDayHour={6}
             onAppointmentFormOpening={onAppointmentFormOpening}
