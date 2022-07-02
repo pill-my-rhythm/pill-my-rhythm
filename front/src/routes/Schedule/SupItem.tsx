@@ -17,9 +17,9 @@ function SupItem({ info }: supProps) {
     });
   };
   return (
-    <p onClick={handleDelete} className="cursor-pointer">
+    <li onClick={handleDelete} className="cursor-pointer text-sm">
       {info.Supplement.name}
-    </p>
+    </li>
   );
 }
 

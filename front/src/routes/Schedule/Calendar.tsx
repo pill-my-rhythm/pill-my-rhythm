@@ -5,14 +5,12 @@ import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
 import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
-import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 import DayItem from "./DayItem";
 import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
-import SupItem from "./SupItem";
 import Subscribe from "./Subscribe";
 import useResize from "../../hooks/useResize";
 
@@ -95,18 +93,6 @@ function Calendar() {
         }
       }
     }
-    //   try {
-    //     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-    //       setAppointments(
-    //         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-    //           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-    //         }),
-    //       );
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
 
     if (dayIndex >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
@@ -124,18 +110,6 @@ function Calendar() {
       }
     }
 
-    //   try {
-    //     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-    //       setAppointments(
-    //         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-    //           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-    //         }),
-    //       );
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setAppointments(
         [...res.data.schedule].map((data) => {
@@ -169,68 +143,75 @@ function Calendar() {
   };
 
   return (
-    // <div className="w-screen overflow-hidden bg-[url('https://media.discordapp.net/attachments/979398484593606706/991146248142856212/sbg1.png')] ">
-    <div className="w-screen flex flex-wrap">
-      <div className="hidden lg:block py-10 px-8 overflow-y-auto bg-slate-100 w-1/5 ">
-        <Subscribe />
-        <div className="divider" />
-        <nav className="lg:leading-6 mt-7">
-          <ScrollView id="scroll">
-            <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
-              <ul>
-                <div className="py-5 px-5 max-w-sm mx-auto bg-white rounded-xl shadow-lg">
-                  {dayHour.map((task) => (
-                    <DayItem task={task} key={task.text} />
-                  ))}
-                </div>
+    <>
+      <div className="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none opacity-85">
+        <div className="w-[108rem] flex-none flex justify-end">
+          <img src="https://i.ibb.co/drmrGKR/tail.png" alt="" className="w-[71.75rem] flex-none max-w-none dark:hidden" />
+        </div>
+      </div>
 
-                <div className="mt-7 bg-white rounded-xl shadow-lg py-5 px-5">
-                  {tasks.map((task) => (
-                    <TaskItem task={task} key={task.text} />
-                  ))}
-                </div>
-              </ul>
-              {/* {supplements.map((data: Supplements) => (
-                <SupItem data={data} key={data.pk_plan_id} />
-              ))} */}
-            </Draggable>
-          </ScrollView>
-        </nav>
+      <div className="w-screen flex flex-wrap">
+        <div className="hidden lg:block py-10 px-8 overflow-y-auto bg-slate-100 w-1/5 ">
+          <Subscribe />
+          <div className="divider" />
+          <nav className="lg:leading-6 mt-7">
+            <ScrollView id="scroll">
+              <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
+                <ul>
+                  <div className="py-5 px-5 max-w-sm mx-auto bg-white rounded-xl">
+                    {dayHour.map((task) => (
+                      <DayItem task={task} key={task.text} />
+                    ))}
+                  </div>
+
+                  <div className="mt-7 bg-white rounded-xl py-5 px-5">
+                    {tasks.map((task) => (
+                      <TaskItem task={task} key={task.text} />
+                    ))}
+                  </div>
+                </ul>
+              </Draggable>
+            </ScrollView>
+          </nav>
+        </div>
+        <div className="px-10 pt-10 w-full md:w-4/5">
+          <header id="header" className="mb-10 md:flex md:items-start">
+            <div className="flex-auto max-w-4xl">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
+              <p className="mt-4 text-base text-slate-700 dark:text-slate-400">
+                왼쪽의 영양제 & 생체리듬 활동들을 드래그앤드롭으로 스케쥴러에 추가해보세요. <br />
+                아침 / 점심 / 저녁 영양제 클릭시 북마크 한 영양제를 추가할 수 있고 푸시 알림을 통해
+                <br /> 설정한 시간에 복용해야 할 영양제 정보를 받아보실 수 있습니다.
+                <br />
+                스케쥴러의 날짜 영역을 클릭하면 해당하는 날짜의 체크리스트를 작성하실 수 있습니다.
+              </p>
+            </div>
+          </header>
+          <section className="mb-16 relative">
+            <Scheduler
+              timeZone="Asia/Seoul"
+              id="scheduler"
+              dataSource={appointments}
+              views={views}
+              defaultCurrentDate={currentDate}
+              defaultCurrentView="week"
+              currentView={widthSize.isSizeSmall ? "day" : "week"}
+              height={600}
+              startDayHour={6}
+              onAppointmentFormOpening={onAppointmentFormOpening}
+              onAppointmentDeleting={onAppointmentDeleting}
+              showAllDayPanel={false}
+              dateCellRender={renderDateCell}
+              firstDayOfWeek={1}
+              onCurrentDateChange={onCurrentDateChange}
+            >
+              <Editing allowResizing={false} />
+              <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
+            </Scheduler>
+          </section>
+        </div>
       </div>
-      <div className="px-10 pt-10 w-full md:w-4/5">
-        {/* <main className="max-w-3xl mx-auto relative xl:max-w-none"> */}
-        <header id="header" className="mb-10 md:flex md:items-start">
-          <div className="flex-auto max-w-4xl">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
-            <p className="mt-4 text-base text-slate-700 dark:text-slate-400">PMR 스케쥴러로 영양제 일정관리를 간편하게 시작해보세요.</p>
-          </div>
-        </header>
-        <section className="mb-16 relative">
-          <Scheduler
-            timeZone="Asia/Seoul"
-            id="scheduler"
-            dataSource={appointments}
-            views={views}
-            defaultCurrentDate={currentDate}
-            defaultCurrentView="week"
-            currentView={widthSize.isSizeSmall ? "day" : "week"}
-            height={600}
-            startDayHour={6}
-            onAppointmentFormOpening={onAppointmentFormOpening}
-            onAppointmentDeleting={onAppointmentDeleting}
-            showAllDayPanel={false}
-            dateCellRender={renderDateCell}
-            firstDayOfWeek={1}
-            onCurrentDateChange={onCurrentDateChange}
-          >
-            <Editing allowResizing={false} />
-            <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
-          </Scheduler>
-        </section>
-        {/* </main> */}
-      </div>
-    </div>
-    // </div>
+    </>
   );
 }
 

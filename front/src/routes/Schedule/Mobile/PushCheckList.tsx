@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { checkListAtom } from '../../../atoms';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { AES, enc } from 'crypto-js';
 
 const TodoWrapper = styled.div`
@@ -65,7 +65,6 @@ const Checklist = () => {
     };
     console.log(checklistData);
 
-    type ServerError = { errorMessage: string };
     // 체크리스트 항목 정보 DB에 추가
     try {
       await axios
@@ -75,22 +74,13 @@ const Checklist = () => {
             Authorization: `Bearer ${jwtToken}`,
           },
         })
-        .catch(error => {
-          if (error.response.data.message) {
-            alert(error.response.data.message);
-          }
-        })
         .then(() => {
           alert('오늘의 체크리스트 작성이 완료되었습니다.');
         });
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const serverError = error as AxiosError<ServerError>;
-        if (serverError && serverError.response) {
-          return serverError.response.data;
-        }
+    } catch (error: any) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
       }
-      return { errorMessage: error };
     }
   };
 
