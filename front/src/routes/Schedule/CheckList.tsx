@@ -45,7 +45,7 @@ const CheckListTitle = styled.h1`
   margin-bottom: 10px;
 `;
 
-const CheckListBtn = styled.button`
+const CheckListBtn = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,7 +125,7 @@ const CheckList = ({ data }: CheckListProp) => {
             </TodoWrapper>
           ))}
           <div className="modal-action">
-            <CheckListBtn onClick={handleSubmit} className="btn btn-primary">
+            <CheckListBtn onClick={handleSubmit} className="btn btn-primary" htmlFor={`modal-${data.text}`}>
               제출
             </CheckListBtn>
           </div>
