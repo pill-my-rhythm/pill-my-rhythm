@@ -9,7 +9,7 @@ const VideoArea = () => {
             <iframe className="w-full aspect-video rounded-lg shadow-2xl" src="https://www.youtube.com/embed/LTdLVar1FUU" title="youtube" />
           </div>
           <div className="p-2 m-2 break-words text-center">
-            <h1 className="text-4xl md:text-5xl font-bold leading-relaxed md:leading-normal text-white mx-3 md:mx-6">
+            <h1 className="text-3xl md:text-5xl font-bold leading-relaxed md:leading-normal text-white mx-3 md:mx-6">
               영양제, 복용하기 전에
               <br />
               정확하게 알고 먹자!
