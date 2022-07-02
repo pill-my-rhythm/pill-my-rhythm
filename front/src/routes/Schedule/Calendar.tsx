@@ -5,14 +5,12 @@ import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
 import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
-import styled from "styled-components";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
 import DayItem from "./DayItem";
 import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
-import SupItem from "./SupItem";
 import Subscribe from "./Subscribe";
 import useResize from "../../hooks/useResize";
 
@@ -95,18 +93,6 @@ function Calendar() {
         }
       }
     }
-    //   try {
-    //     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-    //       setAppointments(
-    //         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-    //           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-    //         }),
-    //       );
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
 
     if (dayIndex >= 0) {
       setAppointments((currentAppointment) => [...currentAppointment, e.itemData]);
@@ -124,18 +110,6 @@ function Calendar() {
       }
     }
 
-    //   try {
-    //     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-    //       setAppointments(
-    //         [...res.data.dailySupplement, ...res.data.schedule].map((data) => {
-    //           return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-    //         }),
-    //       );
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setAppointments(
         [...res.data.schedule].map((data) => {
@@ -196,15 +170,11 @@ function Calendar() {
                     ))}
                   </div>
                 </ul>
-                {/* {supplements.map((data: Supplements) => (
-                <SupItem data={data} key={data.pk_plan_id} />
-              ))} */}
               </Draggable>
             </ScrollView>
           </nav>
         </div>
         <div className="px-10 pt-10 w-full md:w-4/5">
-          {/* <main className="max-w-3xl mx-auto relative xl:max-w-none"> */}
           <header id="header" className="mb-10 md:flex md:items-start">
             <div className="flex-auto max-w-4xl">
               <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
@@ -239,7 +209,6 @@ function Calendar() {
               <AppointmentDragging group={draggingGroupName} onAdd={onAppointmentAdd} />
             </Scheduler>
           </section>
-          {/* </main> */}
         </div>
       </div>
     </>

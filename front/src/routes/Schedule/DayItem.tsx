@@ -6,7 +6,6 @@ import Supplements from "./Supplements";
 import { useRecoilState } from "recoil";
 import { supplementAtom } from "../../atoms";
 import SupItem from "./SupItem";
-import img from "../../assets/tab.png";
 
 const draggingGroupName = "appointmentsGroup";
 
@@ -15,6 +14,7 @@ const Card = styled.div`
   margin-bottom: 8px;
   padding: 15px 15px;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px -2px;
 `;
 
 const DateLabel = styled.label`
@@ -73,7 +73,7 @@ function DayItem({ task }: taskProps) {
     <>
       <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
         <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs" onClick={handleClick}>
-          <Card className="bg-white rounded-xl shadow-md">
+          <Card className="bg-white rounded-xl">
             <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-black flex justify-between">
               {/* <div className="mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10 group-hover:shadow-teal-200 dark:group-hover:bg-teal-500 dark:bg-slate-800 dark:highlight-white/5"> */}
               {/* <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none">
