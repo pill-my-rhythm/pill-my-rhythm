@@ -74,6 +74,11 @@ const Checklist = () => {
             Authorization: `Bearer ${jwtToken}`,
           },
         })
+        .catch(error => {
+          if (error.response.data.message) {
+            alert(error.response.data.message);
+          }
+        })
         .then(() => {
           alert('오늘의 체크리스트 작성이 완료되었습니다.');
         });
