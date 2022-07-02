@@ -56,14 +56,14 @@ const Subscribe = () => {
     // 사용자 기기 정보 DB에서 삭제
     await axios
       .post(
-        `${process.env.REACT_APP_MODE}:${process.env.REACT_APP_BACK_PORT}/subscribe/delete`,
+        `${process.env.REACT_APP_MODE}/api/subscribe/delete`,
         { device_token: subscription },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${jwtToken}`,
           },
-        },
+        }
       )
       .then(() => {
         alert("구독이 취소되었습니다.");
