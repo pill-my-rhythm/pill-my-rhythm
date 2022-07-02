@@ -21,6 +21,7 @@ self.addEventListener('push', event => {
     // sound: "./"
 
     body: data.body,
+    tag: 'supplement',
     actions: [
       {
         action: 'homepage-action',
@@ -61,11 +62,11 @@ self.addEventListener(
     // 알림창 닫음
     event.notification.close();
     // close all notifications
-    self.registration.getNotifications().then(notifications => {
-      notifications.forEach(notification => {
-        notification.close();
-      });
-    });
+    // self.registration.getNotifications().then((notifications) => {
+    //   notifications.forEach((notification) => {
+    //     notification.close();
+    //   });
+    // });
 
     // User selected the Archive action.
     switch (event.action) {

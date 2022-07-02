@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { get } from "./Api";
 import { loginReducer } from "./reducer";
+import Loading from "./routes/_shared/Loading";
 
 export const UserStateContext = createContext<any>(null);
 export const DispatchContext = createContext<any>(null);
@@ -48,7 +49,7 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
   }, [userState.user_name]);
 
   if (!isFetchCompleted) {
-    return <span> Loading..</span>;
+    return <Loading />;
   }
 
   return (
