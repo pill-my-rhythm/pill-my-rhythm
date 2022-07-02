@@ -98,9 +98,13 @@ const Checklist = () => {
               {task.text}
             </TodoWrapper>
           ))}
-          <button className="btn btn-primary" onClick={() => submit()}>
-            제출
-          </button>
+          <br />
+          <br />
+          <div className="flex justify-center">
+            <button className="btn btn-primary" onClick={() => submit()}>
+              제출
+            </button>
+          </div>
         </div>
       </div>
     </div>
