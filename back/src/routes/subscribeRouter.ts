@@ -15,6 +15,9 @@ SubscribeRouter.post(
   SubscribeController.subscribeNotification,
 );
 
+// 구독 여부 확인
+SubscribeRouter.get("/info", SubscribeController.getSubscription);
+
 // 사용자별 푸시 알림 테스트
 SubscribeRouter.get("/push-test", verifyToken, SubscribeController.pushNotification);
 
