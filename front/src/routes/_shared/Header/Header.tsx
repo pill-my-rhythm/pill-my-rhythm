@@ -25,7 +25,7 @@ const Header = () => {
   const checkParams = () => {
     const currentParams = location.pathname;
     // console.log("params", currentParams);
-    if (currentParams === "/m/subscribe" || "/m/checklist") {
+    if (currentParams === "m/subscribe" || "m/checklist") {
       setMobile(true);
     } else setMobile(false);
   };
@@ -104,7 +104,7 @@ const Header = () => {
                     <Link to="/login">Login</Link>
                   </li>
                   <li>
-                    <Link to="/pillmyrhythmpillmyrhythm">About Pmr</Link>
+                    <Link to="/pillmyrhythm">About Pmr</Link>
                   </li>
                   <li>
                     <Link to="/">Search</Link>
