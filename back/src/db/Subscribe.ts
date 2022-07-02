@@ -1,6 +1,7 @@
 import { Subscribes } from "./models/subscribe";
 import { ISubscriptionInput, ISendNotificationInput } from "../interfaces/subscribeInput";
 import { Users } from "./models/user";
+import { fork } from "child_process";
 
 const Subscribe = {
   findByUserAndDevice: async (fk_user_id: string, device_token: ISendNotificationInput) => {
