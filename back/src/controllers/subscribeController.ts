@@ -18,7 +18,7 @@ const SubscribeController = {
   getSubscription: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
-      const device_token: any = req.query.deviceToken;
+      const device_token: any = req.body.deviceToken;
 
       const subscription = await SubscribeService.getSubscription(fk_user_id, device_token);
 
