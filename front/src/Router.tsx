@@ -12,7 +12,7 @@ import PushCheckList from "./routes/Schedule/Mobile/PushCheckList";
 import Pmrguide from "./routes/Pmr";
 import Footer from "./routes/_shared/Footer";
 import Demo from "./routes/Schedule/YearlyChecklist";
-import Aboutus from "./routes/_shared/Footer/Aboutus";
+// import Aboutus from "./routes/_shared/Footer/Aboutus";
 
 function Router() {
   return (
@@ -32,7 +32,7 @@ function Router() {
           <Route path="/m/checklist" element={<PushCheckList />} />
           {/* 여기에 추가 */}
           <Route path="/yearly/checklist" element={<Demo />} />
-          <Route path="/aboutus" element={<Aboutus />} />
+          {/* <Route path="/aboutus" element={<Aboutus />} /> */}
         </Routes>
         <Footer />
       </BrowserRouter>
