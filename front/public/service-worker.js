@@ -21,6 +21,7 @@ self.addEventListener("push", (event) => {
     // sound: "./"
 
     body: data.body,
+    tag: "supplement",
     actions: [
       {
         action: "homepage-action",
