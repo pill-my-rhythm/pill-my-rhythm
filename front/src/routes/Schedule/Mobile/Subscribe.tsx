@@ -94,7 +94,7 @@ const Subscribe = () => {
         </div>
         <div className="flex justify-center">
           <button
-            className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+            className="mb-32 px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
             onClick={() => unsubscribe()}
           >
             구독 취소하기
