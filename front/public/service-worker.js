@@ -60,17 +60,22 @@ self.addEventListener(
   (event) => {
     // 알림창 닫음
     event.notification.close();
+    // close all notifications
+    self.registration.getNotifications().then((notifications) => {
+      notifications.forEach((notification) => {
+        notification.close();
+      });
+    });
+
     // User selected the Archive action.
     switch (event.action) {
       case "homepage-action":
         // URL을 로드하는 새 창이나 탭이 열림
-        // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}`));
         event.waitUntil(self.clients.openWindow("http://localhost:3000"));
         break;
       case "checklist-action": // 오늘 날짜의 체크리스트
         const { encryptedToken } = event.notification.data;
         // public 폴더 안에서는 .env 변수 접근 안 됨
-        // event.waitUntil(self.clients.openWindow(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/checklist?jwt=${encryptedToken}`));
         event.waitUntil(self.clients.openWindow(`http://localhost:3000/m/checklist?token=${encryptedToken}`));
         break;
       // no default
