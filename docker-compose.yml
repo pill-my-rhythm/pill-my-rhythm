@@ -2,7 +2,7 @@ version: '3.8'
 services:
   frontend_server:
     # image: s0n9h2/react-pill-my-rhythm-app:1.0.0
-    image: tbr06057/react-pill-my-rhythm-app:1.0.2
+    image: tbr06057/react-pill-my-rhythm-app:1.0.3
     restart: 'on-failure'
     volumes:
       - ./certbot/www:/etc/letsencrypt
