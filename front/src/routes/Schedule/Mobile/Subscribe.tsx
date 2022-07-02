@@ -84,11 +84,21 @@ const Subscribe = () => {
             알림 권한 요청에 "허용"을 눌러주세요.
           </p>
         </div>
-        <div>
-          <button onClick={() => subscribe()}>구독하기</button>
+        <div className="flex justify-center">
+          <button
+            className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+            onClick={() => subscribe()}
+          >
+            구독하기
+          </button>
         </div>
-        <div>
-          <button onClick={() => unsubscribe()}>구독 취소하기</button>
+        <div className="flex justify-center">
+          <button
+            className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+            onClick={() => unsubscribe()}
+          >
+            구독 취소하기
+          </button>
         </div>
       </div>
     </div>
