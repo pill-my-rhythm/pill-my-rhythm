@@ -14,7 +14,7 @@ const Card = styled.div`
   margin-bottom: 8px;
   padding: 15px 15px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px -2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 10px -1px;
 `;
 
 const DateLabel = styled.label`
@@ -75,14 +75,6 @@ function DayItem({ task }: taskProps) {
         <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs" onClick={handleClick}>
           <Card className="bg-white rounded-xl">
             <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-black flex justify-between">
-              {/* <div className="mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10 group-hover:shadow-teal-200 dark:group-hover:bg-teal-500 dark:bg-slate-800 dark:highlight-white/5"> */}
-              {/* <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none">
-                  <path d="m6 9 6-3 6 3v6l-6 3-6-3V9Z" className="fill-teal-100 group-hover:fill-teal-200 dark:fill-slate-400" />
-                  <path d="m6 9 6 3v7l-6-3V9Z" className="fill-teal-300 group-hover:fill-teal-400 dark:group-hover:fill-teal-300 dark:fill-slate-500" />
-                  <path d="m18 9-6 3v7l6-3V9Z" className="fill-teal-400 group-hover:fill-teal-500 dark:group-hover:fill-teal-400 dark:fill-slate-600" />
-                </svg> */}
-
-              {/* </div> */}
               <div> {task.text}</div>
               <div>
                 <img width="20" height="20" src="https://i.ibb.co/jZp3SQ3/tab.png" alt="약 이미지" />
@@ -90,18 +82,17 @@ function DayItem({ task }: taskProps) {
             </span>
           </Card>
         </DateLabel>
-
-        <input type="checkbox" id={`modal-${task.text}`} className="modal-toggle" />
-        <label htmlFor={`modal-${task.text}`} className="modal cursor-pointer">
-          <label className="modal-box" htmlFor="">
-            <h3 className="text-lg text-black font-semibold mb-1">{task.text}</h3>
-
-            {supplementInfo.map((info: supInfo) => (
-              <Supplements info={info} task={task} key={info.pk_plan_id} />
-            ))}
-          </label>
-        </label>
       </Draggable>
+      <input type="checkbox" id={`modal-${task.text}`} className="modal-toggle" />
+      <label htmlFor={`modal-${task.text}`} className="modal cursor-pointer">
+        <label className="modal-box" htmlFor="">
+          <h3 className="text-lg text-black font-semibold mb-1">{task.text}</h3>
+
+          {supplementInfo.map((info: supInfo) => (
+            <Supplements info={info} task={task} key={info.pk_plan_id} />
+          ))}
+        </label>
+      </label>
 
       <ul role="list" className="marker:text-teal-400 list-disc pl-8 space-y-3 text-slate-500 mb-2">
         {supType.map((info: supInfo) => (

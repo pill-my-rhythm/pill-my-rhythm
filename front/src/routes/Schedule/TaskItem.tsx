@@ -8,7 +8,7 @@ const Card = styled.div`
   margin-bottom: 8px;
   padding: 15px 15px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px -2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 10px -1px;
 `;
 
 interface taskProps {
