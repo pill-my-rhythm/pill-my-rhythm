@@ -4,9 +4,9 @@
 
 <br>
 
-## TEAM
+📎기획서 보러가기 👉 [프로젝트 기획서](https://kdt-gitlab.elice.io/ai_track/class_04/ai_project/team17/ai-web-project-17/-/wikis/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B8%B0%ED%9A%8D%EC%84%9C)
 
-팀 wiki 보러가기 👉 [TEAM. 자연...어?](https://kdt-gitlab.elice.io/ai_track/class_04/ai_project/team17/ai-web-project-17/-/wikis/pages)
+## TEAM
 
 | 이름      | 담당 업무                                                           |
 | --------- | ------------------------------------------------------------------- |
@@ -21,19 +21,16 @@
 
 ### 💡 문제 상황
 
-- 코로나 이후로 영양제와 같은 건강 기능 식품에 대한 관심이 크게 높아짐.
+- 코로나 이후로 영양제와 같은 건강 기능 식품에 대한 관심이 크게 높아짐. <br>
+  📎[관련 기사](https://www.pharmnews.com/news/articleView.html?idxno=103260)
 
-📎[관련 기사](https://www.pharmnews.com/news/articleView.html?idxno=103260)
-
-- 긴 코로나 상황으로 인해 개인의 생체리듬이 무너진 사람들이 많음.
-
-📎[관련 기사](http://www.whosaeng.com/117633)
+- 긴 코로나 상황으로 인해 개인의 생체리듬이 무너진 사람들이 많음.<br>
+  📎[관련 기사](http://www.whosaeng.com/117633)
 
 - 이제 코로나로 약해졌던 면역력과 같은 건강 부분과 생체 리듬에 대한 회복이 요구됨.
 
-- 매년 국내 건강기능식품의 성장.
-
-📎[관련 기사](https://www.donga.com/news/Economy/article/all/20200209/99609334/1)
+- 매년 국내 건강기능식품의 성장.<br>
+  📎[관련 기사](https://www.donga.com/news/Economy/article/all/20200209/99609334/1)
 
 - 영양제를 먹으려고 해도, 뭐 부터 먹어야 좋을지에 대해 개인이 평가를 내리기 어려움.
 
@@ -80,9 +77,9 @@
 
 <br>
 
-<p align=center>
+<div align='center'>
     <img src='https://cdn.discordapp.com/attachments/979399069006979102/992990899141353542/image0.gif' width='500px'>
-</p>
+</div>
 
 <br>
 
@@ -92,7 +89,7 @@
   <br />
   하루에 하나 이상의 영양제를 드시는 분들이 `아침`/`점심`/`저녁`에 걸쳐 영양제를 효율적으로 나눠서 섭취할 수 있도록 캘린더를 제공, 사용자는 본인이 원하는 대로 영양제를 분류할 수 있음
 
-      <details markdown="1">
+    <details>
       <summary>자세히 보기</summary>
       <br />
       1. 드래그앤드롭으로 스케줄 짜기 <br /><br />
@@ -103,9 +100,9 @@
           “영양제 복용 여부 + 생체리듬 활동 5가지 항목”의 체크 리스트를 제공하여 규칙적인 생활 달성 여부 체크<br />
       <br />
 
-  - 5개 이상 성공 : 초록불<br />
-  - 3개 이상 성공: 노란불<br />
-  - 3개 미만 성공: 빨간불<br />
+        - 5개 이상 성공 : 초록불<br />
+        - 3개 이상 성공: 노란불<br />
+        - 3개 미만 성공: 빨간불<br />
 
     <br />
     - 초록불/노란불/빨간불은 영양제 캘린더의 날짜 배경색으로 보여주기<br />
@@ -115,7 +112,7 @@
   3. 효과적인 복용 시간을 고려하자 <br /><br />
      영양제별 효과적인 복용 시간 정보를 제공, 데이터는 수작업으로 수집해야 함
 
-      </details>
+    </details>
 
 <p align=center>
     <img src='https://media.discordapp.net/attachments/979399069006979102/992990988509380639/image0.gif' width='500px'>
@@ -149,10 +146,12 @@
 
 ### 📑 와이어 프레임
 
-1. 메인 MVP
-   : https://whimsical.com/17-ai-8jP8umFsK6ie9HwxFCpchE
-2. 서브 MVP
-   : https://www.figma.com/file/qUrq2wAdZiNv8KkubpkXIc/AI-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-17%ED%8C%80_%EC%84%9C%EB%B8%8C%EA%B8%B0%EB%8A%A5?node-id=0%3A1
+1. 메인 MVP <br>
+   📎[링크](https://whimsical.com/17-ai-8jP8umFsK6ie9HwxFCpchE)
+2. 서브 MVP <br>
+   📎[링크](https://www.figma.com/file/qUrq2wAdZiNv8KkubpkXIc/AI-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-17%ED%8C%80_%EC%84%9C%EB%B8%8C%EA%B8%B0%EB%8A%A5?node-id=0%3A1)
+
+<br>
 
 ### ⚙️ 아키텍쳐
 
@@ -160,7 +159,20 @@
 
 <img src='https://media.discordapp.net/attachments/979399069006979102/993002972701265960/unknown.png?width=1362&height=655' width='700px'>
 
+<br>
+
 ### ⚙️ 기술 스택
+
+- 프론트엔드
+
+  - `React`, `TypeScript`
+  - `Recoil`, `daisyUI`, `Styled components`
+
+- 백엔드
+  - `Node.js`, `TypeScript`
+  - `Flask`, `Python`
+  - `Redis`, `MySQL`, `Sequelize`
+  - `Docker`, `Docker-compose`, `Nginx`, `gunicorn`
 
 <br>
 
