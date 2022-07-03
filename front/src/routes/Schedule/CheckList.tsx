@@ -1,11 +1,36 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { get, post } from "../../Api";
-import { checkListAtom } from "../../atoms";
+import { checkListAtom, end, levelsAtom, start } from "../../atoms";
+import { Levels } from "./Calendar";
+
+interface CheckListProp {
+  data: {
+    date: Date;
+    text: string;
+  };
+}
+
+interface ColorProp {
+  color?: string;
+}
 
 const DateLabel = styled.label<ColorProp>`
-  background-color: ${(props) => props.color};
+  color: #000;
+  background-color: ${(props) => {
+    if (props.color === "red") {
+      return "#fca5a5";
+    } else if (props.color === "yellow") {
+      return "#fef08a";
+    } else if (props.color === "green") {
+      return "#70df95";
+    } else {
+      return;
+    }
+  }};
+  border-radius: 1rem;
+  padding: 5px 10px;
 `;
 
 const TodoWrapper = styled.div`
@@ -20,7 +45,7 @@ const CheckListTitle = styled.h1`
   margin-bottom: 10px;
 `;
 
-const CheckListBtn = styled.button`
+const CheckListBtn = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,22 +53,8 @@ const CheckListBtn = styled.button`
   width: 30%;
 `;
 
-interface CheckListProp {
-  data: {
-    date: Date;
-    text: string;
-  };
-  level: { level: string; date: string }[];
-  setLevel: any;
-  start: string;
-  end: string;
-}
-
-interface ColorProp {
-  color?: string;
-}
-
-const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
+const CheckList = ({ data }: CheckListProp) => {
+  const [level, setLevel] = useRecoilState<Array<Levels>>(levelsAtom);
   const checkList = useRecoilValue(checkListAtom);
   const [checkedInputs, setCheckedInputs]: any = useState([]);
 
@@ -69,15 +80,22 @@ const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
     const current = new Date(data.date.getTime() - offset);
     const checkListDate = current.toISOString().substring(0, 10);
 
-    await post("checklist/create", {
-      date: checkListDate,
-      one: result[0],
-      two: result[1],
-      three: result[2],
-      four: result[3],
-      five: result[4],
-      six: result[5],
-    });
+    try {
+      await post("checklist/create", {
+        date: checkListDate,
+        one: result[0],
+        two: result[1],
+        three: result[2],
+        four: result[3],
+        five: result[4],
+        six: result[5],
+      });
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
 
     await get(`schedule/week?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
@@ -90,7 +108,7 @@ const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
       </DateLabel>
       <input type="checkbox" id={`modal-${data.text}`} className="modal-toggle" />
       <label htmlFor={`modal-${data.text}`} className="modal cursor-pointer">
-        <label className="modal-box max-w-xs" htmlFor="">
+        <label className="modal-box max-w-xs" htmlFor={`modal-${data.text}`}>
           <CheckListTitle>{data.text}</CheckListTitle>
           {checkList.map((task, index) => (
             <TodoWrapper key={index}>
@@ -107,7 +125,7 @@ const CheckList = ({ data, level, setLevel, start, end }: CheckListProp) => {
             </TodoWrapper>
           ))}
           <div className="modal-action">
-            <CheckListBtn onClick={handleSubmit} className="btn btn-primary">
+            <CheckListBtn onClick={handleSubmit} className="btn btn-primary" htmlFor={`modal-${data.text}`}>
               제출
             </CheckListBtn>
           </div>

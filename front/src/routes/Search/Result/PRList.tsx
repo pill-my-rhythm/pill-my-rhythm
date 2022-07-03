@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Promotion from "./Promotion";
-import PRCard from "./PRCard";
+import PRCard from "../../_shared/PRCard";
 import { useLocation } from "react-router";
+import Blankresult from "./Blankresult";
 
 export interface PillData {
   pr: {
@@ -25,19 +26,20 @@ const PRList = () => {
   const [pillResult, setPillResult] = useState<Array<PillData["pr"]>>(pillResultList);
   const [resultData, setResultData] = useState<Boolean>(true);
 
-  console.log("#pillResultList", pillResultList);
-  console.log("#pillResult", pillResult);
+  // console.log("#pillResultList", pillResultList);
+  // console.log("#pillResult", pillResult);
 
   const CheckResult = () => {
     if (pillResult.length === 0) {
-      console.log("빈배열");
+      // console.log("빈배열");
       setResultData(false);
-    }
+    } else setResultData(true);
   };
 
   useEffect(() => {
+    setPillResult(pillResultList);
     CheckResult();
-  }, [resultData]);
+  }, [pillResult, pillResultList, resultData]);
 
   return resultData ? (
     <div className="flex flex-row flex-wrap justify-center">
@@ -47,7 +49,7 @@ const PRList = () => {
       <Promotion />
     </div>
   ) : (
-    <div>데이터없쏘오오오오오오오오</div>
+    <Blankresult />
   );
 };
 export default PRList;

@@ -47,6 +47,8 @@ paths:
     $ref: "./paths/schedule.yaml#/~1schedule~1daily-supplement~1{plan_id}"
   /checklist/create:
     $ref: "./paths/schedule.yaml#/~1checklist~1create"
+  /checklist/yearly:
+    $ref: "./paths/schedule.yaml#/~1checklist~1yearly"
   /bookmark:
     $ref: "./paths/bookmark.yaml#/~1bookmark"
   /bookmark/create/{supplement_id}:

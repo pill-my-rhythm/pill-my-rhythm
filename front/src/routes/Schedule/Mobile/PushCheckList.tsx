@@ -8,8 +8,8 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { tasksAtom } from "../../../atoms";
-import axios, { AxiosError } from "axios";
+import { checkListAtom } from "../../../atoms";
+import axios from "axios";
 import { AES, enc } from "crypto-js";
 
 const TodoWrapper = styled.div`
@@ -31,7 +31,7 @@ const Checklist = () => {
   const decryptedToken = AES.decrypt(encryptedToken, secretKey);
   const jwtToken = decryptedToken.toString(enc.Utf8);
 
-  const tasks = useRecoilValue(tasksAtom);
+  const tasks = useRecoilValue(checkListAtom);
   const [checkedItems, setCheckedItems]: any = useState([]);
 
   const checkedItemHandler = (checked: boolean, id: string) => {
@@ -46,7 +46,7 @@ const Checklist = () => {
   let today: string;
   const now = new Date();
   const month = `${now.getMonth() + 1}`.length === 1 ? "0" + `${now.getMonth() + 1}` : now.getMonth() + 1; //months from 1-12
-  const day = now.getDate();
+  const day = `${now.getDate()}`.length === 1 ? "0" + `${now.getDate()}` : now.getDate();
   const year = now.getFullYear();
   today = year + "-" + month + "-" + day;
 
@@ -57,7 +57,6 @@ const Checklist = () => {
     const checklistData = { date: today, one: result[0], two: result[1], three: result[2], four: result[3], five: result[4], six: result[5] };
     console.log(checklistData);
 
-    type ServerError = { errorMessage: string };
     // 체크리스트 항목 정보 DB에 추가
     try {
       await axios
@@ -67,22 +66,13 @@ const Checklist = () => {
             Authorization: `Bearer ${jwtToken}`,
           },
         })
-        .catch((error) => {
-          if (error.response.data.message) {
-            alert(error.response.data.message);
-          }
-        })
         .then(() => {
           alert("오늘의 체크리스트 작성이 완료되었습니다.");
         });
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const serverError = error as AxiosError<ServerError>;
-        if (serverError && serverError.response) {
-          return serverError.response.data;
-        }
+    } catch (error: any) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
       }
-      return { errorMessage: error };
     }
   };
 
@@ -108,9 +98,13 @@ const Checklist = () => {
               {task.text}
             </TodoWrapper>
           ))}
-          <button className="btn btn-primary" onClick={() => submit()}>
-            제출
-          </button>
+          <br />
+          <br />
+          <div className="flex justify-center">
+            <button className="btn btn-primary" onClick={() => submit()}>
+              제출
+            </button>
+          </div>
         </div>
       </div>
     </div>

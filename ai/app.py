@@ -1,6 +1,6 @@
 import pymysql
 from test_model import test_model
-from flask import Flask, request, g
+from flask import Flask, request, g, Response
 from verifyToken import verifyToken
 from flask_cors import CORS
 
@@ -13,6 +13,7 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 CORS(app, resources={r'': {'origins': ''}}, expose_headers=["Content-disposition"])
+CORS(app, resources={r'/recommend/*': {'origins': 'http://localhost:3000/'}})
 
 db = pymysql.connect(host = os.environ.get('host'), 
                     port = int(os.environ.get('port')), 

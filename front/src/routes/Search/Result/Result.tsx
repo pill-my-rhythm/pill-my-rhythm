@@ -12,7 +12,7 @@ const Result = () => {
   const isLogin = !!userState.user;
 
   return (
-    <div className="overflow-scroll:hidden">
+    <div className="overflow-scroll:hidden pb-20 bg-base-200">
       <VideoArea />
       <RecommendationArea isLogin={isLogin} />
     </div>

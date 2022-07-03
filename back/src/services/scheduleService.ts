@@ -4,6 +4,7 @@ import { Checklist } from "../db/Checklist";
 import { DailySupplement } from "../db/DailySupplement";
 import { HttpException } from "../utils/error-util";
 import { IScheduleCreateInput, IGetScheduleInput, IDailySupplementCreateInput } from "../interfaces/scheduleInput";
+import { Http } from "winston/lib/winston/transports";
 
 const ScheduleService = {
   getSchedulePage: async (fk_user_id: string, data: IGetScheduleInput) => {
@@ -56,6 +57,10 @@ const ScheduleService = {
   },
 
   addDailySupplement: async (data: IDailySupplementCreateInput) => {
+    const isAddedSupplement = await DailySupplement.findDailySchedule(data);
+    if (isAddedSupplement) {
+      throw new HttpException(401, "해당 일정에 이미 추가된 영양제입니다.");
+    }
     const dailySupplement = await DailySupplement.createDailySchedule(data);
     return dailySupplement;
   },

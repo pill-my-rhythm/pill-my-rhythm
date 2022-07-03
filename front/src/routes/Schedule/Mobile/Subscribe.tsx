@@ -5,7 +5,7 @@
 // qrcode에 parameter로 jwt_token값 들어 있음
 // 해당 jwt_token이랑 device_token으로 구독 정보 추가하도록 backend에 요청
 
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { AES, enc } from "crypto-js";
 
@@ -19,10 +19,7 @@ const Subscribe = () => {
   const decryptedToken = AES.decrypt(encryptedToken, secretKey);
   const jwtToken = decryptedToken.toString(enc.Utf8);
 
-  const [subToken, setSubToken] = useState("");
-
   const subscribe = async () => {
-    console.log("subscribe function");
     const sw = await navigator.serviceWorker.ready;
     // 사용자 기기 정보로 구독 요청
     const subscription = await sw.pushManager.subscribe({
@@ -30,7 +27,6 @@ const Subscribe = () => {
       applicationServerKey: process.env.REACT_APP_WEB_PUSH_PUBLIC_KEY,
     });
 
-    setSubToken(JSON.stringify(subscription));
     // 사용자 기기 정보 DB에 추가
     await axios
       .post(
@@ -48,6 +44,35 @@ const Subscribe = () => {
       });
   };
 
+  const unsubscribe = async () => {
+    console.log("unsubscribe function");
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+    if (!subscription) {
+      alert("구독 정보가 없는 기기입니다.");
+      return;
+    }
+
+    // 사용자 기기 정보 DB에서 삭제
+    await axios
+      .post(
+        `${process.env.REACT_APP_MODE}:${process.env.REACT_APP_BACK_PORT}/subscribe/delete`,
+        { device_token: subscription },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        },
+      )
+      .then(() => {
+        alert("구독이 취소되었습니다.");
+      });
+
+    // 사용자 기기 정보로 구독 취소 요청
+    await subscription.unsubscribe();
+  };
+
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -59,9 +84,21 @@ const Subscribe = () => {
             알림 권한 요청에 "허용"을 눌러주세요.
           </p>
         </div>
-        <div>
-          <button onClick={() => subscribe()}>구독하기</button>
-          <p>{subToken}</p>
+        <div className="flex justify-center">
+          <button
+            className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+            onClick={() => subscribe()}
+          >
+            구독하기
+          </button>
+        </div>
+        <div className="flex justify-center">
+          <button
+            className="mb-32 px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+            onClick={() => unsubscribe()}
+          >
+            구독 취소하기
+          </button>
         </div>
       </div>
     </div>

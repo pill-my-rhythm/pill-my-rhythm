@@ -12,16 +12,20 @@ def morph_and_stopwords(s):
     s = re.sub('[^ A-Za-z0-9가-힣]+', '', s)
     tmp = okt.morphs(s, stem=True)
     stopwords= pd.read_csv('stopwords.txt', delimiter='\t')
+    textrule = pd.read_csv('textrule.txt', delimiter='\t')
     for token in tmp:
         if token not in list(stopwords['sword']):
             #내맘대로 바꿔주기
-            if token == '남자' or token == '남편' or token=='아빠' or token == '아버지':
-                token = '남성'
-            elif token == '여자' or token == '와이프' or token =='엄마' or token == '어머니':
-                token = '여성'
-            elif token == '생리' or token == '생리통':
-                token = '월경'
-            token_ls.append(token)
+            if token not in list(textrule['word']):
+                token_ls.append(token)
+            else:
+                find_row = textrule.loc[textrule['word']==token]
+                find_row = find_row[0:1]
+                find_row = find_row.iloc[:,:2]
+                new_words = find_row['new_word'].values[0]
+                new_words = new_words.split(',')
+                for w in new_words:
+                    token_ls.append(w) 
     return token_ls  
         
 def test_model(new_data):
@@ -31,6 +35,8 @@ def test_model(new_data):
         trained_tf = pickle.load(fr)
     
     morph = morph_and_stopwords(new_data)
+    if len(morph) == 0:
+        return []
     # print(morph)
     tf_new_mtx = trained_tf.transform(morph)
 

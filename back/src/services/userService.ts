@@ -76,11 +76,19 @@ const UserService = {
     if (!user) {
       throw new HttpException(400, "가입 내역이 없는 계정입니다. 다시 한 번 확인해 주세요.");
     }
-    const hashedPassword = await bcrypt.hash(updateDate.password, 10);
     const newUserData = { ...updateDate };
-    newUserData["password"] = hashedPassword;
-    const newUpdatedUser = await User.update(pk_user_id, newUserData);
 
+    if (!updateDate.password) {
+      newUserData.password = user.password;
+    } else {
+      const hashedPassword = await bcrypt.hash(updateDate.password, 10);
+      newUserData.password = hashedPassword;
+    }
+    if (!updateDate.gender) newUserData.gender = user.gender;
+    if (!updateDate.age_range) newUserData.age_range = user.age_range;
+    if (!updateDate.job) newUserData.job = user.job;
+
+    const newUpdatedUser = await User.update(pk_user_id, newUserData);
     return newUpdatedUser;
   },
 

@@ -8,7 +8,7 @@ import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <RecoilRoot>
-    <GlobalStyle />
     <App />
+    <GlobalStyle />
   </RecoilRoot>,
 );

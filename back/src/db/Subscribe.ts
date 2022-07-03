@@ -27,7 +27,7 @@ const Subscribe = {
     const unsubscription = await Subscribes.destroy({
       where: { device_token },
     });
-    // const unsubscription = await Subscribes.destroy();
+
     return unsubscription;
   },
 };

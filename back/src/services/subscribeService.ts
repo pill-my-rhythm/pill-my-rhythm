@@ -28,6 +28,11 @@ const SubscribeService = {
     return newSubscription;
   },
 
+  getSubscription: async (fk_user_id: string, device_token: ISendNotificationInput) => {
+    const subscription = await Subscribe.findByUserAndDevice(fk_user_id, device_token);
+    return subscription;
+  },
+
   sendPushNotification: async (fk_user_id: string) => {
     const devicesArray = await Subscribe.findByUserId(fk_user_id);
 
