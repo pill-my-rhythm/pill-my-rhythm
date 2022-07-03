@@ -78,7 +78,7 @@
 <br>
 
 <div align='center'>
-    <img src='https://cdn.discordapp.com/attachments/979399069006979102/992990899141353542/image0.gif' width='500px'>
+    <img src='https://cdn.discordapp.com/attachments/979399069006979102/992990899141353542/image0.gif' width='650px'>
 </div>
 
 <br>
@@ -115,8 +115,10 @@
     </details>
 
 <div align='center'>
-    <img src='https://media.discordapp.net/attachments/979399069006979102/992990988509380639/image0.gif' width='500px'>
+    <img src='https://media.discordapp.net/attachments/979399069006979102/992990988509380639/image0.gif' width='650px'>
 </div>
+
+<br>
 
 - 푸시 알림 서비스<br />
 
@@ -137,7 +139,7 @@
   <br>
 
 <div align='center'>
-    <img src='https://media.discordapp.net/attachments/979399069006979102/992990949099712522/image0.gif' width='500px'>
+    <img src='https://media.discordapp.net/attachments/979399069006979102/992990949099712522/image0.gif' width='650px'>
 </div>
 
 <br>
@@ -157,7 +159,9 @@
 
 <br>
 
-<img src='https://media.discordapp.net/attachments/979399069006979102/993002972701265960/unknown.png?width=1362&height=655' width='700px'>
+<div align='center'>
+  <img src='https://media.discordapp.net/attachments/979399069006979102/993002972701265960/unknown.png?width=1362&height=655' width='800px'>
+</div>
 
 <br>
 
@@ -179,3 +183,8 @@
 ## 3. 시연 영상
 
 ![시연영상](/uploads/e272fe3be3d384c9955a6e923b8d305e/시연영상.mp4)
+
+![시연영상_모바일](/uploads/c969a257691844be1b8e18970e7066f5/시연영상_모바일.mp4)
+
+1. 첫 번째 시연 영상 1분 30초에 나오는 큐알 코드로 모바일에서 구독
+2. 스케줄에 등록한 시간에 웹, 앱 모두 푸시 알람
