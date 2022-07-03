@@ -1,0 +1,422 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: Web API docs
+  description: team 17 API 문서입니다
+  license:
+    name: MIT
+servers:
+  - url: 'http://localhost:5000/'
+tags:
+  - name: user
+  - description: User API 입니다.
+  - name: recommend
+  - description: User가 추천받은 영양제 정보 API 입니다.
+  - name: schedule
+  - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
+  - name: bookmark
+  - description: User BookMark API 입니다.
+paths:
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: 회원가입 API 입니다.
+      description: '(필수) user_name, email, password (선택) gender, age_range, job'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: 로그인 API 입니다.
+      description: '(필수) email, password'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/logout:
+    delete:
+      tags:
+        - user
+      summary: 로그아웃 API 입니다.
+      description: (필수) accessToken
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/update-info:
+    put:
+      tags:
+        - user
+      summary: 회원 정보 수정 API 입니다.
+      description: '(필수) accessToken (선택) password, gender, age_range, job'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                gender:
+                  type: string
+                age_range:
+                  type: string
+                job:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /user/withdrawal:
+    delete:
+      tags:
+        - user
+      summary: 회원 탈퇴 API 입니다.
+      description: (필수) accessToken
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/current:
+    get:
+      tags:
+        - user
+      summary: 현재 회원 정보 조회
+      description: (필수) accessToken
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/analysis-supplement:
+    get:
+      tags:
+        - user
+      summary: 유저 정보 기반 영양제 추천
+      description: '(필수) accessToken / 회원의 연령, 성별 정보가 없을 시 null 값이 반환됩니다. 그래서 null 값 반환되면 연령, 성별 정보를 수정하고 추천받으라는 식으로 진행하면 좋을거같아요.'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /user/refresh:
+    get:
+      tags:
+        - user
+      summary: access token 재발급 API 입니다.
+      description: '(필수) accessToken, refreshToken, 요청 {"authorizaiton":"Bearer access-token","refresh":"refresh-token"}'
+      parameters:
+        - in: header
+          name: refresh
+          schema:
+            type: string
+          required: true
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+  /schedule:
+    get:
+      tags:
+        - schedule
+      summary: '스케줄 페이지 조회 API 입니다. 일주일 스케줄, 체크리스트 정보와 하루 영양제 정보가 포함되어 있습니다.(북마크 정보 추가할 예정)'
+      description: '(필수) accessToken, start, finish'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: start
+          schema:
+            type: string
+          description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
+        - in: query
+          name: finish
+          schema:
+            type: string
+          description: GET /schedule?start='2020-02-01'&finish='2020-02-01'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /schedule/week:
+    get:
+      tags:
+        - schedule
+      summary: 일주일 스케줄과 체크리스트만 조회하는 API 입니다.
+      description: '(필수) accessToken, start, finish'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: start
+          schema:
+            type: string
+          description: GET /schedule/week?start='2020-02-01'&finish='2020-02-01'
+        - in: query
+          name: finish
+          schema:
+            type: string
+          description: GET /schedule/week?start='2020-02-01'&finish='2020-02-01'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /schedule/create:
+    post:
+      tags:
+        - schedule
+      summary: 영양제 / 생체리듬 스케줄 생성 API 입니다.
+      description: '(필수) accessToken, type, start, finish, to_do'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                start:
+                  type: string
+                  format: date_time
+                finish:
+                  type: string
+                  format: date_time
+                to_do:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  '/schedule/delete/{schedule_id}':
+    delete:
+      tags:
+        - schedule
+      summary: '생체 리듬, 스케줄 삭제 API 입니다.'
+      description: '(필수) accessToken, schedule_id'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: schedule_id
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /schedule/daily-supplement:
+    post:
+      tags:
+        - schedule
+      summary: '아침, 점심, 저녁 영양제 저장 API 입니다.'
+      description: '(필수) accessToken, type, fk_supplement_id'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                fk_supplement_id:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  '/schedule/daily-supplement/{plan_id}':
+    delete:
+      tags:
+        - schedule
+      summary: '아침, 점심, 저녁 영양제 삭제 API 입니다.'
+      description: '(필수) accessToken, plan_id'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: plan_id
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /checklist/create:
+    post:
+      tags:
+        - schedule
+      summary: 체크리스트 생성 API 입니다.
+      description: '(필수) accessToken, date, one, two, three, four, five, six'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                one:
+                  type: boolean
+                two:
+                  type: boolean
+                three:
+                  type: boolean
+                four:
+                  type: boolean
+                five:
+                  type: boolean
+                six:
+                  type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /bookmark:
+    get:
+      tags:
+        - bookmark
+      summary: 전체 (회원) 북마크 조회 API 입니다.
+      description: (필수) accessToken
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '401':
+          description: accessToken이 유효하지 않습니다.
+  '/bookmark/create/{supplement_id}':
+    post:
+      tags:
+        - bookmark
+      summary: 북마크 추가 API 입니다.
+      description: '(필수) accessToken, supplement_id'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: supplement_id
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '401':
+          description: accessToken이 유효하지 않습니다.
+  '/bookmark/{supplement_id}':
+    delete:
+      tags:
+        - bookmark
+      summary: 북마크 삭제 API 입니다.
+      description: '(필수) accessToken, supplement_id'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: supplement_id
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - user_name
+        - email
+        - password
+      properties:
+        user_name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        gender:
+          type: string
+          enum:
+            - M
+            - F
+        age_range:
+          type: string
+        job:
+          type: string
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+  responses:
+    successResponse:
+      description: successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: null
+    BadRequest:
+      description: bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,125 @@
+/user/register:
+  post:
+    tags:
+      - user
+    summary: 회원가입 API 입니다.
+    description: (필수) user_name, email, password (선택) gender, age_range, job
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/User"
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/login:
+  post:
+    tags:
+      - user
+    summary: 로그인 API 입니다.
+    description: (필수) email, password
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/logout:
+  delete:
+    tags:
+      - user
+    summary: 로그아웃 API 입니다.
+    description: (필수) accessToken
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/update-info:
+  put:
+    tags:
+      - user
+    summary: 회원 정보 수정 API 입니다.
+    description: (필수) accessToken (선택) password, gender, age_range, job
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              password:
+                type: string
+              gender:
+                type: string
+              age_range:
+                type: string
+              job:
+                type: string
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
+# /user/changePassword: header, 비밀번호
+/user/withdrawal:
+  delete:
+    tags:
+      - user
+    summary: 회원 탈퇴 API 입니다.
+    description: (필수) accessToken
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/current:
+  get:
+    tags:
+      - user
+    summary: 현재 회원 정보 조회
+    description: (필수) accessToken
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/analysis-supplement:
+  get:
+    tags:
+      - user
+    summary: 유저 정보 기반 영양제 추천
+    description: (필수) accessToken / 회원의 연령, 성별 정보가 없을 시 null 값이 반환됩니다. 그래서 null 값 반환되면 연령, 성별 정보를 수정하고 추천받으라는 식으로 진행하면 좋을거같아요.
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+/user/refresh:
+  get:
+    tags:
+      - user
+    summary: access token 재발급 API 입니다.
+    description: (필수) accessToken, refreshToken, 요청 {"authorizaiton":"Bearer access-token","refresh":"refresh-token"}
+    parameters:
+      - in: header
+        name: refresh
+        schema:
+          type: string
+        required: true
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"

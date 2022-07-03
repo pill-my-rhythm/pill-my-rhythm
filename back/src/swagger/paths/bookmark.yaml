@@ -1,0 +1,49 @@
+/bookmark:
+  get:
+    tags:
+      - bookmark
+    summary: 전체 (회원) 북마크 조회 API 입니다.
+    description: (필수) accessToken
+    security:
+      - bearerAuth: []
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "401":
+        description: accessToken이 유효하지 않습니다.
+/bookmark/create/{supplement_id}:
+  post:
+    tags:
+      - bookmark
+    summary: 북마크 추가 API 입니다.
+    description: (필수) accessToken, supplement_id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: supplement_id
+        schema:
+          type: number
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "401":
+        description: accessToken이 유효하지 않습니다.
+/bookmark/{supplement_id}:
+  delete:
+    tags:
+      - bookmark
+    summary: 북마크 삭제 API 입니다.
+    description: (필수) accessToken, supplement_id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: supplement_id
+        schema:
+          type: number
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
