@@ -1,4 +1,4 @@
-# <img src='https://media.discordapp.net/attachments/979399069006979102/992998459533701151/unknown.png' width='30px'> Pill my rhythm
+# <img src='https://user-images.githubusercontent.com/97580782/177033615-c8306bf0-f293-4370-961b-d9f701174ba3.png' width='30px'> Pill my rhythm
 
 ### 사용자가 입력한 증상에 대한 **영양제 추천**, **영양제 복용 시간 및 건강 관리 스케줄 관리** 서비스
 
@@ -78,7 +78,7 @@
 <br>
 
 <div align='center'>
-    <img src='https://cdn.discordapp.com/attachments/979399069006979102/992990899141353542/image0.gif' width='650px'>
+    <img src='https://user-images.githubusercontent.com/97580782/177033630-494c83d9-359b-4422-9ce2-85ba6b1f8752.gif' width='650px'>
 </div>
 
 <br>
@@ -115,7 +115,7 @@
     </details>
 
 <div align='center'>
-    <img src='https://media.discordapp.net/attachments/979399069006979102/992990988509380639/image0.gif' width='650px'>
+    <img src='https://user-images.githubusercontent.com/97580782/177033656-05fa22ed-ce4c-4704-b117-888af2a157ae.gif' width='650px'>
 </div>
 
 <br>
@@ -139,7 +139,7 @@
   <br>
 
 <div align='center'>
-    <img src='https://media.discordapp.net/attachments/979399069006979102/992990949099712522/image0.gif' width='650px'>
+    <img src='https://user-images.githubusercontent.com/97580782/177033679-1371719c-aa27-46e2-b531-790b5dc7b124.gif' width='650px'>
 </div>
 
 <br>
@@ -160,7 +160,7 @@
 <br>
 
 <div align='center'>
-  <img src='https://media.discordapp.net/attachments/979399069006979102/993002972701265960/unknown.png?width=1362&height=655' width='800px'>
+  <img src='https://user-images.githubusercontent.com/97580782/177033692-1fc80c04-5c8a-48d1-b76f-25eb52b5f5b4.png' width='800px'>
 </div>
 
 <br>
@@ -182,9 +182,9 @@
 
 ## 3. 시연 영상
 
-![시연영상](/uploads/e272fe3be3d384c9955a6e923b8d305e/시연영상.mp4)
+![시연영상](https://user-images.githubusercontent.com/97580782/177033857-3834cb47-c2ae-4e26-9fd7-7594d8628598.mp4)
 
-![시연영상_모바일](/uploads/c969a257691844be1b8e18970e7066f5/시연영상_모바일.mp4)
+![시연영상_모바일](https://user-images.githubusercontent.com/97580782/177033872-857497ff-9cc8-4a33-a37a-3113c9db3a02.mp4)
 
 1. 첫 번째 시연 영상 1분 30초에 나오는 큐알 코드로 모바일에서 구독
 2. 스케줄에 등록한 시간에 웹, 앱 모두 푸시 알람
