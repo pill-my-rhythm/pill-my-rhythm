@@ -114,9 +114,9 @@
 
     </details>
 
-<p align=center>
+<div align='center'>
     <img src='https://media.discordapp.net/attachments/979399069006979102/992990988509380639/image0.gif' width='500px'>
-</p>
+</div>
 
 - 푸시 알림 서비스<br />
 
@@ -133,12 +133,12 @@
 
 - 영양제 북마크 기능<br />
   색 결과로 나온 영양제 중에서
-  내가 북마크한 영양제들을 한 눈에 볼 수 있
+  내가 북마크한 영양제들을 한 눈에 볼 수 있다.
   <br>
 
-<p align=center>
+<div align='center'>
     <img src='https://media.discordapp.net/attachments/979399069006979102/992990949099712522/image0.gif' width='500px'>
-</p>
+</div>
 
 <br>
 
