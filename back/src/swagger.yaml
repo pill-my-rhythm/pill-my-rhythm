@@ -314,6 +314,25 @@ paths:
           $ref: '#/components/responses/successResponse'
         '400':
           description: accessToken이 유효하지 않습니다.
+  /checklist/yearly:
+    get:
+      tags:
+        - schedule
+      summary: 연간 체크리스트 조회하는 API 입니다.
+      description: '(필수) accessToken, currentDate (query)'
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: currentDate
+          schema:
+            type: string
+          description: GET /checklist/yearly?currentDate='2022-06-30'
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
   /bookmark:
     get:
       tags:

@@ -7,12 +7,19 @@ import { useNavigate } from "react-router-dom";
 import { post } from "../../Api";
 import { DispatchContext } from "../../Dispatcher";
 
+import { userState } from "../../atoms";
+import { useRecoilValue, useRecoilState } from "recoil";
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const [user, setser] = useRecoilState(userState);
+  const CurrentValue = useRecoilValue(userState);
+  // console.log("#CurrentRecoilValue", CurrentValue);
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
@@ -32,10 +39,11 @@ const LoginForm = () => {
 
     try {
       // "user/login" 엔드포인트로 post요청함.
-      const res = await post("user/login", {
+      const res: any = await post("user/login", {
         email,
         password,
       });
+
       // 유저 정보는 response의 data임.
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
@@ -43,7 +51,9 @@ const LoginForm = () => {
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
       sessionStorage.setItem("userToken", jwtToken);
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-      console.log("#user", user);
+      // console.log("#user", user);
+      setser(user.userInfo);
+      // console.log("로그인 유저 상태", user);
 
       if (!dispatch) return;
 
@@ -54,17 +64,19 @@ const LoginForm = () => {
 
       // 기본 페이지로 이동함.
       navigate("/");
-    } catch (error) {
-      alert(`${error}로 인해 로그인에 실패했습니다.`);
-      console.log("로그인에 실패하였습니다.\n", error);
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
     }
   };
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-full space-y-8 mb-20">
         <div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center my-6">
             <img className="w-60 h-60 m-5" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>

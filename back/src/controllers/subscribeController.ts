@@ -15,6 +15,19 @@ const SubscribeController = {
     }
   },
 
+  getSubscription: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fk_user_id: string = req.currentUserId;
+      const device_token: ISendNotificationInput = req.body.device_token;
+
+      const subscription = await SubscribeService.getSubscription(fk_user_id, device_token);
+
+      res.status(200).json(subscription);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   pushNotification: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;

@@ -9,14 +9,14 @@ const VideoArea = () => {
             <iframe className="w-full aspect-video rounded-lg shadow-2xl" src="https://www.youtube.com/embed/LTdLVar1FUU" title="youtube" />
           </div>
           <div className="p-2 m-2 break-words text-center">
-            <h1 className="text-5xl font-bold text-white mr-6 ml-6 leading-normal">
+            <h1 className="text-3xl md:text-5xl font-bold leading-relaxed md:leading-normal text-white mx-3 md:mx-6">
               영양제, 복용하기 전에
               <br />
               정확하게 알고 먹자!
             </h1>
-            <p className="m-6 leading-6">
-              당신에게 가장 필요한 영양제는 “something” 이예요. <br />
-              “something”을 섭취하기 전에 주의할 점을 영상을 통해 확인해보세요😃
+            <p className="mx-3 my-4 md:m-6 leading-loose text-base md:text-lg">
+              영양제, 먹는 것 만큼 중요한 올바른 복용법! <br />
+              영양제 섭취 전에 주의할 점들을 영상을 통해 확인해보세요😃
             </p>
           </div>
           <ul className="steps md:steps-vertical mb-8">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { get } from "./Api";
 import { loginReducer } from "./reducer";
+import Loading from "./routes/_shared/Loading";
 
 export const UserStateContext = createContext<any>(null);
 export const DispatchContext = createContext<any>(null);
@@ -28,7 +29,7 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
 
       if (!dispatch) return;
 
-      console.log("# currentUser", currentUser);
+      // ? console.log("# currentUser", currentUser);
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
 
       dispatch({
@@ -48,7 +49,7 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
   }, [userState.user_name]);
 
   if (!isFetchCompleted) {
-    return <span> Loading..</span>;
+    return <Loading />;
   }
 
   return (
