@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import Scheduler, { AppointmentDragging, Editing } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
@@ -48,7 +48,7 @@ function Calendar() {
   const setLevel = useSetRecoilState<Array<Levels>>(levelsAtom);
   const widthSize = useResize(768);
 
-  const onCurrentDateChange = (e: any) => {
+  const onCurrentDateChange = useCallback((e: any) => {
     let start = moment(e)
       .startOf("isoweek" as unitOfTime.StartOf)
       .format();
@@ -61,7 +61,7 @@ function Calendar() {
         }),
       );
     });
-  };
+  }, []);
 
   useEffect(() => {
     get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
@@ -75,7 +75,7 @@ function Calendar() {
     });
   }, []);
 
-  const onAppointmentAdd = async (e: any) => {
+  const onAppointmentAdd = useCallback(async (e: any) => {
     const index = tasks.indexOf(e.fromData);
     const dayIndex = dayHour.indexOf(e.fromData);
     if (index >= 0) {
@@ -117,30 +117,33 @@ function Calendar() {
         }),
       );
     });
-  };
+  }, []);
 
-  const onAppointmentDeleting = async (e: any) => {
+  const onAppointmentDeleting = useCallback(
+    async (e: any) => {
+      e.cancel = true;
+      const index = appointments.findIndex((appointments) => appointments.endDate === e.appointmentData.endDate);
+      const appointmentsCopy = [...appointments];
+      if (index >= 0) {
+        appointmentsCopy.splice(index, 1);
+        await del(`schedule/delete/${e.appointmentData.id}`);
+        setAppointments([...appointmentsCopy]);
+      }
+    },
+    [appointments],
+  );
+
+  const onListDragStart = useCallback((e: any) => {
     e.cancel = true;
-    const index = appointments.findIndex((appointments) => appointments.endDate === e.appointmentData.endDate);
-    const appointmentsCopy = [...appointments];
-    if (index >= 0) {
-      appointmentsCopy.splice(index, 1);
-      await del(`schedule/delete/${e.appointmentData.id}`);
-      setAppointments([...appointmentsCopy]);
-    }
-  };
+  }, []);
 
-  const onListDragStart = (e: any) => {
+  const onAppointmentFormOpening = useCallback((e: any) => {
     e.cancel = true;
-  };
+  }, []);
 
-  const onAppointmentFormOpening = (e: any) => {
-    e.cancel = true;
-  };
-
-  const renderDateCell = (data: { text: string; date: Date }) => {
+  const renderDateCell = useCallback((data: { text: string; date: Date }) => {
     return <CheckList data={data} />;
-  };
+  }, []);
 
   return (
     <>

@@ -6,7 +6,7 @@ const ChecklistService = {
   addChecklist: async (data: IChecklistCreateType) => {
     const checklist = await Checklist.findByDate(data.fk_user_id, data.date);
     if (checklist) {
-      throw new HttpException(409, "오늘은 이미 체크리스트를 작성하셨습니다.");
+      throw new HttpException(409, "해당하는 날짜에 이미 체크리스트를 작성하셨습니다.");
     }
 
     const levelCount = Object.values(data).filter((element) => element === true).length;
