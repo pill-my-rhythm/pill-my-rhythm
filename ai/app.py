@@ -24,8 +24,6 @@ def connection():
                     charset='utf8')
     return db
 
-
-
 @app.route("/ai")
 def hello_world():
     return "<p>Hello, World!</p>"
