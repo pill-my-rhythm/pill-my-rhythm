@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { AES } from "crypto-js";
 import { post } from "../../Api";
 import { UserStateContext } from "../../Dispatcher";
@@ -76,13 +76,13 @@ function Subscribe() {
 
             <div className="items-center justify-center flex flex-row space-x-2 p-2">
               <button
-                onClick={() => subscribe()}
+                onClick={subscribe}
                 className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
               >
                 구독하기
               </button>
               <button
-                onClick={() => unsubscribe()}
+                onClick={unsubscribe}
                 className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
               >
                 구독 취소
@@ -91,7 +91,7 @@ function Subscribe() {
 
             <div className="divider">Mobile</div>
             <div className="items-center justify-center flex flex-col">
-              <img src={QRcode} alt="QRcode" width="170" height="170" className="rounded-xl" />
+              <img src={useMemo(() => QRcode, [])} alt="QRcode" width="170" height="170" className="rounded-xl" />
               <h3 className="text-slate-900 mt-5 text-base font-medium tracking-tight">모바일 알림 구독 QR</h3>
               <p className="text-slate-500  mt-2 text-sm text-left">
                 영양제 일정 알림 서비스는 현재 ios에서 지원되지 않아 Android 또는 Web에서만 가능합니다. Android 접속시 google 애플리케이션의 google lens를 이용하시는 것을 추천드립니다.
