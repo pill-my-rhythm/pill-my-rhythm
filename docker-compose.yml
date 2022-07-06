@@ -25,7 +25,7 @@ services:
     container_name: 'redis-app'
 
   ai_server:
-    image: tbr06057/python-pill-my-rhythm-app:1.0.0
+    image: tbr06057/python-pill-my-rhythm-app:1.0.1
     restart: 'on-failure'
     ports:
       - 5002:5002
