@@ -103,7 +103,7 @@ const CheckList = ({ data }: CheckListProp) => {
   };
   return (
     <>
-      <DateLabel htmlFor={`modal-${data.text}`} className="modal-button cursor-pointer" color={color}>
+      <DateLabel id="checklistArea" htmlFor={`modal-${data.text}`} className="modal-button cursor-pointer" color={color}>
         {data.text}
       </DateLabel>
       <input type="checkbox" id={`modal-${data.text}`} className="modal-toggle" />
