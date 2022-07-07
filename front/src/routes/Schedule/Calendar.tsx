@@ -1,4 +1,8 @@
 import { useCallback, useEffect } from "react";
+import GuideChimp from "guidechimp";
+import "guidechimp/dist/guidechimp.min.css";
+import "./OnboardingCustom.css";
+import { description } from "./Onboarding";
 import Scheduler, { AppointmentDragging, Editing } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
@@ -64,6 +68,10 @@ function Calendar() {
   }, []);
 
   useEffect(() => {
+    // onboarding 설명 by guidechimp
+    const guidechimp = GuideChimp(description);
+    guidechimp.start();
+
     get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setLevel(res.data.checklist);
       setSupplements(res.data.dailySupplement);
@@ -161,13 +169,13 @@ function Calendar() {
             <ScrollView id="scroll">
               <Draggable id="list" data="dropArea" group={draggingGroupName} onDragStart={onListDragStart}>
                 <ul>
-                  <div className="py-5 px-5 max-w-sm mx-auto bg-white rounded-xl">
+                  <div id="supplementsDnDService" className="py-5 px-5 max-w-sm mx-auto bg-white rounded-xl">
                     {dayHour.map((task) => (
                       <DayItem task={task} key={task.text} />
                     ))}
                   </div>
 
-                  <div className="mt-7 bg-white rounded-xl py-5 px-5">
+                  <div id="biorhythmsDnDService" className="mt-7 bg-white rounded-xl py-5 px-5">
                     {tasks.map((task) => (
                       <TaskItem task={task} key={task.text} />
                     ))}
