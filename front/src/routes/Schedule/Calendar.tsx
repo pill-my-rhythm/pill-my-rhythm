@@ -1,7 +1,6 @@
 import { useCallback, useEffect } from "react";
 import GuideChimp from "guidechimp";
 import "guidechimp/dist/guidechimp.min.css";
-import "./OnboardingCustom.css";
 import { description } from "./Onboarding";
 import Scheduler, { AppointmentDragging, Editing } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
@@ -162,7 +161,7 @@ function Calendar() {
       </div>
 
       <div className="w-screen flex flex-wrap">
-        <div className="hidden lg:block py-10 px-8 overflow-y-auto bg-slate-100 w-1/5 ">
+        <div className="hidden lg:block py-10 px-8 overflow-y-auto bg-slate-100 w-1/5">
           <Subscribe />
           <div className="divider" />
           <nav className="lg:leading-6 mt-7">
@@ -185,7 +184,7 @@ function Calendar() {
             </ScrollView>
           </nav>
         </div>
-        <div className="px-10 pt-10 w-full md:w-4/5">
+        <div className="px-10 pt-10 w-full md:w-4/5" id="CalendarWrapper">
           <header id="header" className="mb-10 md:flex md:items-start">
             <div className="flex-auto max-w-4xl">
               <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>

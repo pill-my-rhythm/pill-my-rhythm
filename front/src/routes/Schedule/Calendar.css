@@ -52,3 +52,20 @@
   background-color: white;
   border: none;
 }
+
+/* Change progressbar color (온보딩 UI) */
+.gc-progressbar {
+  background-color: #268c88;
+}
+
+.gc-pagination-item.gc-pagination-item-current.gc-pagination-active {
+  background-color: #00dfd7;
+}
+
+.gc-copyright {
+  display: none;
+}
+
+.gc-description {
+  line-height: 20px;
+}

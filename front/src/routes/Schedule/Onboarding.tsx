@@ -24,7 +24,7 @@ export const description = [
     description: "생체리듬 개선에 좋은 활동들을 드래그앤드롭으로 설정할 수 있습니다.",
   },
   {
-    element: "#scheduler",
+    element: "#CalendarWrapper",
     title: "스케쥴러",
     description: "오전 6시부터 밤 12시까지 일정을 추가하고 삭제할 수 있습니다.",
   },
