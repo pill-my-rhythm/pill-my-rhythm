@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   frontend_server:
-    image: tbr06057/react-pill-my-rhythm-app:1.0.6
+    image: tbr06057/react-pill-my-rhythm-app:1.0.7
     # image: s0n9h2/react-pill-my-rhythm-app:1.0.5
     restart: 'on-failure'
     volumes:
