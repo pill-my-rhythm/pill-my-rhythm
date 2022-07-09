@@ -15,7 +15,7 @@ import DayItem from "./DayItem";
 import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
 import Subscribe from "./Subscribe";
-import useResize from "../../hooks/useResize";
+import useIsMobile from "../../hooks/useResize";
 
 export interface Appointments {
   endDate: Date;
@@ -49,7 +49,7 @@ function Calendar() {
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);
   const [supplements, setSupplements] = useRecoilState<Array<Supplements>>(supplementAtom);
   const setLevel = useSetRecoilState<Array<Levels>>(levelsAtom);
-  const widthSize = useResize(768);
+  const widthSize = useIsMobile();
 
   const onCurrentDateChange = useCallback((e: any) => {
     let start = moment(e)
@@ -199,7 +199,7 @@ function Calendar() {
               views={views}
               defaultCurrentDate={currentDate}
               defaultCurrentView="week"
-              currentView={widthSize.isSizeSmall ? "day" : "week"}
+              currentView={widthSize ? "day" : "week"}
               height={600}
               startDayHour={6}
               onAppointmentFormOpening={onAppointmentFormOpening}
