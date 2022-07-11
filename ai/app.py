@@ -15,14 +15,14 @@ CORS(app)
 CORS(app, resources={r'': {'origins': ''}}, expose_headers=["Content-disposition"])
 CORS(app, resources={r'/recommend/*': {'origins': 'http://localhost:3000/'}})
 
-db = pymysql.connect(host = os.environ.get('host'), 
+def connection():
+    db = pymysql.connect(host = os.environ.get('host'), 
                     port = int(os.environ.get('port')), 
                     user = os.environ.get('user'), 
                     password = os.environ.get('password'), 
                     db = os.environ.get('db'), 
                     charset='utf8')
-cursor = db.cursor()
-
+    return db
 
 @app.route("/ai")
 def hello_world():
@@ -36,6 +36,9 @@ def recommend():
     fk_user_id = g.userId
     supplement = test_model(sentence)
 
+    db = connection()
+    cursor = db.cursor()
+
     recommend_supplement = []
     for i in supplement:
         select_sql = """SELECT * FROM tb_supplement WHERE pk_supplement_id = '%s'""" % (i+1)
@@ -48,7 +51,7 @@ def recommend():
             cursor.execute(insert_sql, (fk_user_id,idx))
         db.commit()
     
-    # db.close()
+    db.close()
     return {'results': recommend_supplement}
 
 
