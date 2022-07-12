@@ -127,7 +127,7 @@ paths:
         '200':
           $ref: '#/components/responses/successResponse'
   /user/refresh:
-    get:
+    post:
       tags:
         - user
       summary: access token 재발급 API 입니다.
