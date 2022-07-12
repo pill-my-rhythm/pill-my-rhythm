@@ -3,7 +3,7 @@ import { AES } from "crypto-js";
 import { Subscribe } from "../db/Subscribe";
 import { Schedule } from "../db/Schedule";
 import { pushData } from "../interfaces/subscribeInput";
-// import { HttpException } from "../utils/error-util";
+import { HttpException } from "../utils/error-util";
 import { makeChecklistToken, makeResubscribeToken } from "../utils/jwt-util";
 import { emailUtil } from "../utils/emailUtil";
 
@@ -63,6 +63,11 @@ const SubscribeService = {
               ).toString(),
             };
             await emailUtil.expirationEmail(emailData);
+
+            throw new HttpException(
+              500,
+              `사용자 ${scheduleData.User["pk_user_id"]}의 토큰 정보가 만료되어 삭제 후 재갱신 메일을 전송했습니다.`
+            );
           }
         }
       }
