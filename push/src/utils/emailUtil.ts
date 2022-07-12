@@ -19,11 +19,21 @@ interface expirationData {
   encryptedToken: string;
 }
 
+interface pushErrorData {
+  developers: string[];
+  time: Date;
+  errorContent: {
+    syscall: string;
+    code: string;
+    errno: string;
+  };
+}
+
 const emailUtil = {
   expirationEmail: async (data: expirationData) => {
     const pageLink = `${process.env.APP_MODE}:${process.env.FRONT_PORT}/m/subscribe?token=${data.encryptedToken}`;
     const encodedPageLink = encodeURIComponent(
-      `${process.env.APP_MODE}:${process.env.FRONT_PORT}/m/subscribe?token=${data.encryptedToken}`,
+      `${process.env.APP_MODE}:${process.env.FRONT_PORT}/m/subscribe?token=${data.encryptedToken}`
     );
     const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
 
@@ -57,6 +67,22 @@ const emailUtil = {
           console.log(`${res.rejected[0]}`);
         }
       });
+  },
+
+  pushErrorEmail: async (data: pushErrorData) => {
+    for (const developerEmail of data.developers) {
+      await transporter.sendMail({
+        from: process.env.GMAIL_ID, // 보내는 주소 입력
+        to: developerEmail, // 위에서 선언해준 받는사람 이메일
+        subject: `Pill my rhythm 서비스의 Push 알림이 제대로 전송되지 않았습니다.`, // 메일 제목
+        // 내용
+        html:
+          `<p>발생 시각: ${data.time}</p>` +
+          `<p>syscall: ${data.errorContent.syscall}</p>` +
+          `<p>code: ${data.errorContent.code}</p>` +
+          `<p>errno: ${data.errorContent.errno}</p>`,
+      });
+    }
   },
 };
 
