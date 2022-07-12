@@ -40,6 +40,7 @@ const Header = () => {
 
       // * sessionStorage 에 저장했던 JWT 토큰을 삭제함.
       sessionStorage.removeItem("userToken");
+      sessionStorage.removeItem("refreshToken");
 
       // * dispatch 함수를 이용해 로그아웃함.
       await dispatch({ type: "LOGOUT" });

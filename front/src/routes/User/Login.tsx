@@ -48,13 +48,20 @@ const LoginForm = () => {
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
       const jwtToken = user.accessToken;
+
+      // refreshToken은 JWT화된 유저정보의 리프레시 토큰임.
+      const refreshToken = user.refreshToken;
+
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
       sessionStorage.setItem("userToken", jwtToken);
-      // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-      // console.log("#user", user);
-      setser(user.userInfo);
-      // console.log("로그인 유저 상태", user);
 
+      // sessionStorage에 "refreshToken"이라는 키로 refreshToken을 저장함.
+      sessionStorage.setItem("refreshToken", refreshToken);
+
+      console.log("#user", user);
+      setser(user.userInfo);
+
+      // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       if (!dispatch) return;
 
       dispatch({

@@ -5,6 +5,50 @@ const aiPortNumber = "5002";
 const aiserverUrl = window.location.protocol + "//" + window.location.hostname + ":" + aiPortNumber + "/";
 const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
 
+axios.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  async (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+
+    const originalRequest = config;
+
+    if (status === 401) {
+      // if (error.name === "TokenExpiredError") {
+      const refreshToken = sessionStorage.getItem("refreshToken");
+      console.log("refresh#refreshToken", refreshToken);
+
+      await axios
+        .get(`user/refresh`, {
+          headers: {
+            refresh: `${refreshToken}`,
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
+        })
+        .then((res) => {
+          console.log("refresh#data", res);
+
+          const accessToken = res.data.accessToken;
+          // const accessToken = `${accessTokens.header}.${accessTokens.payload}.${accessTokens.signature}`;
+
+          sessionStorage.setItem("userToken", accessToken);
+        })
+        .catch((error) => {
+          throw error;
+        });
+
+      originalRequest.headers = { Authorization: `Bearer ${sessionStorage.getItem("userToken")}` };
+      return axios(originalRequest);
+    }
+    // }
+    return Promise.reject(error);
+  },
+);
+
 async function get(endpoint: string, params = "", destination: "AI" | "BACK" = "BACK") {
   return axios.get((destination === "AI" ? aiserverUrl : serverUrl) + endpoint + params, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
