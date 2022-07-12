@@ -8,6 +8,7 @@
     "@types/cors": "^2.8.12",
     "@types/crypto-js": "^4.1.1",
     "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.4",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.38",
     "@types/nodemailer": "^6.4.4",
@@ -19,8 +20,10 @@
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.2",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
+    "ts-jest": "^28.0.5",
     "ts-node": "^10.8.0",
     "typescript": "^4.7.2"
   },
@@ -58,6 +61,9 @@
     "build": "tsc",
     "js-start": "node ./index.js",
     "start": "nodemon --exec ts-node index.ts",
-    "swagger": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile ./src/swagger.yaml --type yaml"
+    "swagger": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile ./src/swagger.yaml --type yaml",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   }
 }

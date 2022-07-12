@@ -42,6 +42,6 @@ UserRouter.get("/current", verifyToken, UserController.currentUserInfo);
 UserRouter.get("/analysis-supplement", verifyToken, UserController.userAnalysisSupplement);
 
 // token 재발급
-UserRouter.get("/refresh", verifyRefresh);
+UserRouter.post("/refresh", verifyRefresh);
 
 export { UserRouter };
