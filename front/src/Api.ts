@@ -22,14 +22,15 @@ axios.interceptors.response.use(
       const refreshToken = sessionStorage.getItem("refreshToken");
       console.log("refresh#refreshToken", refreshToken);
 
-      await axios
-        .get(`user/refresh`, {
+      const data = await axios
+        .post(serverUrl + `user/refresh`, {
           headers: {
             refresh: `${refreshToken}`,
             Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
           },
         })
         .then((res) => {
+          console.log("제발데이터", data);
           console.log("refresh#data", res);
 
           const accessToken = res.data.accessToken;
@@ -41,7 +42,10 @@ axios.interceptors.response.use(
           throw error;
         });
 
-      originalRequest.headers = { Authorization: `Bearer ${sessionStorage.getItem("userToken")}` };
+      originalRequest.headers = {
+        ...originalRequest.headers,
+        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      };
       return axios(originalRequest);
     }
     // }
