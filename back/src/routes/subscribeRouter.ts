@@ -21,9 +21,6 @@ SubscribeRouter.get("/info", verifyToken, SubscribeController.getSubscription);
 // 사용자별 푸시 알림 테스트
 SubscribeRouter.get("/push-test", verifyToken, SubscribeController.pushNotification);
 
-// 하루 영양제 정보 푸시 알림
-SubscribeRouter.get("/push-supplements", SubscribeController.pushSupplements);
-
 // 알림 서비스 구독 취소
 SubscribeRouter.post(
   "/delete",
