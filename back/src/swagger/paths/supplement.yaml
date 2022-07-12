@@ -1,0 +1,22 @@
+/supplement:
+  get:
+    tags:
+      - supplement
+    summary: 전체 영양제 조회 api 입니다.
+    description: page, search -> 쿼리로 요청해주세요.
+    parameters:
+      - in: query
+        name: page
+        schema:
+          type: number
+        description: GET / url 예시 - http://localhost:5000/supplement?page=3 => page는 1부터 시작하고 default가 1이라서 page 쿼리 값 안보내셔도 첫번 째 페이지로 응답해요!
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: GET / url 예시 - http://localhost:5000/supplement?search=루테인
+    responses:
+      "200":
+        $ref: "../openapi.yaml#/components/responses/successResponse"
+      "400":
+        description: accessToken이 유효하지 않습니다.
