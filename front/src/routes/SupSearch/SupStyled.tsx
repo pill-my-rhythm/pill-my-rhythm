@@ -111,6 +111,7 @@ export const CardWrap = styled.div`
   width: 100%;
   padding: 20px 20px 30px 20px;
   text-align: center;
+  cursor: pointer;
 
   &:hover::after {
     top: 0;
