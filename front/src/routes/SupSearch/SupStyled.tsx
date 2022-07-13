@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 export const Wrap = styled.div`
   flex: 1 0 auto;
-  background: #f5f5fa;
+  /* background: #f5f5fa; */
   /* background-image: linear-gradient(108.1deg, rgba(167, 220, 225, 1) 11.2%, rgba(217, 239, 242, 1) 88.9%); */
-  /* background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(242, 235, 243, 1) 0%, rgba(234, 241, 249, 1) 90.1%); */
+  background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(242, 235, 243, 1) 0%, rgba(234, 241, 249, 1) 90.1%);
 `;
 
 export const SearchHeader = styled.div`
