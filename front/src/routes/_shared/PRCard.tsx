@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserStateContext } from "../../Dispatcher";
+import React, { useEffect, useState } from "react";
 import { PillData } from "../Search/Result/PRList";
 import PRModal from "./PRModal";
 import { get, post, del } from "../../Api";
 import { BookMark, FilledBookMark } from "./BookMark";
+import { userState } from "../../atoms";
+import { useRecoilValue } from "recoil";
 
 const PRCard = ({ pr }: PillData) => {
-  const userState = useContext(UserStateContext);
-  const isLogin = !!userState.user;
+  const user = useRecoilValue(userState);
+  // console.log("user", user);
+  const isLogin = !(user.length === 0);
   const supplement_id = pr.pk_supplement_id;
 
   // console.log("#pr.pk_supplement_id", pr.pk_supplement_id);
@@ -37,15 +39,13 @@ const PRCard = ({ pr }: PillData) => {
   const HandleBookMarkChange: any = async () => {
     try {
       const data = {
-        accessToken: userState.user.accessToken,
+        accessToken: user.accessToken,
         supplement_id: pr.pk_supplement_id,
       };
       if (!bookMark) {
-        const res = await post(`bookmark/create/${supplement_id}`, data);
-        // console.log("#BookMark", res);
+        await post(`bookmark/create/${supplement_id}`, data);
       } else {
-        const res = await del("bookmark", `${pr.pk_supplement_id}`);
-        // console.log("#BookMarkDelete", res);
+        await del("bookmark", `${pr.pk_supplement_id}`);
       }
       loadBookMarkList();
     } catch (error: any) {
