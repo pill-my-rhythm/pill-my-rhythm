@@ -36,6 +36,13 @@ function SupSearch() {
       setAllSup(res.data);
     };
     fetchAllSup();
+    if (word) {
+      const fetchSearchSup = async () => {
+        const res = await get(`supplement?search=${word}`);
+        setSearchResult(res.data);
+      };
+      fetchSearchSup();
+    }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
