@@ -1,14 +1,19 @@
+import { Result } from "./SupSearch";
 import { AfterContent, CardWrap, ImgWrapper, InfoWrapper, SupName, Tag } from "./SupStyled";
 
-function SupCard() {
+interface CardProp {
+  data: Result;
+}
+
+function SupCard({ data }: CardProp) {
   return (
     <CardWrap>
       <ImgWrapper>
-        <img src="https://shopping-phinf.pstatic.net/main_2841914/28419146556.20220331093751.jpg" alt="" />
+        <img src={data.img_link} alt="" />
       </ImgWrapper>
       <InfoWrapper>
-        <Tag>#우리바이오(주)</Tag>
-        <SupName>하루틴 루테인 알티지(rTG) 오메가3</SupName>
+        <Tag>{data.company}</Tag>
+        <SupName>{data.name}</SupName>
       </InfoWrapper>
       <AfterContent>
         <button className="btn btn-primary">구매하기</button>

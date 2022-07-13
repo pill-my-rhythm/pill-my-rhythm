@@ -26,6 +26,7 @@ function Router() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/schedule" element={<Calendar />} />
           <Route path="/search" element={<SupSearch />} />
+          <Route path="/search/:word" element={<SupSearch />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/result" element={<Result />} />
