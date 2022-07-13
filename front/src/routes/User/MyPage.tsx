@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import UserBookMarkList from "./UserBookMarkPage";
 import UserMyPage from "./UserMyPage";
 import UserRecommendPage from "./UserRecommendPage";
 import MyYearlyChecklist from "./MyYearlyChecklist";
 import { userState } from "../../atoms";
 import { useRecoilValue } from "recoil";
-
+import { useLoginCheck } from "../../hooks/useLoginCheck";
 const MyPage = () => {
   const Recoiluser = useRecoilValue(userState);
-  // console.log("MyPage#Recoiluser", Recoiluser);
+
+  // * 로그인 여부를 확인
+  useLoginCheck();
 
   return (
     <>

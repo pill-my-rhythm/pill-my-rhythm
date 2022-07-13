@@ -16,6 +16,7 @@ import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
 import Subscribe from "./Subscribe";
 import useIsMobile from "../../hooks/useResize";
+import { useLoginCheck } from "../../hooks/useLoginCheck";
 
 export interface Appointments {
   endDate: Date;
@@ -44,6 +45,9 @@ const views: Array<Object> = [{ type: "week" }];
 const draggingGroupName = "appointmentsGroup";
 
 function Calendar() {
+  // * 로그인 여부를 체크!
+  useLoginCheck();
+
   const tasks = useRecoilValue(tasksAtom);
   const dayHour = useRecoilValue(dayHoursAtom);
   const [appointments, setAppointments] = useRecoilState<Array<Appointments>>(appointmentsAtom);

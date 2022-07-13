@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { UserStateContext, DispatchContext } from "../../../Dispatcher";
+import { DispatchContext } from "../../../Dispatcher";
 import { del } from "../../../Api";
-import { userState as RecoilUserState } from "../../../atoms";
-import { useResetRecoilState } from "recoil";
+import { userState } from "../../../atoms";
+import { useResetRecoilState, useRecoilValue } from "recoil";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userState = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);
-
-  const ResetUser = useResetRecoilState(RecoilUserState);
+  const user = useRecoilValue(userState);
+  const ResetUser = useResetRecoilState(userState);
 
   // console.log("헤더에 userState", userState);
   // console.log("#RecoilUserState", RecoilUserState);
@@ -19,7 +18,7 @@ const Header = () => {
   const [mobile, setMobile] = useState<Boolean>(false);
 
   // 전역상태에서 user가 null이 아니라면 로그인 성공 상태임.
-  const isLogin = !!userState.user;
+  const isLogin = !(user.length === 0);
 
   // 모바일 체크 함수
   const checkParams = () => {
@@ -51,27 +50,6 @@ const Header = () => {
     } catch (err) {
       alert("로그아웃에 실패했습니다.");
       console.log("# Logout Error", err);
-    }
-  };
-
-  const MoveLogin = () => {
-    alert("로그인 후 이용해주세요!");
-    navigate("/login");
-  };
-
-  const ControlScheduler = () => {
-    if (isLogin) {
-      navigate("/schedule");
-    } else {
-      MoveLogin();
-    }
-  };
-
-  const ControlMyPage = () => {
-    if (isLogin) {
-      navigate("/mypage");
-    } else {
-      MoveLogin();
     }
   };
 
@@ -111,10 +89,10 @@ const Header = () => {
                     <Link to="/">Search</Link>
                   </li>
                   <li>
-                    <button onClick={ControlScheduler}>Scheduler</button>
+                    <Link to="/schedule">Scheduler</Link>
                   </li>
                   <li>
-                    <button onClick={ControlMyPage}>My Page</button>
+                    <Link to="/mypage">My Page</Link>
                   </li>
                 </ul>
               ) : (
@@ -126,10 +104,10 @@ const Header = () => {
                     <Link to="/">Search</Link>
                   </li>
                   <li>
-                    <button onClick={ControlScheduler}>Scheduler</button>
+                    <Link to="/schedule">Scheduler</Link>
                   </li>
                   <li>
-                    <button onClick={ControlMyPage}>My Page</button>
+                    <Link to="/mypage">My Page</Link>
                   </li>
                   <li>
                     <button onClick={logout}>Logout</button>
@@ -153,7 +131,7 @@ const Header = () => {
             <Link to="/">Search</Link>
           </li>
           <li>
-            <button onClick={ControlScheduler}>Scheduler</button>
+            <Link to="/schedule">Scheduler</Link>
           </li>
           {!isLogin ? (
             <li tabIndex={0}>
@@ -165,18 +143,18 @@ const Header = () => {
               </Link>
               <ul className="p-2 bg-base-100">
                 <li>
-                  <button onClick={ControlMyPage}>My Page</button>
+                  <Link to="/mypage">My Page</Link>
                 </li>
               </ul>
             </li>
           ) : (
             <li tabIndex={0}>
-              <button onClick={ControlMyPage}>
+              <Link to="/mypage">
                 My Page
                 <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                 </svg>
-              </button>
+              </Link>
               <ul className="p-2 bg-base-100">
                 <li>
                   <button className="px-8" onClick={logout}>
