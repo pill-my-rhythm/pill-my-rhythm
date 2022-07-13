@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
 import { get } from "../../Api";
 import SupCard from "./SupCard";
 import { Wrap, SearchHeader, SearchWrapper, InputWrapper, Input, LsWrapper, Form, SearchInp, VerticalDvd, BtnWrapper, Container, CardContainer, ListWrapper, CardList } from "./SupStyled";
@@ -19,10 +19,13 @@ export interface Result {
 }
 
 function SupSearch() {
+  const location = useLocation();
+  const word = new URLSearchParams(location.search).get("word");
   const navigate: NavigateFunction = useNavigate();
   const [allSup, setAllSup] = useState<Array<Result>>([]);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState<Array<Result>>([]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value);
   };
@@ -75,17 +78,31 @@ function SupSearch() {
         </SearchHeader>
       </Wrap>
 
-      <Container>
-        <CardContainer>
-          <ListWrapper>
-            {allSup.map((data) => (
-              <CardList key={data.pk_supplement_id}>
-                <SupCard data={data} />
-              </CardList>
-            ))}
-          </ListWrapper>
-        </CardContainer>
-      </Container>
+      {!word ? (
+        <Container>
+          <CardContainer>
+            <ListWrapper>
+              {allSup.map((data) => (
+                <CardList key={data.pk_supplement_id}>
+                  <SupCard data={data} />
+                </CardList>
+              ))}
+            </ListWrapper>
+          </CardContainer>
+        </Container>
+      ) : (
+        <Container>
+          <CardContainer>
+            <ListWrapper>
+              {searchResult.map((data) => (
+                <CardList key={data.pk_supplement_id}>
+                  <SupCard data={data} />
+                </CardList>
+              ))}
+            </ListWrapper>
+          </CardContainer>
+        </Container>
+      )}
     </>
   );
 }
