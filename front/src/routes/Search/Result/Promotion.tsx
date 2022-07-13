@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { ScrollTopButton } from "../../_shared/ScrollTopButton";
 
 const Promotion = () => {
   const navigate = useNavigate();
@@ -20,7 +21,9 @@ const Promotion = () => {
           🔔 영양제 알림 일정 등록하러 가기
         </button>
       </div>
-      <div className="h-20" />
+      <div className="h-20 flex items-center justify-center mt-8 mx-4">
+        <ScrollTopButton />
+      </div>
     </div>
   );
 };
