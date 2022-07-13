@@ -13,6 +13,7 @@ import Pmrguide from "./routes/Pmr";
 import Footer from "./routes/_shared/Footer";
 import Demo from "./routes/Schedule/YearlyChecklist";
 import Aboutus from "./routes/_shared/Footer/Aboutus";
+import SupSearch from "./routes/SupSearch/SupSearch";
 
 function Router() {
   return (
@@ -24,17 +25,17 @@ function Router() {
           <Route path="/pillmyrhythm" element={<Pmrguide />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/schedule" element={<Calendar />} />
+          <Route path="/search" element={<SupSearch />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/result" element={<Result />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/m/subscribe" element={<Subscribe />} />
           <Route path="/m/checklist" element={<PushCheckList />} />
-          {/* 여기에 추가 */}
           <Route path="/yearly/checklist" element={<Demo />} />
           <Route path="/aboutus" element={<Aboutus />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </Dispatcher>
   );

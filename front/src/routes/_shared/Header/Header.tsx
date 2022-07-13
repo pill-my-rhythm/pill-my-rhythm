@@ -122,7 +122,7 @@ const Header = () => {
                     <Link to="/pillmyrhythm">About Pmr</Link>
                   </li>
                   <li>
-                    <Link to="/">Search</Link>
+                    <Link to="/search">Search</Link>
                   </li>
                   <li>
                     <button onClick={ControlScheduler}>Scheduler</button>
@@ -149,7 +149,7 @@ const Header = () => {
             <Link to="/pillmyrhythm">About Pmr</Link>
           </li>
           <li>
-            <Link to="/">Search</Link>
+            <Link to="/search">Search</Link>
           </li>
           <li>
             <button onClick={ControlScheduler}>Scheduler</button>
