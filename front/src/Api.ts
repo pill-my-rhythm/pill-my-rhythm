@@ -5,50 +5,57 @@ const aiPortNumber = "5002";
 const aiserverUrl = window.location.protocol + "//" + window.location.hostname + ":" + aiPortNumber + "/";
 const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
 
+// const axiosWithToken = axios.create({
+//   baseURL: serverUrl,
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+//   },
+// });
+
+// * accessToken 만료시 refresh Token으로 교환
 axios.interceptors.response.use(
   (res) => {
     return res;
   },
   async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error;
+    const originalRequest = error.config;
+    // console.log("#error", error);
 
-    const originalRequest = config;
+    if (error.response.status === 401) {
+      if (error.response.data.error.name === "TokenExpiredError") {
+        const refreshToken = sessionStorage.getItem("refreshToken");
+        // console.log("refresh#refreshToken", refreshToken);
+        const userToken = sessionStorage.getItem("userToken");
+        // console.log("refresh#userToken", userToken);
 
-    if (status === 401) {
-      // if (error.name === "TokenExpiredError") {
-      const refreshToken = sessionStorage.getItem("refreshToken");
-      console.log("refresh#refreshToken", refreshToken);
+        await axios
+          .post(
+            serverUrl + `user/refresh`,
+            {},
+            {
+              headers: {
+                refresh: `${refreshToken}`,
+                Authorization: `Bearer ${userToken}`,
+              },
+            },
+          )
+          .then((res) => {
+            const accessToken = res.data.data.accessToken;
+            sessionStorage.setItem("userToken", accessToken);
+            console.log("refresh Token 변경 완료!");
+          })
+          .catch((error) => {
+            throw error;
+          });
 
-      const data = await axios
-        .post(serverUrl + `user/refresh`, {
-          headers: {
-            refresh: `${refreshToken}`,
-            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-          },
-        })
-        .then((res) => {
-          console.log("제발데이터", data);
-          console.log("refresh#data", res);
-
-          const accessToken = res.data.accessToken;
-          // const accessToken = `${accessTokens.header}.${accessTokens.payload}.${accessTokens.signature}`;
-
-          sessionStorage.setItem("userToken", accessToken);
-        })
-        .catch((error) => {
-          throw error;
-        });
-
-      originalRequest.headers = {
-        ...originalRequest.headers,
-        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-      };
-      return axios(originalRequest);
+        originalRequest.headers = {
+          ...originalRequest.headers,
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        };
+        return axios(originalRequest);
+      }
     }
-    // }
     return Promise.reject(error);
   },
 );
