@@ -58,7 +58,7 @@ const LoginForm = () => {
       // sessionStorage에 "refreshToken"이라는 키로 refreshToken을 저장함.
       sessionStorage.setItem("refreshToken", refreshToken);
 
-      console.log("#user", user);
+      // console.log("#user", user);
       setser(user.userInfo);
 
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
