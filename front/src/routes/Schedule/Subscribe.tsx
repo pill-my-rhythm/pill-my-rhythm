@@ -1,10 +1,11 @@
 import React, { useContext, useMemo, useState } from "react";
 import { AES } from "crypto-js";
-import { post } from "../../Api";
+import { originpost } from "../../Api";
 
 function Subscribe() {
   const [subToken, setSubToken] = useState("");
   const [unSubToken, setUnSubToken] = useState("");
+
   const secretKey: any = process.env.REACT_APP_SECRET_KEY;
   const jwtToken = String(sessionStorage.getItem("userToken"));
   const encryptedToken = AES.encrypt(jwtToken, secretKey).toString();
@@ -27,9 +28,8 @@ function Subscribe() {
 
     // 사용자 기기 정보 DB에 추가
     try {
-      await post("subscribe/create", { device_token: subscription });
+      await originpost("subscribe/create", { device_token: subscription });
     } catch (error: any) {
-      console.log(error);
       if (error.response.data.message) {
         alert(error.response.data.message);
       }
@@ -45,7 +45,7 @@ function Subscribe() {
       return;
     }
     // 사용자 기기 정보 DB에서 삭제
-    await post("subscribe/delete", { device_token: subscription });
+    await originpost("subscribe/delete", { device_token: subscription });
 
     // 사용자 기기 정보로 구독 취소 요청
     await subscription.unsubscribe();
