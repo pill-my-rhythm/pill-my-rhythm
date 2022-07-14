@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import PRCard from "../_shared/PRCard";
 import { get } from "../../Api";
 
-const UserBookMarkList = () => {
+const UserBookMarkList = ({ isLogin }: any) => {
   const [userBookMark, setUserBookMark] = useState([]);
   const [pillResult, setPillResult] = useState([]);
 
   const LoadBookMarkList = async () => {
     try {
-      const res = await get("bookmark");
-      // console.log("#res", res);
-      setUserBookMark(res.data);
-      setPillResult(res.data);
+      if (isLogin) {
+        const res = await get("bookmark");
+        // console.log("#res", res);
+        setUserBookMark(res.data);
+        setPillResult(res.data);
+      }
     } catch (error) {
       console.log(error);
     }
