@@ -7,7 +7,7 @@ import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
-import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom } from "../../atoms";
+import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom, userState } from "../../atoms";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
@@ -16,6 +16,7 @@ import CheckList from "./CheckList";
 import moment, { unitOfTime } from "moment";
 import Subscribe from "./Subscribe";
 import useIsMobile from "../../hooks/useResize";
+import { useNavigate } from "react-router-dom";
 
 export interface Appointments {
   endDate: Date;
@@ -50,6 +51,8 @@ function Calendar() {
   const [supplements, setSupplements] = useRecoilState<Array<Supplements>>(supplementAtom);
   const setLevel = useSetRecoilState<Array<Levels>>(levelsAtom);
   const widthSize = useIsMobile();
+  const navigate = useNavigate();
+  const user = useRecoilValue(userState);
 
   const onCurrentDateChange = useCallback((e: any) => {
     let start = moment(e)
@@ -67,19 +70,24 @@ function Calendar() {
   }, []);
 
   useEffect(() => {
-    // onboarding 설명 by guidechimp
-    const guidechimp = GuideChimp(description);
-    guidechimp.start();
+    if (user.length === 0) {
+      navigate("/login");
+      alert("로그인 후 이용해주세요!");
+    } else {
+      // onboarding 설명 by guidechimp
+      const guidechimp = GuideChimp(description);
+      guidechimp.start();
 
-    get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
-      setLevel(res.data.checklist);
-      setSupplements(res.data.dailySupplement);
-      setAppointments(
-        [...res.data.schedule].map((data) => {
-          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
-        }),
-      );
-    });
+      get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
+        setLevel(res.data.checklist);
+        setSupplements(res.data.dailySupplement);
+        setAppointments(
+          [...res.data.schedule].map((data) => {
+            return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+          }),
+        );
+      });
+    }
   }, []);
 
   const onAppointmentAdd = useCallback(async (e: any) => {
