@@ -23,11 +23,13 @@ export interface Result {
 function SupSearch() {
   const location = useLocation();
   const word = new URLSearchParams(location.search).get("word");
+  const pageNum = new URLSearchParams(location.search).get("page");
   const navigate: NavigateFunction = useNavigate();
   const [allSup, setAllSup] = useState<Array<Result>>([]);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState<Array<Result>>([]);
   const [page, setPage] = useState(1);
+  const [curPage, setCurPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const [ref, inView] = useInView();
@@ -69,7 +71,7 @@ function SupSearch() {
     if (searchValue.length < 1) {
       alert("검색어를 한 글자 이상 입력해주세요.");
     } else {
-      navigate(`?word=${searchValue}`);
+      navigate(`?word=${searchValue}&page=${curPage}`);
       const res = await get(`supplement?search_name=${searchValue}`);
       setSearchResult([...res.data.supplements]);
     }
@@ -123,7 +125,7 @@ function SupSearch() {
         <Container>
           <CardContainer>
             <ListWrapper>
-              <SupSearchResult searchResult={searchResult} setSearchResult={setSearchResult} />
+              <SupSearchResult searchResult={searchResult} setSearchResult={setSearchResult} pageNum={Number(pageNum)} />
             </ListWrapper>
           </CardContainer>
         </Container>
