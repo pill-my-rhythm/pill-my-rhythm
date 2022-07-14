@@ -4,9 +4,12 @@ import styled from "styled-components";
 
 export const Wrap = styled.div`
   flex: 1 0 auto;
-  /* background: #f5f5fa; */
-  /* background-image: linear-gradient(108.1deg, rgba(167, 220, 225, 1) 11.2%, rgba(217, 239, 242, 1) 88.9%); */
   background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(242, 235, 243, 1) 0%, rgba(234, 241, 249, 1) 90.1%);
+`;
+
+export const PagingWrap = styled(Wrap)`
+  background: #f5f5fa;
+  padding-top: 20px;
 `;
 
 export const SearchHeader = styled.div`
@@ -104,14 +107,25 @@ export const CardList = styled.div`
 
 // <-- SupCard.tsx -->
 
+export const AfterContent = styled.div`
+  opacity: 0;
+  transition: all 0.2s 200ms ease-in-out;
+`;
+
 export const CardWrap = styled.div`
   overflow: hidden;
   position: relative;
   display: block;
   width: 100%;
+  height: 100%;
   padding: 20px 20px 30px 20px;
   text-align: center;
   cursor: pointer;
+
+  &:hover ${AfterContent} {
+    display: block;
+    opacity: 1;
+  }
 
   &:hover::after {
     top: 0;
@@ -141,7 +155,7 @@ export const ImgWrapper = styled.div`
 export const InfoWrapper = styled.div`
   position: relative;
   max-width: 240px;
-  height: 130px;
+  height: 90px;
   margin: 5px auto 0;
 `;
 
@@ -162,12 +176,4 @@ export const SupName = styled.p`
   font-size: 14px;
   line-height: 20px;
   color: #222;
-`;
-
-export const AfterContent = styled.div`
-  font-size: 0px;
-  letter-spacing: 0px;
-  word-spacing: 0px;
-  transform: translateY(200%);
-  transition: all 0.2s 200ms ease-in-out;
 `;

@@ -4,6 +4,7 @@ import { get } from "../../Api";
 import { useInView } from "react-intersection-observer";
 import SupCard from "./SupCard";
 import { Wrap, SearchHeader, SearchWrapper, InputWrapper, Input, LsWrapper, Form, SearchInp, VerticalDvd, BtnWrapper, Container, CardContainer, ListWrapper, CardList } from "./SupStyled";
+import SupSearchResult from "./SupSearchResult";
 
 export interface Result {
   caution: string;
@@ -36,8 +37,10 @@ function SupSearch() {
   };
 
   const fetchAllSup = useCallback(async () => {
-    const res = await get(`supplement?page=${page}`);
-    setAllSup((current) => [...current, ...res.data]);
+    if (!word) {
+      const res = await get(`supplement?page=${page}`);
+      setAllSup((current) => [...current, ...res.data]);
+    }
   }, [page]);
 
   useEffect(() => {
@@ -118,11 +121,7 @@ function SupSearch() {
         <Container>
           <CardContainer>
             <ListWrapper>
-              {searchResult.map((data) => (
-                <CardList key={data.pk_supplement_id}>
-                  <SupCard data={data} />
-                </CardList>
-              ))}
+              <SupSearchResult searchResult={searchResult} setSearchResult={setSearchResult} />
             </ListWrapper>
           </CardContainer>
         </Container>
