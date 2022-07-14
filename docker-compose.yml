@@ -5,8 +5,7 @@ services:
     #   context: './front'
     #   dockerfile: Dockerfile
     # container_name: 'react-pill-my-rhythm-app'
-    # image: tbr06057/react-pill-my-rhythm-app:1.0.9
-    image: tbr06057/react-pill-my-rhythm-app:push_test
+    image: tbr06057/react-pill-my-rhythm-app:1.0.9
     restart: 'on-failure'
     volumes:
       - ./certbot/www:/etc/letsencrypt
