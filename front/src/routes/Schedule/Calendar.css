@@ -29,7 +29,7 @@
   pointer-events: none;
 }
 
-.dx-scheduler-appointment {
+.dx-widget .dx-scheduler-appointment {
   box-sizing: content-box;
   padding-right: 22px;
 }
