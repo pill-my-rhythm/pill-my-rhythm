@@ -29,12 +29,12 @@ ul.pagination li a {
 
 ul.pagination li:first-child {
   pointer-events: none;
-  visibility: hidden;
+  display: none;
 }
 
 ul.pagination li:last-child {
   pointer-events: none;
-  visibility: hidden;
+  display: none;
 }
 
 ul.pagination li a {

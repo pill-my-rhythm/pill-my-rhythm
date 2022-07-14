@@ -41,16 +41,22 @@
 }
 
 .dx-buttongroup-item.dx-button.dx-button-mode-contained:not(.dx-item-selected) {
-  background-color: white;
+  background-color: white !important;
+  border: none;
 }
 
-.dx-button-mode-contained {
+/* .dx-button-mode-contained {
   border-color: white;
-}
+} */
 
 .dx-buttongroup-item.dx-button.dx-button-mode-contained.dx-button-normal.dx-state-hover {
   background-color: white;
   border: none;
+}
+
+.dx-buttongroup-item.dx-button.dx-button-mode-contained.dx-button-normal.dx-item-selected {
+  display: none;
+  pointer-events: none;
 }
 
 /* Change progressbar color (guidechimp UI) */
