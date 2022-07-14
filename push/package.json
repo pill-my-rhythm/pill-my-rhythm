@@ -23,6 +23,8 @@
     "winston-daily-rotate-file": "^4.7.1"
   },
   "scripts": {
+    "build": "tsc",
+    "js-start": "node ./index.js",
     "start": "nodemon --exec ts-node index.ts"
   },
   "license": "ISC",
