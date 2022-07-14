@@ -5,7 +5,7 @@ const Supplement = {
   getAllSupplements: async (pageNum: number, search_name: string, search_raw: string) => {
     let offset = 0;
     if (pageNum > 1) {
-      offset = 15 * (pageNum - 1);
+      offset = 16 * (pageNum - 1);
     }
 
     let supplements;
@@ -13,7 +13,7 @@ const Supplement = {
       supplements = await Supplements.findAll({
         // pagination
         offset: offset,
-        limit: 15,
+        limit: 16,
         attributes: [
           "pk_supplement_id",
           "update_date",
@@ -37,7 +37,7 @@ const Supplement = {
         },
         // pagination
         offset: offset,
-        limit: 15,
+        limit: 16,
         attributes: [
           "pk_supplement_id",
           "update_date",
@@ -61,7 +61,7 @@ const Supplement = {
         },
         // pagination
         offset: offset,
-        limit: 15,
+        limit: 16,
         attributes: [
           "pk_supplement_id",
           "update_date",
