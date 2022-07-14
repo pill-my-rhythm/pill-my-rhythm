@@ -1,15 +1,16 @@
 import React, { useContext, useMemo, useState } from 'react';
 import { AES } from 'crypto-js';
 import { post } from '../../Api';
-import { UserStateContext } from '../../Dispatcher';
+import { userState } from '../../atoms';
+import { useRecoilValue } from 'recoil';
 
 function Subscribe() {
-  const userState = useContext(UserStateContext);
+  const user = useRecoilValue(userState);
   const [subToken, setSubToken] = useState('');
   const [unSubToken, setUnSubToken] = useState('');
 
   const secretKey: any = process.env.REACT_APP_SECRET_KEY;
-  const jwtToken = String(userState.user.accessToken);
+  const jwtToken = String(user.accessToken);
   const encryptedToken = AES.encrypt(jwtToken, secretKey).toString();
   const encodedPageLink = encodeURIComponent(`${process.env.REACT_APP_MODE}/m/subscribe?token=${encryptedToken}`);
   const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;

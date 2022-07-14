@@ -12,6 +12,7 @@ import { BookMarkRouter } from "./routes/bookMarkRouter";
 import { ScheduleRouter } from "./routes/scheduleRouter";
 import { ChecklistRouter } from "./routes/checklistRouter";
 import { SubscribeRouter } from "./routes/subscribeRouter";
+import { SupplementRouter } from "./routes/supplementRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 const app: express.Application = express();
@@ -35,6 +36,7 @@ app.use("/api/bookmark", BookMarkRouter);
 app.use("/api/schedule", ScheduleRouter);
 app.use("/api/checklist", ChecklistRouter);
 app.use("/api/subscribe", SubscribeRouter);
+app.use("/api/supplement", SupplementRouter);
 app.use(errorMiddleware);
 
 export default app;
