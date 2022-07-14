@@ -1,11 +1,11 @@
 version: '3.8'
 services:
   frontend_server:
-    build:
-      context: './front'
-      dockerfile: Dockerfile
-    container_name: 'react-pill-my-rhythm-app'
-    # image: tbr06057/react-pill-my-rhythm-app:1.0.8
+    # build:
+    #   context: './front'
+    #   dockerfile: Dockerfile
+    # container_name: 'react-pill-my-rhythm-app'
+    image: tbr06057/react-pill-my-rhythm-app:1.0.9
     restart: 'on-failure'
     volumes:
       - ./certbot/www:/etc/letsencrypt
