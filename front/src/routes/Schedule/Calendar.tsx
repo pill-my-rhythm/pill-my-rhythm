@@ -1,7 +1,5 @@
 import { useCallback, useEffect } from "react";
-import GuideChimp from "guidechimp";
-import "guidechimp/dist/guidechimp.min.css";
-import { description } from "./Onboarding";
+import { guidechimp } from "./Onboarding";
 import Scheduler, { AppointmentDragging, Editing } from "devextreme-react/scheduler";
 import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
@@ -17,6 +15,7 @@ import moment, { unitOfTime } from "moment";
 import Subscribe from "./Subscribe";
 import useIsMobile from "../../hooks/useResize";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "./Cookies";
 
 export interface Appointments {
   endDate: Date;
@@ -75,8 +74,11 @@ function Calendar() {
       alert("로그인 후 이용해주세요!");
     } else {
       // onboarding 설명 by guidechimp
-      const guidechimp = GuideChimp(description);
-      guidechimp.start();
+      // 오늘 하루 더이상 보이지 않음에 체크하지 않은 회원만
+      const no_guide = getCookie("never-show-up-today");
+      if (!no_guide) {
+        guidechimp.start();
+      }
 
       get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
         setLevel(res.data.checklist);

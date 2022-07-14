@@ -1,7 +1,37 @@
-export const description = [
+import $ from "jquery";
+import GuideChimp from "guidechimp";
+import "guidechimp/dist/guidechimp.min.css";
+import "./Calendar.css";
+import moment from "moment";
+import { setCookie } from "./Cookies";
+
+const description = [
   {
     title: "Pill my rhythm의 스케쥴러 기능에 오신 것을 환영합니다.",
     description: "자유롭게 일정을 생성하고 관리해보세요.",
+    buttons: [
+      {
+        tagName: "div",
+        title: '<input type="checkbox" id="never-show-up-today" /><p>오늘 하루 더이상 보이지 않기</p>',
+        class: "onboarding-checkbox",
+      },
+      {
+        tagName: "div",
+        title:
+          '<button id="popout-button" class="p-1 text-sm text-teal-600 font-semibold rounded-lg border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2">닫기</button>',
+        class: "popout",
+        onClick: function () {
+          const isChecked = $('input:checkbox[id="never-show-up-today"]').is(":checked");
+          if (isChecked) {
+            // const expires: Date = moment().add(1, "minutes").toDate();
+            const expires: Date = moment().endOf("day").toDate();
+            console.log(expires);
+            setCookie("never-show-up-today", isChecked, { path: "/", expires });
+          }
+          guidechimp.stop();
+        },
+      },
+    ],
   },
   {
     element: "#subscribeService",
@@ -34,3 +64,5 @@ export const description = [
     description: "날짜를 클릭하면 오늘의 활동들을 잘 이행했는지 체크리스트를 작성할 수 있습니다.",
   },
 ];
+
+export const guidechimp = GuideChimp(description);
