@@ -53,6 +53,7 @@ const push = async (time: Date) => {
     // 푸시 알림 발송 실패하면 error.log에 기록
     logger.error(`${time}`, pushErrorObj);
     console.log(`${time}에 설정된 푸시 알림 전송에 실패했습니다.`);
+    console.log(error);
 
     const data = {
       developers: ['s0n9h2@gmail.com', 'tbr06057@naver.com'],
