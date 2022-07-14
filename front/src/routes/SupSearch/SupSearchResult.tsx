@@ -36,12 +36,21 @@ function SupSearchResult({ searchResult, setSearchResult, pageNum }: ResultProps
         behavior: "smooth",
       });
     }
-  }, [page]);
+  }, [page, word]);
 
   useEffect(() => {
     fetchSearchSup();
   }, [fetchSearchSup]);
 
+  const checkResultLength = () => {
+    let allPageLength = Math.ceil(totalCount / 16);
+    if (allPageLength >= 10) {
+      return 10;
+    } else if (allPageLength < 10) {
+      return allPageLength;
+    }
+  };
+  const Checked = checkResultLength();
   return (
     <>
       {searchResult.map((data) => (
@@ -50,7 +59,15 @@ function SupSearchResult({ searchResult, setSearchResult, pageNum }: ResultProps
         </CardList>
       ))}
       <PagingWrap>
-        <Pagination activePage={pageNum} itemsCountPerPage={searchResult.length} totalItemsCount={totalCount} pageRangeDisplayed={10} prevPageText="‹" nextPageText="›" onChange={handlePageChange} />
+        <Pagination
+          activePage={pageNum}
+          itemsCountPerPage={searchResult.length}
+          totalItemsCount={totalCount}
+          pageRangeDisplayed={Checked}
+          prevPageText="‹"
+          nextPageText="›"
+          onChange={handlePageChange}
+        />
       </PagingWrap>
     </>
   );

@@ -125,7 +125,11 @@ function SupSearch() {
         <Container>
           <CardContainer>
             <ListWrapper>
-              <SupSearchResult searchResult={searchResult} setSearchResult={setSearchResult} pageNum={Number(pageNum)} />
+              {searchResult.length === 0 ? (
+                <div>검색 결과가 없습니다. 다시 시도해주세요</div>
+              ) : (
+                <SupSearchResult searchResult={searchResult} setSearchResult={setSearchResult} pageNum={Number(pageNum)} />
+              )}
             </ListWrapper>
           </CardContainer>
         </Container>
