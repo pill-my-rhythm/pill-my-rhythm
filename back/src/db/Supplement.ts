@@ -9,7 +9,10 @@ const Supplement = {
     }
 
     let supplements;
+    let totalCount;
     if (search_name == undefined && search_raw == undefined) {
+      totalCount = await Supplements.count();
+
       supplements = await Supplements.findAll({
         // pagination
         offset: offset,
@@ -29,6 +32,14 @@ const Supplement = {
         ],
       });
     } else if (search_name !== undefined) {
+      totalCount = await Supplements.count({
+        where: {
+          name: {
+            [Op.like]: "%" + search_name + "%",
+          },
+        },
+      });
+
       supplements = await Supplements.findAll({
         where: {
           name: {
@@ -53,6 +64,14 @@ const Supplement = {
         ],
       });
     } else if (search_raw !== undefined) {
+      totalCount = await Supplements.count({
+        where: {
+          name: {
+            [Op.like]: "%" + search_raw + "%",
+          },
+        },
+      });
+
       supplements = await Supplements.findAll({
         where: {
           name: {
@@ -78,7 +97,8 @@ const Supplement = {
       });
     }
 
-    return supplements;
+    const result = { supplements, totalCount };
+    return result;
   },
 };
 
