@@ -29,7 +29,7 @@
   pointer-events: none;
 }
 
-.dx-scheduler-appointment {
+.dx-widget .dx-scheduler-appointment {
   box-sizing: content-box;
   padding-right: 22px;
 }
@@ -53,7 +53,7 @@
   border: none;
 }
 
-/* Change progressbar color (온보딩 UI) */
+/* Change progressbar color (guidechimp UI) */
 .gc-progressbar {
   background-color: #268c88;
 }
@@ -68,4 +68,21 @@
 
 .gc-description {
   line-height: 20px;
+}
+
+.onboarding-checkbox {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+#never-show-up-today {
+  margin-right: 10px;
+  accent-color: #838383;
+}
+
+.popout {
+  display: flex;
+  justify-content: center;
 }
