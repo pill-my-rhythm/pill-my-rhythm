@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
 import { get } from "../../Api";
+import { useInView } from "react-intersection-observer";
 import SupCard from "./SupCard";
 import { Wrap, SearchHeader, SearchWrapper, InputWrapper, Input, LsWrapper, Form, SearchInp, VerticalDvd, BtnWrapper, Container, CardContainer, ListWrapper, CardList } from "./SupStyled";
 
@@ -25,17 +26,32 @@ function SupSearch() {
   const [allSup, setAllSup] = useState<Array<Result>>([]);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState<Array<Result>>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const [ref, inView] = useInView();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value);
   };
 
+  const fetchAllSup = useCallback(async () => {
+    const res = await get(`supplement?page=${page}`);
+    setAllSup((current) => [...current, ...res.data]);
+  }, [page]);
+
   useEffect(() => {
-    const fetchAllSup = async () => {
-      const res = await get(`supplement?search`);
-      setAllSup(res.data);
-    };
     fetchAllSup();
+  }, [fetchAllSup]);
+
+  useEffect(() => {
+    // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
+    if (inView && !loading) {
+      setPage((prevState) => prevState + 1);
+    }
+  }, [inView, loading]);
+
+  useEffect(() => {
     if (word) {
       const fetchSearchSup = async () => {
         const res = await get(`supplement?search=${word}`);
@@ -94,6 +110,7 @@ function SupSearch() {
                   <SupCard data={data} />
                 </CardList>
               ))}
+              <div ref={ref} />
             </ListWrapper>
           </CardContainer>
         </Container>
