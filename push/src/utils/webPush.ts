@@ -70,7 +70,7 @@ const push = async (time: Date) => {
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = new schedule.Range(0, 6); // 매일
 rule.hour = [0, new schedule.Range(1, 23)]; // 오전 6시부터 자정까지
-rule.minute = [0, 17, 30]; // 정각과 30분에
+rule.minute = [0, 30]; // 정각과 30분에
 rule.tz = "Asia/Seoul"; // 한국 시간 기준
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
