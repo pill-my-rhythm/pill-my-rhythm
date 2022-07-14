@@ -5,6 +5,61 @@ const aiPortNumber = "5002";
 const aiserverUrl = window.location.protocol + "//" + window.location.hostname + ":" + aiPortNumber + "/";
 const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
 
+// const axiosWithToken = axios.create({
+//   baseURL: serverUrl,
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+//   },
+// });
+
+// * accessToken 만료시 refresh Token으로 교환
+axios.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    // console.log("#error", error);
+
+    if (error.response.status === 401) {
+      if (error.response.data.error.name === "TokenExpiredError") {
+        const refreshToken = sessionStorage.getItem("refreshToken");
+        // console.log("refresh#refreshToken", refreshToken);
+        const userToken = sessionStorage.getItem("userToken");
+        // console.log("refresh#userToken", userToken);
+
+        await axios
+          .post(
+            serverUrl + `user/refresh`,
+            {},
+            {
+              headers: {
+                refresh: `${refreshToken}`,
+                Authorization: `Bearer ${userToken}`,
+              },
+            },
+          )
+          .then((res) => {
+            const accessToken = res.data.data.accessToken;
+            sessionStorage.setItem("userToken", accessToken);
+            console.log("refresh Token 변경 완료!");
+          })
+          .catch((error) => {
+            throw error;
+          });
+
+        originalRequest.headers = {
+          ...originalRequest.headers,
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        };
+        return axios(originalRequest);
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
 async function get(endpoint: string, params = "", destination: "AI" | "BACK" = "BACK") {
   return axios.get((destination === "AI" ? aiserverUrl : serverUrl) + endpoint + params, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.

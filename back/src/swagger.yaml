@@ -397,10 +397,15 @@ paths:
             type: number
           description: 'GET / url 예시 - http://localhost:5000/supplement?page=3 => page는 1부터 시작하고 default가 1이라서 page 쿼리 값 안보내셔도 첫번 째 페이지로 응답해요!'
         - in: query
-          name: search
+          name: search_name
           schema:
             type: string
-          description: 'GET / url 예시 - http://localhost:5000/supplement?search=루테인'
+          description: 'GET / url 예시 - http://localhost:5000/supplement?search_name=루테인'
+        - in: query
+          name: search_raw
+          schema:
+            type: string
+          description: 'GET / url 예시 - http://localhost:5000/supplement?search_raw=비타민A'
       responses:
         '200':
           $ref: '#/components/responses/successResponse'

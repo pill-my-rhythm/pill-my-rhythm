@@ -5,12 +5,12 @@ const SupplementController = {
   getAllSupplements: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const page = req.query?.page;
-      const word = req.query?.search as string;
 
+      const search_name = req.query?.search_name as string;
+      const search_raw = req.query?.search_raw as string;
       const pageNum = Number(page);
-      const search = word?.toLocaleLowerCase();
 
-      const supplements = await SupplementService.getAllSupplements(pageNum, search);
+      const supplements = await SupplementService.getAllSupplements(pageNum, search_name, search_raw);
       res.status(200).json(supplements);
     } catch (error) {
       next(error);
