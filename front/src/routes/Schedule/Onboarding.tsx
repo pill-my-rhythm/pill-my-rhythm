@@ -1,11 +1,9 @@
-import jquery from 'jquery';
+import $ from 'jquery';
 import GuideChimp from 'guidechimp';
 import 'guidechimp/dist/guidechimp.min.css';
 import './Calendar.css';
 import moment from 'moment';
 import { setCookie } from './Cookies';
-
-const $: JQueryStatic = jquery;
 
 const description = [
   {
