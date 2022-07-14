@@ -54,7 +54,7 @@ axios.interceptors.response.use(
           Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
         };
         return axios(originalRequest);
-      }
+      } else return;
     }
     return Promise.reject(error);
   },
