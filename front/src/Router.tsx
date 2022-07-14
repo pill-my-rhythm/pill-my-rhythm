@@ -30,7 +30,6 @@ function Router() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/result" element={<Result />} />
-          <Route path="/mypage" element={<Mypage />} />
           <Route path="/m/subscribe" element={<Subscribe />} />
           <Route path="/m/checklist" element={<PushCheckList />} />
           <Route path="/yearly/checklist" element={<Demo />} />
