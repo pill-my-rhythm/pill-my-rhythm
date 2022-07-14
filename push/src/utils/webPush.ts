@@ -20,7 +20,7 @@ export default (): void => {
 
 // 배포하면 주소 변경해야 함
 // const serverUrl = "http://localhost:5004/";
-const serverUrl = 'https://kdt-ai4-team17.elicecoding.com/';
+const serverUrl = 'https://kdt-ai4-team17.elicecoding.com/push/';
 
 const push = async (time: Date) => {
   try {
