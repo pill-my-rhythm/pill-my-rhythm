@@ -54,7 +54,7 @@ function SupSearch() {
   useEffect(() => {
     if (word) {
       const fetchSearchSup = async () => {
-        const res = await get(`supplement?search=${word}`);
+        const res = await get(`supplement?search_name=${word}`);
         setSearchResult(res.data);
       };
       fetchSearchSup();
@@ -67,7 +67,7 @@ function SupSearch() {
       alert("검색어를 한 글자 이상 입력해주세요.");
     } else {
       navigate(`?word=${searchValue}`);
-      const res = await get(`supplement?search=${searchValue}`);
+      const res = await get(`supplement?search_name=${searchValue}`);
       setSearchResult(res.data);
     }
   };
