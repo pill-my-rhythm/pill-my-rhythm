@@ -24,7 +24,7 @@ export default (): void => {
 
 // 배포하면 주소 변경해야 함
 // const serverUrl = "http://localhost:" + process.env.PORT + "/";
-const serverUrl = "http://localhost:5000/";
+const serverUrl = "http://localhost:5004/";
 
 const push = async (time: Date) => {
   try {
