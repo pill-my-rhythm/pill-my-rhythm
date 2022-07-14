@@ -101,7 +101,7 @@ const Header = () => {
                     <Link to="/pillmyrhythm">About Pmr</Link>
                   </li>
                   <li>
-                    <Link to="/">Search</Link>
+                    <Link to="/search">Search</Link>
                   </li>
                   <li>
                     <Link to="/schedule">Scheduler</Link>
@@ -128,7 +128,7 @@ const Header = () => {
             <Link to="/pillmyrhythm">About Pmr</Link>
           </li>
           <li>
-            <Link to="/">Search</Link>
+            <Link to="/search">Search</Link>
           </li>
           <li>
             <Link to="/schedule">Scheduler</Link>
