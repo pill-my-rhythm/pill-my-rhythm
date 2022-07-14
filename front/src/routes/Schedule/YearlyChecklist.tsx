@@ -2,25 +2,32 @@ import { useState, useEffect } from "react";
 import Tooltip from "@uiw/react-tooltip";
 import HeatMap from "@uiw/react-heat-map";
 import { get } from "../../Api";
+import { userState } from "../../atoms";
+import { useRecoilValue } from "recoil";
 
 const YearlyChecklist = () => {
+  const Recoiluser = useRecoilValue(userState);
+  const isLogin = !(Recoiluser.length === 0);
+
   const year = new Date().getFullYear();
   const [data, setData] = useState();
   const LoadYearlyData = async () => {
     try {
-      const colorMap: any = { green: 1, yellow: 2, red: 3 };
-      const res = await get("checklist/yearly");
-      interface checklist {
-        level: string;
-        date: string;
-        count?: number;
+      if (isLogin) {
+        const colorMap: any = { green: 1, yellow: 2, red: 3 };
+        const res = await get("checklist/yearly");
+        interface checklist {
+          level: string;
+          date: string;
+          count?: number;
+        }
+        const yearlyData = await res.data.map((element: checklist) => {
+          const level = element.level;
+          element.count = colorMap[level];
+          return element;
+        });
+        setData(yearlyData);
       }
-      const yearlyData = await res.data.map((element: checklist) => {
-        const level = element.level;
-        element.count = colorMap[level];
-        return element;
-      });
-      setData(yearlyData);
     } catch (error) {
       console.log(error);
     }

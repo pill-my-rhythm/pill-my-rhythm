@@ -5,25 +5,21 @@ const aiPortNumber = "5002";
 const aiserverUrl = window.location.protocol + "//" + window.location.hostname + ":" + aiPortNumber + "/";
 const serverUrl = window.location.protocol + "//" + window.location.hostname + ":" + backendPortNumber + "/";
 
-// const axiosWithToken = axios.create({
-//   baseURL: serverUrl,
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-//   },
-// });
-
 // * accessToken 만료시 refresh Token으로 교환
 axios.interceptors.response.use(
   (res) => {
     return res;
   },
   async (error) => {
-    const originalRequest = error.config;
-    // console.log("#error", error);
+    const {
+      config,
+      response: { status },
+    } = error;
 
-    if (error.response.status === 401) {
-      if (error.response.data.error.name === "TokenExpiredError") {
+    console.log("#error", error);
+    if (status === 401) {
+      if (error.response?.data.error.name === "TokenExpiredError") {
+        const originalRequest = config;
         const refreshToken = sessionStorage.getItem("refreshToken");
         // console.log("refresh#refreshToken", refreshToken);
         const userToken = sessionStorage.getItem("userToken");
@@ -69,6 +65,19 @@ async function get(endpoint: string, params = "", destination: "AI" | "BACK" = "
   });
 }
 
+// !! 임시로 refresh외 우회 부분
+const origin = axios.create();
+async function originpost(endpoint: string, data: any, destination: "AI" | "BACK" = "BACK") {
+  const bodyData = JSON.stringify(data);
+  return origin.post((destination === "AI" ? aiserverUrl : serverUrl) + endpoint, bodyData, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+    },
+  });
+}
+// !! 임시로 refresh외 우회 부분 끄으으읏
+
 async function post(endpoint: string, data: any, destination: "AI" | "BACK" = "BACK") {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
@@ -105,4 +114,4 @@ async function del(endpoint: string, params = "") {
 
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
-export { get, post, put, del };
+export { originpost, get, post, put, del };

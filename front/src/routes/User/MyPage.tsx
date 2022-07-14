@@ -5,21 +5,28 @@ import UserRecommendPage from "./UserRecommendPage";
 import MyYearlyChecklist from "./MyYearlyChecklist";
 import { userState } from "../../atoms";
 import { useRecoilValue } from "recoil";
-import { useLoginCheck } from "../../hooks/useLoginCheck";
 import { ScrollTopButton } from "../_shared/ScrollTopButton";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const Recoiluser = useRecoilValue(userState);
+  // console.log(Recoiluser);
+  const isLogin = !(Recoiluser.length === 0);
 
-  // * 로그인 여부를 확인
-  useLoginCheck();
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+      alert("로그인 후 이용해주세요!");
+    }
+  }, []);
 
   return (
     <>
-      <UserMyPage Recoiluser={Recoiluser} />
+      <UserMyPage Recoiluser={Recoiluser} isLogin={isLogin} />
       <MyYearlyChecklist />
-      <UserBookMarkList />
-      <UserRecommendPage Recoiluser={Recoiluser} />
+      <UserBookMarkList isLogin={isLogin} />
+      <UserRecommendPage Recoiluser={Recoiluser} isLogin={isLogin} />
       <div className="bg-gradient-to-tr from-[#7FDCDC] to-[#E3F2ED] flex justify-center py-12 px-4 sm:px-6 lg:px-8 flex items-center">
         <ScrollTopButton />
       </div>
