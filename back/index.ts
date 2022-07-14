@@ -3,9 +3,13 @@ import { sequelize } from "./src/db/models/index";
 
 import { createServer } from "http";
 
+import webPush from "./src/utils/webPush";
+
 const port: number = Number(process.env.PORT) || 5001;
 
 const server = createServer(app);
+
+webPush();
 
 server.listen(port, async () => {
   console.log(`정상적으로 서버를 시작하였습니다.  http://localhost:${port}`);
