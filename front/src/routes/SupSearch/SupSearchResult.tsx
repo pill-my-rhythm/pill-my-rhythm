@@ -16,6 +16,7 @@ function SupSearchResult({ searchResult, setSearchResult }: ResultProps) {
   const location = useLocation();
   const word = new URLSearchParams(location.search).get("word");
   const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   const handlePageChange = (page: React.SetStateAction<number>) => {
     setPage(page);
@@ -24,7 +25,8 @@ function SupSearchResult({ searchResult, setSearchResult }: ResultProps) {
   const fetchSearchSup = useCallback(async () => {
     if (word) {
       const res = await get(`supplement?page=${page}&search_name=${word}`);
-      setSearchResult(res.data);
+      setSearchResult([...res.data.supplements]);
+      setTotalCount(res.data.totalCount);
       window.scrollTo({
         top: 0,
         left: 0,
@@ -45,7 +47,7 @@ function SupSearchResult({ searchResult, setSearchResult }: ResultProps) {
         </CardList>
       ))}
       <PagingWrap>
-        <Pagination activePage={page} itemsCountPerPage={searchResult.length} totalItemsCount={500} pageRangeDisplayed={10} prevPageText="‹" nextPageText="›" onChange={handlePageChange} />
+        <Pagination activePage={page} itemsCountPerPage={searchResult.length} totalItemsCount={totalCount} pageRangeDisplayed={10} prevPageText="‹" nextPageText="›" onChange={handlePageChange} />
       </PagingWrap>
     </>
   );
