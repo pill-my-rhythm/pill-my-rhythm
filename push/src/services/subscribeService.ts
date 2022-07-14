@@ -64,8 +64,7 @@ const SubscribeService = {
             };
             await emailUtil.expirationEmail(emailData);
 
-            throw new HttpException(
-              500,
+            console.log(
               `사용자 ${scheduleData.User["pk_user_id"]}의 토큰 정보가 만료되어 삭제 후 재갱신 메일을 전송했습니다.`
             );
           }
