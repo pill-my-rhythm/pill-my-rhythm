@@ -173,6 +173,190 @@
 
 ## 2. 프로젝트 설계
 
+### 🗂 파일 구조도
+- AI
+```
+📦ai
+ ┣ 📂__pycache__
+ ┣ 📜Dockerfile
+ ┣ 📜app.py
+ ┣ 📜requirements.txt
+ ┣ 📜stopwords.txt
+ ┣ 📜test_model.py
+ ┣ 📜textrule.txt
+ ┣ 📜trained_mtx.pkl
+ ┣ 📜trained_tf.pkl
+ ┗ 📜verifyToken.py
+```
+- Frontend
+```
+📦src
+ ┣ 📂hooks
+ ┃ ┣ 📜useLoginCheck.tsx
+ ┃ ┗ 📜useResize.tsx
+ ┣ 📂routes
+ ┃ ┣ 📂Pmr
+ ┃ ┃ ┣ 📜Pmrguide.tsx
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂Schedule
+ ┃ ┃ ┣ 📂Mobile
+ ┃ ┃ ┃ ┣ 📜PushCheckList.tsx
+ ┃ ┃ ┃ ┗ 📜Subscribe.tsx
+ ┃ ┃ ┣ 📜Calendar.css
+ ┃ ┃ ┣ 📜Calendar.tsx
+ ┃ ┃ ┣ 📜CheckList.tsx
+ ┃ ┃ ┣ 📜Cookies.ts
+ ┃ ┃ ┣ 📜DayItem.tsx
+ ┃ ┃ ┣ 📜Onboarding.tsx
+ ┃ ┃ ┣ 📜Subscribe.tsx
+ ┃ ┃ ┣ 📜SupItem.tsx
+ ┃ ┃ ┣ 📜Supplements.tsx
+ ┃ ┃ ┣ 📜TaskItem.tsx
+ ┃ ┃ ┗ 📜YearlyChecklist.tsx
+ ┃ ┣ 📂Search
+ ┃ ┃ ┣ 📂Main
+ ┃ ┃ ┃ ┣ 📜Main.tsx
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┗ 📂Result
+ ┃ ┃ ┃ ┣ 📜Blankresult.tsx
+ ┃ ┃ ┃ ┣ 📜PRList.tsx
+ ┃ ┃ ┃ ┣ 📜Promotion.tsx
+ ┃ ┃ ┃ ┣ 📜RecommendationArea.tsx
+ ┃ ┃ ┃ ┣ 📜Result.tsx
+ ┃ ┃ ┃ ┣ 📜VideoArea.tsx
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂SupSearch
+ ┃ ┃ ┣ 📜Paging.css
+ ┃ ┃ ┣ 📜SupCard.tsx
+ ┃ ┃ ┣ 📜SupSearch.tsx
+ ┃ ┃ ┣ 📜SupSearchResult.tsx
+ ┃ ┃ ┗ 📜SupStyled.tsx
+ ┃ ┣ 📂User
+ ┃ ┃ ┣ 📜Login.tsx
+ ┃ ┃ ┣ 📜MyPage.tsx
+ ┃ ┃ ┣ 📜MyYearlyChecklist.tsx
+ ┃ ┃ ┣ 📜Reigsterform.tsx
+ ┃ ┃ ┣ 📜UserBookMarkPage.tsx
+ ┃ ┃ ┣ 📜UserMyPage.tsx
+ ┃ ┃ ┗ 📜UserRecommendPage.tsx
+ ┃ ┗ 📂_shared
+ ┃ ┃ ┣ 📂Footer
+ ┃ ┃ ┃ ┣ 📜Aboutus.tsx
+ ┃ ┃ ┃ ┣ 📜Footer.tsx
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┣ 📂Header
+ ┃ ┃ ┃ ┣ 📜Header.tsx
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┣ 📜AnalysisCard.tsx
+ ┃ ┃ ┣ 📜BookMark.tsx
+ ┃ ┃ ┣ 📜Loading.tsx
+ ┃ ┃ ┣ 📜PRCard.tsx
+ ┃ ┃ ┣ 📜PRModal.tsx
+ ┃ ┃ ┣ 📜ScrollTopButton.tsx
+ ┃ ┃ ┗ 📜Searchbar.tsx
+ ┣ 📜react-app-env.d.ts
+ ┣ 📜index.css
+ ┣ 📜Api.ts
+ ┣ 📜App.tsx
+ ┣ 📜Dispatcher.tsx
+ ┣ 📜GlobalStyle.tsx
+ ┣ 📜Router.tsx
+ ┣ 📜atoms.tsx
+ ┣ 📜index.tsx
+ ┗ 📜reducer.ts
+```
+- Backend
+```
+📦src
+ ┣ 📂db
+ ┃ ┣ 📂config
+ ┃ ┃ ┗ 📜config.ts
+ ┃ ┣ 📂models
+ ┃ ┃ ┣ 📜analysis.ts
+ ┃ ┃ ┣ 📜bookMark.ts
+ ┃ ┃ ┣ 📜checklist.ts
+ ┃ ┃ ┣ 📜dailySupplement.ts
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜recommend.ts
+ ┃ ┃ ┣ 📜schedule.ts
+ ┃ ┃ ┣ 📜subscribe.ts
+ ┃ ┃ ┣ 📜supplement.ts
+ ┃ ┃ ┗ 📜user.ts
+ ┃ ┣ 📂migrations
+ ┃ ┃ ┣ 📜1.create-table-user.ts
+ ┃ ┃ ┣ 📜2.create-table-schedule.ts
+ ┃ ┃ ┣ 📜3.create-table-checklist.ts
+ ┃ ┃ ┣ 📜4.create-table-supplement.ts
+ ┃ ┃ ┣ 📜5.create-table-daily-supplement.ts
+ ┃ ┃ ┣ 📜6.create-table-recommend.ts
+ ┃ ┃ ┣ 📜7.create-table-bookmark.ts
+ ┃ ┃ ┣ 📜8.create-table-subscribe.ts
+ ┃ ┃ ┗ 📜9.create-table-analysis.ts
+ ┃ ┣ 📜Analysis.ts
+ ┃ ┣ 📜BookMark.ts
+ ┃ ┣ 📜Checklist.ts
+ ┃ ┣ 📜DailySupplement.ts
+ ┃ ┣ 📜Schedule.ts
+ ┃ ┣ 📜Subscribe.ts
+ ┃ ┣ 📜Supplement.ts
+ ┃ ┗ 📜User.ts
+ ┣ 📂logs
+ ┣ 📂controllers
+ ┃ ┣ 📜bookMarkController.ts
+ ┃ ┣ 📜checklistController.ts
+ ┃ ┣ 📜scheduleController.ts
+ ┃ ┣ 📜subscribeController.ts
+ ┃ ┣ 📜supplementController.ts
+ ┃ ┗ 📜userController.ts
+ ┣ 📂customType
+ ┃ ┗ 📂express
+ ┃ ┃ ┗ 📜index.d.ts
+ ┣ 📂interfaces
+ ┃ ┣ 📜bookMarkInput.ts
+ ┃ ┣ 📜checklistInput.ts
+ ┃ ┣ 📜scheduleInput.ts
+ ┃ ┣ 📜subscribeInput.ts
+ ┃ ┗ 📜userInput.ts
+ ┣ 📂middlewares
+ ┃ ┣ 📜errorMiddleware.ts
+ ┃ ┣ 📜loginRequired.ts
+ ┃ ┣ 📜validator.ts
+ ┃ ┣ 📜verifyRefreshToken.ts
+ ┃ ┗ 📜verifyToken.ts
+ ┣ 📂routes
+ ┃ ┣ 📜bookMarkRouter.ts
+ ┃ ┣ 📜checklistRouter.ts
+ ┃ ┣ 📜scheduleRouter.ts
+ ┃ ┣ 📜subscribeRouter.ts
+ ┃ ┣ 📜supplementRouter.ts
+ ┃ ┗ 📜userRouter.ts
+ ┣ 📂services
+ ┃ ┣ 📜bookMarkService.ts
+ ┃ ┣ 📜checklistService.ts
+ ┃ ┣ 📜scheduleService.ts
+ ┃ ┣ 📜subscribeService.ts
+ ┃ ┣ 📜supplementService.ts
+ ┃ ┗ 📜userService.ts
+ ┣ 📂swagger
+ ┃ ┣ 📂paths
+ ┃ ┃ ┣ 📜_index.yaml
+ ┃ ┃ ┣ 📜bookmark.yaml
+ ┃ ┃ ┣ 📜recommend.yaml
+ ┃ ┃ ┣ 📜schedule.yaml
+ ┃ ┃ ┣ 📜supplement.yaml
+ ┃ ┃ ┗ 📜user.yaml
+ ┃ ┗ 📜openapi.yaml
+ ┣ 📂utils
+ ┃ ┣ 📜emailUtil.ts
+ ┃ ┣ 📜error-util.ts
+ ┃ ┣ 📜jwt-util.ts
+ ┃ ┣ 📜redis.ts
+ ┃ ┣ 📜webPush.ts
+ ┃ ┗ 📜winston.ts
+ ┣ 📜app.ts
+ ┗ 📜swagger.yaml
+```
+
 ### 📑 와이어 프레임
 
 1. 메인 MVP <br>
@@ -239,7 +423,7 @@
 
 - Front-end
 
-  - `React`, `TypeScript`
+  - `React`, `TypeScript`, `axios`
   - `Recoil`, `daisyUI`, `Styled components`
 
 - Back-end
