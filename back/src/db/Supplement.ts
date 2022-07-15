@@ -66,7 +66,7 @@ const Supplement = {
     } else if (search_raw !== undefined) {
       totalCount = await Supplements.count({
         where: {
-          name: {
+          raw: {
             [Op.like]: "%" + search_raw + "%",
           },
         },
@@ -74,7 +74,7 @@ const Supplement = {
 
       supplements = await Supplements.findAll({
         where: {
-          name: {
+          raw: {
             [Op.like]: "%" + search_raw + "%",
           },
         },
