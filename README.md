@@ -176,7 +176,9 @@
 ## 2. 프로젝트 설계
 
 ### 🗂 파일 구조도
-- AI
+<details>
+<summary>AI</summary>
+
 ```
 📦ai
  ┣ 📂__pycache__
@@ -190,7 +192,12 @@
  ┣ 📜trained_tf.pkl
  ┗ 📜verifyToken.py
 ```
-- Frontend
+
+</details>
+
+<details>
+<summary>Frontend</summary>
+
 ```
 📦src
  ┣ 📂hooks
@@ -267,7 +274,12 @@
  ┣ 📜index.tsx
  ┗ 📜reducer.ts
 ```
-- Backend
+
+</details>
+
+<details>
+<summary>Backend</summary>
+
 ```
 📦src
  ┣ 📂db
@@ -358,6 +370,10 @@
  ┣ 📜app.ts
  ┗ 📜swagger.yaml
 ```
+
+</details>
+
+<br />
 
 ### 📑 와이어 프레임
 
