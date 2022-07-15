@@ -11,9 +11,10 @@ interface ResultProps {
   searchResult: Result[];
   setSearchResult: React.Dispatch<React.SetStateAction<Result[]>>;
   pageNum: number;
+  searchOption: string;
 }
 
-function SupSearchResult({ searchResult, setSearchResult, pageNum }: ResultProps) {
+function SupSearchResult({ searchResult, setSearchResult, pageNum, searchOption }: ResultProps) {
   const location = useLocation();
   const navigate: NavigateFunction = useNavigate();
   const word = new URLSearchParams(location.search).get("word");
@@ -27,7 +28,7 @@ function SupSearchResult({ searchResult, setSearchResult, pageNum }: ResultProps
 
   const fetchSearchSup = useCallback(async () => {
     if (word) {
-      const res = await get(`supplement?page=${page}&search_name=${word}`);
+      const res = await get(`supplement?page=${page}&${searchOption}=${word}`);
       setSearchResult([...res.data.supplements]);
       setTotalCount(res.data.totalCount);
       window.scrollTo({
@@ -36,7 +37,7 @@ function SupSearchResult({ searchResult, setSearchResult, pageNum }: ResultProps
         behavior: "smooth",
       });
     }
-  }, [page, word]);
+  }, [page, searchOption]);
 
   useEffect(() => {
     fetchSearchSup();
@@ -54,7 +55,7 @@ function SupSearchResult({ searchResult, setSearchResult, pageNum }: ResultProps
   return (
     <>
       {searchResult.map((data) => (
-        <CardList key={data.pk_supplement_id}>
+        <CardList key={data.link}>
           <SupCard data={data} />
         </CardList>
       ))}
