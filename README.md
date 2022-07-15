@@ -132,9 +132,9 @@
         - 5개 이상 성공 : 초록불
         - 3개 이상 성공 : 노란불
         - 3개 미만 성공 : 빨간불
-        
-    - 초록불/노란불/빨간불은 영양제 캘린더의 날짜 배경색으로 보여주기<br />
-    - 깃헙 잔디처럼 따로 Yearly 형식으로도 보여주기<br />
+
+  - 초록불/노란불/빨간불은 영양제 캘린더의 날짜 배경색으로 보여주기<br />
+  - 깃헙 잔디처럼 따로 Yearly 형식으로도 보여주기<br />
     <br />
 
   3. 효과적인 복용 시간을 고려하자 <br /><br />
@@ -175,6 +175,7 @@
 ## 2. 프로젝트 설계
 
 ### 🗂 파일 구조도
+
 <details>
 <summary>AI</summary>
 
@@ -372,6 +373,45 @@
 
 </details>
 
+<details>
+<summary>Push</summary>
+
+```
+📦src
+ ┣ 📂controllers
+ ┃ ┗ 📜subscribeController.ts
+ ┣ 📂db
+ ┃ ┣ 📂config
+ ┃ ┃ ┗ 📜config.ts
+ ┃ ┣ 📂models
+ ┃ ┃ ┣ 📜dailySupplement.ts
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜schedule.ts
+ ┃ ┃ ┣ 📜subscribe.ts
+ ┃ ┃ ┣ 📜supplement.ts
+ ┃ ┃ ┗ 📜user.ts
+ ┃ ┣ 📜Schedule.ts
+ ┃ ┗ 📜Subscribe.ts
+ ┣ 📂interfaces
+ ┃ ┣ 📜subscribeInput.ts
+ ┃ ┗ 📜userInput.ts
+ ┣ 📂middlewares
+ ┃ ┗ 📜errorMiddleware.ts
+ ┣ 📂routes
+ ┃ ┗ 📜subscribeRouter.ts
+ ┣ 📂services
+ ┃ ┗ 📜subscribeService.ts
+ ┣ 📂utils
+ ┃ ┣ 📜emailUtil.ts
+ ┃ ┣ 📜error-util.ts
+ ┃ ┣ 📜jwt-util.ts
+ ┃ ┣ 📜webPush.ts
+ ┃ ┗ 📜winston.ts
+ ┗ 📜app.ts
+```
+
+</details>
+
 <br />
 
 ### 📑 와이어 프레임
@@ -389,7 +429,7 @@
 
 <br>
 
-🔔 Database
+🔔 **Database**
 
 - Redis : **Refresh Token**을 저장하기 위해 사용
 - MySQL : Cloud 서버에서 이용하기 위해 Oracle 인스턴스를 **DB 전용 서버**로 구축
