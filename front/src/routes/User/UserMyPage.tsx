@@ -6,7 +6,7 @@ import { Userdata } from "../Search/Result/RecommendationArea";
 import { userState } from "../../atoms";
 import { useSetRecoilState } from "recoil";
 
-const UserMyPage = ({ Recoiluser }: any) => {
+const UserMyPage = ({ Recoiluser, isLogin }: any) => {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
@@ -27,9 +27,11 @@ const UserMyPage = ({ Recoiluser }: any) => {
 
   // 현재 유저 정보를 가져옴
   const loadUserMypage = async () => {
-    const res = await get("user/current");
-    // console.log("@res.data의 currentuser", res.data);
-    setUserState(res.data);
+    if (isLogin) {
+      const res = await get("user/current");
+      // console.log("@res.data의 currentuser", res.data);
+      setUserState(res.data);
+    }
   };
 
   const handleMyPageEdit = (name: string, value: string) => {

@@ -16,6 +16,8 @@ tags:
   - description: User 영양제 스케줄 및 생체리듬 관리 API 입니다.
   - name: bookmark
   - description: User BookMark API 입니다.
+  - name: supplement
+  - description: supplement (영양제 백과사전) API 입니다.
 paths:
   /user/register:
     post:
@@ -125,7 +127,7 @@ paths:
         '200':
           $ref: '#/components/responses/successResponse'
   /user/refresh:
-    get:
+    post:
       tags:
         - user
       summary: access token 재발급 API 입니다.
@@ -377,6 +379,33 @@ paths:
           name: supplement_id
           schema:
             type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/successResponse'
+        '400':
+          description: accessToken이 유효하지 않습니다.
+  /supplement:
+    get:
+      tags:
+        - supplement
+      summary: 전체 영양제 조회 api 입니다.
+      description: 'page, search -> 쿼리로 요청해주세요.'
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: number
+          description: 'GET / url 예시 - http://localhost:5000/supplement?page=3 => page는 1부터 시작하고 default가 1이라서 page 쿼리 값 안보내셔도 첫번 째 페이지로 응답해요!'
+        - in: query
+          name: search_name
+          schema:
+            type: string
+          description: 'GET / url 예시 - http://localhost:5000/supplement?search_name=루테인'
+        - in: query
+          name: search_raw
+          schema:
+            type: string
+          description: 'GET / url 예시 - http://localhost:5000/supplement?search_raw=비타민A'
       responses:
         '200':
           $ref: '#/components/responses/successResponse'

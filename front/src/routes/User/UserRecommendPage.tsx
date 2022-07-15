@@ -13,17 +13,19 @@ export interface AnalysisData {
   img_link: string;
 }
 
-const UserRecommendPage = ({ Recoiluser }: any) => {
+const UserRecommendPage = ({ Recoiluser, isLogin }: any) => {
   const [pillResult, setPillResult] = useState<Array<AnalysisData>>([]);
   const user = Recoiluser;
   // console.log("UserReccomedPage#user", user);
 
   const loadAnalysisData = async () => {
     try {
-      const res = await get("user/analysis-supplement");
-      setPillResult(res.data);
-      // console.log("pillResult", pillResult);
-      // console.log("#user", user);
+      if (isLogin) {
+        const res = await get("user/analysis-supplement");
+        setPillResult(res.data);
+        // console.log("pillResult", pillResult);
+        // console.log("#user", user);
+      }
     } catch (error) {
       console.log(error);
     }

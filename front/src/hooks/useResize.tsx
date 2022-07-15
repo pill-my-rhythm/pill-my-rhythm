@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
 
-function useResize(size: number) {
-  const [isSizeSmall, setIsSizeSmall] = useState<boolean>(false);
+const getIsMobile = () => window.innerWidth <= 768;
 
-  const onResizeCallback = (e: UIEvent) => {
-    const innerWidth = (e.target as Window).innerWidth;
-
-    if (innerWidth < size) {
-      setIsSizeSmall(true);
-    } else {
-      setIsSizeSmall(false);
-    }
-  };
+export default function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(getIsMobile());
 
   useEffect(() => {
-    window.addEventListener("resize", onResizeCallback);
+    const onResize = () => {
+      setIsMobile(getIsMobile());
+    };
+
+    window.addEventListener("resize", onResize);
 
     return () => {
-      window.removeEventListener("resize", onResizeCallback);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
-  return {
-    isSizeSmall,
-  };
-}
 
-export default useResize;
+  return isMobile;
+}

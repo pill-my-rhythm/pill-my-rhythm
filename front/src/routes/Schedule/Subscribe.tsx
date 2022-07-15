@@ -1,15 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { AES } from "crypto-js";
-import { post } from "../../Api";
-import { UserStateContext } from "../../Dispatcher";
+import { originpost } from "../../Api";
 
 function Subscribe() {
-  const userState = useContext(UserStateContext);
   const [subToken, setSubToken] = useState("");
   const [unSubToken, setUnSubToken] = useState("");
 
   const secretKey: any = process.env.REACT_APP_SECRET_KEY;
-  const jwtToken = String(userState.user.accessToken);
+  const jwtToken = String(sessionStorage.getItem("userToken"));
   const encryptedToken = AES.encrypt(jwtToken, secretKey).toString();
   const encodedPageLink = encodeURIComponent(`${process.env.REACT_APP_MODE}:${process.env.REACT_APP_FRONT_PORT}/m/subscribe?token=${encryptedToken}`);
   const QRcode = `https://quickchart.io/qr?text=${encodedPageLink}&ecLevel=L&size=200&centerImageUrl=https://ifh.cc/g/Y4Z5z3.png`;
@@ -30,9 +28,8 @@ function Subscribe() {
 
     // 사용자 기기 정보 DB에 추가
     try {
-      await post("subscribe/create", { device_token: subscription });
+      await originpost("subscribe/create", { device_token: subscription });
     } catch (error: any) {
-      console.log(error);
       if (error.response.data.message) {
         alert(error.response.data.message);
       }
@@ -48,14 +45,14 @@ function Subscribe() {
       return;
     }
     // 사용자 기기 정보 DB에서 삭제
-    await post("subscribe/delete", { device_token: subscription });
+    await originpost("subscribe/delete", { device_token: subscription });
 
     // 사용자 기기 정보로 구독 취소 요청
     await subscription.unsubscribe();
     setUnSubToken(JSON.stringify(subscription));
   };
   return (
-    <div className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+    <div id="subscribeService" className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
       <div className="text-center space-y-2 sm:text-left">
         <div className="space-y-0.5">
           <p className="text-md text-black font-semibold mb-1">구독 서비스</p>
@@ -76,13 +73,13 @@ function Subscribe() {
 
             <div className="items-center justify-center flex flex-row space-x-2 p-2">
               <button
-                onClick={() => subscribe()}
+                onClick={subscribe}
                 className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
               >
                 구독하기
               </button>
               <button
-                onClick={() => unsubscribe()}
+                onClick={unsubscribe}
                 className="px-4 py-1 text-sm text-teal-600 font-semibold rounded-full border border-teal-200 hover:text-white hover:bg-teal-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
               >
                 구독 취소
@@ -91,7 +88,7 @@ function Subscribe() {
 
             <div className="divider">Mobile</div>
             <div className="items-center justify-center flex flex-col">
-              <img src={QRcode} alt="QRcode" width="170" height="170" className="rounded-xl" />
+              <img src={useMemo(() => QRcode, [])} alt="QRcode" width="170" height="170" className="rounded-xl" />
               <h3 className="text-slate-900 mt-5 text-base font-medium tracking-tight">모바일 알림 구독 QR</h3>
               <p className="text-slate-500  mt-2 text-sm text-left">
                 영양제 일정 알림 서비스는 현재 ios에서 지원되지 않아 Android 또는 Web에서만 가능합니다. Android 접속시 google 애플리케이션의 google lens를 이용하시는 것을 추천드립니다.

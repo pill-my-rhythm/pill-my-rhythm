@@ -3,7 +3,6 @@ import { get } from "./Api";
 import { loginReducer } from "./reducer";
 import Loading from "./routes/_shared/Loading";
 
-export const UserStateContext = createContext<any>(null);
 export const DispatchContext = createContext<any>(null);
 
 interface DispatcherProps {
@@ -52,11 +51,7 @@ const Dispatcher: React.FunctionComponent<DispatcherProps> = ({ children }) => {
     return <Loading />;
   }
 
-  return (
-    <DispatchContext.Provider value={dispatch}>
-      <UserStateContext.Provider value={userState}>{children}</UserStateContext.Provider>
-    </DispatchContext.Provider>
-  );
+  return <DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>;
 };
 
 export default Dispatcher;

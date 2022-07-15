@@ -4,7 +4,6 @@ import { Checklist } from "../db/Checklist";
 import { DailySupplement } from "../db/DailySupplement";
 import { HttpException } from "../utils/error-util";
 import { IScheduleCreateInput, IGetScheduleInput, IDailySupplementCreateInput } from "../interfaces/scheduleInput";
-import { Http } from "winston/lib/winston/transports";
 
 const ScheduleService = {
   getSchedulePage: async (fk_user_id: string, data: IGetScheduleInput) => {

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserStateContext } from "../../Dispatcher";
+import React from "react";
+
 const AnalysisCard = ({ pr }: any) => {
   const polishName = (name: string) => {
     const rename = name.split("</b>").join("").split("<b>").join("");

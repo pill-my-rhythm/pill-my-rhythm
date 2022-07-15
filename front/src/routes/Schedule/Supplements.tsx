@@ -4,15 +4,6 @@ import { get, post } from "../../Api";
 import { end, start, supplementAtom } from "../../atoms";
 import { supInfo } from "./DayItem";
 
-const Card = styled.div`
-  border-radius: 5px;
-  margin-bottom: 8px;
-  padding: 15px 24px 15px 24px;
-  background-color: #d2dae2;
-  font-size: 14px;
-  cursor: pointer;
-`;
-
 export interface infoProps {
   info: supInfo;
   task: { text: string; type: string };

@@ -1,14 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserStateContext } from "../../Dispatcher";
+import React, { useEffect, useState } from "react";
 import { PillData } from "../Search/Result/PRList";
 import PRModal from "./PRModal";
 import { get, post, del } from "../../Api";
 import { BookMark, FilledBookMark } from "./BookMark";
+import { userState } from "../../atoms";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const PRCard = ({ pr }: PillData) => {
-  const userState = useContext(UserStateContext);
-  const isLogin = !!userState.user;
+  const user = useRecoilValue(userState);
+  // console.log("user", user);
+  const isLogin = !(user.length === 0);
   const supplement_id = pr.pk_supplement_id;
+  const navigate = useNavigate();
+  const LoginCheck = () => {
+    alert("회원 전용 서비스 입니다! 로그인 후 이용해주세요!");
+    navigate("/login");
+  };
 
   // console.log("#pr.pk_supplement_id", pr.pk_supplement_id);
 
@@ -37,15 +45,13 @@ const PRCard = ({ pr }: PillData) => {
   const HandleBookMarkChange: any = async () => {
     try {
       const data = {
-        accessToken: userState.user.accessToken,
+        accessToken: user.accessToken,
         supplement_id: pr.pk_supplement_id,
       };
       if (!bookMark) {
-        const res = await post(`bookmark/create/${supplement_id}`, data);
-        // console.log("#BookMark", res);
+        await post(`bookmark/create/${supplement_id}`, data);
       } else {
-        const res = await del("bookmark", `${pr.pk_supplement_id}`);
-        // console.log("#BookMarkDelete", res);
+        await del("bookmark", `${pr.pk_supplement_id}`);
       }
       loadBookMarkList();
     } catch (error: any) {
@@ -79,7 +85,7 @@ const PRCard = ({ pr }: PillData) => {
         <div className="card-actions justify-end items-center">
           {!isLogin ? (
             <label htmlFor="">
-              <BookMark onClick={() => alert("회원 전용 서비스입니다!")} />
+              <BookMark onClick={LoginCheck} />
             </label>
           ) : !bookMark ? (
             <label htmlFor="">

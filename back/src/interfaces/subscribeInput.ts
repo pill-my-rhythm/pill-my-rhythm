@@ -8,10 +8,3 @@ export interface ISendNotificationInput {
   expirationTime?: any;
   keys: { p256dh: string; auth: string };
 }
-
-export interface pushData {
-  name: string;
-  when: string;
-  supplements: string;
-  jwtToken: string;
-}

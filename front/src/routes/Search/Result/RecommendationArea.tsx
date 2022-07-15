@@ -1,9 +1,7 @@
 import React from "react";
 import PRList from "./PRList";
-import { Props } from "./Result";
 import { userState } from "../../../atoms";
 import { useRecoilValue } from "recoil";
-
 export interface Userdata {
   age_range: string;
   createdAt: Date;
@@ -17,13 +15,11 @@ export interface Userdata {
   user_name: string;
 }
 
-const RecommendationArea = ({ isLogin }: Props) => {
+const RecommendationArea = () => {
   const Currentuser: any = useRecoilValue(userState);
   // console.log("#결과페이지유저", Currentuser);
   const user = Currentuser;
-
-  // useEffect(() => {
-  // }, [userState.user?.userInfo]);
+  const isLogin = !(user.length === 0);
 
   return (
     <div className="bg-base-200">

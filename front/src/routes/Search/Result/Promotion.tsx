@@ -1,24 +1,9 @@
-import React, { useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { UserStateContext } from "../../../Dispatcher";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ScrollTopButton } from "../../_shared/ScrollTopButton";
 
 const Promotion = () => {
   const navigate = useNavigate();
-  const userState = useContext(UserStateContext);
-  const isLogin = !!userState.user;
-
-  const MoveLogin = () => {
-    alert("로그인 후 이용해주세요!");
-    navigate("/login");
-  };
-
-  const ControlScheduler = () => {
-    if (isLogin) {
-      navigate("/schedule");
-    } else {
-      MoveLogin();
-    }
-  };
 
   return (
     <div className="bg-base-200 w-screen">
@@ -32,11 +17,13 @@ const Promotion = () => {
           Pill my rhythm의 스케줄러를 이용해보세요!
         </p>
 
-        <button className="btn btn-primary" onClick={ControlScheduler}>
+        <button className="btn btn-primary" onClick={() => navigate("/schedule")}>
           🔔 영양제 알림 일정 등록하러 가기
         </button>
       </div>
-      <div className="h-20" />
+      <div className="h-20 flex items-center justify-center mt-8 mx-4">
+        <ScrollTopButton />
+      </div>
     </div>
   );
 };

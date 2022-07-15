@@ -3,7 +3,12 @@ import { Appointments, Levels, Supplements } from "./routes/Schedule/Calendar";
 import { atom, selector } from "recoil";
 import { get } from "./Api";
 import { recoilPersist } from "recoil-persist";
-const { persistAtom } = recoilPersist();
+
+const { persistAtom } = recoilPersist({
+  key: "recoil-persist", // this key is using to store data in local storage
+  storage: sessionStorage, // configurate which stroage will be used to store the data
+});
+
 export const currentDate = new Date(moment().format());
 export let start = moment()
   .startOf("isoweek" as unitOfTime.StartOf)

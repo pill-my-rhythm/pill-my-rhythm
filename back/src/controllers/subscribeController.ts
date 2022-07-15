@@ -39,18 +39,6 @@ const SubscribeController = {
     }
   },
 
-  pushSupplements: async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const strtime: any = req.query.time;
-      const time: Date = new Date(strtime);
-
-      const supplementSchedules = await SubscribeService.pushSupplementSchedules(time);
-      res.status(200).json(supplementSchedules);
-    } catch (error) {
-      next(error);
-    }
-  },
-
   unsubscribe: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const fk_user_id: string = req.currentUserId;
