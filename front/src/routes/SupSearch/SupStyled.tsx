@@ -33,6 +33,13 @@ export const InputWrapper = styled.div`
   transform: translateY(-50%);
 `;
 
+export const SortWrapper = styled.div`
+  width: 100%;
+  max-width: 630px;
+  margin: 0 auto;
+  transform: translateY(-20%);
+`;
+
 export const Input = styled.div`
   display: flex;
   align-items: center;
@@ -159,21 +166,21 @@ export const InfoWrapper = styled.div`
   margin: 5px auto 0;
 `;
 
-export const Tag = styled.p`
+export const SupName = styled.p`
   margin-bottom: 10px;
-  color: #999;
+  color: #000;
   display: block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
 
-export const SupName = styled.p`
+export const Tag = styled.p`
   overflow: hidden;
   max-height: 40px;
   padding: 0 10px;
   margin-top: 5px;
   font-size: 14px;
   line-height: 20px;
-  color: #222;
+  color: #999;
 `;

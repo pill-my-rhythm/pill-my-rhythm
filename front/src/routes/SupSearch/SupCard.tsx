@@ -15,14 +15,14 @@ function SupCard({ data }: CardProp) {
         </figure>
       </ImgWrapper>
       <InfoWrapper>
-        <Tag>{data.company}</Tag>
         <SupName>{data.name}</SupName>
+        <Tag>{data.company}</Tag>
       </InfoWrapper>
       <AfterContent>
         <label htmlFor={`modal-${data.name}`} className="btn modal-button btn-active btn-ghost">
           더 알아보기
         </label>
-        <PRModal pr={data} key={data.pk_supplement_id} />
+        <PRModal pr={data} />
       </AfterContent>
     </CardWrap>
   );

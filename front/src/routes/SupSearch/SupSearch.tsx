@@ -3,7 +3,7 @@ import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
 import { get } from "../../Api";
 import { useInView } from "react-intersection-observer";
 import SupCard from "./SupCard";
-import { Wrap, SearchHeader, SearchWrapper, InputWrapper, Input, LsWrapper, Form, SearchInp, VerticalDvd, BtnWrapper, Container, CardContainer, ListWrapper, CardList } from "./SupStyled";
+import { Wrap, SearchHeader, SearchWrapper, InputWrapper, Input, LsWrapper, Form, SearchInp, VerticalDvd, BtnWrapper, Container, CardContainer, ListWrapper, CardList, SortWrapper } from "./SupStyled";
 import SupSearchResult from "./SupSearchResult";
 
 export interface Result {
@@ -31,11 +31,16 @@ function SupSearch() {
   const [page, setPage] = useState(1);
   const [curPage, setCurPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [searchOption, setSearchOption] = useState("search_name");
 
   const [ref, inView] = useInView();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value);
+  };
+
+  const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchOption(e.currentTarget.value);
   };
 
   const fetchAllSup = useCallback(async () => {
@@ -50,7 +55,6 @@ function SupSearch() {
   }, [fetchAllSup]);
 
   useEffect(() => {
-    // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView && !loading) {
       setPage((prevState) => prevState + 1);
     }
@@ -59,12 +63,12 @@ function SupSearch() {
   useEffect(() => {
     if (word) {
       const fetchSearchSup = async () => {
-        const res = await get(`supplement?search_name=${word}`);
+        const res = await get(`supplement?${searchOption}=${word}`);
         setSearchResult([...res.data.supplements]);
       };
       fetchSearchSup();
     }
-  }, []);
+  }, [searchOption]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,7 +76,7 @@ function SupSearch() {
       alert("검색어를 한 글자 이상 입력해주세요.");
     } else {
       navigate(`?word=${searchValue}&page=${curPage}`);
-      const res = await get(`supplement?search_name=${searchValue}`);
+      const res = await get(`supplement?${searchOption}=${searchValue}`);
       setSearchResult([...res.data.supplements]);
     }
   };
@@ -104,6 +108,20 @@ function SupSearch() {
                 </BtnWrapper>
               </Input>
             </InputWrapper>
+            <SortWrapper>
+              <div className="form-control">
+                <label className="label cursor-pointer">
+                  <span className="label-text">영양제 이름으로 검색 (기본)</span>
+                  <input type="radio" value="search_name" name="searchName" className="radio radio-black" onChange={handleOptionChange} checked={searchOption === "search_name"} />
+                </label>
+              </div>
+              <div className="form-control">
+                <label className="label cursor-pointer">
+                  <span className="label-text">영양제 성분으로 검색</span>
+                  <input type="radio" value="search_raw" name="searchRaw" className="radio radio-accent" onChange={handleOptionChange} checked={searchOption === "search_raw"} />
+                </label>
+              </div>
+            </SortWrapper>
           </SearchWrapper>
         </SearchHeader>
       </Wrap>
@@ -128,7 +146,7 @@ function SupSearch() {
               {searchResult.length === 0 ? (
                 <div>검색 결과가 없습니다. 다시 시도해주세요</div>
               ) : (
-                <SupSearchResult searchResult={searchResult} setSearchResult={setSearchResult} pageNum={Number(pageNum)} />
+                <SupSearchResult searchResult={searchResult} setSearchResult={setSearchResult} pageNum={Number(pageNum)} searchOption={searchOption} />
               )}
             </ListWrapper>
           </CardContainer>
