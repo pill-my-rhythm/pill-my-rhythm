@@ -14,6 +14,7 @@ import Footer from "./routes/_shared/Footer";
 import Demo from "./routes/Schedule/YearlyChecklist";
 import Aboutus from "./routes/_shared/Footer/Aboutus";
 import SupSearch from "./routes/SupSearch/SupSearch";
+import CalendarV2 from "./routes/ScheduleV2/Calendar";
 
 function Router() {
   return (
@@ -24,7 +25,8 @@ function Router() {
           <Route path="/" element={<Main />} />
           <Route path="/pillmyrhythm" element={<Pmrguide />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/schedule" element={<Calendar />} />
+          {/* <Route path="/schedule" element={<Calendar />} /> */}
+          <Route path="/schedule" element={<CalendarV2 />} />
           <Route path="/search" element={<SupSearch />} />
           <Route path="/search/:word" element={<SupSearch />} />
           <Route path="/register" element={<Register />} />
