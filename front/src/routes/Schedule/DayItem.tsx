@@ -71,8 +71,18 @@ function DayItem({ task }: taskProps) {
 
   return (
     <>
-      <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
-        <DateLabel htmlFor={`modal-${task.text}`} className="modal-button cursor-pointer max-w-xs" onClick={handleClick}>
+      <Draggable
+        clone={true}
+        group={draggingGroupName}
+        data={task}
+        onDragStart={onItemDragStart}
+        onDragEnd={onItemDragEnd}
+      >
+        <DateLabel
+          htmlFor={`modal-${task.text}`}
+          className="modal-button cursor-pointer max-w-xs"
+          onClick={handleClick}
+        >
           <Card className="bg-white rounded-xl">
             <span className="group flex items-center lg:text-sm lg:leading-6 font-medium text-black flex justify-between">
               <div>{task.text}</div>

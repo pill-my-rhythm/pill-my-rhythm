@@ -7,7 +7,12 @@ const Main = () => {
   return (
     <div
       className="hero min-h-screen"
-      style={{ backgroundImage: "url(" + "https://r7q6w9z6.rocketcdn.me/career/wp-content/uploads/2021/05/image_processing20210222-9274-1wg7luu.gif?w=1000&h=800" + ")" }}
+      style={{
+        backgroundImage:
+          "url(" +
+          "https://r7q6w9z6.rocketcdn.me/career/wp-content/uploads/2021/05/image_processing20210222-9274-1wg7luu.gif?w=1000&h=800" +
+          ")",
+      }}
     >
       <div className="hero-overlay bg-opacity-60" />
       <div className="hero-content text-center text-neutral-content flex flex-col md:flex-row">

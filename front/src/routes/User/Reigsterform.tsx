@@ -23,7 +23,11 @@ function RegisterForm() {
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
-    return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    return email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      );
   };
 
   //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
@@ -83,25 +87,55 @@ function RegisterForm() {
             <div>
               <label>
                 {isNameValid ? (
-                  <input className="input w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="text"
+                    value={name}
+                    placeholder="이름 (2글자 이상 8글자 미만)"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 ) : (
-                  <input className="input input-error w-full max-w-md m-2" type="text" value={name} placeholder="이름 (2글자 이상 8글자 미만)" onChange={(e) => setName(e.target.value)} />
+                  <input
+                    className="input input-error w-full max-w-md m-2"
+                    type="text"
+                    value={name}
+                    placeholder="이름 (2글자 이상 8글자 미만)"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 )}
               </label>
             </div>
             <div>
               <label>
                 {isEmailValid ? (
-                  <input className="input w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="text"
+                    value={email}
+                    placeholder="이메일"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 ) : (
-                  <input className="input input-error w-full max-w-md m-2" type="text" value={email} placeholder="이메일" onChange={(e) => setEmail(e.target.value)} />
+                  <input
+                    className="input input-error w-full max-w-md m-2"
+                    type="text"
+                    value={email}
+                    placeholder="이메일"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 )}
               </label>
             </div>
             <div>
               <label>
                 {isPasswordValid ? (
-                  <input className="input w-full max-w-md m-2" type="password" value={password} placeholder="비밀번호 (8글자 이상 12글자 이하)" onChange={(e) => setPassword(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="password"
+                    value={password}
+                    placeholder="비밀번호 (8글자 이상 12글자 이하)"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 ) : (
                   <input
                     className="input input-error w-full max-w-md m-2"
@@ -116,11 +150,23 @@ function RegisterForm() {
             <div>
               <label>
                 {isPasswordSame ? (
-                  <input className="input w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="password"
+                    value={confirmPassword}
+                    placeholder="비밀번호확인"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
                 ) : (
                   <>
                     {" "}
-                    <input className="input input-error w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <input
+                      className="input input-error w-full max-w-md m-2"
+                      type="password"
+                      value={confirmPassword}
+                      placeholder="비밀번호확인"
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
                     <br />
                     <p className="m-2 text-sm text-red-400">비밀번호가 일치하지 않습니다.</p>
                   </>
@@ -129,7 +175,11 @@ function RegisterForm() {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={gender} onChange={(e) => setGender(e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                >
                   <option value="성별" disabled>
                     성별
                   </option>
@@ -140,7 +190,11 @@ function RegisterForm() {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={ageRange}
+                  onChange={(e) => setAgeRange(e.target.value)}
+                >
                   <option value="연령대" disabled>
                     연령대
                   </option>
@@ -152,7 +206,11 @@ function RegisterForm() {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={job} onChange={(e) => setJob(e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={job}
+                  onChange={(e) => setJob(e.target.value)}
+                >
                   <option value="직업군" disabled>
                     직업군
                   </option>

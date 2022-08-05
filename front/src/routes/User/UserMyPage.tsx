@@ -106,7 +106,11 @@ const UserMyPage = ({ Recoiluser, isLogin }: any) => {
         <div className="flex justify-center">
           <div className="card md:card-side bg-base-100 shadow-xl w-[56.25rem]">
             <figure>
-              <img className="w-60 h-60 m-5" src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png" alt="영양제 아이콘" />
+              <img
+                className="w-60 h-60 m-5"
+                src="https://blog.kakaocdn.net/dn/QFwAO/btrEhqNXezp/jGBQWKKiN3pDmyFOosxe40/img.png"
+                alt="영양제 아이콘"
+              />
             </figure>
             <div className="card-body leading-normal justify-center">
               <div className="my-4 leading-loose">
@@ -136,8 +140,12 @@ const UserMyPage = ({ Recoiluser, isLogin }: any) => {
                 <label htmlFor="withdraw-modal" className="modal cursor-pointer">
                   <label className="modal-box relative justify-center select-none" htmlFor="">
                     <h3 className="text-lg font-bold text-center py-4">정말 탈퇴하실 건가요...?😢</h3>
-                    <p className="py-1 text-sm text-center">Pill my rhythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!</p>
-                    <p className="py-1 text-sm text-center">불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!</p>
+                    <p className="py-1 text-sm text-center">
+                      Pill my rhythm에는 당신을 위해 준비한 서비스가 아직 많이 남아있어요!
+                    </p>
+                    <p className="py-1 text-sm text-center">
+                      불편한 점은 Contact us를 통해 알려주시면 개선해보도록 노력할게요!
+                    </p>
                     <p className="py-1 text-sm text-center">그래도 저희 서비스가 필요 없으시다면...</p>
                     <p className="py-1 text-red-500 font-bold text-center">GoodByeMyRhythm</p>
                     <p className="py-1 text-sm text-center">이라고 입력해주세요!</p>
@@ -186,7 +194,12 @@ const UserMyPage = ({ Recoiluser, isLogin }: any) => {
           <form className="m-2 items-center" onSubmit={handleSubmit}>
             <div>
               <label>
-                <input className="input input-bordered input-error w-full max-w-md m-2" type="text" placeholder={userName} disabled />
+                <input
+                  className="input input-bordered input-error w-full max-w-md m-2"
+                  type="text"
+                  placeholder={userName}
+                  disabled
+                />
               </label>
             </div>
             <div>
@@ -220,7 +233,13 @@ const UserMyPage = ({ Recoiluser, isLogin }: any) => {
             <div>
               <label>
                 {isPasswordSame ? (
-                  <input className="input w-full max-w-md m-2" type="password" value={confirmPassword} placeholder="비밀번호확인" onChange={(e) => setConfirmPassword(e.target.value)} />
+                  <input
+                    className="input w-full max-w-md m-2"
+                    type="password"
+                    value={confirmPassword}
+                    placeholder="비밀번호확인"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
                 ) : (
                   <>
                     {" "}
@@ -239,7 +258,12 @@ const UserMyPage = ({ Recoiluser, isLogin }: any) => {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={myPage.gender} name="gender" onChange={(e) => handleMyPageEdit("gender", e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={myPage.gender}
+                  name="gender"
+                  onChange={(e) => handleMyPageEdit("gender", e.target.value)}
+                >
                   <option value="성별" disabled>
                     성별
                   </option>
@@ -250,7 +274,12 @@ const UserMyPage = ({ Recoiluser, isLogin }: any) => {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={myPage.age_range} name="age_range" onChange={(e) => handleMyPageEdit("age_range", e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={myPage.age_range}
+                  name="age_range"
+                  onChange={(e) => handleMyPageEdit("age_range", e.target.value)}
+                >
                   <option value="연령대" disabled>
                     연령대
                   </option>
@@ -262,7 +291,12 @@ const UserMyPage = ({ Recoiluser, isLogin }: any) => {
             </div>
             <div>
               <label>
-                <select className="select select-bordered w-full max-w-md m-2" value={myPage.job} name="job" onChange={(e) => handleMyPageEdit("job", e.target.value)}>
+                <select
+                  className="select select-bordered w-full max-w-md m-2"
+                  value={myPage.job}
+                  name="job"
+                  onChange={(e) => handleMyPageEdit("job", e.target.value)}
+                >
                   <option value="직업군" disabled>
                     직업군
                   </option>

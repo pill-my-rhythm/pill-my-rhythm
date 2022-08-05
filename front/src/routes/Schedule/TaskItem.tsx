@@ -25,7 +25,13 @@ function TaskItem({ task }: taskProps) {
     }
   };
   return (
-    <Draggable clone={true} group={draggingGroupName} data={task} onDragStart={onItemDragStart} onDragEnd={onItemDragEnd}>
+    <Draggable
+      clone={true}
+      group={draggingGroupName}
+      data={task}
+      onDragStart={onItemDragStart}
+      onDragEnd={onItemDragEnd}
+    >
       <Card className="bg-white rounded-xl">
         <span className="text-[14px] pl-2 -ml-px text-black">{task.text}</span>
       </Card>

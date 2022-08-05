@@ -61,7 +61,13 @@ const Header = () => {
     <div className="navbar flex-col md:flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md justify-center items-center">
       <div className="flex">
         <Link to="/" className="btn btn-ghost normal-case text-xl flex">
-          <img src="https://blog.kakaocdn.net/dn/bro2IW/btrEji2iHDE/gJHWwqC1zfOCxRpv2cOwP0/img.png" alt="icon" width={30} height={30} className="mr-2" />
+          <img
+            src="https://blog.kakaocdn.net/dn/bro2IW/btrEji2iHDE/gJHWwqC1zfOCxRpv2cOwP0/img.png"
+            alt="icon"
+            width={30}
+            height={30}
+            className="mr-2"
+          />
           Pill my rhythm
         </Link>
       </div>
@@ -73,7 +79,12 @@ const Header = () => {
           <ul className="flex menu menu-horizontal p-0 text-center">
             <li tabIndex={0}>
               <button className="btn btn-square btn-ghost">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="inline-block w-5 h-5 stroke-current"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
@@ -118,7 +129,13 @@ const Header = () => {
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">
-          <img src="https://blog.kakaocdn.net/dn/bro2IW/btrEji2iHDE/gJHWwqC1zfOCxRpv2cOwP0/img.png" alt="icon" width={30} height={30} className="mr-2" />
+          <img
+            src="https://blog.kakaocdn.net/dn/bro2IW/btrEji2iHDE/gJHWwqC1zfOCxRpv2cOwP0/img.png"
+            alt="icon"
+            width={30}
+            height={30}
+            className="mr-2"
+          />
           Pill my rhythm
         </Link>
       </div>
@@ -137,7 +154,13 @@ const Header = () => {
             <li tabIndex={0}>
               <Link to="/login">
                 Login
-                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <svg
+                  className="fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                 </svg>
               </Link>
@@ -151,7 +174,13 @@ const Header = () => {
             <li tabIndex={0}>
               <Link to="/mypage">
                 My Page
-                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <svg
+                  className="fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                 </svg>
               </Link>

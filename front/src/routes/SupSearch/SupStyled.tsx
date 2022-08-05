@@ -4,7 +4,11 @@ import styled from "styled-components";
 
 export const Wrap = styled.div`
   flex: 1 0 auto;
-  background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(242, 235, 243, 1) 0%, rgba(234, 241, 249, 1) 90.1%);
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(242, 235, 243, 1) 0%,
+    rgba(234, 241, 249, 1) 90.1%
+  );
 `;
 
 export const PagingWrap = styled(Wrap)`

@@ -46,7 +46,8 @@ const description = [
   {
     element: 'label[for="modal-아침"]',
     title: "영양제 추가/삭제하기",
-    description: "각각의 시간을 클릭해 북마크 한 영양제들을 추가할 수 있고, 추가된 영양제는 클릭해서 삭제할 수 있습니다.",
+    description:
+      "각각의 시간을 클릭해 북마크 한 영양제들을 추가할 수 있고, 추가된 영양제는 클릭해서 삭제할 수 있습니다.",
   },
   {
     element: "#biorhythmsDnDService",

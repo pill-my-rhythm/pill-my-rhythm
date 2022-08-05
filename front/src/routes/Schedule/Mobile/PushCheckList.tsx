@@ -54,7 +54,15 @@ const Checklist = () => {
     console.log("checklist submit function");
     const result = tasks.map((el: any) => (checkedItems.includes(el.text) ? true : false));
 
-    const checklistData = { date: today, one: result[0], two: result[1], three: result[2], four: result[3], five: result[4], six: result[5] };
+    const checklistData = {
+      date: today,
+      one: result[0],
+      two: result[1],
+      three: result[2],
+      four: result[3],
+      five: result[4],
+      six: result[5],
+    };
     console.log(checklistData);
 
     // 체크리스트 항목 정보 DB에 추가

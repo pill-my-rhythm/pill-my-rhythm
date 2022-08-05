@@ -10,7 +10,11 @@ export const ScrollTopButton = () => {
         })
       }
     >
-      <img src="https://blog.kakaocdn.net/dn/RL8Kv/btrBr5TDbYj/dklV6QQr0hgYlTWfr1AVbk/img.png" alt="scrolltop" width={120} />
+      <img
+        src="https://blog.kakaocdn.net/dn/RL8Kv/btrBr5TDbYj/dklV6QQr0hgYlTWfr1AVbk/img.png"
+        alt="scrolltop"
+        width={120}
+      />
     </button>
   );
 };

@@ -5,7 +5,17 @@ import Draggable from "devextreme-react/draggable";
 import ScrollView from "devextreme-react/scroll-view";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { del, get, post } from "../../Api";
-import { start, end, appointmentsAtom, currentDate, dayHoursAtom, levelsAtom, supplementAtom, tasksAtom, userState } from "../../atoms";
+import {
+  start,
+  end,
+  appointmentsAtom,
+  currentDate,
+  dayHoursAtom,
+  levelsAtom,
+  supplementAtom,
+  tasksAtom,
+  userState,
+} from "../../atoms";
 import TaskItem from "./TaskItem";
 import "devextreme/dist/css/dx.greenmist.css";
 import "./Calendar.css";
@@ -62,7 +72,12 @@ function Calendar() {
       setLevel(res.data.checklist);
       setAppointments(
         [...res.data.schedule].map((data) => {
-          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+          return {
+            text: data.to_do,
+            startDate: data.start,
+            endDate: data.finish,
+            id: data.pk_schedule_id,
+          };
         }),
       );
     });
@@ -85,7 +100,12 @@ function Calendar() {
         setSupplements(res.data.dailySupplement);
         setAppointments(
           [...res.data.schedule].map((data) => {
-            return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+            return {
+              text: data.to_do,
+              startDate: data.start,
+              endDate: data.finish,
+              id: data.pk_schedule_id,
+            };
           }),
         );
       });
@@ -130,7 +150,12 @@ function Calendar() {
     await get(`schedule/?start=${new Date(start)}&finish=${new Date(end)}`).then((res) => {
       setAppointments(
         [...res.data.schedule].map((data) => {
-          return { text: data.to_do, startDate: data.start, endDate: data.finish, id: data.pk_schedule_id };
+          return {
+            text: data.to_do,
+            startDate: data.start,
+            endDate: data.finish,
+            id: data.pk_schedule_id,
+          };
         }),
       );
     });
@@ -166,7 +191,11 @@ function Calendar() {
     <>
       <div className="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none opacity-85">
         <div className="w-[108rem] flex-none flex justify-end">
-          <img src="https://i.ibb.co/drmrGKR/tail.png" alt="" className="w-[71.75rem] flex-none max-w-none dark:hidden" />
+          <img
+            src="https://i.ibb.co/drmrGKR/tail.png"
+            alt=""
+            className="w-[71.75rem] flex-none max-w-none dark:hidden"
+          />
         </div>
       </div>
 
@@ -197,8 +226,12 @@ function Calendar() {
         <div className="px-10 pt-10 w-full md:w-4/5" id="CalendarWrapper">
           <header id="header" className="mb-10 md:flex md:items-start">
             <div className="flex-auto max-w-4xl">
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Scheduler</h1>
-              <p className="mt-4 text-base text-slate-700 dark:text-slate-400">PMR 스케쥴러로 영양제 일정관리를 간편하게 시작해보세요.</p>
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">
+                Scheduler
+              </h1>
+              <p className="mt-4 text-base text-slate-700 dark:text-slate-400">
+                PMR 스케쥴러로 영양제 일정관리를 간편하게 시작해보세요.
+              </p>
             </div>
           </header>
           <section className="mb-16 relative">

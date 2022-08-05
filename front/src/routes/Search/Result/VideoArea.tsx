@@ -6,7 +6,11 @@ const VideoArea = () => {
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="w-screen p-2 flex flex-wrap flex-row-reverse items-center justify-center">
           <div className="p-4 w-full md:w-5/12 ">
-            <iframe className="w-full aspect-video rounded-lg shadow-2xl" src="https://www.youtube.com/embed/LTdLVar1FUU" title="youtube" />
+            <iframe
+              className="w-full aspect-video rounded-lg shadow-2xl"
+              src="https://www.youtube.com/embed/LTdLVar1FUU"
+              title="youtube"
+            />
           </div>
           <div className="p-2 m-2 break-words text-center">
             <h1 className="text-3xl md:text-5xl font-bold leading-relaxed md:leading-normal text-white mx-3 md:mx-6">
@@ -38,7 +42,11 @@ const VideoArea = () => {
               })
             }
           >
-            <img src="https://blog.kakaocdn.net/dn/8QI8z/btrBuyNOXqU/iktp61W5CxsECbB0qVKQz0/img.png" alt="scrolldown" width={120} />
+            <img
+              src="https://blog.kakaocdn.net/dn/8QI8z/btrBuyNOXqU/iktp61W5CxsECbB0qVKQz0/img.png"
+              alt="scrolldown"
+              width={120}
+            />
           </button>
         </div>
       </div>
