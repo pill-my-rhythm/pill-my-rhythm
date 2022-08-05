@@ -37,7 +37,6 @@ function Router() {
           <Route path="/yearly/checklist" element={<Demo />} />
           <Route path="/aboutus" element={<Aboutus />} />
         </Routes>
-        {/* <Footer /> */}
       </BrowserRouter>
     </Dispatcher>
   );

@@ -76,14 +76,14 @@ function RegisterForm() {
   };
 
   return (
-    <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-lg w-full space-y-8">
+    <div className="pt-20 px-4 sm:px-6 lg:px-8">
+      <div className="flex-col justify-center align-center">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 ">Sign up</h2>
           <p className="m-3 text-center text-sm text-gray-600"> 회원 가입을 환영합니다.</p>
         </div>
-        <div className="grid place-content-stretch">
-          <form className="m-2 items-center" onSubmit={handleSubmit}>
+        <div className="text-center">
+          <form className="w-full" onSubmit={handleSubmit}>
             <div>
               <label>
                 {isNameValid ? (
@@ -220,14 +220,14 @@ function RegisterForm() {
                 </select>
               </label>
             </div>
-            <div>
-              <label className="flex items-center justify-center mt-6">
+            <div className="mt-6">
+              <label>
                 <button
                   type="submit"
-                  className="group relative w-3/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  className="group relative w-44 py-2 px-4 mb-5 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 cursor-pointer"
                   disabled={!isFormValid}
                 >
-                  가입 완료
+                  가입하기
                 </button>
               </label>
             </div>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const Wrap = styled.div`
   flex: 1 0 auto;
+  padding-top: 60px;
   background-image: radial-gradient(
     circle farthest-corner at 10% 20%,
     rgba(242, 235, 243, 1) 0%,

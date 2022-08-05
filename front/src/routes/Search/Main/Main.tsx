@@ -6,7 +6,7 @@ import Searchbar from "../../_shared/Searchbar";
 const Main = () => {
   return (
     <div
-      className="hero min-h-screen"
+      className="hero h-screen"
       style={{
         backgroundImage:
           "url(" +
@@ -16,16 +16,13 @@ const Main = () => {
     >
       <div className="hero-overlay bg-opacity-60" />
       <div className="hero-content text-center text-neutral-content flex flex-col md:flex-row">
-        {/* // * Steps (현재 vertical) */}
         <ul className="steps steps-col md:steps-vertical">
           <li className="step step-primary">Search</li>
           <li className="step">AI analysis</li>
           <li className="step">Result</li>
         </ul>
         <div className="max-w-md">
-          {/* // * 메인 Title */}
           <h1 className="mb-5 text-5xl font-bold">Pill my rhythm</h1>
-          {/* // * 메인 Description */}
           <p className="mb-5 text-base">
             요즘 내 상태를 입력하기만 해도
             <br />
@@ -40,12 +37,6 @@ const Main = () => {
           </p>
           <div className="flex-none gap-2">
             <Searchbar />
-            {/* <button onClick={() => subscribe()}>subscribe</button> */}
-            {/* 로고 이미지 만료 2023-02-28 */}
-            {/* <img src={QRcode} alt="QRcode" width="100" height="100" /> */}
-            {/* <button onClick={() => unsubscribe()}>unsubscribe</button> */}
-            {/* <p>{subToken}</p> */}
-            {/* <p>{unSubToken}</p> */}
           </div>
         </div>
       </div>

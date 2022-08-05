@@ -36,10 +36,9 @@ body {
   font-family: 'Pretendard';
   overflow: scroll;
   -ms-overflow-style: none;
+  overflow-x: auto;
+  overflow-y: auto;
 }
-::-webkit-scrollbar {
-  display: none;
-  }
 menu, ol, ul {
   list-style: none;
 }

@@ -2,9 +2,8 @@ import React from "react";
 
 const Pmrguide = () => {
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-tl from-[#7FDCDC] to-[#E3F2ED] flex items-center justify-center">
-      {" "}
-      <div className="w-full md:w-[68.75rem] py-20 min-h-screen flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-tl from-[#7FDCDC] to-[#E3F2ED] flex items-center justify-center">
+      <div className="w-full md:w-[68.75rem] pt-32 min-h-screen flex flex-col items-center justify-center">
         <div className="w-fit p-2 flex flex-wrap items-center justify-center">
           <div className="p-4 md:p-2 w-full md:w-5/12 ">
             <img

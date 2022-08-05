@@ -73,7 +73,7 @@ const Header = () => {
       </div>
     </div>
   ) : (
-    <div className="navbar flex-row w-full bg-base-100 sticky top-0 z-40 shadow-md backdrop-blur bg-white/80 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
+    <div className="navbar fixed top-0 left-0 bg-base-100 z-10 shadow-md backdrop-blur bg-white/80 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
       <div className="flex-1 justify-between">
         <div className="flex-none md:hidden">
           <ul className="flex menu menu-horizontal p-0 text-center">
