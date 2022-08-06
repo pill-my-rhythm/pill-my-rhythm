@@ -10,11 +10,10 @@ import Mypage from "./routes/User/MyPage";
 import Subscribe from "./routes/Schedule/Mobile/Subscribe";
 import PushCheckList from "./routes/Schedule/Mobile/PushCheckList";
 import Pmrguide from "./routes/Pmr";
-import Footer from "./routes/_shared/Footer";
 import Demo from "./routes/Schedule/YearlyChecklist";
 import Aboutus from "./routes/_shared/Footer/Aboutus";
 import SupSearch from "./routes/SupSearch/SupSearch";
-import CalendarV2 from "./routes/ScheduleV2/Calendar";
+import Schedule from "./routes/ScheduleV2/Schedule";
 
 function Router() {
   return (
@@ -26,7 +25,7 @@ function Router() {
           <Route path="/pillmyrhythm" element={<Pmrguide />} />
           <Route path="/mypage" element={<Mypage />} />
           {/* <Route path="/schedule" element={<Calendar />} /> */}
-          <Route path="/schedule" element={<CalendarV2 />} />
+          <Route path="/schedule" element={<Schedule />} />
           <Route path="/search" element={<SupSearch />} />
           <Route path="/search/:word" element={<SupSearch />} />
           <Route path="/register" element={<Register />} />
